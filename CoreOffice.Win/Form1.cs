@@ -28,6 +28,7 @@ namespace CoreOffice.Win
             var request = new LoginRequestDto();
             request.Username = "admin";
             request.Password = "admin@123";
+            request.clientType = 0;
             var response = await _authService.LoginAsync(request);
 
             if (response != null && response.IsLoginFailed)

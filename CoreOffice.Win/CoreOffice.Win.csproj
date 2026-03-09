@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net9.0-windows</TargetFramework>
+	  <TargetFramework>net9.0-windows</TargetFramework>
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -13,6 +13,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CoreOffice.Cashier\CoreOffice.Cashier.csproj" />
+    <ProjectReference Include="..\CoreOffice.Packingslip\CoreOffice.Packingslip.csproj" />
     <ProjectReference Include="..\CoreOfficeERP.Application\CoreOfficeERP.Application.csproj" />
     <ProjectReference Include="..\CoreOfficeERP.Domain\CoreOfficeERP.Domain.csproj" />
     <ProjectReference Include="..\CoreOfficeERP.Infrastructure\CoreOfficeERP.Infrastructure.csproj" />

@@ -27,11 +27,11 @@ namespace CoreOffice.Win
             //  Register TokenProvider as Singleton
             services.AddSingleton<ITokenProvider, TokenProvider>();
 
-            services.AddTransient<Form1>();
+            services.AddTransient<Login>();
 
             using var serviceProvider = services.BuildServiceProvider();
 
-            var mainForm = serviceProvider.GetRequiredService<Form1>();
+            var mainForm = serviceProvider.GetRequiredService<Login>();
             Application.Run(mainForm);
         }
     }
