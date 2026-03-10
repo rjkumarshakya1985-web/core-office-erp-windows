@@ -13,8 +13,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CoreOffice.Cashier\CoreOffice.Cashier.csproj" />
-    <ProjectReference Include="..\CoreOffice.Packingslip\CoreOffice.Packingslip.csproj" />
     <ProjectReference Include="..\CoreOfficeERP.Application\CoreOfficeERP.Application.csproj" />
     <ProjectReference Include="..\CoreOfficeERP.Common\CoreOfficeERP.Common.csproj" />
     <ProjectReference Include="..\CoreOfficeERP.Domain\CoreOfficeERP.Domain.csproj" />
@@ -23,7 +21,6 @@
 
   <ItemGroup>
     <Folder Include="Modules\Cashier\" />
-    <Folder Include="Modules\PackingSlip\" />
   </ItemGroup>
 
 </Project>

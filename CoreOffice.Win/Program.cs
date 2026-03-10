@@ -18,7 +18,7 @@ namespace CoreOffice.Win
             var services = new ServiceCollection();
 
            
-            services.AddInfrastructure("https://api.ssbdagra.in/api/");
+            services.AddInfrastructure("https://localhost:7121/api/");
 
            
             services.AddApplication();

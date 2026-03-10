@@ -1,15 +1,8 @@
-﻿using CoreOfficeERP.Application.Interfaces;
+﻿using CoreOffice.Win.Modules.PackingSlip;
+using CoreOfficeERP.Application.Interfaces;
+using CoreOfficeERP.Common.Enums;
 using CoreOfficeERP.Domain;
 using CoreOfficeERP.Infrastructure.Auth;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace CoreOffice.Win
 {
@@ -54,7 +47,7 @@ namespace CoreOffice.Win
             var request = new LoginRequestDto();
             request.Username = txtUser.Text.Trim();
             request.Password = txtPwd.Text.Trim();
-            request.clientType = 0;
+            request.clientType = (int)ClientType.Windows;
             var response = await _authService.LoginAsync(request);
 
             if (response != null && response.IsLoginFailed)
@@ -63,22 +56,24 @@ namespace CoreOffice.Win
 
                 //  Set token for later use
                 _tokenProvider.SetToken(response.Token);
-                if (response.RoleName == "SalesMan")
+                if (response.RoleName == RoleEnum.PackingSlipOperator.ToString())
                 {
-                    var dashboard = new Packingslip.Dashboard(request.Username);
-                    dashboard.Show();
-                    this.Hide();
+
+                    var dashboard = new MDIPackingSlip();
+                     dashboard.Show();
+                     this.Hide();
+                   
                 }
-                else if (response.RoleName == "Cashier")
+                else if (response.RoleName == RoleEnum.Cashier.ToString())
                 {
-                    var dashboard = new Cashier.Dashboard();
-                    dashboard.Show();
+                    //var dashboard = new Cashier.Dashboard();
+                    //dashboard.Show();
                     this.Hide();                    
                 }
-                else if (response.RoleName == "StockIncharge")
+                else if (response.RoleName == RoleEnum.StockIncharge.ToString())
                 {
-                    var dashboard = new Packingslip.Dashboard(request.Username);
-                    dashboard.Show();
+                    //var dashboard = new Packingslip.Dashboard(request.Username);
+                    //dashboard.Show();
                     this.Hide();
                 }
             }

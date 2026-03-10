@@ -11,10 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreOfficeERP.Infrastructur
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreOfficeERP.Domain", "CoreOfficeERP.Domain\CoreOfficeERP.Domain.csproj", "{79432D4B-340C-4B37-A550-63BFB2055FDC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreOffice.Packingslip", "CoreOffice.Packingslip\CoreOffice.Packingslip.csproj", "{6D0DA6A7-30A3-49C4-90CC-A1D63F14DD1B}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreOffice.Cashier", "CoreOffice.Cashier\CoreOffice.Cashier.csproj", "{8E1BFAF1-0AC9-416F-8990-31196DAD6C15}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreOfficeERP.Common", "CoreOfficeERP.Common\CoreOfficeERP.Common.csproj", "{F5E98926-EBF1-44AE-B047-F0C905E142DF}"
 EndProject
 Global
@@ -39,14 +35,6 @@ Global
 		{79432D4B-340C-4B37-A550-63BFB2055FDC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79432D4B-340C-4B37-A550-63BFB2055FDC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79432D4B-340C-4B37-A550-63BFB2055FDC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6D0DA6A7-30A3-49C4-90CC-A1D63F14DD1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6D0DA6A7-30A3-49C4-90CC-A1D63F14DD1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6D0DA6A7-30A3-49C4-90CC-A1D63F14DD1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6D0DA6A7-30A3-49C4-90CC-A1D63F14DD1B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8E1BFAF1-0AC9-416F-8990-31196DAD6C15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8E1BFAF1-0AC9-416F-8990-31196DAD6C15}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8E1BFAF1-0AC9-416F-8990-31196DAD6C15}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8E1BFAF1-0AC9-416F-8990-31196DAD6C15}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F5E98926-EBF1-44AE-B047-F0C905E142DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F5E98926-EBF1-44AE-B047-F0C905E142DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5E98926-EBF1-44AE-B047-F0C905E142DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
