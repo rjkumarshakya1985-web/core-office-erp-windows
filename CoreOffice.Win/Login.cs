@@ -1,4 +1,5 @@
 ﻿using CoreOffice.Win.Modules.PackingSlip;
+using CoreOffice.Win.Shared;
 using CoreOfficeERP.Application.Interfaces;
 using CoreOfficeERP.Common.Enums;
 using CoreOfficeERP.Domain;
@@ -47,42 +48,49 @@ namespace CoreOffice.Win
         }
         public async void login()
         {
-            var request = new LoginRequestDto();
-            request.Username = txtUser.Text.Trim();
-            request.Password = txtPwd.Text.Trim();
-            request.clientType = (int)ClientType.Windows;
-            var response = await _authService.LoginAsync(request);
-
-            if (response != null && response.IsLoginFailed)
+            try
             {
-                MessageBox.Show($"Login Successful! Welcome {request.Username}");
+                AppLoader.Show();
 
-                //  Set token for later use
-                _tokenProvider.SetToken(response.Token);
-                if (response.RoleName == RoleEnum.PackingSlipOperator.ToString())
-                {
+                var request = new LoginRequestDto();
+                request.Username = txtUser.Text.Trim();
+                request.Password = txtPwd.Text.Trim();
+                request.clientType = (int)ClientType.Windows;
 
-                    var dashboard = new MDIPackingSlip(_serviceProvider);
-                     dashboard.Show();
-                     this.Hide();
-                   
-                }
-                else if (response.RoleName == RoleEnum.Cashier.ToString())
+                var response = await _authService.LoginAsync(request);
+
+                if (response != null && response.IsLoginFailed)
                 {
-                    //var dashboard = new Cashier.Dashboard();
-                    //dashboard.Show();
-                    this.Hide();                    
+                    // Set token
+                    _tokenProvider.SetToken(response.Token);
+
+                    if (response.RoleName == RoleEnum.PackingSlipOperator.ToString())
+                    {
+                        var dashboard = new MDIPackingSlip(_serviceProvider);
+                        dashboard.Show();
+                        this.Hide();
+                    }
+                    else if (response.RoleName == RoleEnum.Cashier.ToString())
+                    {
+                        this.Hide();
+                    }
+                    else if (response.RoleName == RoleEnum.StockIncharge.ToString())
+                    {
+                        this.Hide();
+                    }
                 }
-                else if (response.RoleName == RoleEnum.StockIncharge.ToString())
+                else
                 {
-                    //var dashboard = new Packingslip.Dashboard(request.Username);
-                    //dashboard.Show();
-                    this.Hide();
+                    MessageBox.Show("Invalid username or password");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Invalid username or password");
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                AppLoader.Hide();
             }
         }
         private void btnHelp_Click(object sender, EventArgs e)
