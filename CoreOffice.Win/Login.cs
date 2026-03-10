@@ -11,13 +11,16 @@ namespace CoreOffice.Win
         private readonly IAuthService _authService;
         private readonly ITokenProvider _tokenProvider;
         private readonly IMasterService _masterService;
+        private readonly IServiceProvider _serviceProvider;
+
         //  Constructor injection
-        public Login(IAuthService authService, IMasterService masterService, ITokenProvider tokenProvider)
+        public Login(IServiceProvider serviceProvider,IAuthService authService, IMasterService masterService, ITokenProvider tokenProvider)
         {
             InitializeComponent();
             _authService = authService;
             _masterService = masterService;
             _tokenProvider = tokenProvider;
+            _serviceProvider = serviceProvider;
         }     
         private void btnMinimise_Click(object sender, EventArgs e)
         {
@@ -59,7 +62,7 @@ namespace CoreOffice.Win
                 if (response.RoleName == RoleEnum.PackingSlipOperator.ToString())
                 {
 
-                    var dashboard = new MDIPackingSlip();
+                    var dashboard = new MDIPackingSlip(_serviceProvider);
                      dashboard.Show();
                      this.Hide();
                    

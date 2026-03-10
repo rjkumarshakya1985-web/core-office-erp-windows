@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CoreOfficeERP.Common\CoreOfficeERP.Common.csproj" />
     <ProjectReference Include="..\CoreOfficeERP.Domain\CoreOfficeERP.Domain.csproj" />
     <ProjectReference Include="..\CoreOfficeERP.Infrastructure\CoreOfficeERP.Infrastructure.csproj" />
   </ItemGroup>

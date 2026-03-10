@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,14 +15,17 @@ namespace CoreOffice.Win.Modules.PackingSlip
     {
         private int childFormNumber = 0;
 
-        public MDIPackingSlip()
+        private readonly IServiceProvider _serviceProvider;
+
+        public MDIPackingSlip(IServiceProvider serviceProvider)
         {
             InitializeComponent();
+            _serviceProvider = serviceProvider;
         }
 
         private void ShowNewForm(object sender, EventArgs e)
         {
-            Form childForm = new FrmPackingSlip();
+            var childForm = _serviceProvider.GetRequiredService<FrmPackingSlip>();
             childForm.MdiParent = this;
             childForm.Text = "Window " + childFormNumber++;
             childForm.Show();

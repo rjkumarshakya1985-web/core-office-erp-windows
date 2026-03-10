@@ -6,18 +6,18 @@ namespace CoreOfficeERP.Application.Services
 {
     public class MasterService : IMasterService
     {
-        private readonly IApiRepository<DepartmentResponseDto> _apiRepository;
+        private readonly IApiRepository _apiRepository;
 
         // 🔹 Constructor injection
-        public MasterService(IApiRepository<DepartmentResponseDto> apiRepository)
+        public MasterService(IApiRepository apiRepository)
         {
             _apiRepository = apiRepository;
         }
 
-        public async Task<IEnumerable<DepartmentResponseDto>> GetAllDepartmentsAsync()
+        public async Task<IEnumerable<DepartmentResponseDto>?> GetAllDepartmentsAsync()
         {
-            // 🔹 "departments" is API endpoint
-            return await _apiRepository.GetAllAsync("master/departments");
+            return await _apiRepository
+                .GetAsync<List<DepartmentResponseDto>>("master/departments");
         }
 
     }

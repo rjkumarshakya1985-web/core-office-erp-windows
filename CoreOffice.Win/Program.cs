@@ -1,3 +1,4 @@
+using CoreOffice.Win.Modules.PackingSlip;
 using CoreOfficeERP.Application;
 using CoreOfficeERP.Infrastructure;
 using CoreOfficeERP.Infrastructure.Auth;
@@ -25,9 +26,10 @@ namespace CoreOffice.Win
 
 
             //  Register TokenProvider as Singleton
-            services.AddSingleton<ITokenProvider, TokenProvider>();
-
+        
             services.AddTransient<Login>();
+            services.AddTransient<FrmPackingSlip>();
+            services.AddTransient<MDIPackingSlip>();
 
             using var serviceProvider = services.BuildServiceProvider();
 

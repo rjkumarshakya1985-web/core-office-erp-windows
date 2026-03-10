@@ -1,5 +1,6 @@
 ﻿using CoreOfficeERP.Application.Interfaces;
 using CoreOfficeERP.Application.Services;
+using CoreOfficeERP.Infrastructure.Auth;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CoreOfficeERP.Application
@@ -9,9 +10,11 @@ namespace CoreOfficeERP.Application
         public static IServiceCollection AddApplication(
       this IServiceCollection services)
         {
+            services.AddSingleton<ITokenProvider, TokenProvider>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IMasterService, MasterService>();
-         
+            services.AddScoped<IPackingSlipService, PackingSlipService>();
+
             return services;
         }
     }

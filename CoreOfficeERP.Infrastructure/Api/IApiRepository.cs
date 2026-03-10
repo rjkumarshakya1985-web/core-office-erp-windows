@@ -1,11 +1,11 @@
 ﻿namespace CoreOfficeERP.Infrastructure.Api
 {
-    public interface IApiRepository<T>
+    public interface IApiRepository
     {
-        Task<IEnumerable<T>> GetAllAsync(string endpoint);
-        Task<T?> GetByIdAsync(string endpoint, object id);
-        Task<T?> PostAsync(string endpoint, T data);
-        Task<T?> PutAsync(string endpoint, object id, T data);
+        Task<TResponse?> PostAsync<TRequest, TResponse>(string endpoint, TRequest data);
+        Task<TResponse?> GetAsync<TResponse>(string endpoint);
+        Task<TResponse?> GetByIdAsync<TResponse>(string endpoint, object id);
+        Task<TResponse?> PutAsync<TRequest, TResponse>(string endpoint, object id, TRequest data);
         Task<bool> DeleteAsync(string endpoint, object id);
     }
 }
