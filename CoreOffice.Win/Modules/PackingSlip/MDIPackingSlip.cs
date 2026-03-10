@@ -21,7 +21,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
 
         private void ShowNewForm(object sender, EventArgs e)
         {
-            Form childForm = new Form();
+            Form childForm = new FrmPackingSlip();
             childForm.MdiParent = this;
             childForm.Text = "Window " + childFormNumber++;
             childForm.Show();
