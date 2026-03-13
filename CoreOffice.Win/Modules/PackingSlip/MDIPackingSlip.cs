@@ -1,13 +1,5 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+
 
 namespace CoreOffice.Win.Modules.PackingSlip
 {
@@ -72,12 +64,12 @@ namespace CoreOffice.Win.Modules.PackingSlip
 
         private void ToolBarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            toolStrip.Visible = toolBarToolStripMenuItem.Checked;
+           
         }
 
         private void StatusBarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            statusStrip.Visible = statusBarToolStripMenuItem.Checked;
+           
         }
 
         private void CascadeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -106,6 +98,11 @@ namespace CoreOffice.Win.Modules.PackingSlip
             {
                 childForm.Close();
             }
+        }
+
+        private void MDIPackingSlip_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

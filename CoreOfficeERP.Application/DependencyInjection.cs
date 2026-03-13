@@ -14,6 +14,8 @@ namespace CoreOfficeERP.Application
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IMasterService, MasterService>();
             services.AddScoped<IPackingSlipService, PackingSlipService>();
+            services.AddScoped<IVisitorService, VisitorService>();
+            services.AddScoped<IStockService, StockService>();
 
             return services;
         }

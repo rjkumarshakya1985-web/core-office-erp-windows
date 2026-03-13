@@ -1,8 +1,6 @@
 ﻿using CoreOfficeERP.Infrastructure.Api;
 using CoreOfficeERP.Infrastructure.Auth;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Net.Http;
 
 namespace CoreOfficeERP.Infrastructure
 {

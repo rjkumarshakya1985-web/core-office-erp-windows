@@ -55,6 +55,8 @@ namespace CoreOffice.Win
                 var request = new LoginRequestDto();
                 request.Username = txtUser.Text.Trim();
                 request.Password = txtPwd.Text.Trim();
+                request.Username = "Raj Operator";
+                request.Password = "RajOperator123";
                 request.clientType = (int)ClientType.Windows;
 
                 var response = await _authService.LoginAsync(request);

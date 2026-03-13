@@ -15,4 +15,14 @@
         Mobile,
         Windows
     }
+
+    /// <summary>
+    ///  Same Enum is used for both Customer and Visitor
+    /// </summary>
+    public enum CustomerTypeEnum
+    {
+        Retail = 1,
+        WholeSale = 2
+
+    }
 }
