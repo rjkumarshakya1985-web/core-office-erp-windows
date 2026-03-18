@@ -48,7 +48,7 @@ namespace CoreOfficeERP.Infrastructure.Api
             return await DeserializeResponse<TResponse>(response);
         }
 
-        public async Task<TResponse?> PutAsync<TRequest, TResponse>(string endpoint, object id, TRequest data)
+        public async Task<TResponse?> PutAsync<TRequest, TResponse>(string endpoint, object id,TRequest data)
         {
             var content = CreateJsonContent(data);
 

@@ -3,9 +3,9 @@
     public class CurrentStockResponse
     {
         public Guid Id { get; set; }
-        public required string  StockGroup { get; set; }
-        public required string ProductName { get; set; }
-        public required string BarCode { get; set; }
+        public  string  StockGroup { get; set; }
+        public  string ProductName { get; set; }
+        public  string BarCode { get; set; }
         public int AvailableQty { get; set; }
         public decimal WholeSaleRate { get; set; }
         public decimal RetailRate { get; set; }

@@ -59,15 +59,10 @@ namespace CoreOffice.Win.Modules.PackingSlip
                 if (response == null)
                 {
                     MessageBox.Show("Visitor not found.");
-                    txtScanner.Clear();
-                    return;
                 }
 
                 _frmPackingSlip.SetVisitorInfo(
-                    response.Id,
-                    response.Name,
-                    response.Mobile,
-                    response.CustomerType ?? 0
+                   response
                 );
 
                 txtScanner.Clear();

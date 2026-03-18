@@ -88,6 +88,7 @@ namespace CoreOffice.Win
             }
             catch (Exception ex)
             {
+                AppLoader.Hide();
                 MessageBox.Show(ex.Message);
             }
             finally

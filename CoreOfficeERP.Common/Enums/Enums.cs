@@ -21,8 +21,8 @@
     /// </summary>
     public enum CustomerTypeEnum
     {
-        Retail = 1,
-        WholeSale = 2
+        WholeSale = 1,
+        Retail = 2
 
     }
 }

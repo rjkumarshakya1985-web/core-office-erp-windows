@@ -28,30 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             panel1 = new Panel();
-            panel8 = new Panel();
             label1 = new Label();
-            panel2 = new Panel();
-            dataGridPackingSlip = new DataGridView();
-            Id = new DataGridViewTextBoxColumn();
-            Barcode = new DataGridViewTextBoxColumn();
-            ProductCategory = new DataGridViewTextBoxColumn();
-            Product = new DataGridViewTextBoxColumn();
-            Quantity = new DataGridViewTextBoxColumn();
-            Amount = new DataGridViewTextBoxColumn();
-            Total = new DataGridViewTextBoxColumn();
-            AvailableQty = new DataGridViewTextBoxColumn();
             panel3 = new Panel();
             panel6 = new Panel();
-            btnRemoved = new Button();
+            panel11 = new Panel();
+            panel10 = new Panel();
             btnClear = new Button();
             btnClose = new Button();
-            btnVisitor = new Button();
             btnSave = new Button();
+            btnDelete = new Button();
+            btnVisitor = new Button();
+            btnUpdate = new Button();
+            btnRemoved = new Button();
             panel5 = new Panel();
             txtBarcodeScanner = new TextBox();
             label5 = new Label();
             panel4 = new Panel();
+            panel9 = new Panel();
             groupBox1 = new GroupBox();
             lblGrandTotal = new Label();
             lblTotalPcs = new Label();
@@ -64,117 +59,49 @@
             lblVisitorControl = new Label();
             lblPhoneControl = new Label();
             lblName = new Label();
+            panel2 = new Panel();
+            dataGridPackingSlip = new DataGridView();
+            Id = new DataGridViewTextBoxColumn();
+            Barcode = new DataGridViewTextBoxColumn();
+            ProductCategory = new DataGridViewTextBoxColumn();
+            Product = new DataGridViewTextBoxColumn();
+            Quantity = new DataGridViewTextBoxColumn();
+            Amount = new DataGridViewTextBoxColumn();
+            Total = new DataGridViewTextBoxColumn();
+            AvailableQty = new DataGridViewTextBoxColumn();
             panel1.SuspendLayout();
-            panel8.SuspendLayout();
-            panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridPackingSlip).BeginInit();
             panel3.SuspendLayout();
             panel6.SuspendLayout();
+            panel10.SuspendLayout();
             panel5.SuspendLayout();
             panel4.SuspendLayout();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
+            panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridPackingSlip).BeginInit();
             SuspendLayout();
             // 
             // panel1
             // 
-            panel1.BackColor = Color.FromArgb(192, 0, 0);
+            panel1.BackColor = Color.FromArgb(64, 64, 64);
             panel1.BorderStyle = BorderStyle.Fixed3D;
-            panel1.Controls.Add(panel8);
+            panel1.Controls.Add(label1);
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(895, 53);
+            panel1.Size = new Size(1174, 53);
             panel1.TabIndex = 2;
-            // 
-            // panel8
-            // 
-            panel8.BackColor = Color.Maroon;
-            panel8.Controls.Add(label1);
-            panel8.Location = new Point(10, 4);
-            panel8.Name = "panel8";
-            panel8.Size = new Size(299, 41);
-            panel8.TabIndex = 0;
             // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(34, 6);
+            label1.Location = new Point(9, 10);
             label1.Name = "label1";
-            label1.Size = new Size(225, 25);
+            label1.Size = new Size(437, 25);
             label1.TabIndex = 0;
-            label1.Text = "Shiv Sahai Bhagwan Das";
-            // 
-            // panel2
-            // 
-            panel2.Controls.Add(dataGridPackingSlip);
-            panel2.Dock = DockStyle.Top;
-            panel2.Location = new Point(0, 53);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(895, 209);
-            panel2.TabIndex = 3;
-            // 
-            // dataGridPackingSlip
-            // 
-            dataGridPackingSlip.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridPackingSlip.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridPackingSlip.Columns.AddRange(new DataGridViewColumn[] { Id, Barcode, ProductCategory, Product, Quantity, Amount, Total, AvailableQty });
-            dataGridPackingSlip.Dock = DockStyle.Fill;
-            dataGridPackingSlip.Location = new Point(0, 0);
-            dataGridPackingSlip.Name = "dataGridPackingSlip";
-            dataGridPackingSlip.Size = new Size(895, 209);
-            dataGridPackingSlip.TabIndex = 0;
-            dataGridPackingSlip.CellValueChanged += dataGridPackingSlip_CellValueChanged;
-            dataGridPackingSlip.CurrentCellDirtyStateChanged += dataGridPackingSlip_CurrentCellDirtyStateChanged;
-            // 
-            // Id
-            // 
-            Id.HeaderText = "Id";
-            Id.Name = "Id";
-            // 
-            // Barcode
-            // 
-            Barcode.HeaderText = "Barcode";
-            Barcode.Name = "Barcode";
-            Barcode.ReadOnly = true;
-            // 
-            // ProductCategory
-            // 
-            ProductCategory.HeaderText = "Category";
-            ProductCategory.Name = "ProductCategory";
-            ProductCategory.ReadOnly = true;
-            // 
-            // Product
-            // 
-            Product.HeaderText = "Product Name";
-            Product.Name = "Product";
-            Product.ReadOnly = true;
-            // 
-            // Quantity
-            // 
-            Quantity.HeaderText = "Quantity";
-            Quantity.Name = "Quantity";
-            // 
-            // Amount
-            // 
-            Amount.HeaderText = "Amount";
-            Amount.Name = "Amount";
-            Amount.ReadOnly = true;
-            // 
-            // Total
-            // 
-            Total.HeaderText = "Total";
-            Total.Name = "Total";
-            Total.ReadOnly = true;
-            // 
-            // AvailableQty
-            // 
-            AvailableQty.HeaderText = "AvailableQty";
-            AvailableQty.Name = "AvailableQty";
-            AvailableQty.ReadOnly = true;
-            AvailableQty.Visible = false;
+            label1.Text = "SHIV SAHAI BHAGWAN  DAS SAREES PVT. LTD. ";
             // 
             // panel3
             // 
@@ -183,56 +110,97 @@
             panel3.Dock = DockStyle.Bottom;
             panel3.Location = new Point(0, 387);
             panel3.Name = "panel3";
-            panel3.Size = new Size(895, 203);
+            panel3.Size = new Size(1174, 203);
             panel3.TabIndex = 4;
             // 
             // panel6
             // 
             panel6.BackColor = Color.FromArgb(192, 0, 0);
-            panel6.Controls.Add(btnRemoved);
-            panel6.Controls.Add(btnClear);
-            panel6.Controls.Add(btnClose);
-            panel6.Controls.Add(btnVisitor);
-            panel6.Controls.Add(btnSave);
+            panel6.Controls.Add(panel11);
+            panel6.Controls.Add(panel10);
             panel6.Dock = DockStyle.Fill;
             panel6.Location = new Point(0, 50);
             panel6.Name = "panel6";
-            panel6.Size = new Size(895, 153);
+            panel6.Size = new Size(1174, 153);
             panel6.TabIndex = 4;
             // 
-            // btnRemoved
+            // panel11
             // 
-            btnRemoved.Location = new Point(333, 7);
-            btnRemoved.Name = "btnRemoved";
-            btnRemoved.Size = new Size(165, 50);
-            btnRemoved.TabIndex = 7;
-            btnRemoved.Text = "Removed Product";
-            btnRemoved.UseVisualStyleBackColor = true;
-            btnRemoved.Click += btnRemoved_Click;
+            panel11.BackColor = Color.FromArgb(64, 64, 64);
+            panel11.Dock = DockStyle.Fill;
+            panel11.Location = new Point(0, 61);
+            panel11.Name = "panel11";
+            panel11.Size = new Size(1174, 92);
+            panel11.TabIndex = 11;
+            // 
+            // panel10
+            // 
+            panel10.BackColor = Color.White;
+            panel10.Controls.Add(btnClear);
+            panel10.Controls.Add(btnClose);
+            panel10.Controls.Add(btnSave);
+            panel10.Controls.Add(btnDelete);
+            panel10.Controls.Add(btnVisitor);
+            panel10.Controls.Add(btnUpdate);
+            panel10.Controls.Add(btnRemoved);
+            panel10.Dock = DockStyle.Top;
+            panel10.Location = new Point(0, 0);
+            panel10.Name = "panel10";
+            panel10.Size = new Size(1174, 61);
+            panel10.TabIndex = 10;
             // 
             // btnClear
             // 
-            btnClear.Location = new Point(509, 6);
+            btnClear.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnClear.Location = new Point(163, 4);
             btnClear.Name = "btnClear";
-            btnClear.Size = new Size(151, 50);
-            btnClear.TabIndex = 6;
+            btnClear.Size = new Size(165, 50);
+            btnClear.TabIndex = 11;
             btnClear.Text = "Clear";
             btnClear.UseVisualStyleBackColor = true;
             btnClear.Click += btnClear_Click;
             // 
             // btnClose
             // 
-            btnClose.Location = new Point(162, 6);
+            btnClose.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnClose.Location = new Point(502, 5);
             btnClose.Name = "btnClose";
             btnClose.Size = new Size(165, 50);
-            btnClose.TabIndex = 5;
-            btnClose.Text = "Close (X)";
+            btnClose.TabIndex = 10;
+            btnClose.Text = "Close";
             btnClose.UseVisualStyleBackColor = true;
             btnClose.Click += btnClose_Click;
             // 
+            // btnSave
+            // 
+            btnSave.BackColor = Color.FromArgb(192, 192, 255);
+            btnSave.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnSave.ForeColor = Color.Blue;
+            btnSave.Location = new Point(671, 6);
+            btnSave.Name = "btnSave";
+            btnSave.Size = new Size(159, 48);
+            btnSave.TabIndex = 3;
+            btnSave.Text = "Save";
+            btnSave.UseVisualStyleBackColor = false;
+            btnSave.Click += btnSave_Click;
+            // 
+            // btnDelete
+            // 
+            btnDelete.BackColor = Color.FromArgb(255, 192, 192);
+            btnDelete.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnDelete.ForeColor = Color.Red;
+            btnDelete.Location = new Point(1003, 5);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(159, 48);
+            btnDelete.TabIndex = 9;
+            btnDelete.Text = "Delete";
+            btnDelete.UseVisualStyleBackColor = false;
+            btnDelete.Click += btnDelete_Click;
+            // 
             // btnVisitor
             // 
-            btnVisitor.Location = new Point(5, 6);
+            btnVisitor.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnVisitor.Location = new Point(6, 6);
             btnVisitor.Name = "btnVisitor";
             btnVisitor.Size = new Size(151, 50);
             btnVisitor.TabIndex = 4;
@@ -240,26 +208,38 @@
             btnVisitor.UseVisualStyleBackColor = true;
             btnVisitor.Click += btnVisitor_Click;
             // 
-            // btnSave
+            // btnUpdate
             // 
-            btnSave.Location = new Point(666, 7);
-            btnSave.Name = "btnSave";
-            btnSave.Size = new Size(159, 48);
-            btnSave.TabIndex = 3;
-            btnSave.Text = "Save";
-            btnSave.UseVisualStyleBackColor = true;
-            btnSave.Click += btnSave_Click;
+            btnUpdate.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnUpdate.Location = new Point(835, 5);
+            btnUpdate.Name = "btnUpdate";
+            btnUpdate.Size = new Size(159, 48);
+            btnUpdate.TabIndex = 8;
+            btnUpdate.Text = "Edit Bill";
+            btnUpdate.UseVisualStyleBackColor = true;
+            btnUpdate.Click += btnUpdate_Click;
+            // 
+            // btnRemoved
+            // 
+            btnRemoved.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnRemoved.Location = new Point(334, 5);
+            btnRemoved.Name = "btnRemoved";
+            btnRemoved.Size = new Size(165, 50);
+            btnRemoved.TabIndex = 7;
+            btnRemoved.Text = "Removed Product";
+            btnRemoved.UseVisualStyleBackColor = true;
+            btnRemoved.Click += btnRemoved_Click;
             // 
             // panel5
             // 
-            panel5.BackColor = Color.FromArgb(192, 0, 0);
+            panel5.BackColor = Color.FromArgb(64, 64, 64);
             panel5.BorderStyle = BorderStyle.Fixed3D;
             panel5.Controls.Add(txtBarcodeScanner);
             panel5.Controls.Add(label5);
             panel5.Dock = DockStyle.Top;
             panel5.Location = new Point(0, 0);
             panel5.Name = "panel5";
-            panel5.Size = new Size(895, 50);
+            panel5.Size = new Size(1174, 50);
             panel5.TabIndex = 3;
             // 
             // txtBarcodeScanner
@@ -284,28 +264,37 @@
             // 
             // panel4
             // 
+            panel4.Controls.Add(panel9);
             panel4.Controls.Add(groupBox1);
             panel4.Controls.Add(groupBox2);
             panel4.Dock = DockStyle.Fill;
             panel4.Location = new Point(0, 262);
             panel4.Name = "panel4";
-            panel4.Size = new Size(895, 125);
+            panel4.Size = new Size(1174, 125);
             panel4.TabIndex = 5;
+            // 
+            // panel9
+            // 
+            panel9.Dock = DockStyle.Fill;
+            panel9.Location = new Point(394, 0);
+            panel9.Name = "panel9";
+            panel9.Size = new Size(415, 125);
+            panel9.TabIndex = 6;
             // 
             // groupBox1
             // 
-            groupBox1.BackColor = Color.FromArgb(192, 0, 0);
+            groupBox1.BackColor = SystemColors.ButtonHighlight;
             groupBox1.Controls.Add(lblGrandTotal);
             groupBox1.Controls.Add(lblTotalPcs);
             groupBox1.Controls.Add(lblGrandTotalControl);
             groupBox1.Controls.Add(lblTotalPcsControl);
-            groupBox1.Dock = DockStyle.Fill;
+            groupBox1.Dock = DockStyle.Right;
             groupBox1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            groupBox1.ForeColor = SystemColors.ButtonHighlight;
-            groupBox1.Location = new Point(508, 0);
+            groupBox1.ForeColor = SystemColors.ActiveCaptionText;
+            groupBox1.Location = new Point(809, 0);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(387, 125);
-            groupBox1.TabIndex = 4;
+            groupBox1.Size = new Size(365, 125);
+            groupBox1.TabIndex = 5;
             groupBox1.TabStop = false;
             groupBox1.Text = "Packing Slip Information";
             // 
@@ -351,7 +340,7 @@
             // 
             // groupBox2
             // 
-            groupBox2.BackColor = Color.FromArgb(192, 0, 0);
+            groupBox2.BackColor = SystemColors.ButtonHighlight;
             groupBox2.Controls.Add(lblVisitorType);
             groupBox2.Controls.Add(lblPhone);
             groupBox2.Controls.Add(lblCompanyName);
@@ -361,10 +350,10 @@
             groupBox2.Dock = DockStyle.Left;
             groupBox2.FlatStyle = FlatStyle.Popup;
             groupBox2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            groupBox2.ForeColor = SystemColors.ButtonHighlight;
+            groupBox2.ForeColor = SystemColors.ActiveCaptionText;
             groupBox2.Location = new Point(0, 0);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(508, 125);
+            groupBox2.Size = new Size(394, 125);
             groupBox2.TabIndex = 3;
             groupBox2.TabStop = false;
             groupBox2.Text = "Visitor Information";
@@ -429,26 +418,105 @@
             lblName.TabIndex = 0;
             lblName.Text = "Name / Company :";
             // 
+            // panel2
+            // 
+            panel2.Controls.Add(dataGridPackingSlip);
+            panel2.Dock = DockStyle.Top;
+            panel2.Location = new Point(0, 53);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(1174, 209);
+            panel2.TabIndex = 3;
+            // 
+            // dataGridPackingSlip
+            // 
+            dataGridPackingSlip.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridPackingSlip.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dataGridPackingSlip.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridPackingSlip.Columns.AddRange(new DataGridViewColumn[] { Id, Barcode, ProductCategory, Product, Quantity, Amount, Total, AvailableQty });
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Window;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
+            dataGridPackingSlip.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridPackingSlip.Dock = DockStyle.Fill;
+            dataGridPackingSlip.Location = new Point(0, 0);
+            dataGridPackingSlip.Name = "dataGridPackingSlip";
+            dataGridPackingSlip.Size = new Size(1174, 209);
+            dataGridPackingSlip.TabIndex = 0;
+            dataGridPackingSlip.CellDoubleClick += dataGridPackingSlip_CellDoubleClick;
+            dataGridPackingSlip.RowEnter += dataGridPackingSlip_RowEnter;
+            dataGridPackingSlip.KeyDown += dataGridPackingSlip_KeyDown;
+            // 
+            // Id
+            // 
+            Id.HeaderText = "Id";
+            Id.Name = "Id";
+            Id.Visible = false;
+            // 
+            // Barcode
+            // 
+            Barcode.HeaderText = "Barcode";
+            Barcode.Name = "Barcode";
+            Barcode.ReadOnly = true;
+            // 
+            // ProductCategory
+            // 
+            ProductCategory.HeaderText = "Category";
+            ProductCategory.Name = "ProductCategory";
+            ProductCategory.ReadOnly = true;
+            // 
+            // Product
+            // 
+            Product.HeaderText = "Product";
+            Product.Name = "Product";
+            Product.ReadOnly = true;
+            // 
+            // Quantity
+            // 
+            Quantity.HeaderText = "Quantity";
+            Quantity.Name = "Quantity";
+            Quantity.ReadOnly = true;
+            // 
+            // Amount
+            // 
+            Amount.HeaderText = "Amount";
+            Amount.Name = "Amount";
+            Amount.ReadOnly = true;
+            // 
+            // Total
+            // 
+            Total.HeaderText = "Total";
+            Total.Name = "Total";
+            Total.ReadOnly = true;
+            // 
+            // AvailableQty
+            // 
+            AvailableQty.HeaderText = "AvailableQty";
+            AvailableQty.Name = "AvailableQty";
+            AvailableQty.Visible = false;
+            // 
             // FrmPackingSlip
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(895, 590);
+            ClientSize = new Size(1174, 590);
             Controls.Add(panel4);
             Controls.Add(panel3);
             Controls.Add(panel2);
             Controls.Add(panel1);
+            FormBorderStyle = FormBorderStyle.Fixed3D;
             Name = "FrmPackingSlip";
             Text = "FrmPackingSlip";
             WindowState = FormWindowState.Maximized;
             Load += FrmPackingSlip_Load;
             panel1.ResumeLayout(false);
-            panel8.ResumeLayout(false);
-            panel8.PerformLayout();
-            panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridPackingSlip).EndInit();
+            panel1.PerformLayout();
             panel3.ResumeLayout(false);
             panel6.ResumeLayout(false);
+            panel10.ResumeLayout(false);
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
             panel4.ResumeLayout(false);
@@ -456,41 +524,48 @@
             groupBox1.PerformLayout();
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
+            panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridPackingSlip).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
         private Panel panel1;
-        private Panel panel2;
-        private DataGridView dataGridPackingSlip;
         private Panel panel3;
         private Panel panel4;
         private GroupBox groupBox2;
         private Label label1;
         private Label lblName;
-        private GroupBox groupBox1;
         private Label label2;
         private Label label3;
         private Label label4;
         private Panel panel7;
         private Panel panel6;
-        private Button btnClose;
         private Button btnVisitor;
-        private Button btnSave;
         private Panel panel5;
         private TextBox txtBarcodeScanner;
         private Label label5;
         private Label lblVisitorType;
         private Label lblPhone;
         private Label lblCompanyName;
-        private Label lblGrandTotal;
-        private Label lblTotalPcs;
-        private Button btnClear;
         private Button btnRemoved;
-        private Label lblGrandTotalControl;
-        private Label lblTotalPcsControl;
         private Label lblVisitorControl;
         private Label lblPhoneControl;
+        private Button btnUpdate;
+        private Button btnSave;
+        private Button btnDelete;
+        private Panel panel9;
+        private GroupBox groupBox1;
+        private Label lblGrandTotal;
+        private Label lblTotalPcs;
+        private Label lblGrandTotalControl;
+        private Label lblTotalPcsControl;
+        private Panel panel11;
+        private Panel panel10;
+        private Button btnClose;
+        private Button btnClear;
+        private Panel panel2;
+        private DataGridView dataGridPackingSlip;
         private DataGridViewTextBoxColumn Id;
         private DataGridViewTextBoxColumn Barcode;
         private DataGridViewTextBoxColumn ProductCategory;
@@ -499,6 +574,5 @@
         private DataGridViewTextBoxColumn Amount;
         private DataGridViewTextBoxColumn Total;
         private DataGridViewTextBoxColumn AvailableQty;
-        private Panel panel8;
     }
 }
