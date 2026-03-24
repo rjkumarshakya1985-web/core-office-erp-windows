@@ -31,21 +31,23 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MDIPackingSlip));
             menuStrip = new MenuStrip();
-            statusStrip = new StatusStrip();
-            toolStripStatusLabel = new ToolStripStatusLabel();
-            toolTip = new ToolTip(components);
+            fileMenu = new ToolStripMenuItem();
             newToolStripMenuItem = new ToolStripMenuItem();
             toolStripSeparator3 = new ToolStripSeparator();
             toolStripSeparator4 = new ToolStripSeparator();
             toolStripSeparator5 = new ToolStripSeparator();
-            fileMenu = new ToolStripMenuItem();
+            statusStrip = new StatusStrip();
+            toolStripStatusLabel = new ToolStripStatusLabel();
+            toolTip = new ToolTip(components);
+            tallyToolStripMenuItem = new ToolStripMenuItem();
+            purchaseSynchToolStripMenuItem = new ToolStripMenuItem();
             menuStrip.SuspendLayout();
             statusStrip.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip
             // 
-            menuStrip.Items.AddRange(new ToolStripItem[] { fileMenu });
+            menuStrip.Items.AddRange(new ToolStripItem[] { fileMenu, tallyToolStripMenuItem });
             menuStrip.Location = new Point(0, 0);
             menuStrip.Name = "menuStrip";
             menuStrip.Padding = new Padding(7, 2, 0, 2);
@@ -53,21 +55,13 @@
             menuStrip.TabIndex = 0;
             menuStrip.Text = "MenuStrip";
             // 
-            // statusStrip
+            // fileMenu
             // 
-            statusStrip.Items.AddRange(new ToolStripItem[] { toolStripStatusLabel });
-            statusStrip.Location = new Point(0, 501);
-            statusStrip.Name = "statusStrip";
-            statusStrip.Padding = new Padding(1, 0, 16, 0);
-            statusStrip.Size = new Size(737, 22);
-            statusStrip.TabIndex = 2;
-            statusStrip.Text = "StatusStrip";
-            // 
-            // toolStripStatusLabel
-            // 
-            toolStripStatusLabel.Name = "toolStripStatusLabel";
-            toolStripStatusLabel.Size = new Size(39, 17);
-            toolStripStatusLabel.Text = "Status";
+            fileMenu.DropDownItems.AddRange(new ToolStripItem[] { newToolStripMenuItem, toolStripSeparator3, toolStripSeparator4, toolStripSeparator5 });
+            fileMenu.ImageTransparentColor = SystemColors.ActiveBorder;
+            fileMenu.Name = "fileMenu";
+            fileMenu.Size = new Size(37, 20);
+            fileMenu.Text = "&File";
             // 
             // newToolStripMenuItem
             // 
@@ -94,13 +88,35 @@
             toolStripSeparator5.Name = "toolStripSeparator5";
             toolStripSeparator5.Size = new Size(178, 6);
             // 
-            // fileMenu
+            // statusStrip
             // 
-            fileMenu.DropDownItems.AddRange(new ToolStripItem[] { newToolStripMenuItem, toolStripSeparator3, toolStripSeparator4, toolStripSeparator5 });
-            fileMenu.ImageTransparentColor = SystemColors.ActiveBorder;
-            fileMenu.Name = "fileMenu";
-            fileMenu.Size = new Size(37, 20);
-            fileMenu.Text = "&File";
+            statusStrip.Items.AddRange(new ToolStripItem[] { toolStripStatusLabel });
+            statusStrip.Location = new Point(0, 501);
+            statusStrip.Name = "statusStrip";
+            statusStrip.Padding = new Padding(1, 0, 16, 0);
+            statusStrip.Size = new Size(737, 22);
+            statusStrip.TabIndex = 2;
+            statusStrip.Text = "StatusStrip";
+            // 
+            // toolStripStatusLabel
+            // 
+            toolStripStatusLabel.Name = "toolStripStatusLabel";
+            toolStripStatusLabel.Size = new Size(39, 17);
+            toolStripStatusLabel.Text = "Status";
+            // 
+            // tallyToolStripMenuItem
+            // 
+            tallyToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { purchaseSynchToolStripMenuItem });
+            tallyToolStripMenuItem.Name = "tallyToolStripMenuItem";
+            tallyToolStripMenuItem.Size = new Size(43, 20);
+            tallyToolStripMenuItem.Text = "Tally";
+            // 
+            // purchaseSynchToolStripMenuItem
+            // 
+            purchaseSynchToolStripMenuItem.Name = "purchaseSynchToolStripMenuItem";
+            purchaseSynchToolStripMenuItem.Size = new Size(180, 22);
+            purchaseSynchToolStripMenuItem.Text = "Purchase Synch";
+            purchaseSynchToolStripMenuItem.Click += purchaseSynchToolStripMenuItem_Click;
             // 
             // MDIPackingSlip
             // 
@@ -136,6 +152,8 @@
         private ToolStripSeparator toolStripSeparator3;
         private ToolStripSeparator toolStripSeparator4;
         private ToolStripSeparator toolStripSeparator5;
+        private ToolStripMenuItem tallyToolStripMenuItem;
+        private ToolStripMenuItem purchaseSynchToolStripMenuItem;
     }
 }
 

@@ -64,12 +64,12 @@ namespace CoreOffice.Win.Modules.PackingSlip
 
         private void ToolBarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           
+
         }
 
         private void StatusBarToolStripMenuItem_Click(object sender, EventArgs e)
         {
-           
+
         }
 
         private void CascadeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -102,6 +102,12 @@ namespace CoreOffice.Win.Modules.PackingSlip
 
         private void MDIPackingSlip_Load(object sender, EventArgs e)
         {
+
+        }
+
+        private void purchaseSynchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new Admin.TallySynchPurchase().Show();
 
         }
     }
