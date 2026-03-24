@@ -62,6 +62,7 @@
             txtPwd.Font = new Font("Segoe UI", 20F);
             txtPwd.Location = new Point(217, 184);
             txtPwd.Name = "txtPwd";
+            txtPwd.PasswordChar = '#';
             txtPwd.Size = new Size(318, 43);
             txtPwd.TabIndex = 2;
             // 

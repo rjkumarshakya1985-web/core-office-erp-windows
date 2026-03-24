@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreOfficeERP.Domain", "Cor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreOfficeERP.Common", "CoreOfficeERP.Common\CoreOfficeERP.Common.csproj", "{F5E98926-EBF1-44AE-B047-F0C905E142DF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreOfficeERP.Tally", "CoreOfficeERP.Tally\CoreOfficeERP.Tally.csproj", "{80AE45B4-8997-4E0F-9496-7EF9EDBE7973}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{F5E98926-EBF1-44AE-B047-F0C905E142DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F5E98926-EBF1-44AE-B047-F0C905E142DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F5E98926-EBF1-44AE-B047-F0C905E142DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80AE45B4-8997-4E0F-9496-7EF9EDBE7973}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80AE45B4-8997-4E0F-9496-7EF9EDBE7973}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80AE45B4-8997-4E0F-9496-7EF9EDBE7973}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80AE45B4-8997-4E0F-9496-7EF9EDBE7973}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

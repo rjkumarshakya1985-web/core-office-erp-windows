@@ -4,6 +4,7 @@ using CoreOfficeERP.Domain;
 using CoreOfficeERP.Domain.Requests.PackingSlip;
 using CoreOfficeERP.Domain.Responses.PackingSlip;
 using CoreOfficeERP.Infrastructure.Api;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace CoreOfficeERP.Application.Services
 {
@@ -45,6 +46,24 @@ namespace CoreOfficeERP.Application.Services
              .GetByIdAsync<ApiResponse<PackingSlipResponse>>(ApiEndpoints.GetPackingSlipNumber, number);
 
             return reuslt?.Data;
+        }
+
+        public async Task<PackingSlipResponse?> GetPackingSlipNumberForBillingAsync(string number, int financeYearId)
+        {
+            var reuslt = await _apiRepository
+             .GetAsync<ApiResponse<PackingSlipResponse>>($"{ApiEndpoints.GetPackingSlipNumber}/{number}/{financeYearId}");
+
+            return reuslt?.Data;
+        }
+
+        public async Task<BillPackingSlipsResponse?> GetPackingSlipsNumberForBillingByVisitorIdAsync(int visitorId, int financeYearId)
+        {
+            var url = $"{ApiEndpoints.GetPackingSlipsByVisitor}/{visitorId}/{financeYearId}";
+
+            var response = await _apiRepository
+                .GetAsync<ApiResponse<BillPackingSlipsResponse>>(url);
+
+            return response?.Data;
         }
 
         public async Task<int> UpdateAsync(object id, PackingSlipRequest request)

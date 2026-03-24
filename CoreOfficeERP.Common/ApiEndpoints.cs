@@ -6,6 +6,15 @@
         public const string GetVisitor = "visitor";
         public const string GetStockItemsByBarcode = "stock/barcode";
         public const string GetPackingSlipNumber = "packingslip/number";
-       
+        public const string GetPackingSlipsByVisitor = "packingslip/billing-packingslips";
+
+        public const string GetActiveFinancialYear = "financeyears/active";
+
+        /// Delivery Challan
+        public const string CreateDeliveryChallan = "deliverychallan";
+        public const string CreateDeliveryChallanReturn = "deliverychallan/delivery-challan/return";
+        public const string GetDeliveryChallReturnDetail = "deliverychallan/delivery-challan/for-return";
+
+        /// Tally
     }
 }

@@ -1,11 +1,15 @@
 ﻿
 
+using CoreOfficeERP.Domain.Responses.Customers;
+
 namespace CoreOfficeERP.Domain.Responses
 {
     public class VisitorResponse
     {
         public int Id { get; set; }
         public Guid? CustomerId { get; set; }
+
+        public CustomerResponse? CustomerResponse { get; set; }
         public string Name { get; set; }
 
         public string? Mobile { get; set; }
@@ -22,6 +26,7 @@ namespace CoreOfficeERP.Domain.Responses
         public Guid? ModifiedBy { get; set; }
         public string? ModifiedByUserName { get; set; }
         public DateTime? ModifiedOn { get; set; }
+
 
     }
 }

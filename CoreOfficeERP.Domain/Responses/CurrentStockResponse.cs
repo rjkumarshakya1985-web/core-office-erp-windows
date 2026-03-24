@@ -10,5 +10,6 @@
         public decimal WholeSaleRate { get; set; }
         public decimal RetailRate { get; set; }
         public decimal MrpRate { get; set; }
+        public int GstValue { get; set; }
     }
 }

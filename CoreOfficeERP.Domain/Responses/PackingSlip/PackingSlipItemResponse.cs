@@ -10,6 +10,7 @@
         public required int Qty { get; set; }
         public int AvailableQty { get; set; }
 
+        public decimal GstValue { get; set; }
         public decimal SaleRate { get; set; }
 
         public decimal Amount => Qty * SaleRate;

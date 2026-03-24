@@ -8,6 +8,11 @@ namespace CoreOfficeERP.Application.Interfaces
         Task<int> CreateAsync(PackingSlipRequest request);
         Task<PackingSlipResponse> GetByIdAsync(int id);
         Task<PackingSlipResponse> GetByPackingSlipNumberAsync(string number);
+
+        Task<PackingSlipResponse?> GetPackingSlipNumberForBillingAsync(string number, int financeYearId);
+
+        Task<BillPackingSlipsResponse?> GetPackingSlipsNumberForBillingByVisitorIdAsync(int visitorId, int financeYearId);
+
         Task<int> UpdateAsync(object id, PackingSlipRequest request);
         Task<bool> DeleteAsync(int Id);
     }

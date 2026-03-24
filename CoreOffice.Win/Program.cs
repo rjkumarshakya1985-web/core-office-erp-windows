@@ -1,7 +1,10 @@
+using CoreOffice.Win.Modules.Cashier;
+using CoreOffice.Win.Modules.Cashier.Invoices;
 using CoreOffice.Win.Modules.PackingSlip;
 using CoreOfficeERP.Application;
 using CoreOfficeERP.Infrastructure;
 using CoreOfficeERP.Infrastructure.Auth;
+using CoreOfficeERP.Tally;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CoreOffice.Win
@@ -23,13 +26,19 @@ namespace CoreOffice.Win
 
            
             services.AddApplication();
+            services.AddApplicationTally();
 
 
             //  Register TokenProvider as Singleton
         
             services.AddTransient<Login>();
             services.AddTransient<FrmPackingSlip>();
+            services.AddTransient<DeliveryNoteForm>();
             services.AddTransient<MDIPackingSlip>();
+            services.AddTransient<MDICashierParent>();
+            services.AddTransient<CompanySelectionForm>();
+            services.AddTransient<InvoiceForm>();
+            services.AddTransient<DeliveryChallanReturnDetailForm>();
 
             using var serviceProvider = services.BuildServiceProvider();
 

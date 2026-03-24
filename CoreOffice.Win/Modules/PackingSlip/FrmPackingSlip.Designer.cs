@@ -69,6 +69,7 @@
             Amount = new DataGridViewTextBoxColumn();
             Total = new DataGridViewTextBoxColumn();
             AvailableQty = new DataGridViewTextBoxColumn();
+            GstValue = new DataGridViewTextBoxColumn();
             panel1.SuspendLayout();
             panel3.SuspendLayout();
             panel6.SuspendLayout();
@@ -432,7 +433,7 @@
             dataGridPackingSlip.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridPackingSlip.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridPackingSlip.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridPackingSlip.Columns.AddRange(new DataGridViewColumn[] { Id, Barcode, ProductCategory, Product, Quantity, Amount, Total, AvailableQty });
+            dataGridPackingSlip.Columns.AddRange(new DataGridViewColumn[] { Id, Barcode, ProductCategory, Product, Quantity, Amount, Total, AvailableQty, GstValue });
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = SystemColors.Window;
             dataGridViewCellStyle1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -497,6 +498,12 @@
             AvailableQty.HeaderText = "AvailableQty";
             AvailableQty.Name = "AvailableQty";
             AvailableQty.Visible = false;
+            // 
+            // GstValue
+            // 
+            GstValue.HeaderText = "GstValue";
+            GstValue.Name = "GstValue";
+            GstValue.ReadOnly = true;
             // 
             // FrmPackingSlip
             // 
@@ -574,5 +581,6 @@
         private DataGridViewTextBoxColumn Amount;
         private DataGridViewTextBoxColumn Total;
         private DataGridViewTextBoxColumn AvailableQty;
+        private DataGridViewTextBoxColumn GstValue;
     }
 }

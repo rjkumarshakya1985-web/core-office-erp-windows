@@ -168,7 +168,8 @@ namespace CoreOffice.Win.Modules.PackingSlip
                 Qty,
                 price,
                 price,
-                item.AvailableQty
+                item.AvailableQty,
+                item.GstValue
             );
 
             CalculatePackingSlip();
@@ -353,7 +354,8 @@ namespace CoreOffice.Win.Modules.PackingSlip
                     {
                         StockId = Guid.Parse(row.Cells["Id"].Value.ToString()),
                         Qty = Convert.ToInt32(row.Cells["Quantity"].Value),
-                        SaleRate = Convert.ToDecimal(row.Cells["Amount"].Value)
+                        SaleRate = Convert.ToDecimal(row.Cells["Amount"].Value),
+                        GstValue = Convert.ToDecimal(row.Cells["GstValue"].Value)
                     });
                 }
 
@@ -425,7 +427,8 @@ namespace CoreOffice.Win.Modules.PackingSlip
                     item.Qty,
                     item.SaleRate,
                     item.Amount,
-                    item.AvailableQty
+                    item.AvailableQty,
+                    item.GstValue
                 );
             }
 

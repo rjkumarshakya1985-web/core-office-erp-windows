@@ -1,9 +1,11 @@
-﻿using CoreOffice.Win.Modules.PackingSlip;
+﻿using CoreOffice.Win.Modules.Cashier;
+using CoreOffice.Win.Modules.PackingSlip;
 using CoreOffice.Win.Shared;
 using CoreOfficeERP.Application.Interfaces;
 using CoreOfficeERP.Common.Enums;
 using CoreOfficeERP.Domain;
 using CoreOfficeERP.Infrastructure.Auth;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CoreOffice.Win
 {
@@ -55,8 +57,7 @@ namespace CoreOffice.Win
                 var request = new LoginRequestDto();
                 request.Username = txtUser.Text.Trim();
                 request.Password = txtPwd.Text.Trim();
-                request.Username = "Raj Operator";
-                request.Password = "RajOperator123";
+               
                 request.clientType = (int)ClientType.Windows;
 
                 var response = await _authService.LoginAsync(request);
@@ -68,12 +69,14 @@ namespace CoreOffice.Win
 
                     if (response.RoleName == RoleEnum.PackingSlipOperator.ToString())
                     {
-                        var dashboard = new MDIPackingSlip(_serviceProvider);
+                        var dashboard = _serviceProvider.GetRequiredService<MDIPackingSlip>();
                         dashboard.Show();
                         this.Hide();
                     }
                     else if (response.RoleName == RoleEnum.Cashier.ToString())
                     {
+                        var dashboard = _serviceProvider.GetRequiredService<MDICashierParent>();
+                        dashboard.Show();
                         this.Hide();
                     }
                     else if (response.RoleName == RoleEnum.StockIncharge.ToString())
