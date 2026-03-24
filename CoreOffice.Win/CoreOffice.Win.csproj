@@ -35,4 +35,10 @@
     </EmbeddedResource>
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="TallyBridgeDll">
+      <HintPath>..\..\Tally 7.0\TallyBridgeDll_1.00\TallyBridgeDll.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
 </Project>

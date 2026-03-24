@@ -40,16 +40,7 @@
             menuStrip.SuspendLayout();
             statusStrip.SuspendLayout();
             SuspendLayout();
-            // 
-            // menuStrip
-            // 
-            menuStrip.Items.AddRange(new ToolStripItem[] { fileMenu });
-            menuStrip.Location = new Point(0, 0);
-            menuStrip.Name = "menuStrip";
-            menuStrip.Padding = new Padding(7, 2, 0, 2);
-            menuStrip.Size = new Size(737, 24);
-            menuStrip.TabIndex = 0;
-            menuStrip.Text = "MenuStrip";
+         
             // 
             // fileMenu
             // 

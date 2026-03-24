@@ -29,5 +29,11 @@ namespace CoreOffice.Win.Modules.PackingSlip
         {
 
         }
+
+        private void purchaseSynchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            new Admin.TallySynchPurchase().Show();
+
+        }
     }
 }

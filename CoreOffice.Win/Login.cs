@@ -81,7 +81,9 @@ namespace CoreOffice.Win
                     }
                     else if (response.RoleName == RoleEnum.StockIncharge.ToString())
                     {
-                        this.Hide();
+                        var dashboard = new MDIPackingSlip(_serviceProvider);
+                        dashboard.Show();
+                        this.Hide();                        
                     }
                 }
                 else
