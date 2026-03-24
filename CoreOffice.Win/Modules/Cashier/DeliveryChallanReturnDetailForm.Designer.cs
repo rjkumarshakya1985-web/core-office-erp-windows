@@ -34,15 +34,6 @@
             panel2 = new Panel();
             label1 = new Label();
             dataGridReturn = new DataGridView();
-            Id = new DataGridViewTextBoxColumn();
-            StockId = new DataGridViewTextBoxColumn();
-            Category = new DataGridViewTextBoxColumn();
-            Product = new DataGridViewTextBoxColumn();
-            SaleRate = new DataGridViewTextBoxColumn();
-            Qty = new DataGridViewTextBoxColumn();
-            Returned = new DataGridViewTextBoxColumn();
-            Balance = new DataGridViewTextBoxColumn();
-            ReturnQty = new DataGridViewTextBoxColumn();
             panel3 = new Panel();
             btnClose = new Button();
             btnClear = new Button();
@@ -59,6 +50,15 @@
             panel8 = new Panel();
             lblTotalReturnQty = new Label();
             label4 = new Label();
+            Id = new DataGridViewTextBoxColumn();
+            StockId = new DataGridViewTextBoxColumn();
+            Category = new DataGridViewTextBoxColumn();
+            Product = new DataGridViewTextBoxColumn();
+            SaleRate = new DataGridViewTextBoxColumn();
+            Qty = new DataGridViewTextBoxColumn();
+            Returned = new DataGridViewTextBoxColumn();
+            Balance = new DataGridViewTextBoxColumn();
+            ReturnQty = new DataGridViewTextBoxColumn();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridReturn).BeginInit();
@@ -134,52 +134,6 @@
             dataGridReturn.CellValidating += dataGridReturn_CellValidating;
             dataGridReturn.CellValueChanged += dataGridReturn_CellValueChanged;
             dataGridReturn.KeyDown += dataGridReturn_KeyDown;
-            // 
-            // Id
-            // 
-            Id.HeaderText = "Id";
-            Id.Name = "Id";
-            // 
-            // StockId
-            // 
-            StockId.HeaderText = "StockId";
-            StockId.Name = "StockId";
-            // 
-            // Category
-            // 
-            Category.HeaderText = "Product Category";
-            Category.Name = "Category";
-            Category.ReadOnly = true;
-            // 
-            // Product
-            // 
-            Product.HeaderText = "Product";
-            Product.Name = "Product";
-            // 
-            // SaleRate
-            // 
-            SaleRate.HeaderText = "SaleRate";
-            SaleRate.Name = "SaleRate";
-            // 
-            // Qty
-            // 
-            Qty.HeaderText = "Qty";
-            Qty.Name = "Qty";
-            // 
-            // Returned
-            // 
-            Returned.HeaderText = "Returned";
-            Returned.Name = "Returned";
-            // 
-            // Balance
-            // 
-            Balance.HeaderText = "Balance";
-            Balance.Name = "Balance";
-            // 
-            // ReturnQty
-            // 
-            ReturnQty.HeaderText = "ReturnQty";
-            ReturnQty.Name = "ReturnQty";
             // 
             // panel3
             // 
@@ -348,6 +302,55 @@
             label4.Size = new Size(129, 21);
             label4.TabIndex = 5;
             label4.Text = "Total Return Qty :";
+            // 
+            // Id
+            // 
+            Id.HeaderText = "Id";
+            Id.Name = "Id";
+            Id.ReadOnly = true;
+            Id.Visible = false;
+            // 
+            // StockId
+            // 
+            StockId.HeaderText = "StockId";
+            StockId.Name = "StockId";
+            StockId.Visible = false;
+            // 
+            // Category
+            // 
+            Category.HeaderText = "Product Category";
+            Category.Name = "Category";
+            Category.ReadOnly = true;
+            // 
+            // Product
+            // 
+            Product.HeaderText = "Product";
+            Product.Name = "Product";
+            // 
+            // SaleRate
+            // 
+            SaleRate.HeaderText = "SaleRate";
+            SaleRate.Name = "SaleRate";
+            // 
+            // Qty
+            // 
+            Qty.HeaderText = "Qty";
+            Qty.Name = "Qty";
+            // 
+            // Returned
+            // 
+            Returned.HeaderText = "Returned";
+            Returned.Name = "Returned";
+            // 
+            // Balance
+            // 
+            Balance.HeaderText = "Balance";
+            Balance.Name = "Balance";
+            // 
+            // ReturnQty
+            // 
+            ReturnQty.HeaderText = "ReturnQty";
+            ReturnQty.Name = "ReturnQty";
             // 
             // DeliveryChallanReturnDetailForm
             // 

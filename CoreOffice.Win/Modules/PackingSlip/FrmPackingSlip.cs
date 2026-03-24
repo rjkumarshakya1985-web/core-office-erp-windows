@@ -4,6 +4,7 @@ using CoreOfficeERP.Common.Enums;
 using CoreOfficeERP.Domain.Requests.PackingSlip;
 using CoreOfficeERP.Domain.Responses;
 using CoreOfficeERP.Domain.Responses.PackingSlip;
+using CoreOfficeERP.Domain.Responses.SalesPersons;
 using Microsoft.Extensions.DependencyInjection;
 
 
@@ -14,46 +15,61 @@ namespace CoreOffice.Win.Modules.PackingSlip
         private readonly IPackingSlipService _packingSlipService;
         private readonly IServiceProvider _serviceProvider;
         private readonly IStockService _stockService;
+        private readonly ISalesPersonService _salesPersonService;
         private int? VisitorId;
         private int? PackingSlipId;
         private CustomerTypeEnum? VisitorType;
         private string _selectedBarcode;
         private int _selectedQty;
 
-        public FrmPackingSlip(IPackingSlipService packingSlipService,
+        public  FrmPackingSlip(IPackingSlipService packingSlipService,
             IServiceProvider serviceProvider,
-            IStockService stockService)
+            IStockService stockService,ISalesPersonService salesPersonService)
         {
             InitializeComponent();
+            
+            cmbSalesPerson.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cmbSalesPerson.AutoCompleteSource = AutoCompleteSource.ListItems;
+           
             _packingSlipService = packingSlipService;
             _serviceProvider = serviceProvider;
             _stockService = stockService;
+            _salesPersonService = salesPersonService;
             FormSetting();
             dataGridPackingSlip.AllowUserToAddRows = false;
             btnDelete.Enabled = false;
             txtBarcodeScanner.Focus();
         }
 
-        private void StyleButton(Button btn, Color backColor)
+
+        private async Task LoadSalesPersons()
         {
-            btn.FlatStyle = FlatStyle.Flat;
-            btn.FlatAppearance.BorderSize = 0;
+            var salesPersons = await _salesPersonService.GetActiveSalesPerson();
 
-            btn.BackColor = backColor;
-            btn.ForeColor = Color.White;
+            if (salesPersons != null && salesPersons.Any())
+            {
+                // ✅ Insert blank option on top
+            salesPersons.Insert(0, new SalePersonResponse
+                {
+                    Id = null,
+                    Name = "",
+                    PhoneNumber = "",
+                    StateId = 0,
+                    StateName ="",
+                    CityId = 0,
+                    CityName = "",
+                    Address = "",
+                    IsActive = false,
+                    IsDeleted = false
+                });
 
-            btn.Font = new Font("Segoe UI", 10, FontStyle.Bold);
-
-            btn.Height = 42;
-            btn.Width = 130;
-
-            btn.Cursor = Cursors.Hand;
-
-            btn.TextAlign = ContentAlignment.MiddleCenter;
-
-            btn.FlatAppearance.MouseOverBackColor = ControlPaint.Light(backColor);
-            btn.FlatAppearance.MouseDownBackColor = ControlPaint.Dark(backColor);
+                cmbSalesPerson.DataSource = salesPersons;
+                cmbSalesPerson.DisplayMember = "Name";
+                cmbSalesPerson.ValueMember = "Id";
+            }
         }
+
+       
 
         private void FormSetting()
         {
@@ -80,25 +96,14 @@ namespace CoreOffice.Win.Modules.PackingSlip
 
             txtBarcodeScanner.Font = new Font("Segoe UI", 14, FontStyle.Bold);
 
-
-
-            // Buttons styling
-            //StyleButton(btnVisitor, Color.SteelBlue);
-            //StyleButton(btnRemoved, Color.IndianRed);
-            //StyleButton(btnCancel, Color.DarkOrange);
-            //StyleButton(btnClose, Color.DimGray);
-            //StyleButton(btnSave, Color.Green);
-            //StyleButton(btnUpdate, Color.YellowGreen);
-            //StyleButton(btnDelete, Color.Red);
-
-
             btnRemoved.Text = "Remove Item";
         }
 
-        private void FrmPackingSlip_Load(object sender, EventArgs e)
+        private async void FrmPackingSlip_Load(object sender, EventArgs e)
         {
-
+           await LoadSalesPersons();
         }
+
 
         private void btnVisitor_Click(object sender, EventArgs e)
         {
@@ -147,7 +152,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
             lblVisitorType.Text = "-";
             btnDelete.Enabled = false;
             txtBarcodeScanner.Clear();
-
+            cmbSalesPerson.SelectedIndex = 0;
         }
 
 
@@ -333,9 +338,17 @@ namespace CoreOffice.Win.Modules.PackingSlip
             {
                 AppLoader.Show();
 
+             
+
                 if (dataGridPackingSlip.Rows.Count == 0)
                 {
                     MessageBox.Show("Add items first");
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(cmbSalesPerson.Text))
+                {
+                    MessageBox.Show("Select Sales Person Firstly");
                     return;
                 }
 
@@ -369,6 +382,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
                 {
                     Id = PackingSlipId ?? 0,
                     VisitorId = VisitorId,
+                    SalesPersonId = (Guid?)cmbSalesPerson.SelectedValue,
                     Items = packingSlipItems
                 };
 
@@ -415,6 +429,9 @@ namespace CoreOffice.Win.Modules.PackingSlip
             // Visitor Info
             SetVisitorInfo(
                response.Visitor);
+
+            if(response.SalesPersonId!=null)
+            cmbSalesPerson.SelectedValue = response.SalesPersonId.Value;
 
             // Load Items into Grid
             foreach (var item in response.Items)

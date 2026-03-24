@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             panel1 = new Panel();
             label1 = new Label();
             panel3 = new Panel();
@@ -70,6 +70,9 @@
             Total = new DataGridViewTextBoxColumn();
             AvailableQty = new DataGridViewTextBoxColumn();
             GstValue = new DataGridViewTextBoxColumn();
+            panel8 = new Panel();
+            cmbSalesPerson = new ComboBox();
+            label6 = new Label();
             panel1.SuspendLayout();
             panel3.SuspendLayout();
             panel6.SuspendLayout();
@@ -80,6 +83,7 @@
             groupBox2.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridPackingSlip).BeginInit();
+            panel8.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
@@ -235,6 +239,7 @@
             // 
             panel5.BackColor = Color.FromArgb(64, 64, 64);
             panel5.BorderStyle = BorderStyle.Fixed3D;
+            panel5.Controls.Add(panel8);
             panel5.Controls.Add(txtBarcodeScanner);
             panel5.Controls.Add(label5);
             panel5.Dock = DockStyle.Top;
@@ -434,14 +439,14 @@
             dataGridPackingSlip.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridPackingSlip.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridPackingSlip.Columns.AddRange(new DataGridViewColumn[] { Id, Barcode, ProductCategory, Product, Quantity, Amount, Total, AvailableQty, GstValue });
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Window;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
-            dataGridPackingSlip.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dataGridPackingSlip.DefaultCellStyle = dataGridViewCellStyle2;
             dataGridPackingSlip.Dock = DockStyle.Fill;
             dataGridPackingSlip.Location = new Point(0, 0);
             dataGridPackingSlip.Name = "dataGridPackingSlip";
@@ -505,6 +510,36 @@
             GstValue.Name = "GstValue";
             GstValue.ReadOnly = true;
             // 
+            // panel8
+            // 
+            panel8.Controls.Add(label6);
+            panel8.Controls.Add(cmbSalesPerson);
+            panel8.Dock = DockStyle.Right;
+            panel8.Location = new Point(731, 0);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(439, 46);
+            panel8.TabIndex = 5;
+            // 
+            // cmbSalesPerson
+            // 
+            cmbSalesPerson.Font = new Font("Segoe UI", 11.25F);
+            cmbSalesPerson.FormattingEnabled = true;
+            cmbSalesPerson.Location = new Point(184, 7);
+            cmbSalesPerson.Name = "cmbSalesPerson";
+            cmbSalesPerson.Size = new Size(240, 28);
+            cmbSalesPerson.TabIndex = 0;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI", 11.25F);
+            label6.ForeColor = Color.White;
+            label6.Location = new Point(30, 11);
+            label6.Name = "label6";
+            label6.Size = new Size(134, 20);
+            label6.TabIndex = 1;
+            label6.Text = "Select Sales Person";
+            // 
             // FrmPackingSlip
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -533,6 +568,8 @@
             groupBox2.PerformLayout();
             panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridPackingSlip).EndInit();
+            panel8.ResumeLayout(false);
+            panel8.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -582,5 +619,8 @@
         private DataGridViewTextBoxColumn Total;
         private DataGridViewTextBoxColumn AvailableQty;
         private DataGridViewTextBoxColumn GstValue;
+        private Panel panel8;
+        private Label label6;
+        private ComboBox cmbSalesPerson;
     }
 }

@@ -8,6 +8,7 @@
 
         public DateTime Date { get; set; }
 
+        public Guid? SalesPersonId { get; set; }
         public int? VisitorId { get; set; }
         public string? VisitorName { get; set; }
         public int VisitorType { get; set; }
@@ -15,7 +16,7 @@
 
         public int FinanceYearId { get; set; }
 
-        public Guid PackingSlipPersionId { get; set; }
+        public Guid UserId { get; set; }
 
         public int TotalQuantity { get; set; }
 

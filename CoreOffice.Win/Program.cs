@@ -23,7 +23,7 @@ namespace CoreOffice.Win
 
 
             // services.AddInfrastructure("https://localhost:7121/api/");
-            services.AddInfrastructure("https://api.ssbdagra.in/api/");
+            services.AddInfrastructure("https://localhost:7121/api/");
 
             services.AddApplication();
             services.AddApplicationTally();

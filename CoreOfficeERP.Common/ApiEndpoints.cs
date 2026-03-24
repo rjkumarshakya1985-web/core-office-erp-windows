@@ -16,5 +16,8 @@
         public const string GetDeliveryChallReturnDetail = "deliverychallan/delivery-challan/for-return";
 
         /// Tally
+
+        /// Sales Person
+        public const string GetAllActiveSalesPersons = "saleperson/active";
     }
 }
