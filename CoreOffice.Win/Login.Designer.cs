@@ -42,17 +42,17 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Font = new Font("Monotype Corsiva", 24F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            label1.Location = new Point(206, 9);
+            label1.Font = new Font("Monotype Corsiva", 14.25F, FontStyle.Italic, GraphicsUnit.Point, 0);
+            label1.Location = new Point(159, 82);
             label1.Name = "label1";
-            label1.Size = new Size(190, 39);
+            label1.Size = new Size(399, 22);
             label1.TabIndex = 0;
-            label1.Text = "Welcome User!";
+            label1.Text = "SHIV SAHAI BHAGWAN  DAS SAREES PVT. LTD. ";
             // 
             // txtUser
             // 
             txtUser.Font = new Font("Segoe UI", 20F);
-            txtUser.Location = new Point(217, 109);
+            txtUser.Location = new Point(217, 125);
             txtUser.Name = "txtUser";
             txtUser.Size = new Size(318, 43);
             txtUser.TabIndex = 1;
@@ -60,7 +60,7 @@
             // txtPwd
             // 
             txtPwd.Font = new Font("Segoe UI", 20F);
-            txtPwd.Location = new Point(217, 168);
+            txtPwd.Location = new Point(217, 184);
             txtPwd.Name = "txtPwd";
             txtPwd.Size = new Size(318, 43);
             txtPwd.TabIndex = 2;
@@ -69,7 +69,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Monotype Corsiva", 18F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            label2.Location = new Point(103, 120);
+            label2.Location = new Point(103, 136);
             label2.Name = "label2";
             label2.Size = new Size(108, 28);
             label2.TabIndex = 3;
@@ -79,7 +79,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Monotype Corsiva", 18F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            label3.Location = new Point(115, 183);
+            label3.Location = new Point(115, 199);
             label3.Name = "label3";
             label3.Size = new Size(96, 28);
             label3.TabIndex = 4;
@@ -89,7 +89,7 @@
             // 
             btnLogin.BackColor = Color.FromArgb(224, 224, 224);
             btnLogin.Font = new Font("Verdana", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnLogin.Location = new Point(217, 221);
+            btnLogin.Location = new Point(217, 237);
             btnLogin.Name = "btnLogin";
             btnLogin.Size = new Size(153, 36);
             btnLogin.TabIndex = 5;
@@ -101,7 +101,7 @@
             // 
             btnHelp.BackColor = Color.FromArgb(224, 224, 224);
             btnHelp.Font = new Font("Verdana", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnHelp.Location = new Point(376, 221);
+            btnHelp.Location = new Point(376, 237);
             btnHelp.Name = "btnHelp";
             btnHelp.Size = new Size(159, 36);
             btnHelp.TabIndex = 6;

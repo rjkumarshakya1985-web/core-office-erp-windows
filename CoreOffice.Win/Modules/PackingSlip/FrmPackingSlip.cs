@@ -1,7 +1,9 @@
-﻿using CoreOfficeERP.Application.Interfaces;
+﻿using CoreOffice.Win.Shared;
+using CoreOfficeERP.Application.Interfaces;
 using CoreOfficeERP.Common.Enums;
 using CoreOfficeERP.Domain.Requests.PackingSlip;
 using CoreOfficeERP.Domain.Responses;
+using CoreOfficeERP.Domain.Responses.PackingSlip;
 using Microsoft.Extensions.DependencyInjection;
 
 
@@ -15,6 +17,8 @@ namespace CoreOffice.Win.Modules.PackingSlip
         private int? VisitorId;
         private int? PackingSlipId;
         private CustomerTypeEnum? VisitorType;
+        private string _selectedBarcode;
+        private int _selectedQty;
 
         public FrmPackingSlip(IPackingSlipService packingSlipService,
             IServiceProvider serviceProvider,
@@ -25,6 +29,9 @@ namespace CoreOffice.Win.Modules.PackingSlip
             _serviceProvider = serviceProvider;
             _stockService = stockService;
             FormSetting();
+            dataGridPackingSlip.AllowUserToAddRows = false;
+            btnDelete.Enabled = false;
+            txtBarcodeScanner.Focus();
         }
 
         private void StyleButton(Button btn, Color backColor)
@@ -76,18 +83,16 @@ namespace CoreOffice.Win.Modules.PackingSlip
 
 
             // Buttons styling
-            StyleButton(btnVisitor, Color.SteelBlue);
-            StyleButton(btnRemoved, Color.IndianRed);
-            StyleButton(btnClear, Color.DarkOrange);
-            StyleButton(btnClose, Color.DimGray);
-            StyleButton(btnSave, Color.Green);
+            //StyleButton(btnVisitor, Color.SteelBlue);
+            //StyleButton(btnRemoved, Color.IndianRed);
+            //StyleButton(btnCancel, Color.DarkOrange);
+            //StyleButton(btnClose, Color.DimGray);
+            //StyleButton(btnSave, Color.Green);
+            //StyleButton(btnUpdate, Color.YellowGreen);
+            //StyleButton(btnDelete, Color.Red);
 
 
-            btnClose.Text = "Close";
             btnRemoved.Text = "Remove Item";
-        }
-        private async void button1_Click(object sender, EventArgs e)
-        {
         }
 
         private void FrmPackingSlip_Load(object sender, EventArgs e)
@@ -101,60 +106,66 @@ namespace CoreOffice.Win.Modules.PackingSlip
             childForm.Show();
         }
 
-        public void SetVisitorInfo(int visitorId, string name, string mobile, int type)
+        public void SetVisitorInfo(VisitorResponse? response)
         {
-            VisitorId = visitorId;
-            lblPhone.Text = mobile;
-            lblCompanyName.Text = name;
-            lblVisitorType.Text = type == 1 ? "R" : "W";
-            VisitorType = (CustomerTypeEnum)type;
+            if (response == null)
+            {
+                VisitorId = null;
+                lblPhone.Text = "......";
+                lblCompanyName.Text = "......";
+                lblVisitorType.Text = "......";
+                VisitorType = null;
+            }
+            else
+            {
+                VisitorId = response.Id;
+                lblPhone.Text = response.Mobile;
+                lblCompanyName.Text = response.Name;
+                lblVisitorType.Text = response.CustomerType == 1 ? "W" : "R";
+                VisitorType = (CustomerTypeEnum)response.CustomerType;
+            }
         }
 
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            dataGridPackingSlip.Rows.Clear();
-            CalculatePackingSlip();
-        }
-
-        private void btnClear_Click(object sender, EventArgs e)
-        {
-
-        }
 
 
-        private void Clear(object sender, EventArgs e)
+
+
+
+        public void Clear()
         {
             if (dataGridPackingSlip.Rows.Count > 0)
             {
                 dataGridPackingSlip.Rows.Clear();
             }
+            VisitorId = null;
+            PackingSlipId = null;
+            VisitorType = null;
+            lblCompanyName.Text = "-";
+            lblPhone.Text = "-";
+            lblGrandTotal.Text = "0.00";
+            lblTotalPcs.Text = "0";
+            lblVisitorType.Text = "-";
+            btnDelete.Enabled = false;
+            txtBarcodeScanner.Clear();
+
         }
 
 
 
 
 
-        private void AddNewItemToGrid(CurrentStockResponse item)
+        private void AddNewItemToGrid(CurrentStockResponse item, int Qty)
         {
             var price = VisitorType == CustomerTypeEnum.Retail ? item.RetailRate : item.WholeSaleRate;
 
-            foreach (DataGridViewRow row in dataGridPackingSlip.Rows)
-            {
-                if (row.Cells["Barcode"].Value?.ToString() == item.BarCode)
-                {
-                    int qty = Convert.ToInt32(row.Cells["Quantity"].Value);
-                    row.Cells["Quantity"].Value = qty + 1;
-                    CalculatePackingSlip();
-                    return;
-                }
-            }
+
 
             dataGridPackingSlip.Rows.Add(
                 item.Id,
                 item.BarCode,
                 item.StockGroup,
                 item.ProductName,
-                1,
+                Qty,
                 price,
                 price,
                 item.AvailableQty
@@ -171,8 +182,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
             dataGridPackingSlip.Rows.Cast<DataGridViewRow>().ToList().ForEach(row =>
             {
                 decimal price = Convert.ToDecimal(row.Cells["Amount"].Value);
-                int qty = Convert.ToInt32(row.Cells["Quantity"].Value);
-
+                int.TryParse(row.Cells["Quantity"].Value?.ToString(), out int qty);
                 decimal total = price * qty;
 
                 row.Cells["Total"].Value = total;
@@ -200,9 +210,20 @@ namespace CoreOffice.Win.Modules.PackingSlip
 
             var barcode = txtBarcodeScanner.Text.Trim();
 
+
+
             if (string.IsNullOrWhiteSpace(barcode))
                 return;
 
+            foreach (DataGridViewRow row in dataGridPackingSlip.Rows)
+            {
+                if (row.Cells["Barcode"].Value?.ToString() == barcode)
+                {
+                    MessageBox.Show("Product already added. You can change quantity from the grid.");
+                    txtBarcodeScanner.Clear();
+                    return;
+                }
+            }
             var stockItems = await _stockService.GetStockItemsByBarcode(barcode);
 
             if (stockItems == null || !stockItems.Any())
@@ -228,11 +249,18 @@ namespace CoreOffice.Win.Modules.PackingSlip
                 return;
             }
 
-           
+
             txtBarcodeScanner.Clear();
 
-            AddNewItemToGrid(item);
             e.SuppressKeyPress = true;
+
+            new FrmProductQty(this, item).ShowDialog();
+        }
+
+        public void SetProductQty(CurrentStockResponse item, int Qty)
+        {
+
+            AddNewItemToGrid(item, Qty);
         }
 
         private void dataGridPackingSlip_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -241,7 +269,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
             {
                 var row = dataGridPackingSlip.Rows[e.RowIndex];
 
-                int qty = Convert.ToInt32(row.Cells["Quantity"].Value);
+                int.TryParse(row.Cells["Quantity"].Value?.ToString(), out int qty);
                 int availableQty = Convert.ToInt32(row.Cells["AvailableQty"].Value);
 
                 //  Zero or negative quantity
@@ -302,6 +330,8 @@ namespace CoreOffice.Win.Modules.PackingSlip
         {
             try
             {
+                AppLoader.Show();
+
                 if (dataGridPackingSlip.Rows.Count == 0)
                 {
                     MessageBox.Show("Add items first");
@@ -314,6 +344,11 @@ namespace CoreOffice.Win.Modules.PackingSlip
                 {
                     if (row.IsNewRow) continue;
 
+                    if (row.Cells["Id"].Value == null ||
+                        row.Cells["Quantity"].Value == null ||
+                        row.Cells["Amount"].Value == null)
+                        continue;
+
                     packingSlipItems.Add(new PackingSlipItemRequest
                     {
                         StockId = Guid.Parse(row.Cells["Id"].Value.ToString()),
@@ -322,7 +357,13 @@ namespace CoreOffice.Win.Modules.PackingSlip
                     });
                 }
 
-                var packingSlipRequest = new PackingSlipRequest()
+                if (!packingSlipItems.Any())
+                {
+                    MessageBox.Show("No valid items found");
+                    return;
+                }
+
+                var request = new PackingSlipRequest
                 {
                     Id = PackingSlipId ?? 0,
                     VisitorId = VisitorId,
@@ -331,19 +372,198 @@ namespace CoreOffice.Win.Modules.PackingSlip
 
                 if (PackingSlipId == null)
                 {
-                    var id = await _packingSlipService.CreateAsync(packingSlipRequest);
+                    var id = await _packingSlipService.CreateAsync(request);
                     MessageBox.Show($"Packing Slip Created : {id}");
                 }
                 else
                 {
-                   
+                    await _packingSlipService.UpdateAsync(PackingSlipId, request);
                     MessageBox.Show("Packing Slip Updated");
+                }
+
+                Clear();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                AppLoader.Hide();
+            }
+        }
+
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            var childForm = ActivatorUtilities.CreateInstance<FrmPackingSlipNumber>(_serviceProvider, this);
+            childForm.Show();
+        }
+
+        public void LoadPackingSlip(PackingSlipResponse response)
+        {
+            if (response == null)
+                return;
+
+            // Reset form first
+            Clear();
+
+            // Set PackingSlipId (Edit mode)
+            PackingSlipId = response.Id;
+
+            // Visitor Info
+            SetVisitorInfo(
+               response.Visitor);
+
+            // Load Items into Grid
+            foreach (var item in response.Items)
+            {
+                dataGridPackingSlip.Rows.Add(
+                    item.StockId,      // Id column (hidden)
+                    item.BarCode,
+                    item.StockGroup,
+                    item.ProductName,
+                    item.Qty,
+                    item.SaleRate,
+                    item.Amount,
+                    item.AvailableQty
+                );
+            }
+
+
+            CalculatePackingSlip();
+            btnDelete.Enabled = true; // Show delete button in edit mode
+        }
+
+        private async void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (!PackingSlipId.HasValue)
+            {
+                MessageBox.Show("Packing slip not selected");
+                return;
+            }
+
+            var confirm = MessageBox.Show(
+                "Are you sure you want to delete this packing slip?",
+                "Confirm Delete",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
+
+            if (confirm != DialogResult.Yes)
+                return;
+
+            try
+            {
+                AppLoader.Show();
+
+                var status = await _packingSlipService.DeleteAsync(PackingSlipId.Value);
+
+                if (status)
+                {
+                    MessageBox.Show("Packing slip deleted successfully");
+                    Clear();
+                }
+                else
+                {
+                    MessageBox.Show("Failed to delete packing slip");
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
+            finally
+            {
+                AppLoader.Hide();
+                Clear();
+            }
+        }
+
+
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            dataGridPackingSlip.Rows.Clear();
+            CalculatePackingSlip();
+            Clear();
+        }
+
+
+        private void dataGridPackingSlip_RowEnter(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0)
+                return;
+
+            var row = dataGridPackingSlip.Rows[e.RowIndex];
+
+            _selectedBarcode = row.Cells["Barcode"].Value?.ToString();
+            _selectedQty = Convert.ToInt32(row.Cells["Quantity"].Value ?? 0);
+
+
+        }
+
+        public void UpdateQty(int qty)
+        {
+            foreach (DataGridViewRow row in dataGridPackingSlip.Rows)
+            {
+                if (row.IsNewRow) continue;
+
+                var rowBarcode = row.Cells["Barcode"].Value?.ToString();
+
+                if (rowBarcode == _selectedBarcode)
+                {
+                    row.Cells["Quantity"].Value = qty;
+                    CalculatePackingSlip(); // update totals
+                    return; // exit loop early 🚀
+                }
+            }
+        }
+
+        private void dataGridPackingSlip_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+
+                OpenQtyPopup();
+            }
+        }
+
+        private void OpenQtyPopup()
+        {
+            if (string.IsNullOrEmpty(_selectedBarcode))
+                return;
+
+            var row = dataGridPackingSlip.CurrentRow;
+
+            if (row == null)
+                return;
+
+            var availableQty = Convert.ToInt32(row.Cells["AvailableQty"].Value);
+
+            var item = new CurrentStockResponse
+            {
+                BarCode = _selectedBarcode,
+                AvailableQty = PackingSlipId == null
+                    ? availableQty
+                    : availableQty + _selectedQty
+            };
+            new FrmProductQty(this, item, true).ShowDialog();
+            txtBarcodeScanner.Focus();
+        }
+
+        private void dataGridPackingSlip_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0)
+                return;
+
+            OpenQtyPopup();
         }
     }
+
 }

@@ -18,7 +18,7 @@ namespace CoreOfficeERP.Application.Services
         public async Task<VisitorResponse?> GetVisitor(int id)
         {
             var reuslt= await _apiRepository
-                .GetByIdAsync<ApiResponse<VisitorResponse>>(ApiEndpoints.CreatePackingSlip, id);
+                .GetByIdAsync<ApiResponse<VisitorResponse?>>($"{ApiEndpoints.GetVisitor}/mobile", id);
 
             return reuslt?.Data;
         }
@@ -26,8 +26,8 @@ namespace CoreOfficeERP.Application.Services
         public async Task<VisitorResponse?> GetVisitorByMobile(string mobile)
         {
          var result = await _apiRepository
-                .GetByIdAsync<ApiResponse<VisitorResponse>>(
-                    $"{ApiEndpoints.CreatePackingSlip}/mobile",
+                .GetByIdAsync<ApiResponse<VisitorResponse?>>(
+                    $"{ApiEndpoints.GetVisitor}/mobile",
                     mobile);
 
             return result?.Data;
