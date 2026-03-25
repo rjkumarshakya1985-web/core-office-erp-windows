@@ -293,5 +293,10 @@ namespace CoreOffice.Win.Modules.Cashier
         {
             Close();
         }
+
+        private void DeliveryChallanReturnDetailForm_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
