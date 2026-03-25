@@ -66,6 +66,7 @@
             PackingSlip = new DataGridViewTextBoxColumn();
             Qty = new DataGridViewTextBoxColumn();
             Total = new DataGridViewTextBoxColumn();
+            btnCustomer = new Button();
             panel1.SuspendLayout();
             panel10.SuspendLayout();
             panel2.SuspendLayout();
@@ -372,6 +373,7 @@
             // panel3
             // 
             panel3.BorderStyle = BorderStyle.FixedSingle;
+            panel3.Controls.Add(btnCustomer);
             panel3.Controls.Add(btnDelete);
             panel3.Controls.Add(btnClose);
             panel3.Controls.Add(btnSave);
@@ -386,7 +388,7 @@
             // btnDelete
             // 
             btnDelete.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
-            btnDelete.Location = new Point(353, 3);
+            btnDelete.Location = new Point(466, 4);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(162, 34);
             btnDelete.TabIndex = 4;
@@ -397,7 +399,7 @@
             // btnClose
             // 
             btnClose.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
-            btnClose.Location = new Point(238, 3);
+            btnClose.Location = new Point(351, 4);
             btnClose.Name = "btnClose";
             btnClose.Size = new Size(109, 34);
             btnClose.TabIndex = 3;
@@ -408,7 +410,7 @@
             // btnSave
             // 
             btnSave.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
-            btnSave.Location = new Point(521, 3);
+            btnSave.Location = new Point(634, 4);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(109, 34);
             btnSave.TabIndex = 2;
@@ -419,7 +421,7 @@
             // btnClear
             // 
             btnClear.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
-            btnClear.Location = new Point(124, 3);
+            btnClear.Location = new Point(237, 4);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(109, 34);
             btnClear.TabIndex = 1;
@@ -473,6 +475,17 @@
             Total.HeaderText = "Total";
             Total.Name = "Total";
             Total.ReadOnly = true;
+            // 
+            // btnCustomer
+            // 
+            btnCustomer.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
+            btnCustomer.Location = new Point(124, 3);
+            btnCustomer.Name = "btnCustomer";
+            btnCustomer.Size = new Size(109, 34);
+            btnCustomer.TabIndex = 5;
+            btnCustomer.Text = "&Customer";
+            btnCustomer.UseVisualStyleBackColor = true;
+            btnCustomer.Click += btnCustomer_Click;
             // 
             // DeliveryNoteForm
             // 
@@ -547,5 +560,6 @@
         private DataGridViewTextBoxColumn PackingSlip;
         private DataGridViewTextBoxColumn Qty;
         private DataGridViewTextBoxColumn Total;
+        private Button btnCustomer;
     }
 }

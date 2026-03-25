@@ -16,5 +16,10 @@ namespace CoreOffice.Win.Modules.Cashier
         {
             InitializeComponent();
         }
+
+        private void txtDeliveryChallanNo_KeyDown(object sender, KeyEventArgs e)
+        {
+
+        }
     }
 }

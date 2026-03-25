@@ -86,6 +86,7 @@
             txtDeliveryChallanNo.Name = "txtDeliveryChallanNo";
             txtDeliveryChallanNo.Size = new Size(217, 23);
             txtDeliveryChallanNo.TabIndex = 3;
+            txtDeliveryChallanNo.KeyDown += txtDeliveryChallanNo_KeyDown;
             // 
             // label5
             // 
@@ -113,9 +114,9 @@
             label4.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label4.Location = new Point(17, 11);
             label4.Name = "label4";
-            label4.Size = new Size(152, 20);
+            label4.Size = new Size(239, 20);
             label4.TabIndex = 0;
-            label4.Text = "DELIVERY CHALLAN";
+            label4.Text = "DELIVERY CHALLAN TO INVOICE";
             // 
             // dataGridInvoice
             // 
@@ -391,7 +392,7 @@
             Controls.Add(dataGridInvoice);
             Controls.Add(panel1);
             Name = "DeliveryChallanToInvoiceForm";
-            Text = "DeliveryChallanToInvoiceForm";
+            Text = "DeliveryChallan To Invoice ";
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panel10.ResumeLayout(false);

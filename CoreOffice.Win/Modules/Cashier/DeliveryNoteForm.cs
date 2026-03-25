@@ -1,8 +1,10 @@
-﻿using CoreOffice.Win.Session;
+﻿using CoreOffice.Win.Modules.MasterData;
+using CoreOffice.Win.Session;
 using CoreOffice.Win.Shared;
 using CoreOfficeERP.Application.Interfaces;
 using CoreOfficeERP.Domain.Requests.DeliveryChallan;
 using CoreOfficeERP.Domain.Responses.PackingSlip;
+using Microsoft.Extensions.DependencyInjection;
 using System.Data;
 
 namespace CoreOffice.Win.Modules.Cashier
@@ -194,6 +196,13 @@ namespace CoreOffice.Win.Modules.Cashier
                     return;
                 }
 
+                if (CustomerId == null)
+                {
+                    MessageBox.Show("Customer is required.", "Validation",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
 
 
                 if (dataGridInvoice.Rows.Count == 0)
@@ -350,5 +359,19 @@ namespace CoreOffice.Win.Modules.Cashier
             return $".........................................";
         }
 
+        private void btnCustomer_Click(object sender, EventArgs e)
+        {
+                if (VisitorId == null)
+                {
+                    MessageBox.Show("Visitor is required.", "Validation",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+            var childForm = _serviceProvider.GetRequiredService<VistiorCustomerForm>();
+            childForm.VisitorId= VisitorId;
+           
+            childForm.Show();
+        }
     }
 }
