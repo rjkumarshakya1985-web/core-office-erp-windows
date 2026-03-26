@@ -60,4 +60,14 @@ namespace CoreOfficeERP.Common.Enums
         [Description("Unregistrated")]
         Unregistrated = 3
     }
+
+    public enum DeliveryChallanStatusEnum
+    {
+        Created = 0,
+        Dispatched = 1,
+        PartiallyReturned = 2,
+        FullyReturned = 3,
+        Invoiced = 4,
+        Cancelled = 6
+    }
 }

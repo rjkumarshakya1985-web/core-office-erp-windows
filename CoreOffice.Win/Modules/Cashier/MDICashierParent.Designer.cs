@@ -35,6 +35,9 @@
             deliveryChallanToolStripMenuItem = new ToolStripMenuItem();
             createDeliveryChallanToolStripMenuItem = new ToolStripMenuItem();
             returnDeliverChallanItemToolStripMenuItem = new ToolStripMenuItem();
+            invoiceToolStripMenuItem1 = new ToolStripMenuItem();
+            deliveryChallanToInvoiceToolStripMenuItem = new ToolStripMenuItem();
+            createInvoiceToolStripMenuItem1 = new ToolStripMenuItem();
             statusStrip = new StatusStrip();
             lblCompany = new ToolStripStatusLabel();
             toolTip = new ToolTip(components);
@@ -52,9 +55,6 @@
             button3 = new Button();
             button2 = new Button();
             button1 = new Button();
-            invoiceToolStripMenuItem1 = new ToolStripMenuItem();
-            deliveryChallanToInvoiceToolStripMenuItem = new ToolStripMenuItem();
-            createInvoiceToolStripMenuItem1 = new ToolStripMenuItem();
             menuStrip.SuspendLayout();
             statusStrip.SuspendLayout();
             panel1.SuspendLayout();
@@ -104,6 +104,26 @@
             returnDeliverChallanItemToolStripMenuItem.Size = new Size(197, 22);
             returnDeliverChallanItemToolStripMenuItem.Text = "Delivery Challan Return";
             returnDeliverChallanItemToolStripMenuItem.Click += returnDeliverChallanItemToolStripMenuItem_Click;
+            // 
+            // invoiceToolStripMenuItem1
+            // 
+            invoiceToolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { deliveryChallanToInvoiceToolStripMenuItem, createInvoiceToolStripMenuItem1 });
+            invoiceToolStripMenuItem1.Name = "invoiceToolStripMenuItem1";
+            invoiceToolStripMenuItem1.Size = new Size(57, 20);
+            invoiceToolStripMenuItem1.Text = "Invoice";
+            // 
+            // deliveryChallanToInvoiceToolStripMenuItem
+            // 
+            deliveryChallanToInvoiceToolStripMenuItem.Name = "deliveryChallanToInvoiceToolStripMenuItem";
+            deliveryChallanToInvoiceToolStripMenuItem.Size = new Size(212, 22);
+            deliveryChallanToInvoiceToolStripMenuItem.Text = "&Delivery ChallanTo Invoice";
+            deliveryChallanToInvoiceToolStripMenuItem.Click += deliveryChallanToInvoiceToolStripMenuItem_Click;
+            // 
+            // createInvoiceToolStripMenuItem1
+            // 
+            createInvoiceToolStripMenuItem1.Name = "createInvoiceToolStripMenuItem1";
+            createInvoiceToolStripMenuItem1.Size = new Size(212, 22);
+            createInvoiceToolStripMenuItem1.Text = "&Create Invoice";
             // 
             // statusStrip
             // 
@@ -271,25 +291,6 @@
             button1.TabIndex = 0;
             button1.Text = "button1";
             button1.UseVisualStyleBackColor = true;
-            // 
-            // invoiceToolStripMenuItem1
-            // 
-            invoiceToolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { deliveryChallanToInvoiceToolStripMenuItem, createInvoiceToolStripMenuItem1 });
-            invoiceToolStripMenuItem1.Name = "invoiceToolStripMenuItem1";
-            invoiceToolStripMenuItem1.Size = new Size(57, 20);
-            invoiceToolStripMenuItem1.Text = "Invoice";
-            // 
-            // deliveryChallanToInvoiceToolStripMenuItem
-            // 
-            deliveryChallanToInvoiceToolStripMenuItem.Name = "deliveryChallanToInvoiceToolStripMenuItem";
-            deliveryChallanToInvoiceToolStripMenuItem.Size = new Size(212, 22);
-            deliveryChallanToInvoiceToolStripMenuItem.Text = "&Delivery ChallanTo Invoice";
-            // 
-            // createInvoiceToolStripMenuItem1
-            // 
-            createInvoiceToolStripMenuItem1.Name = "createInvoiceToolStripMenuItem1";
-            createInvoiceToolStripMenuItem1.Size = new Size(212, 22);
-            createInvoiceToolStripMenuItem1.Text = "&Create Invoice";
             // 
             // MDICashierParent
             // 

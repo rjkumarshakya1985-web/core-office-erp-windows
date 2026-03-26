@@ -21,6 +21,7 @@ namespace CoreOfficeERP.Application
             services.AddScoped<IDeliveryChallanService, DeliveryChallanService>();
             services.AddScoped<ISalesPersonService, SalesPersonService>();
             services.AddScoped<ICustomerService, CustomerService>();
+            services.AddScoped<IDeliveryChallanToInvoiceService, DeliveryChallanToInvoiceService>();
             return services;
         }
     }

@@ -135,7 +135,7 @@ namespace CoreOffice.Win.Modules.Cashier
         {
 
             var form = new CompanySelectionForm(this);
-            form.ShowDialog();
+            form.Show();
         }
 
         public void UpdateFinanceYear()
@@ -176,6 +176,14 @@ namespace CoreOffice.Win.Modules.Cashier
         private void returnDeliverChallanItemToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var childForm = _serviceProvider.GetRequiredService<DeliveryChallanReturnDetailForm>();
+            childForm.MdiParent = this;
+            childForm.Text = "Window " + childFormNumber++;
+            childForm.Show();
+        }
+
+        private void deliveryChallanToInvoiceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var childForm = _serviceProvider.GetRequiredService<DeliveryChallanToInvoiceForm>();
             childForm.MdiParent = this;
             childForm.Text = "Window " + childFormNumber++;
             childForm.Show();

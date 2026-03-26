@@ -40,6 +40,7 @@ namespace CoreOffice.Win
             services.AddTransient<InvoiceForm>();
             services.AddTransient<DeliveryChallanReturnDetailForm>();
             services.AddTransient<VistiorCustomerForm>();
+            services.AddTransient<DeliveryChallanToInvoiceForm>();
 
             using var serviceProvider = services.BuildServiceProvider();
 

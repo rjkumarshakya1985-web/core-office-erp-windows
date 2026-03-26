@@ -21,5 +21,9 @@
         public const string GetAllActiveSalesPersons = "saleperson/active";
 
         public const string CreateSupplier = "customer/mobile/create-supplier";
+
+        // Invoices
+
+        public const string GetDeliveryChallanForInvoice = "deliveryChallanToInvoice/delivery-challan/for-invoice";
     }
 }   

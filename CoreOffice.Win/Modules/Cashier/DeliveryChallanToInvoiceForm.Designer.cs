@@ -34,12 +34,20 @@
             panel10 = new Panel();
             label4 = new Label();
             dataGridInvoice = new DataGridView();
+            Id = new DataGridViewTextBoxColumn();
+            DeliveryChallanNo = new DataGridViewTextBoxColumn();
+            Qty = new DataGridViewTextBoxColumn();
+            ReturnQty = new DataGridViewLinkColumn();
+            InvoiceQty = new DataGridViewTextBoxColumn();
+            Amount = new DataGridViewTextBoxColumn();
             panel3 = new Panel();
             btnDelete = new Button();
             btnClose = new Button();
             btnSave = new Button();
             btnClear = new Button();
             panel8 = new Panel();
+            lblGSTIN = new Label();
+            label6 = new Label();
             lblCustomerMobile = new Label();
             label10 = new Label();
             lblCustomerName = new Label();
@@ -53,12 +61,6 @@
             label16 = new Label();
             panel7 = new Panel();
             label3 = new Label();
-            Id = new DataGridViewTextBoxColumn();
-            DeliveryChallanNo = new DataGridViewTextBoxColumn();
-            Qty = new DataGridViewTextBoxColumn();
-            Total = new DataGridViewTextBoxColumn();
-            lblGSTIN = new Label();
-            label6 = new Label();
             panel1.SuspendLayout();
             panel10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridInvoice).BeginInit();
@@ -123,12 +125,51 @@
             dataGridInvoice.AllowUserToAddRows = false;
             dataGridInvoice.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridInvoice.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridInvoice.Columns.AddRange(new DataGridViewColumn[] { Id, DeliveryChallanNo, Qty, Total });
+            dataGridInvoice.Columns.AddRange(new DataGridViewColumn[] { Id, DeliveryChallanNo, Qty, ReturnQty, InvoiceQty, Amount });
             dataGridInvoice.Dock = DockStyle.Top;
             dataGridInvoice.Location = new Point(0, 88);
             dataGridInvoice.Name = "dataGridInvoice";
             dataGridInvoice.Size = new Size(840, 333);
             dataGridInvoice.TabIndex = 5;
+            // 
+            // Id
+            // 
+            Id.HeaderText = "Id";
+            Id.Name = "Id";
+            Id.ReadOnly = true;
+            Id.Visible = false;
+            // 
+            // DeliveryChallanNo
+            // 
+            DeliveryChallanNo.HeaderText = "Delivery Challan No";
+            DeliveryChallanNo.Name = "DeliveryChallanNo";
+            DeliveryChallanNo.ReadOnly = true;
+            // 
+            // Qty
+            // 
+            Qty.HeaderText = "Quantity";
+            Qty.Name = "Qty";
+            Qty.ReadOnly = true;
+            // 
+            // ReturnQty
+            // 
+            ReturnQty.HeaderText = "Return Qty";
+            ReturnQty.Name = "ReturnQty";
+            ReturnQty.ReadOnly = true;
+            ReturnQty.Resizable = DataGridViewTriState.True;
+            ReturnQty.SortMode = DataGridViewColumnSortMode.Automatic;
+            // 
+            // InvoiceQty
+            // 
+            InvoiceQty.HeaderText = "Invoice Qty";
+            InvoiceQty.Name = "InvoiceQty";
+            InvoiceQty.ReadOnly = true;
+            // 
+            // Amount
+            // 
+            Amount.HeaderText = "Total Amount";
+            Amount.Name = "Amount";
+            Amount.ReadOnly = true;
             // 
             // panel3
             // 
@@ -152,6 +193,7 @@
             btnDelete.TabIndex = 4;
             btnDelete.Text = "&Delete Row Item";
             btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
             // 
             // btnClose
             // 
@@ -200,6 +242,26 @@
             panel8.Name = "panel8";
             panel8.Size = new Size(364, 144);
             panel8.TabIndex = 11;
+            // 
+            // lblGSTIN
+            // 
+            lblGSTIN.AutoSize = true;
+            lblGSTIN.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblGSTIN.Location = new Point(76, 102);
+            lblGSTIN.Name = "lblGSTIN";
+            lblGSTIN.Size = new Size(173, 20);
+            lblGSTIN.TabIndex = 10;
+            lblGSTIN.Text = ".........................................";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label6.Location = new Point(11, 102);
+            label6.Name = "label6";
+            label6.Size = new Size(62, 20);
+            label6.TabIndex = 9;
+            label6.Text = "GSTIN :";
             // 
             // lblCustomerMobile
             // 
@@ -337,50 +399,6 @@
             label3.TabIndex = 2;
             label3.Text = "Bill Summary";
             // 
-            // Id
-            // 
-            Id.HeaderText = "Id";
-            Id.Name = "Id";
-            Id.Visible = false;
-            // 
-            // DeliveryChallanNo
-            // 
-            DeliveryChallanNo.HeaderText = "Delivery Challan No";
-            DeliveryChallanNo.Name = "DeliveryChallanNo";
-            DeliveryChallanNo.ReadOnly = true;
-            // 
-            // Qty
-            // 
-            Qty.HeaderText = "Quantity";
-            Qty.Name = "Qty";
-            Qty.ReadOnly = true;
-            // 
-            // Total
-            // 
-            Total.HeaderText = "Total";
-            Total.Name = "Total";
-            Total.ReadOnly = true;
-            // 
-            // lblGSTIN
-            // 
-            lblGSTIN.AutoSize = true;
-            lblGSTIN.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblGSTIN.Location = new Point(76, 102);
-            lblGSTIN.Name = "lblGSTIN";
-            lblGSTIN.Size = new Size(173, 20);
-            lblGSTIN.TabIndex = 10;
-            lblGSTIN.Text = ".........................................";
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label6.Location = new Point(11, 102);
-            label6.Name = "label6";
-            label6.Size = new Size(62, 20);
-            label6.TabIndex = 9;
-            label6.Text = "GSTIN :";
-            // 
             // DeliveryChallanToInvoiceForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -393,6 +411,7 @@
             Controls.Add(panel1);
             Name = "DeliveryChallanToInvoiceForm";
             Text = "DeliveryChallan To Invoice ";
+            WindowState = FormWindowState.Maximized;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panel10.ResumeLayout(false);
@@ -437,11 +456,13 @@
         private Label label16;
         private Panel panel7;
         private Label label3;
+        private Label lblGSTIN;
+        private Label label6;
         private DataGridViewTextBoxColumn Id;
         private DataGridViewTextBoxColumn DeliveryChallanNo;
         private DataGridViewTextBoxColumn Qty;
-        private DataGridViewTextBoxColumn Total;
-        private Label lblGSTIN;
-        private Label label6;
+        private DataGridViewLinkColumn ReturnQty;
+        private DataGridViewTextBoxColumn InvoiceQty;
+        private DataGridViewTextBoxColumn Amount;
     }
 }
