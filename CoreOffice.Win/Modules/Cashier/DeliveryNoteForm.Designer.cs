@@ -56,6 +56,7 @@
             panel6 = new Panel();
             label1 = new Label();
             panel3 = new Panel();
+            btnCustomer = new Button();
             btnDelete = new Button();
             btnClose = new Button();
             btnSave = new Button();
@@ -66,7 +67,6 @@
             PackingSlip = new DataGridViewTextBoxColumn();
             Qty = new DataGridViewTextBoxColumn();
             Total = new DataGridViewTextBoxColumn();
-            btnCustomer = new Button();
             panel1.SuspendLayout();
             panel10.SuspendLayout();
             panel2.SuspendLayout();
@@ -385,6 +385,17 @@
             panel3.Size = new Size(979, 44);
             panel3.TabIndex = 5;
             // 
+            // btnCustomer
+            // 
+            btnCustomer.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
+            btnCustomer.Location = new Point(124, 3);
+            btnCustomer.Name = "btnCustomer";
+            btnCustomer.Size = new Size(109, 34);
+            btnCustomer.TabIndex = 5;
+            btnCustomer.Text = "&Customer";
+            btnCustomer.UseVisualStyleBackColor = true;
+            btnCustomer.Click += btnCustomer_Click;
+            // 
             // btnDelete
             // 
             btnDelete.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
@@ -475,17 +486,6 @@
             Total.HeaderText = "Total";
             Total.Name = "Total";
             Total.ReadOnly = true;
-            // 
-            // btnCustomer
-            // 
-            btnCustomer.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
-            btnCustomer.Location = new Point(124, 3);
-            btnCustomer.Name = "btnCustomer";
-            btnCustomer.Size = new Size(109, 34);
-            btnCustomer.TabIndex = 5;
-            btnCustomer.Text = "&Customer";
-            btnCustomer.UseVisualStyleBackColor = true;
-            btnCustomer.Click += btnCustomer_Click;
             // 
             // DeliveryNoteForm
             // 

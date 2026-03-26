@@ -199,7 +199,7 @@
             // btnClose
             // 
             btnClose.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnClose.Location = new Point(384, 2);
+            btnClose.Location = new Point(465, 3);
             btnClose.Name = "btnClose";
             btnClose.Size = new Size(159, 37);
             btnClose.TabIndex = 3;
@@ -210,7 +210,7 @@
             // btnClear
             // 
             btnClear.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnClear.Location = new Point(218, 3);
+            btnClear.Location = new Point(300, 3);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(159, 37);
             btnClear.TabIndex = 1;
@@ -223,9 +223,9 @@
             btnGenerateDeliveryChallan.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnGenerateDeliveryChallan.Location = new Point(11, 3);
             btnGenerateDeliveryChallan.Name = "btnGenerateDeliveryChallan";
-            btnGenerateDeliveryChallan.Size = new Size(202, 37);
+            btnGenerateDeliveryChallan.Size = new Size(283, 37);
             btnGenerateDeliveryChallan.TabIndex = 0;
-            btnGenerateDeliveryChallan.Text = "Generate &Delivery Challan";
+            btnGenerateDeliveryChallan.Text = "Generate &Delivery Challan Return";
             btnGenerateDeliveryChallan.UseVisualStyleBackColor = true;
             btnGenerateDeliveryChallan.Click += btnGenerateDeliveryChallan_Click;
             // 

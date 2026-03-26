@@ -3,15 +3,18 @@ using CoreOffice.Win.Session;
 using CoreOffice.Win.Shared;
 using CoreOfficeERP.Application.Interfaces;
 using CoreOfficeERP.Domain.Requests.DeliveryChallan;
+using CoreOfficeERP.Domain.Responses.Customers;
 using CoreOfficeERP.Domain.Responses.PackingSlip;
 using Microsoft.Extensions.DependencyInjection;
 using System.Data;
+
 
 namespace CoreOffice.Win.Modules.Cashier
 {
     public partial class DeliveryNoteForm : Form
     {
         public int? VisitorId;
+
         public Guid? CustomerId;
         private readonly IServiceProvider _serviceProvider;
         private readonly IPackingSlipService _packingSlipService;
@@ -359,8 +362,10 @@ namespace CoreOffice.Win.Modules.Cashier
             return $".........................................";
         }
 
-        private void btnCustomer_Click(object sender, EventArgs e)
+        private async void btnCustomer_Click(object sender, EventArgs e)
         {
+            if (CustomerId != null) return;
+
                 if (VisitorId == null)
                 {
                     MessageBox.Show("Visitor is required.", "Validation",
@@ -368,10 +373,19 @@ namespace CoreOffice.Win.Modules.Cashier
                     return;
                 }
 
+
             var childForm = _serviceProvider.GetRequiredService<VistiorCustomerForm>();
-            childForm.VisitorId= VisitorId;
-           
-            childForm.Show();
+            childForm.OnCustomerCreated = Customer;
+
+            await childForm.LoadVisitor(VisitorId.Value);
+            childForm.ShowDialog();
+        }
+
+        public void Customer(CustomerResponse customerResponse)
+        {
+            CustomerId = customerResponse.Id;
+            lblCustomerName.Text = customerResponse.Name;
+            lblCustomerMobile.Text = customerResponse.Mobile;
         }
     }
 }

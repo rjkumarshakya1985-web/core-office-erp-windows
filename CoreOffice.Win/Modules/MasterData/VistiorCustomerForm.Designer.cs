@@ -70,6 +70,10 @@
             panel1 = new Panel();
             btnCreate = new Button();
             btnClose = new Button();
+            txtCreditLimits = new TextBox();
+            label19 = new Label();
+            txtCreditDays = new TextBox();
+            label20 = new Label();
             panel10.SuspendLayout();
             groupBox1.SuspendLayout();
             panel1.SuspendLayout();
@@ -98,6 +102,10 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(txtCreditLimits);
+            groupBox1.Controls.Add(label19);
+            groupBox1.Controls.Add(txtCreditDays);
+            groupBox1.Controls.Add(label20);
             groupBox1.Controls.Add(cmbCustomerType);
             groupBox1.Controls.Add(Type);
             groupBox1.Controls.Add(cmbRegistrationType);
@@ -137,7 +145,7 @@
             groupBox1.Dock = DockStyle.Top;
             groupBox1.Location = new Point(0, 43);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(924, 388);
+            groupBox1.Size = new Size(924, 419);
             groupBox1.TabIndex = 3;
             groupBox1.TabStop = false;
             groupBox1.Text = "Customer Information";
@@ -186,7 +194,7 @@
             // 
             // txtContactPerson
             // 
-            txtContactPerson.Location = new Point(122, 350);
+            txtContactPerson.Location = new Point(122, 370);
             txtContactPerson.Name = "txtContactPerson";
             txtContactPerson.Size = new Size(216, 23);
             txtContactPerson.TabIndex = 35;
@@ -194,7 +202,7 @@
             // label18
             // 
             label18.AutoSize = true;
-            label18.Location = new Point(28, 353);
+            label18.Location = new Point(28, 373);
             label18.Name = "label18";
             label18.Size = new Size(88, 15);
             label18.TabIndex = 34;
@@ -236,7 +244,7 @@
             // 
             // txtShippingAddress
             // 
-            txtShippingAddress.Location = new Point(122, 290);
+            txtShippingAddress.Location = new Point(122, 310);
             txtShippingAddress.Multiline = true;
             txtShippingAddress.Name = "txtShippingAddress";
             txtShippingAddress.Size = new Size(796, 54);
@@ -245,7 +253,7 @@
             // label14
             // 
             label14.AutoSize = true;
-            label14.Location = new Point(17, 293);
+            label14.Location = new Point(17, 313);
             label14.Name = "label14";
             label14.Size = new Size(99, 15);
             label14.TabIndex = 24;
@@ -253,7 +261,7 @@
             // 
             // txtBillingAddress
             // 
-            txtBillingAddress.Location = new Point(122, 226);
+            txtBillingAddress.Location = new Point(122, 246);
             txtBillingAddress.Multiline = true;
             txtBillingAddress.Name = "txtBillingAddress";
             txtBillingAddress.Size = new Size(796, 54);
@@ -262,7 +270,7 @@
             // label13
             // 
             label13.AutoSize = true;
-            label13.Location = new Point(29, 229);
+            label13.Location = new Point(29, 249);
             label13.Name = "label13";
             label13.Size = new Size(85, 15);
             label13.TabIndex = 22;
@@ -444,7 +452,7 @@
             panel1.Controls.Add(btnCreate);
             panel1.Controls.Add(btnClose);
             panel1.Dock = DockStyle.Bottom;
-            panel1.Location = new Point(0, 452);
+            panel1.Location = new Point(0, 481);
             panel1.Name = "panel1";
             panel1.Size = new Size(924, 50);
             panel1.TabIndex = 4;
@@ -470,11 +478,43 @@
             btnClose.Text = "&Close";
             btnClose.UseVisualStyleBackColor = true;
             // 
+            // txtCreditLimits
+            // 
+            txtCreditLimits.Location = new Point(421, 214);
+            txtCreditLimits.Name = "txtCreditLimits";
+            txtCreditLimits.Size = new Size(216, 23);
+            txtCreditLimits.TabIndex = 44;
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.Location = new Point(342, 218);
+            label19.Name = "label19";
+            label19.Size = new Size(74, 15);
+            label19.TabIndex = 43;
+            label19.Text = "Credit Limits";
+            // 
+            // txtCreditDays
+            // 
+            txtCreditDays.Location = new Point(90, 213);
+            txtCreditDays.Name = "txtCreditDays";
+            txtCreditDays.Size = new Size(216, 23);
+            txtCreditDays.TabIndex = 42;
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.Location = new Point(18, 217);
+            label20.Name = "label20";
+            label20.Size = new Size(67, 15);
+            label20.TabIndex = 41;
+            label20.Text = "Credit Days";
+            // 
             // VistiorCustomerForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(924, 502);
+            ClientSize = new Size(924, 531);
             Controls.Add(panel1);
             Controls.Add(groupBox1);
             Controls.Add(panel10);
@@ -535,5 +575,9 @@
         private Button btnClose;
         private ComboBox cmbCustomerType;
         private Label Type;
+        private TextBox txtCreditLimits;
+        private Label label19;
+        private TextBox txtCreditDays;
+        private Label label20;
     }
 }
