@@ -1,8 +1,11 @@
-﻿using CoreOffice.Win.Session;
+﻿using CoreOffice.Win.Modules.MasterData;
+using CoreOffice.Win.Session;
 using CoreOffice.Win.Shared;
 using CoreOfficeERP.Application.Interfaces;
 using CoreOfficeERP.Domain.Requests.DeliveryChallan;
+using CoreOfficeERP.Domain.Responses.Customers;
 using CoreOfficeERP.Domain.Responses.PackingSlip;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CoreOffice.Win.Modules.Cashier.Invoices
 {
@@ -188,7 +191,7 @@ namespace CoreOffice.Win.Modules.Cashier.Invoices
                     return;
                 }
 
-                if(fetchedPackingSlip.Visitor == null)
+                if (fetchedPackingSlip.Visitor == null)
                 {
                     MessageBox.Show("Packing slip without visitor not allowed.",
                         "Invalid", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -281,7 +284,13 @@ namespace CoreOffice.Win.Modules.Cashier.Invoices
                     return;
                 }
 
-             
+                if (CustomerId == null)
+                {
+                    MessageBox.Show("Customer is required. Please create customer", "Validation",
+                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
 
                 if (dataGridInvoice.Rows.Count == 0)
                 {
@@ -324,12 +333,12 @@ namespace CoreOffice.Win.Modules.Cashier.Invoices
 
                 var result = await _invoiceService.CreateAsync(request);
 
-                if (result>0)
+                if (result > 0)
                 {
                     MessageBox.Show("Invoice created successfully!",
                         "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    Clear(); 
+                    Clear();
                 }
                 else
                 {
@@ -347,6 +356,32 @@ namespace CoreOffice.Win.Modules.Cashier.Invoices
                 AppLoader.Hide();
             }
         }
+
+        private async void btnCustomer_Click(object sender, EventArgs e)
+        {
+            if (CustomerId != null) return;
+
+            if (VisitorId == null)
+            {
+                MessageBox.Show("Visitor is required.", "Validation",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+
+            var childForm = _serviceProvider.GetRequiredService<VistiorCustomerForm>();
+            childForm.OnCustomerCreated = Customer;
+
+            await childForm.LoadVisitor(VisitorId.Value);
+            childForm.ShowDialog();
+        }
+
+        public void Customer(CustomerResponse customerResponse)
+        {
+            CustomerId = customerResponse.Id;
+            lblCustomerName.Text = customerResponse.Name;
+            lblCustomerMobile.Text = customerResponse.Mobile;
+        }
     }
-    
+
 }

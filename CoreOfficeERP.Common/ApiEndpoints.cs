@@ -23,7 +23,9 @@
         public const string CreateSupplier = "customer/mobile/create-supplier";
 
         // Invoices
-
         public const string GetDeliveryChallanForInvoice = "deliveryChallanToInvoice/delivery-challan/for-invoice";
+        public const string CreateDeliveryChallanToinvoice = "deliveryChallanToInvoice";
+        public const string CreateInvoice = "invoice";
     }
-}   
+}
+

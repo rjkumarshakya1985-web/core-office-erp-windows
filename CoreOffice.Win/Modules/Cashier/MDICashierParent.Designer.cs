@@ -38,6 +38,7 @@
             invoiceToolStripMenuItem1 = new ToolStripMenuItem();
             deliveryChallanToInvoiceToolStripMenuItem = new ToolStripMenuItem();
             createInvoiceToolStripMenuItem1 = new ToolStripMenuItem();
+            createCreditNoteToolStripMenuItem = new ToolStripMenuItem();
             statusStrip = new StatusStrip();
             lblCompany = new ToolStripStatusLabel();
             toolTip = new ToolTip(components);
@@ -107,7 +108,7 @@
             // 
             // invoiceToolStripMenuItem1
             // 
-            invoiceToolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { deliveryChallanToInvoiceToolStripMenuItem, createInvoiceToolStripMenuItem1 });
+            invoiceToolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { deliveryChallanToInvoiceToolStripMenuItem, createInvoiceToolStripMenuItem1, createCreditNoteToolStripMenuItem });
             invoiceToolStripMenuItem1.Name = "invoiceToolStripMenuItem1";
             invoiceToolStripMenuItem1.Size = new Size(57, 20);
             invoiceToolStripMenuItem1.Text = "Invoice";
@@ -123,7 +124,14 @@
             // 
             createInvoiceToolStripMenuItem1.Name = "createInvoiceToolStripMenuItem1";
             createInvoiceToolStripMenuItem1.Size = new Size(212, 22);
-            createInvoiceToolStripMenuItem1.Text = "&Create Invoice";
+            createInvoiceToolStripMenuItem1.Text = "Create &Invoice";
+            createInvoiceToolStripMenuItem1.Click += createInvoiceToolStripMenuItem1_Click;
+            // 
+            // createCreditNoteToolStripMenuItem
+            // 
+            createCreditNoteToolStripMenuItem.Name = "createCreditNoteToolStripMenuItem";
+            createCreditNoteToolStripMenuItem.Size = new Size(212, 22);
+            createCreditNoteToolStripMenuItem.Text = "Create &Credit Note";
             // 
             // statusStrip
             // 
@@ -346,6 +354,7 @@
         private ToolStripMenuItem invoiceToolStripMenuItem1;
         private ToolStripMenuItem deliveryChallanToInvoiceToolStripMenuItem;
         private ToolStripMenuItem createInvoiceToolStripMenuItem1;
+        private ToolStripMenuItem createCreditNoteToolStripMenuItem;
     }
 }
 

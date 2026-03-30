@@ -343,12 +343,14 @@ namespace CoreOffice.Win.Modules.PackingSlip
                 if (dataGridPackingSlip.Rows.Count == 0)
                 {
                     MessageBox.Show("Add items first");
+                    
                     return;
                 }
 
                 if (string.IsNullOrEmpty(cmbSalesPerson.Text))
                 {
                     MessageBox.Show("Select Sales Person Firstly");
+                    cmbSalesPerson.Focus();
                     return;
                 }
 

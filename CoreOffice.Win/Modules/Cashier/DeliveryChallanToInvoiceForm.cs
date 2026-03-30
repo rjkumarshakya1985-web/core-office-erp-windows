@@ -1,8 +1,8 @@
 ﻿using CoreOffice.Win.Session;
 using CoreOffice.Win.Shared;
 using CoreOfficeERP.Application.Interfaces;
+using CoreOfficeERP.Domain.Requests.DeliveryChallanToInvoice;
 using CoreOfficeERP.Domain.Responses.DeliveryChallanToInvoice;
-using CoreOfficeERP.Domain.Responses.PackingSlip;
 using System.Data;
 
 namespace CoreOffice.Win.Modules.Cashier
@@ -161,6 +161,95 @@ namespace CoreOffice.Win.Modules.Cashier
             }
             catch
             { }
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            dataGridInvoice.Rows.Clear();
+            CalculatePackingSlip();
+            Clear();
+        }
+
+        public void Clear()
+        {
+            if (dataGridInvoice.Rows.Count > 0)
+            {
+                dataGridInvoice.Rows.Clear();
+            }
+            CustomerId = null;
+
+            lblGrandTotal.Text = "0.00";
+            lblTotalPcs.Text = "0";
+
+            lblCustomerMobile.Text = "..................";
+            lblCustomerName.Text = "..................";
+
+            txtDeliveryChallanNo.Clear();
+        }
+
+        private async void btnSave_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                AppLoader.Show();
+
+                if (dataGridInvoice.Rows.Count == 0)
+                {
+                    MessageBox.Show("Add Delivery Challan first");
+                    return;
+                }
+
+                if (CustomerId == null)
+                {
+                    MessageBox.Show("Customer is required");
+                    return;
+                }
+
+                var challanIds = new List<int>();
+
+                foreach (DataGridViewRow row in dataGridInvoice.Rows)
+                {
+                    if (row.IsNewRow) continue;
+
+                    if (row.Cells["Id"].Value == null)
+                        continue;
+
+                    challanIds.Add(Convert.ToInt32(row.Cells["Id"].Value));
+                }
+
+                if (!challanIds.Any())
+                {
+                    MessageBox.Show("No valid challan selected");
+                    return;
+                }
+
+                var request = new DeliveryChallanToInvoiceRequest
+                {
+                    FinYearId = UserSession.FinanceYearId,
+                    Discount = 0, // ya UI se lo
+                    DeliveryChallanIds = challanIds.Distinct().ToList()
+                };
+
+                // ✅ API Call
+                var invoiceId = await _deliveryChallanToInvoiceService.CreateDeliveryChallansToInvoice(request);
+
+                MessageBox.Show($"Invoice created successfully - {invoiceId}");
+
+                Clear();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
+            finally
+            {
+                AppLoader.Hide();
+            }
         }
     }
 }

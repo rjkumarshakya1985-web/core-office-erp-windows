@@ -34,10 +34,6 @@
             panel10 = new Panel();
             label4 = new Label();
             dataGridInvoice = new DataGridView();
-            Id = new DataGridViewTextBoxColumn();
-            PackingSlip = new DataGridViewTextBoxColumn();
-            Qty = new DataGridViewTextBoxColumn();
-            Total = new DataGridViewTextBoxColumn();
             panel8 = new Panel();
             lblCustomerMobile = new Label();
             label10 = new Label();
@@ -60,11 +56,16 @@
             panel6 = new Panel();
             label1 = new Label();
             panel3 = new Panel();
+            btnCustomer = new Button();
             btnDelete = new Button();
             btnClose = new Button();
             btnSave = new Button();
             btnClear = new Button();
             btnVisitor = new Button();
+            Id = new DataGridViewTextBoxColumn();
+            PackingSlip = new DataGridViewLinkColumn();
+            Qty = new DataGridViewTextBoxColumn();
+            Total = new DataGridViewTextBoxColumn();
             panel1.SuspendLayout();
             panel10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridInvoice).BeginInit();
@@ -137,31 +138,6 @@
             dataGridInvoice.Name = "dataGridInvoice";
             dataGridInvoice.Size = new Size(917, 333);
             dataGridInvoice.TabIndex = 5;
-            // 
-            // Id
-            // 
-            Id.HeaderText = "Id";
-            Id.Name = "Id";
-            Id.ReadOnly = true;
-            Id.Visible = false;
-            // 
-            // PackingSlip
-            // 
-            PackingSlip.HeaderText = "PackingSlip No";
-            PackingSlip.Name = "PackingSlip";
-            PackingSlip.ReadOnly = true;
-            // 
-            // Qty
-            // 
-            Qty.HeaderText = "Quantity";
-            Qty.Name = "Qty";
-            Qty.ReadOnly = true;
-            // 
-            // Total
-            // 
-            Total.HeaderText = "Total";
-            Total.Name = "Total";
-            Total.ReadOnly = true;
             // 
             // panel8
             // 
@@ -394,6 +370,7 @@
             // panel3
             // 
             panel3.BorderStyle = BorderStyle.FixedSingle;
+            panel3.Controls.Add(btnCustomer);
             panel3.Controls.Add(btnDelete);
             panel3.Controls.Add(btnClose);
             panel3.Controls.Add(btnSave);
@@ -405,10 +382,21 @@
             panel3.Size = new Size(917, 44);
             panel3.TabIndex = 11;
             // 
+            // btnCustomer
+            // 
+            btnCustomer.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
+            btnCustomer.Location = new Point(123, 3);
+            btnCustomer.Name = "btnCustomer";
+            btnCustomer.Size = new Size(109, 34);
+            btnCustomer.TabIndex = 6;
+            btnCustomer.Text = "&Customer";
+            btnCustomer.UseVisualStyleBackColor = true;
+            btnCustomer.Click += btnCustomer_Click;
+            // 
             // btnDelete
             // 
             btnDelete.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
-            btnDelete.Location = new Point(353, 3);
+            btnDelete.Location = new Point(466, 3);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(162, 34);
             btnDelete.TabIndex = 4;
@@ -419,7 +407,7 @@
             // btnClose
             // 
             btnClose.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
-            btnClose.Location = new Point(238, 3);
+            btnClose.Location = new Point(351, 3);
             btnClose.Name = "btnClose";
             btnClose.Size = new Size(109, 34);
             btnClose.TabIndex = 3;
@@ -430,7 +418,7 @@
             // btnSave
             // 
             btnSave.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
-            btnSave.Location = new Point(521, 3);
+            btnSave.Location = new Point(634, 3);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(109, 34);
             btnSave.TabIndex = 2;
@@ -441,7 +429,7 @@
             // btnClear
             // 
             btnClear.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold);
-            btnClear.Location = new Point(124, 3);
+            btnClear.Location = new Point(237, 3);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(109, 34);
             btnClear.TabIndex = 1;
@@ -459,6 +447,33 @@
             btnVisitor.Text = "&Visitor";
             btnVisitor.UseVisualStyleBackColor = true;
             btnVisitor.Click += btnVisitor_Click;
+            // 
+            // Id
+            // 
+            Id.HeaderText = "Id";
+            Id.Name = "Id";
+            Id.ReadOnly = true;
+            Id.Visible = false;
+            // 
+            // PackingSlip
+            // 
+            PackingSlip.HeaderText = "PackingSlip No";
+            PackingSlip.Name = "PackingSlip";
+            PackingSlip.ReadOnly = true;
+            PackingSlip.Resizable = DataGridViewTriState.True;
+            PackingSlip.SortMode = DataGridViewColumnSortMode.Automatic;
+            // 
+            // Qty
+            // 
+            Qty.HeaderText = "Quantity";
+            Qty.Name = "Qty";
+            Qty.ReadOnly = true;
+            // 
+            // Total
+            // 
+            Total.HeaderText = "Total";
+            Total.Name = "Total";
+            Total.ReadOnly = true;
             // 
             // InvoiceForm
             // 
@@ -531,8 +546,9 @@
         private Button btnSave;
         private Button btnClear;
         private Button btnVisitor;
+        private Button btnCustomer;
         private DataGridViewTextBoxColumn Id;
-        private DataGridViewTextBoxColumn PackingSlip;
+        private DataGridViewLinkColumn PackingSlip;
         private DataGridViewTextBoxColumn Qty;
         private DataGridViewTextBoxColumn Total;
     }

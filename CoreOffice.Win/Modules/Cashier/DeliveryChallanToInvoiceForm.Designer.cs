@@ -204,6 +204,7 @@
             btnClose.TabIndex = 3;
             btnClose.Text = "&Close";
             btnClose.UseVisualStyleBackColor = true;
+            btnClose.Click += btnClose_Click;
             // 
             // btnSave
             // 
@@ -214,6 +215,7 @@
             btnSave.TabIndex = 2;
             btnSave.Text = "&Generate Invoice ";
             btnSave.UseVisualStyleBackColor = true;
+            btnSave.Click += btnSave_Click;
             // 
             // btnClear
             // 
@@ -224,6 +226,7 @@
             btnClear.TabIndex = 1;
             btnClear.Text = "&Clear";
             btnClear.UseVisualStyleBackColor = true;
+            btnClear.Click += btnClear_Click;
             // 
             // panel8
             // 

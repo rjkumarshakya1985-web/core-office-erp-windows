@@ -188,5 +188,13 @@ namespace CoreOffice.Win.Modules.Cashier
             childForm.Text = "Window " + childFormNumber++;
             childForm.Show();
         }
+
+        private void createInvoiceToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            var childForm = _serviceProvider.GetRequiredService<InvoiceForm>();
+            childForm.MdiParent = this;
+            childForm.Text = "Window " + childFormNumber++;
+            childForm.Show();
+        }
     }
 }
