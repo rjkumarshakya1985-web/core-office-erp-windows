@@ -1,5 +1,6 @@
 ﻿using CoreOffice.Win.Modules.Cashier;
 using CoreOffice.Win.Modules.PackingSlip;
+using CoreOffice.Win.Session;
 using CoreOffice.Win.Shared;
 using CoreOfficeERP.Application.Interfaces;
 using CoreOfficeERP.Common.Enums;
@@ -66,6 +67,7 @@ namespace CoreOffice.Win
                 {
                     // Set token
                     _tokenProvider.SetToken(response.Token);
+                     UserSession.RoleEnum = (RoleEnum)Enum.Parse(typeof(RoleEnum), response.RoleName);
 
                     if (response.RoleName == RoleEnum.PackingSlipOperator.ToString())
                     {

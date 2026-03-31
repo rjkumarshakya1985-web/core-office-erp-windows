@@ -15,7 +15,8 @@
         public const string CreateDeliveryChallanReturn = "deliverychallan/delivery-challan/return";
         public const string GetDeliveryChallReturnDetail = "deliverychallan/delivery-challan/for-return";
 
-        /// Tally
+        /// Sales
+        public const string PendingPackingSlipsForBill = "packingslip/pending-packing-slips-for-bill";
 
         /// Sales Person
         public const string GetAllActiveSalesPersons = "saleperson/active";

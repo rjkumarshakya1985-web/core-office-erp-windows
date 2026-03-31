@@ -13,6 +13,7 @@ namespace CoreOfficeERP.Application.Interfaces
 
         Task<BillPackingSlipsResponse?> GetPackingSlipsNumberForBillingByVisitorIdAsync(int visitorId, int financeYearId);
 
+        Task<List<PackingSlipResponse>> GetPendingPackingSlipForBilling(int? financeYearId);
         Task<int> UpdateAsync(object id, PackingSlipRequest request);
         Task<bool> DeleteAsync(int Id);
     }

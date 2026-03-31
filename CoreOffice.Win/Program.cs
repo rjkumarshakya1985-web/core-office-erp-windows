@@ -2,6 +2,7 @@ using CoreOffice.Win.Modules.Cashier;
 using CoreOffice.Win.Modules.Cashier.Invoices;
 using CoreOffice.Win.Modules.MasterData;
 using CoreOffice.Win.Modules.PackingSlip;
+using CoreOffice.Win.Modules.Shared;
 using CoreOfficeERP.Application;
 using CoreOfficeERP.Infrastructure;
 using CoreOfficeERP.Tally;
@@ -41,6 +42,7 @@ namespace CoreOffice.Win
             services.AddTransient<DeliveryChallanReturnDetailForm>();
             services.AddTransient<VistiorCustomerForm>();
             services.AddTransient<DeliveryChallanToInvoiceForm>();
+            services.AddTransient<PendingPackingSlipForm>();
 
             using var serviceProvider = services.BuildServiceProvider();
 

@@ -4,7 +4,6 @@ using CoreOfficeERP.Domain;
 using CoreOfficeERP.Domain.Requests.PackingSlip;
 using CoreOfficeERP.Domain.Responses.PackingSlip;
 using CoreOfficeERP.Infrastructure.Api;
-using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace CoreOfficeERP.Application.Services
 {
@@ -64,6 +63,22 @@ namespace CoreOfficeERP.Application.Services
                 .GetAsync<ApiResponse<BillPackingSlipsResponse>>(url);
 
             return response?.Data;
+        }
+
+        public async Task<List<PackingSlipResponse>> GetPendingPackingSlipForBilling(int? financeYearId)
+        {
+            string url = $"{ApiEndpoints.PendingPackingSlipsForBill}";
+
+            // अगर financeYearId है तो query में भेजो
+            if (financeYearId.HasValue)
+            {
+                url += $"?financeYearId={financeYearId.Value}";
+            }
+
+            var result = await _apiRepository
+                .GetAsync<ApiResponse<List<PackingSlipResponse>>>(url);
+
+            return result?.Data ?? new List<PackingSlipResponse>();
         }
 
         public async Task<int> UpdateAsync(object id, PackingSlipRequest request)

@@ -28,13 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             panel1 = new Panel();
             label1 = new Label();
             panel3 = new Panel();
             panel6 = new Panel();
             panel11 = new Panel();
             panel10 = new Panel();
+            btnPendingPackingSlips = new Button();
             btnClear = new Button();
             btnClose = new Button();
             btnSave = new Button();
@@ -43,6 +44,9 @@
             btnUpdate = new Button();
             btnRemoved = new Button();
             panel5 = new Panel();
+            panel8 = new Panel();
+            label6 = new Label();
+            cmbSalesPerson = new ComboBox();
             txtBarcodeScanner = new TextBox();
             label5 = new Label();
             panel4 = new Panel();
@@ -70,20 +74,17 @@
             Total = new DataGridViewTextBoxColumn();
             AvailableQty = new DataGridViewTextBoxColumn();
             GstValue = new DataGridViewTextBoxColumn();
-            panel8 = new Panel();
-            cmbSalesPerson = new ComboBox();
-            label6 = new Label();
             panel1.SuspendLayout();
             panel3.SuspendLayout();
             panel6.SuspendLayout();
             panel10.SuspendLayout();
             panel5.SuspendLayout();
+            panel8.SuspendLayout();
             panel4.SuspendLayout();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridPackingSlip).BeginInit();
-            panel8.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
@@ -141,6 +142,7 @@
             // panel10
             // 
             panel10.BackColor = Color.White;
+            panel10.Controls.Add(btnPendingPackingSlips);
             panel10.Controls.Add(btnClear);
             panel10.Controls.Add(btnClose);
             panel10.Controls.Add(btnSave);
@@ -154,12 +156,23 @@
             panel10.Size = new Size(1174, 61);
             panel10.TabIndex = 10;
             // 
+            // btnPendingPackingSlips
+            // 
+            btnPendingPackingSlips.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnPendingPackingSlips.Location = new Point(733, 6);
+            btnPendingPackingSlips.Name = "btnPendingPackingSlips";
+            btnPendingPackingSlips.Size = new Size(179, 48);
+            btnPendingPackingSlips.TabIndex = 12;
+            btnPendingPackingSlips.Text = "Pending Packing Slip List";
+            btnPendingPackingSlips.UseVisualStyleBackColor = true;
+            btnPendingPackingSlips.Click += btnPendingPackingSlips_Click;
+            // 
             // btnClear
             // 
             btnClear.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            btnClear.Location = new Point(163, 4);
+            btnClear.Location = new Point(122, 5);
             btnClear.Name = "btnClear";
-            btnClear.Size = new Size(165, 50);
+            btnClear.Size = new Size(106, 50);
             btnClear.TabIndex = 11;
             btnClear.Text = "Clear";
             btnClear.UseVisualStyleBackColor = true;
@@ -168,9 +181,9 @@
             // btnClose
             // 
             btnClose.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            btnClose.Location = new Point(502, 5);
+            btnClose.Location = new Point(405, 5);
             btnClose.Name = "btnClose";
-            btnClose.Size = new Size(165, 50);
+            btnClose.Size = new Size(99, 50);
             btnClose.TabIndex = 10;
             btnClose.Text = "Close";
             btnClose.UseVisualStyleBackColor = true;
@@ -181,9 +194,9 @@
             btnSave.BackColor = Color.FromArgb(192, 192, 255);
             btnSave.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnSave.ForeColor = Color.Blue;
-            btnSave.Location = new Point(671, 6);
+            btnSave.Location = new Point(513, 6);
             btnSave.Name = "btnSave";
-            btnSave.Size = new Size(159, 48);
+            btnSave.Size = new Size(88, 48);
             btnSave.TabIndex = 3;
             btnSave.Text = "Save";
             btnSave.UseVisualStyleBackColor = false;
@@ -194,7 +207,7 @@
             btnDelete.BackColor = Color.FromArgb(255, 192, 192);
             btnDelete.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnDelete.ForeColor = Color.Red;
-            btnDelete.Location = new Point(1003, 5);
+            btnDelete.Location = new Point(919, 5);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(159, 48);
             btnDelete.TabIndex = 9;
@@ -207,7 +220,7 @@
             btnVisitor.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnVisitor.Location = new Point(6, 6);
             btnVisitor.Name = "btnVisitor";
-            btnVisitor.Size = new Size(151, 50);
+            btnVisitor.Size = new Size(109, 50);
             btnVisitor.TabIndex = 4;
             btnVisitor.Text = "Visitor";
             btnVisitor.UseVisualStyleBackColor = true;
@@ -216,9 +229,9 @@
             // btnUpdate
             // 
             btnUpdate.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            btnUpdate.Location = new Point(835, 5);
+            btnUpdate.Location = new Point(607, 5);
             btnUpdate.Name = "btnUpdate";
-            btnUpdate.Size = new Size(159, 48);
+            btnUpdate.Size = new Size(120, 48);
             btnUpdate.TabIndex = 8;
             btnUpdate.Text = "Edit Bill";
             btnUpdate.UseVisualStyleBackColor = true;
@@ -227,7 +240,7 @@
             // btnRemoved
             // 
             btnRemoved.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            btnRemoved.Location = new Point(334, 5);
+            btnRemoved.Location = new Point(234, 5);
             btnRemoved.Name = "btnRemoved";
             btnRemoved.Size = new Size(165, 50);
             btnRemoved.TabIndex = 7;
@@ -247,6 +260,36 @@
             panel5.Name = "panel5";
             panel5.Size = new Size(1174, 50);
             panel5.TabIndex = 3;
+            // 
+            // panel8
+            // 
+            panel8.Controls.Add(label6);
+            panel8.Controls.Add(cmbSalesPerson);
+            panel8.Dock = DockStyle.Right;
+            panel8.Location = new Point(731, 0);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(439, 46);
+            panel8.TabIndex = 5;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI", 11.25F);
+            label6.ForeColor = Color.White;
+            label6.Location = new Point(30, 11);
+            label6.Name = "label6";
+            label6.Size = new Size(134, 20);
+            label6.TabIndex = 1;
+            label6.Text = "Select Sales Person";
+            // 
+            // cmbSalesPerson
+            // 
+            cmbSalesPerson.Font = new Font("Segoe UI", 11.25F);
+            cmbSalesPerson.FormattingEnabled = true;
+            cmbSalesPerson.Location = new Point(184, 7);
+            cmbSalesPerson.Name = "cmbSalesPerson";
+            cmbSalesPerson.Size = new Size(240, 28);
+            cmbSalesPerson.TabIndex = 0;
             // 
             // txtBarcodeScanner
             // 
@@ -439,14 +482,14 @@
             dataGridPackingSlip.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridPackingSlip.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridPackingSlip.Columns.AddRange(new DataGridViewColumn[] { Id, Barcode, ProductCategory, Product, Quantity, Amount, Total, AvailableQty, GstValue });
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dataGridPackingSlip.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Window;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
+            dataGridPackingSlip.DefaultCellStyle = dataGridViewCellStyle1;
             dataGridPackingSlip.Dock = DockStyle.Fill;
             dataGridPackingSlip.Location = new Point(0, 0);
             dataGridPackingSlip.Name = "dataGridPackingSlip";
@@ -510,36 +553,6 @@
             GstValue.Name = "GstValue";
             GstValue.ReadOnly = true;
             // 
-            // panel8
-            // 
-            panel8.Controls.Add(label6);
-            panel8.Controls.Add(cmbSalesPerson);
-            panel8.Dock = DockStyle.Right;
-            panel8.Location = new Point(731, 0);
-            panel8.Name = "panel8";
-            panel8.Size = new Size(439, 46);
-            panel8.TabIndex = 5;
-            // 
-            // cmbSalesPerson
-            // 
-            cmbSalesPerson.Font = new Font("Segoe UI", 11.25F);
-            cmbSalesPerson.FormattingEnabled = true;
-            cmbSalesPerson.Location = new Point(184, 7);
-            cmbSalesPerson.Name = "cmbSalesPerson";
-            cmbSalesPerson.Size = new Size(240, 28);
-            cmbSalesPerson.TabIndex = 0;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI", 11.25F);
-            label6.ForeColor = Color.White;
-            label6.Location = new Point(30, 11);
-            label6.Name = "label6";
-            label6.Size = new Size(134, 20);
-            label6.TabIndex = 1;
-            label6.Text = "Select Sales Person";
-            // 
             // FrmPackingSlip
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -561,6 +574,8 @@
             panel10.ResumeLayout(false);
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
+            panel8.ResumeLayout(false);
+            panel8.PerformLayout();
             panel4.ResumeLayout(false);
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
@@ -568,8 +583,6 @@
             groupBox2.PerformLayout();
             panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)dataGridPackingSlip).EndInit();
-            panel8.ResumeLayout(false);
-            panel8.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -622,5 +635,6 @@
         private Panel panel8;
         private Label label6;
         private ComboBox cmbSalesPerson;
+        private Button btnPendingPackingSlips;
     }
 }

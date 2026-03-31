@@ -1,4 +1,5 @@
-﻿using CoreOffice.Win.Shared;
+﻿using CoreOffice.Win.Modules.Shared;
+using CoreOffice.Win.Shared;
 using CoreOfficeERP.Application.Interfaces;
 using CoreOfficeERP.Common.Enums;
 using CoreOfficeERP.Domain.Requests.PackingSlip;
@@ -22,15 +23,15 @@ namespace CoreOffice.Win.Modules.PackingSlip
         private string _selectedBarcode;
         private int _selectedQty;
 
-        public  FrmPackingSlip(IPackingSlipService packingSlipService,
+        public FrmPackingSlip(IPackingSlipService packingSlipService,
             IServiceProvider serviceProvider,
-            IStockService stockService,ISalesPersonService salesPersonService)
+            IStockService stockService, ISalesPersonService salesPersonService)
         {
             InitializeComponent();
-            
+
             cmbSalesPerson.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
             cmbSalesPerson.AutoCompleteSource = AutoCompleteSource.ListItems;
-           
+
             _packingSlipService = packingSlipService;
             _serviceProvider = serviceProvider;
             _stockService = stockService;
@@ -49,13 +50,13 @@ namespace CoreOffice.Win.Modules.PackingSlip
             if (salesPersons != null && salesPersons.Any())
             {
                 // ✅ Insert blank option on top
-            salesPersons.Insert(0, new SalePersonResponse
+                salesPersons.Insert(0, new SalePersonResponse
                 {
                     Id = null,
                     Name = "",
                     PhoneNumber = "",
                     StateId = 0,
-                    StateName ="",
+                    StateName = "",
                     CityId = 0,
                     CityName = "",
                     Address = "",
@@ -69,7 +70,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
             }
         }
 
-       
+
 
         private void FormSetting()
         {
@@ -101,7 +102,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
 
         private async void FrmPackingSlip_Load(object sender, EventArgs e)
         {
-           await LoadSalesPersons();
+            await LoadSalesPersons();
         }
 
 
@@ -238,11 +239,14 @@ namespace CoreOffice.Win.Modules.PackingSlip
                 txtBarcodeScanner.Clear();
                 return;
             }
+
+
             if (stockItems.Count() > 1)
             {
-                var productNames = string.Join(", ", stockItems.Select(s => s.ProductName));
-                MessageBox.Show($"Multiple products found for barcode {barcode}: {productNames}");
-                txtBarcodeScanner.Clear();
+                var frm = new FrmMultipleStockProduct();
+                frm.frm = this;
+                frm.StockResponseList = stockItems.ToList();
+                frm.ShowDialog();
                 return;
             }
 
@@ -260,6 +264,11 @@ namespace CoreOffice.Win.Modules.PackingSlip
 
             e.SuppressKeyPress = true;
 
+            new FrmProductQty(this, item).ShowDialog();
+        }
+
+        public void AddSingleItemToGrid(CurrentStockResponse item)
+        {
             new FrmProductQty(this, item).ShowDialog();
         }
 
@@ -338,12 +347,12 @@ namespace CoreOffice.Win.Modules.PackingSlip
             {
                 AppLoader.Show();
 
-             
+
 
                 if (dataGridPackingSlip.Rows.Count == 0)
                 {
                     MessageBox.Show("Add items first");
-                    
+
                     return;
                 }
 
@@ -432,8 +441,8 @@ namespace CoreOffice.Win.Modules.PackingSlip
             SetVisitorInfo(
                response.Visitor);
 
-            if(response.SalesPersonId!=null)
-            cmbSalesPerson.SelectedValue = response.SalesPersonId.Value;
+            if (response.SalesPersonId != null)
+                cmbSalesPerson.SelectedValue = response.SalesPersonId.Value;
 
             // Load Items into Grid
             foreach (var item in response.Items)
@@ -585,6 +594,13 @@ namespace CoreOffice.Win.Modules.PackingSlip
                 return;
 
             OpenQtyPopup();
+        }
+
+        private void btnPendingPackingSlips_Click(object sender, EventArgs e)
+        {
+            var childForm = _serviceProvider.GetRequiredService<PendingPackingSlipForm>();
+            childForm._frmPackingSlip = this;
+            childForm.ShowDialog();
         }
     }
 
