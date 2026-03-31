@@ -31,17 +31,17 @@
             panel1 = new Panel();
             panel2 = new Panel();
             dataGrid = new DataGridView();
-            panel3 = new Panel();
-            TotalAmount = new DataGridViewTextBoxColumn();
-            Quantity = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
-            Visitor = new DataGridViewTextBoxColumn();
-            Date = new DataGridViewTextBoxColumn();
             Id = new DataGridViewTextBoxColumn();
-            btnPrint = new Button();
-            btnDelete = new Button();
-            btnEdit = new Button();
+            Date = new DataGridViewTextBoxColumn();
+            Visitor = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
+            Quantity = new DataGridViewTextBoxColumn();
+            TotalAmount = new DataGridViewTextBoxColumn();
+            panel3 = new Panel();
             btnShow = new Button();
+            btnEdit = new Button();
+            btnDelete = new Button();
+            btnPrint = new Button();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGrid).BeginInit();
             panel3.SuspendLayout();
@@ -77,6 +77,46 @@
             dataGrid.TabIndex = 0;
             dataGrid.CellContentClick += dataGrid_CellContentClick;
             // 
+            // Id
+            // 
+            Id.HeaderText = "Id";
+            Id.Name = "Id";
+            Id.ReadOnly = true;
+            Id.Visible = false;
+            // 
+            // Date
+            // 
+            Date.FillWeight = 12.6903543F;
+            Date.HeaderText = "Date";
+            Date.Name = "Date";
+            // 
+            // Visitor
+            // 
+            Visitor.FillWeight = 121.827477F;
+            Visitor.HeaderText = "Visitor";
+            Visitor.Name = "Visitor";
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            dataGridViewTextBoxColumn1.FillWeight = 121.827477F;
+            dataGridViewTextBoxColumn1.HeaderText = "Slip No";
+            dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // Quantity
+            // 
+            Quantity.FillWeight = 121.827477F;
+            Quantity.HeaderText = "Quantity";
+            Quantity.Name = "Quantity";
+            Quantity.ReadOnly = true;
+            // 
+            // TotalAmount
+            // 
+            TotalAmount.FillWeight = 121.827477F;
+            TotalAmount.HeaderText = "TotalAmount";
+            TotalAmount.Name = "TotalAmount";
+            TotalAmount.ReadOnly = true;
+            // 
             // panel3
             // 
             panel3.Controls.Add(btnShow);
@@ -89,45 +129,35 @@
             panel3.Size = new Size(845, 49);
             panel3.TabIndex = 2;
             // 
-            // TotalAmount
+            // btnShow
             // 
-            TotalAmount.FillWeight = 121.827477F;
-            TotalAmount.HeaderText = "TotalAmount";
-            TotalAmount.Name = "TotalAmount";
-            TotalAmount.ReadOnly = true;
+            btnShow.Location = new Point(137, 7);
+            btnShow.Name = "btnShow";
+            btnShow.Size = new Size(117, 36);
+            btnShow.TabIndex = 3;
+            btnShow.Text = "Show Detail";
+            btnShow.UseVisualStyleBackColor = true;
+            btnShow.Click += btnShow_Click;
             // 
-            // Quantity
+            // btnEdit
             // 
-            Quantity.FillWeight = 121.827477F;
-            Quantity.HeaderText = "Quantity";
-            Quantity.Name = "Quantity";
-            Quantity.ReadOnly = true;
+            btnEdit.Location = new Point(383, 7);
+            btnEdit.Name = "btnEdit";
+            btnEdit.Size = new Size(117, 36);
+            btnEdit.TabIndex = 2;
+            btnEdit.Text = "Edit";
+            btnEdit.UseVisualStyleBackColor = true;
+            btnEdit.Click += btnEdit_Click;
             // 
-            // dataGridViewTextBoxColumn1
+            // btnDelete
             // 
-            dataGridViewTextBoxColumn1.FillWeight = 121.827477F;
-            dataGridViewTextBoxColumn1.HeaderText = "Slip No";
-            dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            dataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // Visitor
-            // 
-            Visitor.FillWeight = 121.827477F;
-            Visitor.HeaderText = "Visitor";
-            Visitor.Name = "Visitor";
-            // 
-            // Date
-            // 
-            Date.FillWeight = 12.6903543F;
-            Date.HeaderText = "Date";
-            Date.Name = "Date";
-            // 
-            // Id
-            // 
-            Id.HeaderText = "Id";
-            Id.Name = "Id";
-            Id.ReadOnly = true;
-            Id.Visible = false;
+            btnDelete.Location = new Point(260, 7);
+            btnDelete.Name = "btnDelete";
+            btnDelete.Size = new Size(117, 36);
+            btnDelete.TabIndex = 1;
+            btnDelete.Text = "Delete";
+            btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
             // 
             // btnPrint
             // 
@@ -138,36 +168,6 @@
             btnPrint.Text = "Print";
             btnPrint.UseVisualStyleBackColor = true;
             btnPrint.Click += btnPrint_Click;
-            // 
-            // btnDelete
-            // 
-            btnDelete.Location = new Point(139, 7);
-            btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(117, 36);
-            btnDelete.TabIndex = 1;
-            btnDelete.Text = "Delete";
-            btnDelete.UseVisualStyleBackColor = true;
-            btnDelete.Click += btnDelete_Click;
-            // 
-            // btnEdit
-            // 
-            btnEdit.Location = new Point(262, 7);
-            btnEdit.Name = "btnEdit";
-            btnEdit.Size = new Size(117, 36);
-            btnEdit.TabIndex = 2;
-            btnEdit.Text = "Edit";
-            btnEdit.UseVisualStyleBackColor = true;
-            btnEdit.Click += btnEdit_Click;
-            // 
-            // btnShow
-            // 
-            btnShow.Location = new Point(385, 7);
-            btnShow.Name = "btnShow";
-            btnShow.Size = new Size(117, 36);
-            btnShow.TabIndex = 3;
-            btnShow.Text = "Show Detail";
-            btnShow.UseVisualStyleBackColor = true;
-            btnShow.Click += btnShow_Click;
             // 
             // PendingPackingSlipForm
             // 

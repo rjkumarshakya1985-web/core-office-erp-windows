@@ -1,4 +1,5 @@
 ﻿using CoreOffice.Win.Modules.MasterData;
+using CoreOffice.Win.Modules.Shared;
 using CoreOffice.Win.Session;
 using CoreOffice.Win.Shared;
 using CoreOfficeERP.Application.Interfaces;
@@ -366,12 +367,12 @@ namespace CoreOffice.Win.Modules.Cashier
         {
             if (CustomerId != null) return;
 
-                if (VisitorId == null)
-                {
-                    MessageBox.Show("Visitor is required.", "Validation",
-                        MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    return;
-                }
+            if (VisitorId == null)
+            {
+                MessageBox.Show("Visitor is required.", "Validation",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
 
 
             var childForm = _serviceProvider.GetRequiredService<VistiorCustomerForm>();
@@ -386,6 +387,58 @@ namespace CoreOffice.Win.Modules.Cashier
             CustomerId = customerResponse.Id;
             lblCustomerName.Text = customerResponse.Name;
             lblCustomerMobile.Text = customerResponse.Mobile;
+        }
+
+        private void OpenPackingSlipForm()
+        {
+            if (dataGridInvoice.CurrentRow == null)
+            {
+                MessageBox.Show("Please select a row");
+                return;
+            }
+
+            
+            if (!dataGridInvoice.Columns.Contains("PackingSlip"))
+            {
+                MessageBox.Show("PackingSlip column not found");
+                return;
+            }
+
+            var cellValue = dataGridInvoice.CurrentRow.Cells["PackingSlip"].Value;
+
+            
+            if (cellValue == null || string.IsNullOrWhiteSpace(cellValue.ToString()))
+            {
+                MessageBox.Show("Invalid Packing Slip Number");
+                return;
+            }
+
+            var packingSlipNumber = cellValue.ToString();
+
+           
+            var form = new PackingSlipViewForm(_packingSlipService)
+            {
+                PackingSlipNumber = packingSlipNumber
+            };
+
+            form.ShowDialog();
+        }
+
+        private void dataGridInvoice_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if(e.RowIndex < 0) return; // header row check
+            OpenPackingSlipForm();
+        }
+
+        private void dataGridInvoice_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.Handled = true;       // beep sound avoid
+                e.SuppressKeyPress = true;
+
+                OpenPackingSlipForm();
+            }
         }
     }
 }

@@ -64,7 +64,7 @@
             btnVisitor = new Button();
             dataGridInvoice = new DataGridView();
             Id = new DataGridViewTextBoxColumn();
-            PackingSlip = new DataGridViewTextBoxColumn();
+            PackingSlip = new DataGridViewLinkColumn();
             Qty = new DataGridViewTextBoxColumn();
             Total = new DataGridViewTextBoxColumn();
             panel1.SuspendLayout();
@@ -462,6 +462,8 @@
             dataGridInvoice.Name = "dataGridInvoice";
             dataGridInvoice.Size = new Size(979, 333);
             dataGridInvoice.TabIndex = 4;
+            dataGridInvoice.CellDoubleClick += dataGridInvoice_CellDoubleClick;
+            dataGridInvoice.KeyDown += dataGridInvoice_KeyDown;
             // 
             // Id
             // 
@@ -474,6 +476,8 @@
             PackingSlip.HeaderText = "PackingSlip No";
             PackingSlip.Name = "PackingSlip";
             PackingSlip.ReadOnly = true;
+            PackingSlip.Resizable = DataGridViewTriState.True;
+            PackingSlip.SortMode = DataGridViewColumnSortMode.Automatic;
             // 
             // Qty
             // 
@@ -556,10 +560,10 @@
         private Button btnClose;
         private Button btnSave;
         private Button btnDelete;
+        private Button btnCustomer;
         private DataGridViewTextBoxColumn Id;
-        private DataGridViewTextBoxColumn PackingSlip;
+        private DataGridViewLinkColumn PackingSlip;
         private DataGridViewTextBoxColumn Qty;
         private DataGridViewTextBoxColumn Total;
-        private Button btnCustomer;
     }
 }

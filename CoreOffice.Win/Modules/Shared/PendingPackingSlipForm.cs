@@ -96,10 +96,14 @@ namespace CoreOffice.Win.Modules.Shared
 
         private async void PendingPackingSlipForm_Load(object sender, EventArgs e)
         {
-            if(UserSession.RoleEnum == RoleEnum.Cashier)
+            
+            dataGrid.Columns["Date"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+            
+            if (UserSession.RoleEnum == RoleEnum.Cashier)
             {
                 btnDelete.Visible = false;
                 btnEdit.Visible = false;
+                this.WindowState = FormWindowState.Maximized;
             }
             await LoadPackingSlips();
         }

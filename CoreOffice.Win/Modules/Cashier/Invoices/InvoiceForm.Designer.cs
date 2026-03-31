@@ -34,6 +34,10 @@
             panel10 = new Panel();
             label4 = new Label();
             dataGridInvoice = new DataGridView();
+            Id = new DataGridViewTextBoxColumn();
+            PackingSlip = new DataGridViewLinkColumn();
+            Qty = new DataGridViewTextBoxColumn();
+            Total = new DataGridViewTextBoxColumn();
             panel8 = new Panel();
             lblCustomerMobile = new Label();
             label10 = new Label();
@@ -62,10 +66,6 @@
             btnSave = new Button();
             btnClear = new Button();
             btnVisitor = new Button();
-            Id = new DataGridViewTextBoxColumn();
-            PackingSlip = new DataGridViewLinkColumn();
-            Qty = new DataGridViewTextBoxColumn();
-            Total = new DataGridViewTextBoxColumn();
             panel1.SuspendLayout();
             panel10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridInvoice).BeginInit();
@@ -138,6 +138,35 @@
             dataGridInvoice.Name = "dataGridInvoice";
             dataGridInvoice.Size = new Size(917, 333);
             dataGridInvoice.TabIndex = 5;
+            dataGridInvoice.CellDoubleClick += dataGridInvoice_CellDoubleClick;
+            dataGridInvoice.KeyDown += dataGridInvoice_KeyDown;
+            // 
+            // Id
+            // 
+            Id.HeaderText = "Id";
+            Id.Name = "Id";
+            Id.ReadOnly = true;
+            Id.Visible = false;
+            // 
+            // PackingSlip
+            // 
+            PackingSlip.HeaderText = "PackingSlip No";
+            PackingSlip.Name = "PackingSlip";
+            PackingSlip.ReadOnly = true;
+            PackingSlip.Resizable = DataGridViewTriState.True;
+            PackingSlip.SortMode = DataGridViewColumnSortMode.Automatic;
+            // 
+            // Qty
+            // 
+            Qty.HeaderText = "Quantity";
+            Qty.Name = "Qty";
+            Qty.ReadOnly = true;
+            // 
+            // Total
+            // 
+            Total.HeaderText = "Total";
+            Total.Name = "Total";
+            Total.ReadOnly = true;
             // 
             // panel8
             // 
@@ -447,33 +476,6 @@
             btnVisitor.Text = "&Visitor";
             btnVisitor.UseVisualStyleBackColor = true;
             btnVisitor.Click += btnVisitor_Click;
-            // 
-            // Id
-            // 
-            Id.HeaderText = "Id";
-            Id.Name = "Id";
-            Id.ReadOnly = true;
-            Id.Visible = false;
-            // 
-            // PackingSlip
-            // 
-            PackingSlip.HeaderText = "PackingSlip No";
-            PackingSlip.Name = "PackingSlip";
-            PackingSlip.ReadOnly = true;
-            PackingSlip.Resizable = DataGridViewTriState.True;
-            PackingSlip.SortMode = DataGridViewColumnSortMode.Automatic;
-            // 
-            // Qty
-            // 
-            Qty.HeaderText = "Quantity";
-            Qty.Name = "Qty";
-            Qty.ReadOnly = true;
-            // 
-            // Total
-            // 
-            Total.HeaderText = "Total";
-            Total.Name = "Total";
-            Total.ReadOnly = true;
             // 
             // InvoiceForm
             // 

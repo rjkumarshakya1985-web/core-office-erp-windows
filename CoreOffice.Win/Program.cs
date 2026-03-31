@@ -43,6 +43,8 @@ namespace CoreOffice.Win
             services.AddTransient<VistiorCustomerForm>();
             services.AddTransient<DeliveryChallanToInvoiceForm>();
             services.AddTransient<PendingPackingSlipForm>();
+            services.AddTransient<PackingSlipViewForm>();
+            services.AddTransient<InvoiceListForm>();
 
             using var serviceProvider = services.BuildServiceProvider();
 
