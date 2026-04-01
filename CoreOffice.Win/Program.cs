@@ -34,17 +34,24 @@ namespace CoreOffice.Win
 
             services.AddTransient<Login>();
             services.AddTransient<FrmPackingSlip>();
-            services.AddTransient<DeliveryNoteForm>();
+           
             services.AddTransient<MDIPackingSlip>();
             services.AddTransient<MDICashierParent>();
             services.AddTransient<CompanySelectionForm>();
-            services.AddTransient<InvoiceForm>();
+
+            services.AddTransient<DeliveryNoteForm>();
             services.AddTransient<DeliveryChallanReturnDetailForm>();
-            services.AddTransient<VistiorCustomerForm>();
             services.AddTransient<DeliveryChallanToInvoiceForm>();
+            services.AddTransient<DeliveryChallanEditViewForm>();
+
+            services.AddTransient<VistiorCustomerForm>();
+         
             services.AddTransient<PendingPackingSlipForm>();
             services.AddTransient<PackingSlipViewForm>();
+
+            services.AddTransient<InvoiceForm>();
             services.AddTransient<InvoiceListForm>();
+            services.AddTransient<InvoiceSearchForm>();
 
             using var serviceProvider = services.BuildServiceProvider();
 

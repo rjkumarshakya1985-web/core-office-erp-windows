@@ -1,4 +1,6 @@
 ﻿
+using CoreOfficeERP.Common.Enums;
+
 namespace CoreOfficeERP.Domain.Responses.DeliveryChallan
 {
     public class DeliveryChallanReturnDetailResponse
@@ -8,6 +10,10 @@ namespace CoreOfficeERP.Domain.Responses.DeliveryChallan
         public Guid CustomerId { get; set; }
         public required string CustomerName { get; set; }
 
+        public int TotalQuantity { get; set; }
+        public decimal TotalAmount { get; set; }
+
+        public DeliveryChallanStatusEnum Status { get; set; }
         public List<DeliveryChallanReturnDetailItem> Items { get; set; } = new();
 
     }
@@ -28,5 +34,6 @@ namespace CoreOfficeERP.Domain.Responses.DeliveryChallan
 
         public int ReturnQty { get; set; }
 
+        public decimal Amount { get; set; }
     }
 }

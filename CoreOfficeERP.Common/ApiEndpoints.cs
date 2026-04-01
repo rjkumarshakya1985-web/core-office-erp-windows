@@ -12,8 +12,11 @@
 
         /// Delivery Challan
         public const string CreateDeliveryChallan = "deliverychallan";
+        public const string GetDeliveryChallanDetail = "deliverychallan/delivery-challan";
         public const string CreateDeliveryChallanReturn = "deliverychallan/delivery-challan/return";
         public const string GetDeliveryChallReturnDetail = "deliverychallan/delivery-challan/for-return";
+        public const string CancelDeliveryChallan = "deliverychallan/cancel";
+
 
         /// Sales
         public const string PendingPackingSlipsForBill = "packingslip/pending-packing-slips-for-bill";

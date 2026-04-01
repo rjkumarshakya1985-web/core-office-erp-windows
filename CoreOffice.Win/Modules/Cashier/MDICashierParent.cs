@@ -215,5 +215,21 @@ namespace CoreOffice.Win.Modules.Cashier
             childForm.Text = "Window " + childFormNumber++;
             childForm.Show();
         }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            var childForm = _serviceProvider.GetRequiredService<DeliveryChallanEditViewForm>();
+            childForm.MdiParent = this;
+            childForm.WindowState = FormWindowState.Maximized;
+            childForm.Text = "Window " + childFormNumber++;
+            childForm.Show();
+        }
+        
+
+        private void searchInvoiceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var childForm = _serviceProvider.GetRequiredService<InvoiceSearchForm>();
+            childForm.Show();
+        }
     }
 }

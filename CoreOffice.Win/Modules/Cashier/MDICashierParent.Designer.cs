@@ -35,11 +35,21 @@
             searchPackingSlipToolStripMenuItem = new ToolStripMenuItem();
             deliveryChallanToolStripMenuItem = new ToolStripMenuItem();
             createDeliveryChallanToolStripMenuItem = new ToolStripMenuItem();
+            toolStripMenuItem1 = new ToolStripMenuItem();
+            toolStripMenuItem2 = new ToolStripMenuItem();
+            toolStripSeparator1 = new ToolStripSeparator();
             returnDeliverChallanItemToolStripMenuItem = new ToolStripMenuItem();
+            searchChallanReturnToolStripMenuItem = new ToolStripMenuItem();
+            deliveryChallanReturnListToolStripMenuItem = new ToolStripMenuItem();
             invoiceToolStripMenuItem1 = new ToolStripMenuItem();
             deliveryChallanToInvoiceToolStripMenuItem = new ToolStripMenuItem();
             createInvoiceToolStripMenuItem1 = new ToolStripMenuItem();
             invoiceListToolStripMenuItem = new ToolStripMenuItem();
+            searchInvoiceToolStripMenuItem = new ToolStripMenuItem();
+            toolStripSeparator2 = new ToolStripSeparator();
+            createCreditNoteToolStripMenuItem = new ToolStripMenuItem();
+            creditNoteListToolStripMenuItem = new ToolStripMenuItem();
+            searchCreditNoteToolStripMenuItem = new ToolStripMenuItem();
             statusStrip = new StatusStrip();
             lblCompany = new ToolStripStatusLabel();
             toolTip = new ToolTip(components);
@@ -53,20 +63,10 @@
             button7 = new Button();
             button6 = new Button();
             button5 = new Button();
-            button4 = new Button();
-            button3 = new Button();
-            button2 = new Button();
-            button1 = new Button();
-            toolStripMenuItem1 = new ToolStripMenuItem();
-            toolStripMenuItem2 = new ToolStripMenuItem();
-            toolStripSeparator1 = new ToolStripSeparator();
-            searchChallanReturnToolStripMenuItem = new ToolStripMenuItem();
-            deliveryChallanReturnListToolStripMenuItem = new ToolStripMenuItem();
-            searchInvoiceToolStripMenuItem = new ToolStripMenuItem();
-            createCreditNoteToolStripMenuItem = new ToolStripMenuItem();
-            toolStripSeparator2 = new ToolStripSeparator();
-            creditNoteListToolStripMenuItem = new ToolStripMenuItem();
-            searchCreditNoteToolStripMenuItem = new ToolStripMenuItem();
+            btnCreateCreditNote = new Button();
+            btnCreateInvoice = new Button();
+            btnReturnDeliveryChallan = new Button();
+            btnCreateDeliveryChallan = new Button();
             menuStrip.SuspendLayout();
             statusStrip.SuspendLayout();
             panel1.SuspendLayout();
@@ -92,14 +92,14 @@
             // createInvoiceToolStripMenuItem
             // 
             createInvoiceToolStripMenuItem.Name = "createInvoiceToolStripMenuItem";
-            createInvoiceToolStripMenuItem.Size = new Size(176, 22);
+            createInvoiceToolStripMenuItem.Size = new Size(180, 22);
             createInvoiceToolStripMenuItem.Text = "Packing Slip List";
             createInvoiceToolStripMenuItem.Click += createInvoiceToolStripMenuItem_Click;
             // 
             // searchPackingSlipToolStripMenuItem
             // 
             searchPackingSlipToolStripMenuItem.Name = "searchPackingSlipToolStripMenuItem";
-            searchPackingSlipToolStripMenuItem.Size = new Size(176, 22);
+            searchPackingSlipToolStripMenuItem.Size = new Size(180, 22);
             searchPackingSlipToolStripMenuItem.Text = "Search Packing Slip";
             searchPackingSlipToolStripMenuItem.Click += searchPackingSlipToolStripMenuItem_Click;
             // 
@@ -113,16 +113,46 @@
             // createDeliveryChallanToolStripMenuItem
             // 
             createDeliveryChallanToolStripMenuItem.Name = "createDeliveryChallanToolStripMenuItem";
-            createDeliveryChallanToolStripMenuItem.Size = new Size(197, 22);
+            createDeliveryChallanToolStripMenuItem.Size = new Size(218, 22);
             createDeliveryChallanToolStripMenuItem.Text = "Create Delivery Challan";
             createDeliveryChallanToolStripMenuItem.Click += createDeliveryChallanToolStripMenuItem_Click;
+            // 
+            // toolStripMenuItem1
+            // 
+            toolStripMenuItem1.Name = "toolStripMenuItem1";
+            toolStripMenuItem1.Size = new Size(218, 22);
+            toolStripMenuItem1.Text = "Search Delivery Challan";
+            toolStripMenuItem1.Click += toolStripMenuItem1_Click;
+            // 
+            // toolStripMenuItem2
+            // 
+            toolStripMenuItem2.Name = "toolStripMenuItem2";
+            toolStripMenuItem2.Size = new Size(218, 22);
+            toolStripMenuItem2.Text = "Delivery Challan List";
+            // 
+            // toolStripSeparator1
+            // 
+            toolStripSeparator1.Name = "toolStripSeparator1";
+            toolStripSeparator1.Size = new Size(215, 6);
             // 
             // returnDeliverChallanItemToolStripMenuItem
             // 
             returnDeliverChallanItemToolStripMenuItem.Name = "returnDeliverChallanItemToolStripMenuItem";
-            returnDeliverChallanItemToolStripMenuItem.Size = new Size(197, 22);
+            returnDeliverChallanItemToolStripMenuItem.Size = new Size(218, 22);
             returnDeliverChallanItemToolStripMenuItem.Text = "Delivery Challan Return";
             returnDeliverChallanItemToolStripMenuItem.Click += returnDeliverChallanItemToolStripMenuItem_Click;
+            // 
+            // searchChallanReturnToolStripMenuItem
+            // 
+            searchChallanReturnToolStripMenuItem.Name = "searchChallanReturnToolStripMenuItem";
+            searchChallanReturnToolStripMenuItem.Size = new Size(218, 22);
+            searchChallanReturnToolStripMenuItem.Text = "Search Challan Return";
+            // 
+            // deliveryChallanReturnListToolStripMenuItem
+            // 
+            deliveryChallanReturnListToolStripMenuItem.Name = "deliveryChallanReturnListToolStripMenuItem";
+            deliveryChallanReturnListToolStripMenuItem.Size = new Size(218, 22);
+            deliveryChallanReturnListToolStripMenuItem.Text = "Delivery Challan Return List";
             // 
             // invoiceToolStripMenuItem1
             // 
@@ -152,6 +182,36 @@
             invoiceListToolStripMenuItem.Text = "Invoice List";
             invoiceListToolStripMenuItem.Click += invoiceListToolStripMenuItem_Click;
             // 
+            // searchInvoiceToolStripMenuItem
+            // 
+            searchInvoiceToolStripMenuItem.Name = "searchInvoiceToolStripMenuItem";
+            searchInvoiceToolStripMenuItem.Size = new Size(212, 22);
+            searchInvoiceToolStripMenuItem.Text = "Search Invoice ";
+            searchInvoiceToolStripMenuItem.Click += searchInvoiceToolStripMenuItem_Click;
+            // 
+            // toolStripSeparator2
+            // 
+            toolStripSeparator2.Name = "toolStripSeparator2";
+            toolStripSeparator2.Size = new Size(209, 6);
+            // 
+            // createCreditNoteToolStripMenuItem
+            // 
+            createCreditNoteToolStripMenuItem.Name = "createCreditNoteToolStripMenuItem";
+            createCreditNoteToolStripMenuItem.Size = new Size(212, 22);
+            createCreditNoteToolStripMenuItem.Text = "Create Credit Note";
+            // 
+            // creditNoteListToolStripMenuItem
+            // 
+            creditNoteListToolStripMenuItem.Name = "creditNoteListToolStripMenuItem";
+            creditNoteListToolStripMenuItem.Size = new Size(212, 22);
+            creditNoteListToolStripMenuItem.Text = "Credit Note List";
+            // 
+            // searchCreditNoteToolStripMenuItem
+            // 
+            searchCreditNoteToolStripMenuItem.Name = "searchCreditNoteToolStripMenuItem";
+            searchCreditNoteToolStripMenuItem.Size = new Size(212, 22);
+            searchCreditNoteToolStripMenuItem.Text = "Search Credit Note";
+            // 
             // statusStrip
             // 
             statusStrip.Items.AddRange(new ToolStripItem[] { lblCompany });
@@ -179,10 +239,10 @@
             panel1.Controls.Add(button7);
             panel1.Controls.Add(button6);
             panel1.Controls.Add(button5);
-            panel1.Controls.Add(button4);
-            panel1.Controls.Add(button3);
-            panel1.Controls.Add(button2);
-            panel1.Controls.Add(button1);
+            panel1.Controls.Add(btnCreateCreditNote);
+            panel1.Controls.Add(btnCreateInvoice);
+            panel1.Controls.Add(btnReturnDeliveryChallan);
+            panel1.Controls.Add(btnCreateDeliveryChallan);
             panel1.Dock = DockStyle.Right;
             panel1.Location = new Point(601, 24);
             panel1.Name = "panel1";
@@ -279,108 +339,53 @@
             button5.Text = "button5";
             button5.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // btnCreateCreditNote
             // 
-            button4.Dock = DockStyle.Top;
-            button4.Location = new Point(0, 96);
-            button4.Name = "button4";
-            button4.Size = new Size(136, 32);
-            button4.TabIndex = 3;
-            button4.Text = "button4";
-            button4.UseVisualStyleBackColor = true;
+            btnCreateCreditNote.Dock = DockStyle.Top;
+            btnCreateCreditNote.Location = new Point(0, 96);
+            btnCreateCreditNote.Name = "btnCreateCreditNote";
+            btnCreateCreditNote.Size = new Size(136, 32);
+            btnCreateCreditNote.TabIndex = 3;
+            btnCreateCreditNote.Text = "Create Credit Note";
+            btnCreateCreditNote.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // btnCreateInvoice
             // 
-            button3.Dock = DockStyle.Top;
-            button3.Location = new Point(0, 64);
-            button3.Name = "button3";
-            button3.Size = new Size(136, 32);
-            button3.TabIndex = 2;
-            button3.Text = "button3";
-            button3.UseVisualStyleBackColor = true;
+            btnCreateInvoice.Dock = DockStyle.Top;
+            btnCreateInvoice.Location = new Point(0, 64);
+            btnCreateInvoice.Name = "btnCreateInvoice";
+            btnCreateInvoice.Size = new Size(136, 32);
+            btnCreateInvoice.TabIndex = 2;
+            btnCreateInvoice.Text = "Create Invoice";
+            btnCreateInvoice.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // btnReturnDeliveryChallan
             // 
-            button2.Dock = DockStyle.Top;
-            button2.Location = new Point(0, 32);
-            button2.Name = "button2";
-            button2.Size = new Size(136, 32);
-            button2.TabIndex = 1;
-            button2.Text = "button2";
-            button2.UseVisualStyleBackColor = true;
+            btnReturnDeliveryChallan.Dock = DockStyle.Top;
+            btnReturnDeliveryChallan.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnReturnDeliveryChallan.Location = new Point(0, 32);
+            btnReturnDeliveryChallan.Name = "btnReturnDeliveryChallan";
+            btnReturnDeliveryChallan.Size = new Size(136, 32);
+            btnReturnDeliveryChallan.TabIndex = 1;
+            btnReturnDeliveryChallan.Text = "Return Delivery Challan";
+            btnReturnDeliveryChallan.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // btnCreateDeliveryChallan
             // 
-            button1.Dock = DockStyle.Top;
-            button1.Location = new Point(0, 0);
-            button1.Name = "button1";
-            button1.Size = new Size(136, 32);
-            button1.TabIndex = 0;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
-            // 
-            // toolStripMenuItem1
-            // 
-            toolStripMenuItem1.Name = "toolStripMenuItem1";
-            toolStripMenuItem1.Size = new Size(197, 22);
-            toolStripMenuItem1.Text = "Search Delivery Challan";
-            // 
-            // toolStripMenuItem2
-            // 
-            toolStripMenuItem2.Name = "toolStripMenuItem2";
-            toolStripMenuItem2.Size = new Size(218, 22);
-            toolStripMenuItem2.Text = "Delivery Challan List";
-            // 
-            // toolStripSeparator1
-            // 
-            toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(215, 6);
-            // 
-            // searchChallanReturnToolStripMenuItem
-            // 
-            searchChallanReturnToolStripMenuItem.Name = "searchChallanReturnToolStripMenuItem";
-            searchChallanReturnToolStripMenuItem.Size = new Size(218, 22);
-            searchChallanReturnToolStripMenuItem.Text = "Search Challan Return";
-            // 
-            // deliveryChallanReturnListToolStripMenuItem
-            // 
-            deliveryChallanReturnListToolStripMenuItem.Name = "deliveryChallanReturnListToolStripMenuItem";
-            deliveryChallanReturnListToolStripMenuItem.Size = new Size(218, 22);
-            deliveryChallanReturnListToolStripMenuItem.Text = "Delivery Challan Return List";
-            // 
-            // searchInvoiceToolStripMenuItem
-            // 
-            searchInvoiceToolStripMenuItem.Name = "searchInvoiceToolStripMenuItem";
-            searchInvoiceToolStripMenuItem.Size = new Size(212, 22);
-            searchInvoiceToolStripMenuItem.Text = "Search Invoice ";
-            // 
-            // createCreditNoteToolStripMenuItem
-            // 
-            createCreditNoteToolStripMenuItem.Name = "createCreditNoteToolStripMenuItem";
-            createCreditNoteToolStripMenuItem.Size = new Size(212, 22);
-            createCreditNoteToolStripMenuItem.Text = "Create Credit Note";
-            // 
-            // toolStripSeparator2
-            // 
-            toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(209, 6);
-            // 
-            // creditNoteListToolStripMenuItem
-            // 
-            creditNoteListToolStripMenuItem.Name = "creditNoteListToolStripMenuItem";
-            creditNoteListToolStripMenuItem.Size = new Size(212, 22);
-            creditNoteListToolStripMenuItem.Text = "Credit Note List";
-            // 
-            // searchCreditNoteToolStripMenuItem
-            // 
-            searchCreditNoteToolStripMenuItem.Name = "searchCreditNoteToolStripMenuItem";
-            searchCreditNoteToolStripMenuItem.Size = new Size(212, 22);
-            searchCreditNoteToolStripMenuItem.Text = "Search Credit Note";
+            btnCreateDeliveryChallan.Dock = DockStyle.Top;
+            btnCreateDeliveryChallan.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnCreateDeliveryChallan.Location = new Point(0, 0);
+            btnCreateDeliveryChallan.Name = "btnCreateDeliveryChallan";
+            btnCreateDeliveryChallan.Size = new Size(136, 32);
+            btnCreateDeliveryChallan.TabIndex = 0;
+            btnCreateDeliveryChallan.Text = "Create Delivery Challan";
+            btnCreateDeliveryChallan.UseVisualStyleBackColor = true;
             // 
             // MDICashierParent
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
             ClientSize = new Size(737, 523);
             Controls.Add(panel1);
             Controls.Add(statusStrip);
@@ -421,10 +426,10 @@
         private Button button7;
         private Button button6;
         private Button button5;
-        private Button button4;
-        private Button button3;
-        private Button button2;
-        private Button button1;
+        private Button btnCreateCreditNote;
+        private Button btnCreateInvoice;
+        private Button btnReturnDeliveryChallan;
+        private Button btnCreateDeliveryChallan;
         private ToolStripMenuItem deliveryChallanToolStripMenuItem;
         private ToolStripMenuItem createDeliveryChallanToolStripMenuItem;
         private ToolStripMenuItem returnDeliverChallanItemToolStripMenuItem;
