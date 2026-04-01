@@ -54,19 +54,22 @@
             lblCompany = new ToolStripStatusLabel();
             toolTip = new ToolTip(components);
             panel1 = new Panel();
-            button13 = new Button();
-            button12 = new Button();
-            button11 = new Button();
-            button10 = new Button();
-            button9 = new Button();
-            button8 = new Button();
-            button7 = new Button();
-            button6 = new Button();
-            button5 = new Button();
-            btnCreateCreditNote = new Button();
-            btnCreateInvoice = new Button();
             btnReturnDeliveryChallan = new Button();
             btnCreateDeliveryChallan = new Button();
+            button1 = new Button();
+            button2 = new Button();
+            button3 = new Button();
+            button4 = new Button();
+            button5 = new Button();
+            button6 = new Button();
+            button7 = new Button();
+            button8 = new Button();
+            button9 = new Button();
+            button10 = new Button();
+            button11 = new Button();
+            button12 = new Button();
+            button13 = new Button();
+            button14 = new Button();
             menuStrip.SuspendLayout();
             statusStrip.SuspendLayout();
             panel1.SuspendLayout();
@@ -92,14 +95,14 @@
             // createInvoiceToolStripMenuItem
             // 
             createInvoiceToolStripMenuItem.Name = "createInvoiceToolStripMenuItem";
-            createInvoiceToolStripMenuItem.Size = new Size(180, 22);
+            createInvoiceToolStripMenuItem.Size = new Size(176, 22);
             createInvoiceToolStripMenuItem.Text = "Packing Slip List";
             createInvoiceToolStripMenuItem.Click += createInvoiceToolStripMenuItem_Click;
             // 
             // searchPackingSlipToolStripMenuItem
             // 
             searchPackingSlipToolStripMenuItem.Name = "searchPackingSlipToolStripMenuItem";
-            searchPackingSlipToolStripMenuItem.Size = new Size(180, 22);
+            searchPackingSlipToolStripMenuItem.Size = new Size(176, 22);
             searchPackingSlipToolStripMenuItem.Text = "Search Packing Slip";
             searchPackingSlipToolStripMenuItem.Click += searchPackingSlipToolStripMenuItem_Click;
             // 
@@ -231,16 +234,19 @@
             // panel1
             // 
             panel1.Controls.Add(button13);
-            panel1.Controls.Add(button12);
+            panel1.Controls.Add(button14);
             panel1.Controls.Add(button11);
-            panel1.Controls.Add(button10);
+            panel1.Controls.Add(button12);
             panel1.Controls.Add(button9);
-            panel1.Controls.Add(button8);
+            panel1.Controls.Add(button10);
             panel1.Controls.Add(button7);
-            panel1.Controls.Add(button6);
+            panel1.Controls.Add(button8);
             panel1.Controls.Add(button5);
-            panel1.Controls.Add(btnCreateCreditNote);
-            panel1.Controls.Add(btnCreateInvoice);
+            panel1.Controls.Add(button6);
+            panel1.Controls.Add(button3);
+            panel1.Controls.Add(button4);
+            panel1.Controls.Add(button1);
+            panel1.Controls.Add(button2);
             panel1.Controls.Add(btnReturnDeliveryChallan);
             panel1.Controls.Add(btnCreateDeliveryChallan);
             panel1.Dock = DockStyle.Right;
@@ -249,126 +255,17 @@
             panel1.Size = new Size(136, 477);
             panel1.TabIndex = 4;
             // 
-            // button13
-            // 
-            button13.Dock = DockStyle.Top;
-            button13.Location = new Point(0, 384);
-            button13.Name = "button13";
-            button13.Size = new Size(136, 32);
-            button13.TabIndex = 12;
-            button13.Text = "button13";
-            button13.UseVisualStyleBackColor = true;
-            // 
-            // button12
-            // 
-            button12.Dock = DockStyle.Top;
-            button12.Location = new Point(0, 352);
-            button12.Name = "button12";
-            button12.Size = new Size(136, 32);
-            button12.TabIndex = 11;
-            button12.Text = "button12";
-            button12.UseVisualStyleBackColor = true;
-            // 
-            // button11
-            // 
-            button11.Dock = DockStyle.Top;
-            button11.Location = new Point(0, 320);
-            button11.Name = "button11";
-            button11.Size = new Size(136, 32);
-            button11.TabIndex = 10;
-            button11.Text = "button11";
-            button11.UseVisualStyleBackColor = true;
-            // 
-            // button10
-            // 
-            button10.Dock = DockStyle.Top;
-            button10.Location = new Point(0, 288);
-            button10.Name = "button10";
-            button10.Size = new Size(136, 32);
-            button10.TabIndex = 9;
-            button10.Text = "button10";
-            button10.UseVisualStyleBackColor = true;
-            // 
-            // button9
-            // 
-            button9.Dock = DockStyle.Top;
-            button9.Location = new Point(0, 256);
-            button9.Name = "button9";
-            button9.Size = new Size(136, 32);
-            button9.TabIndex = 8;
-            button9.Text = "button9";
-            button9.UseVisualStyleBackColor = true;
-            // 
-            // button8
-            // 
-            button8.Dock = DockStyle.Top;
-            button8.Location = new Point(0, 224);
-            button8.Name = "button8";
-            button8.Size = new Size(136, 32);
-            button8.TabIndex = 7;
-            button8.Text = "button8";
-            button8.UseVisualStyleBackColor = true;
-            // 
-            // button7
-            // 
-            button7.Dock = DockStyle.Top;
-            button7.Location = new Point(0, 192);
-            button7.Name = "button7";
-            button7.Size = new Size(136, 32);
-            button7.TabIndex = 6;
-            button7.Text = "button7";
-            button7.UseVisualStyleBackColor = true;
-            // 
-            // button6
-            // 
-            button6.Dock = DockStyle.Top;
-            button6.Location = new Point(0, 160);
-            button6.Name = "button6";
-            button6.Size = new Size(136, 32);
-            button6.TabIndex = 5;
-            button6.Text = "button6";
-            button6.UseVisualStyleBackColor = true;
-            // 
-            // button5
-            // 
-            button5.Dock = DockStyle.Top;
-            button5.Location = new Point(0, 128);
-            button5.Name = "button5";
-            button5.Size = new Size(136, 32);
-            button5.TabIndex = 4;
-            button5.Text = "button5";
-            button5.UseVisualStyleBackColor = true;
-            // 
-            // btnCreateCreditNote
-            // 
-            btnCreateCreditNote.Dock = DockStyle.Top;
-            btnCreateCreditNote.Location = new Point(0, 96);
-            btnCreateCreditNote.Name = "btnCreateCreditNote";
-            btnCreateCreditNote.Size = new Size(136, 32);
-            btnCreateCreditNote.TabIndex = 3;
-            btnCreateCreditNote.Text = "Create Credit Note";
-            btnCreateCreditNote.UseVisualStyleBackColor = true;
-            // 
-            // btnCreateInvoice
-            // 
-            btnCreateInvoice.Dock = DockStyle.Top;
-            btnCreateInvoice.Location = new Point(0, 64);
-            btnCreateInvoice.Name = "btnCreateInvoice";
-            btnCreateInvoice.Size = new Size(136, 32);
-            btnCreateInvoice.TabIndex = 2;
-            btnCreateInvoice.Text = "Create Invoice";
-            btnCreateInvoice.UseVisualStyleBackColor = true;
-            // 
             // btnReturnDeliveryChallan
             // 
+            btnReturnDeliveryChallan.BackColor = Color.Silver;
             btnReturnDeliveryChallan.Dock = DockStyle.Top;
             btnReturnDeliveryChallan.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnReturnDeliveryChallan.Location = new Point(0, 32);
             btnReturnDeliveryChallan.Name = "btnReturnDeliveryChallan";
             btnReturnDeliveryChallan.Size = new Size(136, 32);
             btnReturnDeliveryChallan.TabIndex = 1;
-            btnReturnDeliveryChallan.Text = "Return Delivery Challan";
-            btnReturnDeliveryChallan.UseVisualStyleBackColor = true;
+            btnReturnDeliveryChallan.Text = "Cancel Delivery Challan";
+            btnReturnDeliveryChallan.UseVisualStyleBackColor = false;
             // 
             // btnCreateDeliveryChallan
             // 
@@ -380,6 +277,167 @@
             btnCreateDeliveryChallan.TabIndex = 0;
             btnCreateDeliveryChallan.Text = "Create Delivery Challan";
             btnCreateDeliveryChallan.UseVisualStyleBackColor = true;
+            // 
+            // button1
+            // 
+            button1.BackColor = Color.Silver;
+            button1.Dock = DockStyle.Top;
+            button1.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button1.Location = new Point(0, 96);
+            button1.Name = "button1";
+            button1.Size = new Size(136, 32);
+            button1.TabIndex = 3;
+            button1.Text = "Cancel Delivery Challan";
+            button1.UseVisualStyleBackColor = false;
+            // 
+            // button2
+            // 
+            button2.Dock = DockStyle.Top;
+            button2.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button2.Location = new Point(0, 64);
+            button2.Name = "button2";
+            button2.Size = new Size(136, 32);
+            button2.TabIndex = 2;
+            button2.Text = "Create Delivery Challan";
+            button2.UseVisualStyleBackColor = true;
+            // 
+            // button3
+            // 
+            button3.BackColor = Color.Silver;
+            button3.Dock = DockStyle.Top;
+            button3.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button3.Location = new Point(0, 160);
+            button3.Name = "button3";
+            button3.Size = new Size(136, 32);
+            button3.TabIndex = 5;
+            button3.Text = "Cancel Delivery Challan";
+            button3.UseVisualStyleBackColor = false;
+            // 
+            // button4
+            // 
+            button4.Dock = DockStyle.Top;
+            button4.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button4.Location = new Point(0, 128);
+            button4.Name = "button4";
+            button4.Size = new Size(136, 32);
+            button4.TabIndex = 4;
+            button4.Text = "Create Delivery Challan";
+            button4.UseVisualStyleBackColor = true;
+            // 
+            // button5
+            // 
+            button5.BackColor = Color.Silver;
+            button5.Dock = DockStyle.Top;
+            button5.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button5.Location = new Point(0, 224);
+            button5.Name = "button5";
+            button5.Size = new Size(136, 32);
+            button5.TabIndex = 7;
+            button5.Text = "Cancel Delivery Challan";
+            button5.UseVisualStyleBackColor = false;
+            // 
+            // button6
+            // 
+            button6.Dock = DockStyle.Top;
+            button6.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button6.Location = new Point(0, 192);
+            button6.Name = "button6";
+            button6.Size = new Size(136, 32);
+            button6.TabIndex = 6;
+            button6.Text = "Create Delivery Challan";
+            button6.UseVisualStyleBackColor = true;
+            // 
+            // button7
+            // 
+            button7.BackColor = Color.Silver;
+            button7.Dock = DockStyle.Top;
+            button7.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button7.Location = new Point(0, 288);
+            button7.Name = "button7";
+            button7.Size = new Size(136, 32);
+            button7.TabIndex = 9;
+            button7.Text = "Cancel Delivery Challan";
+            button7.UseVisualStyleBackColor = false;
+            // 
+            // button8
+            // 
+            button8.Dock = DockStyle.Top;
+            button8.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button8.Location = new Point(0, 256);
+            button8.Name = "button8";
+            button8.Size = new Size(136, 32);
+            button8.TabIndex = 8;
+            button8.Text = "Create Delivery Challan";
+            button8.UseVisualStyleBackColor = true;
+            // 
+            // button9
+            // 
+            button9.BackColor = Color.Silver;
+            button9.Dock = DockStyle.Top;
+            button9.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button9.Location = new Point(0, 352);
+            button9.Name = "button9";
+            button9.Size = new Size(136, 32);
+            button9.TabIndex = 11;
+            button9.Text = "Cancel Delivery Challan";
+            button9.UseVisualStyleBackColor = false;
+            // 
+            // button10
+            // 
+            button10.Dock = DockStyle.Top;
+            button10.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button10.Location = new Point(0, 320);
+            button10.Name = "button10";
+            button10.Size = new Size(136, 32);
+            button10.TabIndex = 10;
+            button10.Text = "Create Delivery Challan";
+            button10.UseVisualStyleBackColor = true;
+            // 
+            // button11
+            // 
+            button11.BackColor = Color.Silver;
+            button11.Dock = DockStyle.Top;
+            button11.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button11.Location = new Point(0, 416);
+            button11.Name = "button11";
+            button11.Size = new Size(136, 32);
+            button11.TabIndex = 13;
+            button11.Text = "Cancel Delivery Challan";
+            button11.UseVisualStyleBackColor = false;
+            // 
+            // button12
+            // 
+            button12.Dock = DockStyle.Top;
+            button12.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button12.Location = new Point(0, 384);
+            button12.Name = "button12";
+            button12.Size = new Size(136, 32);
+            button12.TabIndex = 12;
+            button12.Text = "Create Delivery Challan";
+            button12.UseVisualStyleBackColor = true;
+            // 
+            // button13
+            // 
+            button13.BackColor = Color.Silver;
+            button13.Dock = DockStyle.Top;
+            button13.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button13.Location = new Point(0, 480);
+            button13.Name = "button13";
+            button13.Size = new Size(136, 32);
+            button13.TabIndex = 15;
+            button13.Text = "Cancel Delivery Challan";
+            button13.UseVisualStyleBackColor = false;
+            // 
+            // button14
+            // 
+            button14.Dock = DockStyle.Top;
+            button14.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            button14.Location = new Point(0, 448);
+            button14.Name = "button14";
+            button14.Size = new Size(136, 32);
+            button14.TabIndex = 14;
+            button14.Text = "Create Delivery Challan";
+            button14.UseVisualStyleBackColor = true;
             // 
             // MDICashierParent
             // 
@@ -417,17 +475,6 @@
         private ToolStripMenuItem invoiceToolStripMenuItem;
         private ToolStripMenuItem createInvoiceToolStripMenuItem;
         private Panel panel1;
-        private Button button13;
-        private Button button12;
-        private Button button11;
-        private Button button10;
-        private Button button9;
-        private Button button8;
-        private Button button7;
-        private Button button6;
-        private Button button5;
-        private Button btnCreateCreditNote;
-        private Button btnCreateInvoice;
         private Button btnReturnDeliveryChallan;
         private Button btnCreateDeliveryChallan;
         private ToolStripMenuItem deliveryChallanToolStripMenuItem;
@@ -448,6 +495,20 @@
         private ToolStripMenuItem createCreditNoteToolStripMenuItem;
         private ToolStripMenuItem creditNoteListToolStripMenuItem;
         private ToolStripMenuItem searchCreditNoteToolStripMenuItem;
+        private Button button13;
+        private Button button14;
+        private Button button11;
+        private Button button12;
+        private Button button9;
+        private Button button10;
+        private Button button7;
+        private Button button8;
+        private Button button5;
+        private Button button6;
+        private Button button3;
+        private Button button4;
+        private Button button1;
+        private Button button2;
     }
 }
 

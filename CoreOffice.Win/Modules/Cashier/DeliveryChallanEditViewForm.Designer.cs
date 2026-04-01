@@ -61,6 +61,8 @@
             label16 = new Label();
             panel7 = new Panel();
             label3 = new Label();
+            lblStatus = new Label();
+            label7 = new Label();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGrid).BeginInit();
@@ -195,7 +197,7 @@
             panel3.Controls.Add(btnClose);
             panel3.Controls.Add(btnCancel);
             panel3.Dock = DockStyle.Bottom;
-            panel3.Location = new Point(0, 534);
+            panel3.Location = new Point(0, 578);
             panel3.Name = "panel3";
             panel3.Size = new Size(852, 45);
             panel3.TabIndex = 7;
@@ -235,6 +237,8 @@
             // 
             // panel4
             // 
+            panel4.Controls.Add(lblStatus);
+            panel4.Controls.Add(label7);
             panel4.Controls.Add(lblCustomer);
             panel4.Controls.Add(label6);
             panel4.Controls.Add(lblDate);
@@ -243,7 +247,7 @@
             panel4.Dock = DockStyle.Left;
             panel4.Location = new Point(0, 421);
             panel4.Name = "panel4";
-            panel4.Size = new Size(339, 113);
+            panel4.Size = new Size(339, 157);
             panel4.TabIndex = 8;
             // 
             // lblCustomer
@@ -260,7 +264,7 @@
             // 
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 11.25F);
-            label6.Location = new Point(30, 73);
+            label6.Location = new Point(28, 73);
             label6.Name = "label6";
             label6.Size = new Size(79, 20);
             label6.TabIndex = 3;
@@ -319,7 +323,7 @@
             panel6.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             panel6.Location = new Point(618, 421);
             panel6.Name = "panel6";
-            panel6.Size = new Size(234, 113);
+            panel6.Size = new Size(234, 157);
             panel6.TabIndex = 13;
             // 
             // lblGrandTotal
@@ -382,11 +386,31 @@
             label3.TabIndex = 2;
             label3.Text = "Bill Summary";
             // 
+            // lblStatus
+            // 
+            lblStatus.AutoSize = true;
+            lblStatus.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
+            lblStatus.Location = new Point(107, 100);
+            lblStatus.Name = "lblStatus";
+            lblStatus.Size = new Size(57, 20);
+            lblStatus.TabIndex = 6;
+            lblStatus.Text = "............";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
+            label7.Location = new Point(45, 100);
+            label7.Name = "label7";
+            label7.Size = new Size(61, 20);
+            label7.TabIndex = 5;
+            label7.Text = "Status :";
+            // 
             // DeliveryChallanEditViewForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(852, 579);
+            ClientSize = new Size(852, 623);
             Controls.Add(panel6);
             Controls.Add(panel4);
             Controls.Add(panel3);
@@ -448,5 +472,7 @@
         private DataGridViewTextBoxColumn ReturnQty;
         private DataGridViewTextBoxColumn Balance;
         private DataGridViewTextBoxColumn TotalAmount;
+        private Label lblStatus;
+        private Label label7;
     }
 }

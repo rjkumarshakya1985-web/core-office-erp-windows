@@ -76,6 +76,7 @@ namespace CoreOffice.Win.Modules.Cashier
                 CustomerId = detail.CustomerId;
                 lblTotalPcs.Text = detail.TotalQuantity.ToString();
                 lblGrandTotal.Text = detail.TotalAmount.ToString("0.00");
+                lblStatus.Text = detail.Status.ToString();
 
                 foreach (var item in detail.Items)
                 {
