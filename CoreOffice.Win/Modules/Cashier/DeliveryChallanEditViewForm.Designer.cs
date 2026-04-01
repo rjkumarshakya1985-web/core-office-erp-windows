@@ -48,6 +48,8 @@
             btnClose = new Button();
             btnCancel = new Button();
             panel4 = new Panel();
+            lblStatus = new Label();
+            label7 = new Label();
             lblCustomer = new Label();
             label6 = new Label();
             lblDate = new Label();
@@ -61,8 +63,6 @@
             label16 = new Label();
             panel7 = new Panel();
             label3 = new Label();
-            lblStatus = new Label();
-            label7 = new Label();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGrid).BeginInit();
@@ -221,6 +221,7 @@
             btnClose.TabIndex = 3;
             btnClose.Text = "&Close";
             btnClose.UseVisualStyleBackColor = true;
+            btnClose.Click += btnClose_Click;
             // 
             // btnCancel
             // 
@@ -237,6 +238,8 @@
             // 
             // panel4
             // 
+            panel4.BackColor = Color.White;
+            panel4.BorderStyle = BorderStyle.FixedSingle;
             panel4.Controls.Add(lblStatus);
             panel4.Controls.Add(label7);
             panel4.Controls.Add(lblCustomer);
@@ -249,6 +252,26 @@
             panel4.Name = "panel4";
             panel4.Size = new Size(339, 157);
             panel4.TabIndex = 8;
+            // 
+            // lblStatus
+            // 
+            lblStatus.AutoSize = true;
+            lblStatus.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
+            lblStatus.Location = new Point(107, 100);
+            lblStatus.Name = "lblStatus";
+            lblStatus.Size = new Size(57, 20);
+            lblStatus.TabIndex = 6;
+            lblStatus.Text = "............";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
+            label7.Location = new Point(45, 100);
+            label7.Name = "label7";
+            label7.Size = new Size(61, 20);
+            label7.TabIndex = 5;
+            label7.Text = "Status :";
             // 
             // lblCustomer
             // 
@@ -297,7 +320,7 @@
             panel5.Dock = DockStyle.Top;
             panel5.Location = new Point(0, 0);
             panel5.Name = "panel5";
-            panel5.Size = new Size(339, 38);
+            panel5.Size = new Size(337, 38);
             panel5.TabIndex = 0;
             // 
             // label2
@@ -385,26 +408,6 @@
             label3.Size = new Size(82, 17);
             label3.TabIndex = 2;
             label3.Text = "Bill Summary";
-            // 
-            // lblStatus
-            // 
-            lblStatus.AutoSize = true;
-            lblStatus.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
-            lblStatus.Location = new Point(107, 100);
-            lblStatus.Name = "lblStatus";
-            lblStatus.Size = new Size(57, 20);
-            lblStatus.TabIndex = 6;
-            lblStatus.Text = "............";
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
-            label7.Location = new Point(45, 100);
-            label7.Name = "label7";
-            label7.Size = new Size(61, 20);
-            label7.TabIndex = 5;
-            label7.Text = "Status :";
             // 
             // DeliveryChallanEditViewForm
             // 

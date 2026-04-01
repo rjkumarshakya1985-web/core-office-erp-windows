@@ -138,7 +138,7 @@ namespace CoreOffice.Win.Modules.Cashier
                     MessageBox.Show("Delivery Challan cancelled successfully.",
                         "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    
+
                     dataGrid.Rows.Clear();
                     lblDate.Text = "...........";
                     lblCustomer.Text = ".........";
@@ -161,6 +161,11 @@ namespace CoreOffice.Win.Modules.Cashier
             {
                 AppLoader.Hide();
             }
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }
