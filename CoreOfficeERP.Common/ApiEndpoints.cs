@@ -30,6 +30,8 @@
         public const string GetDeliveryChallanForInvoice = "deliveryChallanToInvoice/delivery-challan/for-invoice";
         public const string CreateDeliveryChallanToinvoice = "deliveryChallanToInvoice";
         public const string CreateInvoice = "invoice";
+        public const string GetInvoice = "invoice";
+        public const string CancelInvoice = "invoice/cancel";
     }
 }
 

@@ -15,14 +15,14 @@ namespace CoreOffice.Win.Modules.MasterData
         private readonly ICustomerService _customerService;
         public Action<CustomerResponse>? OnCustomerCreated;
 
-        public VistiorCustomerForm(IVisitorService visitorService, 
-            IMasterService masterService,ICustomerService customerService)
+        public VistiorCustomerForm(IVisitorService visitorService,
+            IMasterService masterService, ICustomerService customerService)
         {
             InitializeComponent();
             _visitorService = visitorService;
             _masterService = masterService;
             _customerService = customerService;
-           
+
         }
 
         private void BindCustomerType()
@@ -61,12 +61,12 @@ namespace CoreOffice.Win.Modules.MasterData
                 cmbState.DisplayMember = "Name";
                 cmbState.ValueMember = "Id";
                 cmbState.SelectedValue = stateId;
-              
+
             }
 
 
         }
-        private async Task LoadCities(int stateId,int cityId)
+        private async Task LoadCities(int stateId, int cityId)
         {
             var cities = await _masterService.GetCityByState(stateId);
             if (cities != null)
@@ -99,11 +99,11 @@ namespace CoreOffice.Win.Modules.MasterData
             txtMobile.Text = visitor.Mobile;
             txtPhoneno.Text = visitor.Mobile;
 
-            if(visitor.CustomerType!=null)
-            cmbCustomerType.SelectedValue = visitor.CustomerType.Value;
+            if (visitor.CustomerType != null)
+                cmbCustomerType.SelectedValue = visitor.CustomerType.Value;
 
             // State Load
-            if (visitor!=null && visitor.StateId.HasValue)
+            if (visitor != null && visitor.StateId.HasValue)
             {
                 await LoadStates(visitor.StateId.Value);
             }
@@ -111,7 +111,7 @@ namespace CoreOffice.Win.Modules.MasterData
             // City Load (safe check)
             if (visitor.CityId.HasValue && visitor.StateId.HasValue)
             {
-                await LoadCities(visitor.StateId.Value,visitor.CityId.Value);
+                await LoadCities(visitor.StateId.Value, visitor.CityId.Value);
             }
         }
         private async void btnCreate_Click(object sender, EventArgs e)
@@ -234,6 +234,11 @@ namespace CoreOffice.Win.Modules.MasterData
         private void VistiorCustomerForm_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

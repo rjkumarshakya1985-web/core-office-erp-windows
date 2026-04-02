@@ -253,7 +253,7 @@ namespace CoreOffice.Win.Modules.Cashier
                 if (result > 0)
                 {
                     AppLoader.Hide();
-                    MessageBox.Show("Invoice created successfully!",
+                    MessageBox.Show("Delivery challan created successfully!",
                         "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     Clear();
@@ -296,7 +296,7 @@ namespace CoreOffice.Win.Modules.Cashier
             AppLoader.Hide();
             if (packingSlips == null || !packingSlips.PackingSlips.Any())
             {
-                MessageBox.Show($"Packing slip not found for the visitor. Packing slip number: {packingSlips.PackingSlips.First().SlipNumber}", "Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show($"Packing slip not found for the visitor.", "Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
 

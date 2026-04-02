@@ -8,7 +8,7 @@ namespace CoreOffice.Win.Modules.Cashier
     public partial class DeliveryChallanEditViewForm : Form
     {
         private int? DeliveryChallanId;
-        private Guid? CustomerId;
+       
         private readonly IDeliveryChallanService _deliveryChallanService;
         public DeliveryChallanEditViewForm(IDeliveryChallanService deliveryChallanService)
         {
@@ -73,7 +73,6 @@ namespace CoreOffice.Win.Modules.Cashier
                 lblDate.Text = detail.DeliveryChallanDate.ToIstString();
                 lblCustomer.Text = detail.CustomerName;
                 DeliveryChallanId = detail.DeliveryChallanId;
-                CustomerId = detail.CustomerId;
                 lblTotalPcs.Text = detail.TotalQuantity.ToString();
                 lblGrandTotal.Text = detail.TotalAmount.ToString("0.00");
                 lblStatus.Text = detail.Status.ToString();

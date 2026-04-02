@@ -31,6 +31,10 @@
             panel10 = new Panel();
             label4 = new Label();
             groupBox1 = new GroupBox();
+            txtCreditLimits = new TextBox();
+            label19 = new Label();
+            txtCreditDays = new TextBox();
+            label20 = new Label();
             cmbCustomerType = new ComboBox();
             Type = new Label();
             cmbRegistrationType = new ComboBox();
@@ -70,10 +74,6 @@
             panel1 = new Panel();
             btnCreate = new Button();
             btnClose = new Button();
-            txtCreditLimits = new TextBox();
-            label19 = new Label();
-            txtCreditDays = new TextBox();
-            label20 = new Label();
             panel10.SuspendLayout();
             groupBox1.SuspendLayout();
             panel1.SuspendLayout();
@@ -149,6 +149,38 @@
             groupBox1.TabIndex = 3;
             groupBox1.TabStop = false;
             groupBox1.Text = "Customer Information";
+            // 
+            // txtCreditLimits
+            // 
+            txtCreditLimits.Location = new Point(421, 214);
+            txtCreditLimits.Name = "txtCreditLimits";
+            txtCreditLimits.Size = new Size(216, 23);
+            txtCreditLimits.TabIndex = 44;
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.Location = new Point(342, 218);
+            label19.Name = "label19";
+            label19.Size = new Size(74, 15);
+            label19.TabIndex = 43;
+            label19.Text = "Credit Limits";
+            // 
+            // txtCreditDays
+            // 
+            txtCreditDays.Location = new Point(90, 213);
+            txtCreditDays.Name = "txtCreditDays";
+            txtCreditDays.Size = new Size(216, 23);
+            txtCreditDays.TabIndex = 42;
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.Location = new Point(18, 217);
+            label20.Name = "label20";
+            label20.Size = new Size(67, 15);
+            label20.TabIndex = 41;
+            label20.Text = "Credit Days";
             // 
             // cmbCustomerType
             // 
@@ -477,38 +509,7 @@
             btnClose.TabIndex = 0;
             btnClose.Text = "&Close";
             btnClose.UseVisualStyleBackColor = true;
-            // 
-            // txtCreditLimits
-            // 
-            txtCreditLimits.Location = new Point(421, 214);
-            txtCreditLimits.Name = "txtCreditLimits";
-            txtCreditLimits.Size = new Size(216, 23);
-            txtCreditLimits.TabIndex = 44;
-            // 
-            // label19
-            // 
-            label19.AutoSize = true;
-            label19.Location = new Point(342, 218);
-            label19.Name = "label19";
-            label19.Size = new Size(74, 15);
-            label19.TabIndex = 43;
-            label19.Text = "Credit Limits";
-            // 
-            // txtCreditDays
-            // 
-            txtCreditDays.Location = new Point(90, 213);
-            txtCreditDays.Name = "txtCreditDays";
-            txtCreditDays.Size = new Size(216, 23);
-            txtCreditDays.TabIndex = 42;
-            // 
-            // label20
-            // 
-            label20.AutoSize = true;
-            label20.Location = new Point(18, 217);
-            label20.Name = "label20";
-            label20.Size = new Size(67, 15);
-            label20.TabIndex = 41;
-            label20.Text = "Credit Days";
+            btnClose.Click += btnClose_Click;
             // 
             // VistiorCustomerForm
             // 

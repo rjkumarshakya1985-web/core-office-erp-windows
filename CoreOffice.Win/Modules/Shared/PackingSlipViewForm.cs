@@ -23,7 +23,7 @@ namespace CoreOffice.Win.Modules.Shared
 
         private async Task LoadPackingSlip(string packingSlipNumber)
         {
-            if(string.IsNullOrEmpty(packingSlipNumber)) return;
+            if (string.IsNullOrEmpty(packingSlipNumber)) return;
             try
             {
                 AppLoader.Show();
@@ -34,7 +34,7 @@ namespace CoreOffice.Win.Modules.Shared
                 if (packingSlip != null)
                 {
 
-                     LoadPackingSlip(packingSlip);
+                    LoadPackingSlip(packingSlip);
                 }
                 else
                 {
@@ -165,5 +165,9 @@ namespace CoreOffice.Win.Modules.Shared
             lblTotalPcs.Text = TotalPcs.ToString();
         }
 
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }

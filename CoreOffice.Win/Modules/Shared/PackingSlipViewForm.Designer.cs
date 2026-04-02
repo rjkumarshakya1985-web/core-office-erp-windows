@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             panel1 = new Panel();
             txtPackingSlip = new TextBox();
             label1 = new Label();
@@ -58,6 +58,7 @@
             Total = new DataGridViewTextBoxColumn();
             AvailableQty = new DataGridViewTextBoxColumn();
             GstValue = new DataGridViewTextBoxColumn();
+            btnClose = new Button();
             panel1.SuspendLayout();
             panel3.SuspendLayout();
             panel2.SuspendLayout();
@@ -99,6 +100,7 @@
             // panel3
             // 
             panel3.BorderStyle = BorderStyle.FixedSingle;
+            panel3.Controls.Add(btnClose);
             panel3.Controls.Add(btnPrint);
             panel3.Dock = DockStyle.Bottom;
             panel3.Location = new Point(0, 444);
@@ -280,14 +282,14 @@
             dataGridPackingSlip.BackgroundColor = Color.White;
             dataGridPackingSlip.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridPackingSlip.Columns.AddRange(new DataGridViewColumn[] { Id, Barcode, ProductCategory, Product, Quantity, Amount, Total, AvailableQty, GstValue });
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Window;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
-            dataGridPackingSlip.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dataGridPackingSlip.DefaultCellStyle = dataGridViewCellStyle2;
             dataGridPackingSlip.Dock = DockStyle.Fill;
             dataGridPackingSlip.Location = new Point(0, 0);
             dataGridPackingSlip.Name = "dataGridPackingSlip";
@@ -349,6 +351,17 @@
             GstValue.ReadOnly = true;
             GstValue.Visible = false;
             // 
+            // btnClose
+            // 
+            btnClose.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnClose.Location = new Point(127, 7);
+            btnClose.Name = "btnClose";
+            btnClose.Size = new Size(109, 31);
+            btnClose.TabIndex = 6;
+            btnClose.Text = "Close";
+            btnClose.UseVisualStyleBackColor = true;
+            btnClose.Click += btnClose_Click;
+            // 
             // PackingSlipViewForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -405,5 +418,6 @@
         private Button btnPrint;
         private TextBox txtPackingSlip;
         private Label label1;
+        private Button btnClose;
     }
 }

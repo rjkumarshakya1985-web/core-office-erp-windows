@@ -34,15 +34,6 @@
             panel2 = new Panel();
             label1 = new Label();
             dataGrid = new DataGridView();
-            Id = new DataGridViewTextBoxColumn();
-            StockId = new DataGridViewTextBoxColumn();
-            Category = new DataGridViewTextBoxColumn();
-            Product = new DataGridViewTextBoxColumn();
-            SalePrice = new DataGridViewTextBoxColumn();
-            TotalQty = new DataGridViewTextBoxColumn();
-            ReturnQty = new DataGridViewTextBoxColumn();
-            Balance = new DataGridViewTextBoxColumn();
-            TotalAmount = new DataGridViewTextBoxColumn();
             panel3 = new Panel();
             btnPrint = new Button();
             btnClose = new Button();
@@ -63,6 +54,15 @@
             label16 = new Label();
             panel7 = new Panel();
             label3 = new Label();
+            Id = new DataGridViewTextBoxColumn();
+            StockId = new DataGridViewTextBoxColumn();
+            Category = new DataGridViewTextBoxColumn();
+            Product = new DataGridViewTextBoxColumn();
+            SalePrice = new DataGridViewTextBoxColumn();
+            TotalQty = new DataGridViewTextBoxColumn();
+            ReturnQty = new DataGridViewTextBoxColumn();
+            Balance = new DataGridViewTextBoxColumn();
+            TotalAmount = new DataGridViewTextBoxColumn();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGrid).BeginInit();
@@ -133,62 +133,6 @@
             dataGrid.Name = "dataGrid";
             dataGrid.Size = new Size(852, 333);
             dataGrid.TabIndex = 6;
-            // 
-            // Id
-            // 
-            Id.HeaderText = "Id";
-            Id.Name = "Id";
-            Id.ReadOnly = true;
-            Id.Visible = false;
-            // 
-            // StockId
-            // 
-            StockId.HeaderText = "StockId";
-            StockId.Name = "StockId";
-            StockId.ReadOnly = true;
-            StockId.Visible = false;
-            // 
-            // Category
-            // 
-            Category.HeaderText = "Category";
-            Category.Name = "Category";
-            Category.ReadOnly = true;
-            // 
-            // Product
-            // 
-            Product.HeaderText = "Product";
-            Product.Name = "Product";
-            Product.ReadOnly = true;
-            // 
-            // SalePrice
-            // 
-            SalePrice.HeaderText = "SalePrice";
-            SalePrice.Name = "SalePrice";
-            SalePrice.ReadOnly = true;
-            // 
-            // TotalQty
-            // 
-            TotalQty.HeaderText = "Total Qty";
-            TotalQty.Name = "TotalQty";
-            TotalQty.ReadOnly = true;
-            // 
-            // ReturnQty
-            // 
-            ReturnQty.HeaderText = "Return Qty";
-            ReturnQty.Name = "ReturnQty";
-            ReturnQty.ReadOnly = true;
-            // 
-            // Balance
-            // 
-            Balance.HeaderText = "Balance";
-            Balance.Name = "Balance";
-            Balance.ReadOnly = true;
-            // 
-            // TotalAmount
-            // 
-            TotalAmount.HeaderText = "Amount";
-            TotalAmount.Name = "TotalAmount";
-            TotalAmount.ReadOnly = true;
             // 
             // panel3
             // 
@@ -409,6 +353,62 @@
             label3.TabIndex = 2;
             label3.Text = "Bill Summary";
             // 
+            // Id
+            // 
+            Id.HeaderText = "Id";
+            Id.Name = "Id";
+            Id.ReadOnly = true;
+            Id.Visible = false;
+            // 
+            // StockId
+            // 
+            StockId.HeaderText = "StockId";
+            StockId.Name = "StockId";
+            StockId.ReadOnly = true;
+            StockId.Visible = false;
+            // 
+            // Category
+            // 
+            Category.HeaderText = "Category";
+            Category.Name = "Category";
+            Category.ReadOnly = true;
+            // 
+            // Product
+            // 
+            Product.HeaderText = "Product";
+            Product.Name = "Product";
+            Product.ReadOnly = true;
+            // 
+            // SalePrice
+            // 
+            SalePrice.HeaderText = "SalePrice";
+            SalePrice.Name = "SalePrice";
+            SalePrice.ReadOnly = true;
+            // 
+            // TotalQty
+            // 
+            TotalQty.HeaderText = "Qty";
+            TotalQty.Name = "TotalQty";
+            TotalQty.ReadOnly = true;
+            // 
+            // ReturnQty
+            // 
+            ReturnQty.HeaderText = "Return Qty";
+            ReturnQty.Name = "ReturnQty";
+            ReturnQty.ReadOnly = true;
+            // 
+            // Balance
+            // 
+            Balance.HeaderText = "Balance";
+            Balance.Name = "Balance";
+            Balance.ReadOnly = true;
+            // 
+            // TotalAmount
+            // 
+            TotalAmount.HeaderText = "Amount";
+            TotalAmount.Name = "TotalAmount";
+            TotalAmount.ReadOnly = true;
+            // 
             // DeliveryChallanEditViewForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -466,6 +466,8 @@
         private Panel panel7;
         private Label label3;
         private Button btnPrint;
+        private Label lblStatus;
+        private Label label7;
         private DataGridViewTextBoxColumn Id;
         private DataGridViewTextBoxColumn StockId;
         private DataGridViewTextBoxColumn Category;
@@ -475,7 +477,5 @@
         private DataGridViewTextBoxColumn ReturnQty;
         private DataGridViewTextBoxColumn Balance;
         private DataGridViewTextBoxColumn TotalAmount;
-        private Label lblStatus;
-        private Label label7;
     }
 }

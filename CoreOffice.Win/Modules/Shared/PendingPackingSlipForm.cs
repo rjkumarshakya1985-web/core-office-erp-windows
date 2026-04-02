@@ -17,7 +17,7 @@ namespace CoreOffice.Win.Modules.Shared
         {
             InitializeComponent();
             _packingSlipService = packingSlipService;
-           
+
 
         }
 
@@ -60,7 +60,7 @@ namespace CoreOffice.Win.Modules.Shared
             }
             finally
             {
-              AppLoader.Hide();
+                AppLoader.Hide();
             }
         }
 
@@ -96,9 +96,9 @@ namespace CoreOffice.Win.Modules.Shared
 
         private async void PendingPackingSlipForm_Load(object sender, EventArgs e)
         {
-            
+
             dataGrid.Columns["Date"].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-            
+
             if (UserSession.RoleEnum == RoleEnum.Cashier)
             {
                 btnDelete.Visible = false;
@@ -238,6 +238,11 @@ namespace CoreOffice.Win.Modules.Shared
 
             // 👉 View mode (future)
             MessageBox.Show($"View Packing Slip: {id}");
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

@@ -70,4 +70,12 @@ namespace CoreOfficeERP.Common.Enums
         Invoiced = 4,
         Cancelled = 6
     }
+
+    public enum InvoiceStatusEnum
+    {
+        Created = 0,
+        DeliveryChallanInvoice = 1,
+        Cancelled = 2,
+        TallySynced = 3
+    }
 }

@@ -42,6 +42,7 @@
             btnEdit = new Button();
             btnDelete = new Button();
             btnPrint = new Button();
+            btnClose = new Button();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGrid).BeginInit();
             panel3.SuspendLayout();
@@ -119,6 +120,7 @@
             // 
             // panel3
             // 
+            panel3.Controls.Add(btnClose);
             panel3.Controls.Add(btnShow);
             panel3.Controls.Add(btnEdit);
             panel3.Controls.Add(btnDelete);
@@ -131,7 +133,7 @@
             // 
             // btnShow
             // 
-            btnShow.Location = new Point(137, 7);
+            btnShow.Location = new Point(261, 7);
             btnShow.Name = "btnShow";
             btnShow.Size = new Size(117, 36);
             btnShow.TabIndex = 3;
@@ -141,7 +143,7 @@
             // 
             // btnEdit
             // 
-            btnEdit.Location = new Point(383, 7);
+            btnEdit.Location = new Point(507, 7);
             btnEdit.Name = "btnEdit";
             btnEdit.Size = new Size(117, 36);
             btnEdit.TabIndex = 2;
@@ -151,7 +153,7 @@
             // 
             // btnDelete
             // 
-            btnDelete.Location = new Point(260, 7);
+            btnDelete.Location = new Point(384, 7);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(117, 36);
             btnDelete.TabIndex = 1;
@@ -168,6 +170,16 @@
             btnPrint.Text = "Print";
             btnPrint.UseVisualStyleBackColor = true;
             btnPrint.Click += btnPrint_Click;
+            // 
+            // btnClose
+            // 
+            btnClose.Location = new Point(137, 7);
+            btnClose.Name = "btnClose";
+            btnClose.Size = new Size(117, 36);
+            btnClose.TabIndex = 4;
+            btnClose.Text = "Close";
+            btnClose.UseVisualStyleBackColor = true;
+            btnClose.Click += btnClose_Click;
             // 
             // PendingPackingSlipForm
             // 
@@ -204,5 +216,6 @@
         private Button btnEdit;
         private Button btnDelete;
         private Button btnPrint;
+        private Button btnClose;
     }
 }
