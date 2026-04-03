@@ -52,9 +52,11 @@
             panel4 = new Panel();
             panel9 = new Panel();
             groupBox1 = new GroupBox();
-            lblGrandTotal = new Label();
             lblTotalPcs = new Label();
-            lblGrandTotalControl = new Label();
+            label3 = new Label();
+            lblTotalAmount = new Label();
+            lblTaxableAmount = new Label();
+            lbl = new Label();
             lblTotalPcsControl = new Label();
             groupBox2 = new GroupBox();
             lblVisitorType = new Label();
@@ -66,14 +68,14 @@
             panel2 = new Panel();
             dataGridPackingSlip = new DataGridView();
             Id = new DataGridViewTextBoxColumn();
-            Barcode = new DataGridViewTextBoxColumn();
-            ProductCategory = new DataGridViewTextBoxColumn();
+            StockId = new DataGridViewTextBoxColumn();
             Product = new DataGridViewTextBoxColumn();
             Quantity = new DataGridViewTextBoxColumn();
-            Amount = new DataGridViewTextBoxColumn();
-            Total = new DataGridViewTextBoxColumn();
-            AvailableQty = new DataGridViewTextBoxColumn();
+            Rate = new DataGridViewTextBoxColumn();
+            Taxable = new DataGridViewTextBoxColumn();
             GstValue = new DataGridViewTextBoxColumn();
+            Amount = new DataGridViewTextBoxColumn();
+            AvailableQty = new DataGridViewTextBoxColumn();
             panel1.SuspendLayout();
             panel3.SuspendLayout();
             panel6.SuspendLayout();
@@ -333,9 +335,11 @@
             // groupBox1
             // 
             groupBox1.BackColor = SystemColors.ButtonHighlight;
-            groupBox1.Controls.Add(lblGrandTotal);
             groupBox1.Controls.Add(lblTotalPcs);
-            groupBox1.Controls.Add(lblGrandTotalControl);
+            groupBox1.Controls.Add(label3);
+            groupBox1.Controls.Add(lblTotalAmount);
+            groupBox1.Controls.Add(lblTaxableAmount);
+            groupBox1.Controls.Add(lbl);
             groupBox1.Controls.Add(lblTotalPcsControl);
             groupBox1.Dock = DockStyle.Right;
             groupBox1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
@@ -347,35 +351,55 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Packing Slip Information";
             // 
-            // lblGrandTotal
-            // 
-            lblGrandTotal.AutoSize = true;
-            lblGrandTotal.Font = new Font("Segoe UI", 14.25F);
-            lblGrandTotal.Location = new Point(144, 57);
-            lblGrandTotal.Name = "lblGrandTotal";
-            lblGrandTotal.Size = new Size(40, 25);
-            lblGrandTotal.TabIndex = 5;
-            lblGrandTotal.Text = ".......";
-            // 
             // lblTotalPcs
             // 
             lblTotalPcs.AutoSize = true;
             lblTotalPcs.Font = new Font("Segoe UI", 14.25F);
-            lblTotalPcs.Location = new Point(143, 29);
+            lblTotalPcs.Location = new Point(212, 60);
             lblTotalPcs.Name = "lblTotalPcs";
             lblTotalPcs.Size = new Size(40, 25);
-            lblTotalPcs.TabIndex = 4;
+            lblTotalPcs.TabIndex = 7;
             lblTotalPcs.Text = ".......";
             // 
-            // lblGrandTotalControl
+            // label3
             // 
-            lblGrandTotalControl.AutoSize = true;
-            lblGrandTotalControl.Font = new Font("Segoe UI", 14.25F);
-            lblGrandTotalControl.Location = new Point(22, 57);
-            lblGrandTotalControl.Name = "lblGrandTotalControl";
-            lblGrandTotalControl.Size = new Size(118, 25);
-            lblGrandTotalControl.TabIndex = 1;
-            lblGrandTotalControl.Text = "Grand Total :";
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 14.25F);
+            label3.Location = new Point(109, 60);
+            label3.Name = "label3";
+            label3.Size = new Size(93, 25);
+            label3.TabIndex = 6;
+            label3.Text = "Total Pcs :";
+            // 
+            // lblTotalAmount
+            // 
+            lblTotalAmount.AutoSize = true;
+            lblTotalAmount.Font = new Font("Segoe UI", 14.25F);
+            lblTotalAmount.Location = new Point(212, 89);
+            lblTotalAmount.Name = "lblTotalAmount";
+            lblTotalAmount.Size = new Size(40, 25);
+            lblTotalAmount.TabIndex = 5;
+            lblTotalAmount.Text = ".......";
+            // 
+            // lblTaxableAmount
+            // 
+            lblTaxableAmount.AutoSize = true;
+            lblTaxableAmount.Font = new Font("Segoe UI", 14.25F);
+            lblTaxableAmount.Location = new Point(212, 29);
+            lblTaxableAmount.Name = "lblTaxableAmount";
+            lblTaxableAmount.Size = new Size(40, 25);
+            lblTaxableAmount.TabIndex = 4;
+            lblTaxableAmount.Text = ".......";
+            // 
+            // lbl
+            // 
+            lbl.AutoSize = true;
+            lbl.Font = new Font("Segoe UI", 14.25F);
+            lbl.Location = new Point(85, 89);
+            lbl.Name = "lbl";
+            lbl.Size = new Size(118, 25);
+            lbl.TabIndex = 1;
+            lbl.Text = "Grand Total :";
             // 
             // lblTotalPcsControl
             // 
@@ -383,9 +407,9 @@
             lblTotalPcsControl.Font = new Font("Segoe UI", 14.25F);
             lblTotalPcsControl.Location = new Point(46, 29);
             lblTotalPcsControl.Name = "lblTotalPcsControl";
-            lblTotalPcsControl.Size = new Size(93, 25);
+            lblTotalPcsControl.Size = new Size(156, 25);
             lblTotalPcsControl.TabIndex = 0;
-            lblTotalPcsControl.Text = "Total Pcs :";
+            lblTotalPcsControl.Text = "Taxable Amount :";
             // 
             // groupBox2
             // 
@@ -481,10 +505,10 @@
             dataGridPackingSlip.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridPackingSlip.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridPackingSlip.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridPackingSlip.Columns.AddRange(new DataGridViewColumn[] { Id, Barcode, ProductCategory, Product, Quantity, Amount, Total, AvailableQty, GstValue });
+            dataGridPackingSlip.Columns.AddRange(new DataGridViewColumn[] { Id, StockId, Product, Quantity, Rate, Taxable, GstValue, Amount, AvailableQty });
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = SystemColors.Window;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dataGridViewCellStyle1.ForeColor = SystemColors.ControlText;
             dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
@@ -505,17 +529,10 @@
             Id.Name = "Id";
             Id.Visible = false;
             // 
-            // Barcode
+            // StockId
             // 
-            Barcode.HeaderText = "Barcode";
-            Barcode.Name = "Barcode";
-            Barcode.ReadOnly = true;
-            // 
-            // ProductCategory
-            // 
-            ProductCategory.HeaderText = "Category";
-            ProductCategory.Name = "ProductCategory";
-            ProductCategory.ReadOnly = true;
+            StockId.HeaderText = "StockId";
+            StockId.Name = "StockId";
             // 
             // Product
             // 
@@ -529,30 +546,33 @@
             Quantity.Name = "Quantity";
             Quantity.ReadOnly = true;
             // 
+            // Rate
+            // 
+            Rate.HeaderText = "Rate";
+            Rate.Name = "Rate";
+            // 
+            // Taxable
+            // 
+            Taxable.HeaderText = "Taxable Amount";
+            Taxable.Name = "Taxable";
+            Taxable.ReadOnly = true;
+            // 
+            // GstValue
+            // 
+            GstValue.HeaderText = "Gst %";
+            GstValue.Name = "GstValue";
+            GstValue.ReadOnly = true;
+            // 
             // Amount
             // 
             Amount.HeaderText = "Amount";
             Amount.Name = "Amount";
             Amount.ReadOnly = true;
             // 
-            // Total
-            // 
-            Total.HeaderText = "Total";
-            Total.Name = "Total";
-            Total.ReadOnly = true;
-            // 
             // AvailableQty
             // 
             AvailableQty.HeaderText = "AvailableQty";
             AvailableQty.Name = "AvailableQty";
-            AvailableQty.Visible = false;
-            // 
-            // GstValue
-            // 
-            GstValue.HeaderText = "GstValue";
-            GstValue.Name = "GstValue";
-            GstValue.ReadOnly = true;
-            GstValue.Visible = false;
             // 
             // FrmPackingSlip
             // 
@@ -594,7 +614,7 @@
         private GroupBox groupBox2;
         private Label label1;
         private Label lblName;
-        private Label label2;
+        private Label lblTotalPcs;
         private Label label3;
         private Label label4;
         private Panel panel7;
@@ -614,9 +634,9 @@
         private Button btnDelete;
         private Panel panel9;
         private GroupBox groupBox1;
-        private Label lblGrandTotal;
-        private Label lblTotalPcs;
-        private Label lblGrandTotalControl;
+        private Label lblTotalAmount;
+        private Label lblTaxableAmount;
+        private Label lbl;
         private Label lblTotalPcsControl;
         private Panel panel11;
         private Panel panel10;
@@ -629,13 +649,13 @@
         private ComboBox cmbSalesPerson;
         private Button btnPendingPackingSlips;
         private DataGridViewTextBoxColumn Id;
-        private DataGridViewTextBoxColumn Barcode;
-        private DataGridViewTextBoxColumn ProductCategory;
+        private DataGridViewTextBoxColumn StockId;
         private DataGridViewTextBoxColumn Product;
         private DataGridViewTextBoxColumn Quantity;
-        private DataGridViewTextBoxColumn Amount;
-        private DataGridViewTextBoxColumn Total;
-        private DataGridViewTextBoxColumn AvailableQty;
+        private DataGridViewTextBoxColumn Rate;
+        private DataGridViewTextBoxColumn Taxable;
         private DataGridViewTextBoxColumn GstValue;
+        private DataGridViewTextBoxColumn Amount;
+        private DataGridViewTextBoxColumn AvailableQty;
     }
 }

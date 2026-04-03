@@ -75,15 +75,22 @@ namespace CoreOffice.Win.Modules.PackingSlip
         private void FormSetting()
         {
             dataGridPackingSlip.Columns["Quantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridPackingSlip.Columns["Amount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dataGridPackingSlip.Columns["Total"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-
             dataGridPackingSlip.Columns["Quantity"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            dataGridPackingSlip.Columns["Amount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             dataGridPackingSlip.Columns["Amount"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dataGridPackingSlip.Columns["Total"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            dataGridPackingSlip.Columns["Taxable"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridPackingSlip.Columns["Taxable"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            dataGridPackingSlip.Columns["AvailableQty"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridPackingSlip.Columns["AvailableQty"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            dataGridPackingSlip.Columns["GstValue"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridPackingSlip.Columns["GstValue"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             dataGridPackingSlip.Columns["Amount"].DefaultCellStyle.Format = "N2";
-            dataGridPackingSlip.Columns["Total"].DefaultCellStyle.Format = "N2";
+            dataGridPackingSlip.Columns["Taxable"].DefaultCellStyle.Format = "N2";
 
             dataGridPackingSlip.Columns["Id"].Visible = false;
 
@@ -91,7 +98,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
 
             dataGridPackingSlip.ColumnHeadersDefaultCellStyle.BackColor = Color.Navy;
             dataGridPackingSlip.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            dataGridPackingSlip.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+            //dataGridPackingSlip.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
 
             dataGridPackingSlip.AlternatingRowsDefaultCellStyle.BackColor = Color.AliceBlue;
 
@@ -148,8 +155,8 @@ namespace CoreOffice.Win.Modules.PackingSlip
             VisitorType = null;
             lblCompanyName.Text = "-";
             lblPhone.Text = "-";
-            lblGrandTotal.Text = "0.00";
-            lblTotalPcs.Text = "0";
+            lblTotalAmount.Text = "0.00";
+            lblTaxableAmount.Text = "0";
             lblVisitorType.Text = "-";
             btnDelete.Enabled = false;
             txtBarcodeScanner.Clear();
@@ -164,18 +171,24 @@ namespace CoreOffice.Win.Modules.PackingSlip
         {
             var price = VisitorType == CustomerTypeEnum.Retail ? item.RetailRate : item.WholeSaleRate;
 
+            var gstPercent = VisitorType == CustomerTypeEnum.Retail ? item.GstRPercent : item.GstWPercent;
 
+            var amount = Math.Round(price * Qty, 2, MidpointRounding.AwayFromZero);
 
+            var gstAmount = Math.Round(amount * gstPercent / 100, 2, MidpointRounding.AwayFromZero);
+
+            var totalAmount = Math.Round(amount + gstAmount, 2, MidpointRounding.AwayFromZero);
             dataGridPackingSlip.Rows.Add(
                 item.Id,
                 item.BarCode,
-                item.StockGroup,
+                item.StockGroup ,
                 item.ProductName,
                 Qty,
                 price,
-                price,
-                item.AvailableQty,
-                item.GstValue
+                amount,
+                gstPercent,
+                totalAmount,
+                item.AvailableQty
             );
 
             CalculatePackingSlip();
@@ -183,25 +196,41 @@ namespace CoreOffice.Win.Modules.PackingSlip
 
         private void CalculatePackingSlip()
         {
-            int TotalPcs = 0;
-            decimal TotalAmount = 0;
+            int totalPcs = 0;
+            decimal totalTaxable = 0;
+            decimal totalAmount = 0;
 
-            dataGridPackingSlip.Rows.Cast<DataGridViewRow>().ToList().ForEach(row =>
+            foreach (DataGridViewRow row in dataGridPackingSlip.Rows)
             {
-                decimal price = Convert.ToDecimal(row.Cells["Amount"].Value);
+                if (row.IsNewRow) continue;
+
+                decimal rate = Convert.ToDecimal(row.Cells["Rate"].Value);
                 int.TryParse(row.Cells["Quantity"].Value?.ToString(), out int qty);
-                decimal total = price * qty;
+                decimal gstPercent = Convert.ToDecimal(row.Cells["GstValue"].Value);
 
-                row.Cells["Total"].Value = total;
+               
+                decimal taxable = Math.Round(rate * qty, 2, MidpointRounding.AwayFromZero);
 
-                TotalAmount += total;
-                TotalPcs += qty;
-            });
+                // 🔹 GST amount
+                decimal gstAmount = Math.Round(taxable * gstPercent / 100, 2, MidpointRounding.AwayFromZero);
 
-            lblGrandTotal.Text = TotalAmount.ToString("0.00");
-            lblTotalPcs.Text = TotalPcs.ToString();
+                // 🔹 Final total
+                decimal total = Math.Round(taxable + gstAmount, 2, MidpointRounding.AwayFromZero);
+
+                // 🔹 Set values in grid
+                row.Cells["Taxable"].Value = taxable;
+                row.Cells["Amount"].Value = total;
+
+                // 🔹 Totals
+                totalTaxable += taxable;
+                totalAmount += total;
+                totalPcs += qty;
+            }
+
+            lblTotalAmount.Text = totalAmount.ToString("0.00");
+            lblTotalPcs.Text = totalPcs.ToString();
+            lblTaxableAmount.Text = totalTaxable.ToString("0.00"); // 🔥 fix (pehle galat tha)
         }
-
         private async void txtBarcodeScanner_KeyDown(object sender, KeyEventArgs e)
         {
 
@@ -378,7 +407,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
                     {
                         StockId = Guid.Parse(row.Cells["Id"].Value.ToString()),
                         Qty = Convert.ToInt32(row.Cells["Quantity"].Value),
-                        SaleRate = Convert.ToDecimal(row.Cells["Amount"].Value),
+                        SaleRate = Convert.ToDecimal(row.Cells["Rate"].Value),
                         GstValue = Convert.ToDecimal(row.Cells["GstValue"].Value)
                     });
                 }
@@ -454,9 +483,11 @@ namespace CoreOffice.Win.Modules.PackingSlip
                     item.ProductName,
                     item.Qty,
                     item.SaleRate,
+                    item.TaxableAmount,
+                     item.GstValue,
                     item.Amount,
-                    item.AvailableQty,
-                    item.GstValue
+                       item.AvailableQty
+                   
                 );
             }
 

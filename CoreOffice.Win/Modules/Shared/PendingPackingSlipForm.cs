@@ -232,11 +232,11 @@ namespace CoreOffice.Win.Modules.Shared
 
             if (UserSession.RoleEnum == RoleEnum.PackingSlipOperator)
             {
-                await LoadPackingSlipAsync(id.Value); // 👉 Edit mode
+                await LoadPackingSlipAsync(id.Value); //  Edit mode
                 return;
             }
 
-            // 👉 View mode (future)
+            //  View mode (future)
             MessageBox.Show($"View Packing Slip: {id}");
         }
 

@@ -16,6 +16,63 @@ namespace CoreOffice.Win.Modules.Cashier
             InitializeComponent();
 
             _deliveryChallanService = deliveryChallanService;
+
+            FormSetting();
+
+        }
+
+
+        private void FormSetting()
+        {
+           
+            dataGridReturn.Columns["SaleRate"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridReturn.Columns["SaleRate"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            dataGridReturn.Columns["Qty"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridReturn.Columns["Qty"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            dataGridReturn.Columns["Returned"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridReturn.Columns["Returned"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            dataGridReturn.Columns["Balance"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridReturn.Columns["Balance"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            var col = dataGridReturn.Columns["ReturnQty"];
+
+            // Alignment
+            col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            col.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            // Editable feel color
+            col.DefaultCellStyle.BackColor = Color.LightYellow;
+            col.DefaultCellStyle.SelectionBackColor = Color.Khaki;
+
+            // Text color thoda strong
+            col.DefaultCellStyle.ForeColor = Color.Black;
+
+            // Optional: font thoda bold
+            col.DefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+
+            dataGridReturn.Columns["CurrentQty"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridReturn.Columns["CurrentQty"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+        
+            dataGridReturn.Columns["SaleRate"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridReturn.Columns["SaleRate"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            dataGridReturn.Columns["TaxableAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridReturn.Columns["TaxableAmount"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+
+            dataGridReturn.Columns["GstPer"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridReturn.Columns["GstPer"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            dataGridReturn.Columns["Amount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridReturn.Columns["Amount"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+
+            dataGridReturn.Columns["Product"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            dataGridReturn.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
         }
 
         private async void txtNumber_KeyDown(object sender, KeyEventArgs e)
@@ -61,13 +118,16 @@ namespace CoreOffice.Win.Modules.Cashier
                     dataGridReturn.Rows.Add(
                         item.DeliveryChallanItemId,
                         item.StockId,
-                        item.ProductCategory,
-                        item.ProductName,
+                        item.BarCode + "\n"+item.ProductCategory + "\n" + item.ProductName,
                         item.SaleRate,
                         item.Qty,
                         item.Returned,
                         item.Balance,
-                        item.ReturnQty
+                        item.ReturnQty,
+                        item.Balance,
+                        item.TaxableAmount,
+                        item.GstValue.ToString("0"),
+                        item.Amount
                     );
                 }
 

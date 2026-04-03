@@ -96,6 +96,8 @@ namespace CoreOffice.Win.Modules.Shared
                     item.ProductName,
                     item.Qty,
                     item.SaleRate,
+                    item.TaxableAmount,
+                    item.GstValue,
                     item.Amount,
                     item.AvailableQty,
                     item.GstValue
@@ -138,31 +140,40 @@ namespace CoreOffice.Win.Modules.Shared
 
             lblCompanyName.Text = "-";
             lblPhone.Text = "-";
-            lblGrandTotal.Text = "0.00";
+    
             lblTotalPcs.Text = "0";
             lblVisitorType.Text = "-";
+            lblTotalAmount.Text = "0.00";
+            lblTotalPcs.Text = "0.00";
+            lblTaxableAmount.Text = "0.00";
 
         }
 
         private void CalculatePackingSlip()
         {
-            int TotalPcs = 0;
-            decimal TotalAmount = 0;
+            int totalPcs = 0;
+            decimal totalTaxable = 0;
+            decimal totalAmount = 0;
 
-            dataGridPackingSlip.Rows.Cast<DataGridViewRow>().ToList().ForEach(row =>
+            foreach (DataGridViewRow row in dataGridPackingSlip.Rows)
             {
-                decimal price = Convert.ToDecimal(row.Cells["Amount"].Value);
+                if (row.IsNewRow) continue;
+
+                decimal taxable = Convert.ToDecimal(row.Cells["TaxableAmount"].Value);
                 int.TryParse(row.Cells["Quantity"].Value?.ToString(), out int qty);
-                decimal total = price * qty;
+                decimal gstPercent = Convert.ToDecimal(row.Cells["GstValue"].Value);
+                decimal amount = Convert.ToDecimal(row.Cells["Amount"].Value);
 
-                row.Cells["Total"].Value = total;
 
-                TotalAmount += total;
-                TotalPcs += qty;
-            });
+                // 🔹 Totals
+                totalTaxable += taxable;
+                totalAmount += amount;
+                totalPcs += qty;
+            }
 
-            lblGrandTotal.Text = TotalAmount.ToString("0.00");
-            lblTotalPcs.Text = TotalPcs.ToString();
+            lblTotalAmount.Text = totalAmount.ToString("0.00");
+            lblTotalPcs.Text = totalPcs.ToString();
+            lblTaxableAmount.Text = totalTaxable.ToString("0.00"); 
         }
 
         private void btnClose_Click(object sender, EventArgs e)

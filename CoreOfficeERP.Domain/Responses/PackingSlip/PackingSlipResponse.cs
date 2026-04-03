@@ -20,6 +20,8 @@
 
         public int TotalQuantity { get; set; }
 
+        public decimal TotalTaxableAmount { get; set; }
+
         public decimal TotalAmount { get; set; }
 
         public VisitorResponse? Visitor { get; set; }

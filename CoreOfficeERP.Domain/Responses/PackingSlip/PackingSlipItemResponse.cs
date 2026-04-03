@@ -13,6 +13,8 @@
         public decimal GstValue { get; set; }
         public decimal SaleRate { get; set; }
 
-        public decimal Amount => Qty * SaleRate;
+        public decimal TaxableAmount { get; set; }
+
+        public decimal Amount { get; set; }
     }
 }
