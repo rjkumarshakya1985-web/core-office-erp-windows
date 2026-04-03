@@ -62,6 +62,8 @@
             TotalQty = new DataGridViewTextBoxColumn();
             ReturnQty = new DataGridViewTextBoxColumn();
             Balance = new DataGridViewTextBoxColumn();
+            TaxableAmount = new DataGridViewTextBoxColumn();
+            GstPer = new DataGridViewTextBoxColumn();
             TotalAmount = new DataGridViewTextBoxColumn();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
@@ -127,7 +129,7 @@
             dataGrid.AllowUserToAddRows = false;
             dataGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGrid.Columns.AddRange(new DataGridViewColumn[] { Id, StockId, Category, Product, SalePrice, TotalQty, ReturnQty, Balance, TotalAmount });
+            dataGrid.Columns.AddRange(new DataGridViewColumn[] { Id, StockId, Category, Product, SalePrice, TotalQty, ReturnQty, Balance, TaxableAmount, GstPer, TotalAmount });
             dataGrid.Dock = DockStyle.Top;
             dataGrid.Location = new Point(0, 88);
             dataGrid.Name = "dataGrid";
@@ -403,6 +405,16 @@
             Balance.Name = "Balance";
             Balance.ReadOnly = true;
             // 
+            // TaxableAmount
+            // 
+            TaxableAmount.HeaderText = "Taxable Amount";
+            TaxableAmount.Name = "TaxableAmount";
+            // 
+            // GstPer
+            // 
+            GstPer.HeaderText = "Gst %";
+            GstPer.Name = "GstPer";
+            // 
             // TotalAmount
             // 
             TotalAmount.HeaderText = "Amount";
@@ -476,6 +488,8 @@
         private DataGridViewTextBoxColumn TotalQty;
         private DataGridViewTextBoxColumn ReturnQty;
         private DataGridViewTextBoxColumn Balance;
+        private DataGridViewTextBoxColumn TaxableAmount;
+        private DataGridViewTextBoxColumn GstPer;
         private DataGridViewTextBoxColumn TotalAmount;
     }
 }

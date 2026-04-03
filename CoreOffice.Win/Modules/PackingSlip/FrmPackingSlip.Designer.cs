@@ -68,7 +68,8 @@
             panel2 = new Panel();
             dataGridPackingSlip = new DataGridView();
             Id = new DataGridViewTextBoxColumn();
-            StockId = new DataGridViewTextBoxColumn();
+            Barcode = new DataGridViewTextBoxColumn();
+            Category = new DataGridViewTextBoxColumn();
             Product = new DataGridViewTextBoxColumn();
             Quantity = new DataGridViewTextBoxColumn();
             Rate = new DataGridViewTextBoxColumn();
@@ -505,7 +506,7 @@
             dataGridPackingSlip.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridPackingSlip.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridPackingSlip.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridPackingSlip.Columns.AddRange(new DataGridViewColumn[] { Id, StockId, Product, Quantity, Rate, Taxable, GstValue, Amount, AvailableQty });
+            dataGridPackingSlip.Columns.AddRange(new DataGridViewColumn[] { Id, Barcode, Category, Product, Quantity, Rate, Taxable, GstValue, Amount, AvailableQty });
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = SystemColors.Window;
             dataGridViewCellStyle1.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -529,10 +530,17 @@
             Id.Name = "Id";
             Id.Visible = false;
             // 
-            // StockId
+            // Barcode
             // 
-            StockId.HeaderText = "StockId";
-            StockId.Name = "StockId";
+            Barcode.HeaderText = "Barcode";
+            Barcode.Name = "Barcode";
+            Barcode.ReadOnly = true;
+            // 
+            // Category
+            // 
+            Category.HeaderText = "Category";
+            Category.Name = "Category";
+            Category.ReadOnly = true;
             // 
             // Product
             // 
@@ -649,7 +657,8 @@
         private ComboBox cmbSalesPerson;
         private Button btnPendingPackingSlips;
         private DataGridViewTextBoxColumn Id;
-        private DataGridViewTextBoxColumn StockId;
+        private DataGridViewTextBoxColumn Barcode;
+        private DataGridViewTextBoxColumn Category;
         private DataGridViewTextBoxColumn Product;
         private DataGridViewTextBoxColumn Quantity;
         private DataGridViewTextBoxColumn Rate;

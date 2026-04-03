@@ -91,6 +91,8 @@ namespace CoreOffice.Win.Modules.Cashier
                         item.Qty,
                         item.Returned,
                         item.Balance,
+                        item.TaxableAmount,
+                        item.GstValue.ToString("0"),
                         item.Amount
                     );
                 }

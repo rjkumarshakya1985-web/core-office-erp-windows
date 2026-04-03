@@ -131,6 +131,9 @@ namespace CoreOffice.Win.Modules.Cashier
                     );
                 }
 
+                lblTaxableAmount.Text = detail.TotalTaxableAmount.ToString("0.00");
+                lblTotalAmount.Text = detail.TotalAmount.ToString("0.00");
+                lblTotalPcs.Text = detail.TotalQuantity.ToString();
                 dataGridReturn.Focus();
             }
             catch (Exception ex)
@@ -274,6 +277,54 @@ namespace CoreOffice.Win.Modules.Cashier
                 MessageBox.Show("Return Qty adjusted to Balance",
                     "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+            else
+            {
+                decimal saleRate = Convert.ToDecimal(row.Cells["SaleRate"].Value);
+                decimal gstPer = Convert.ToDecimal(row.Cells["GstPer"].Value);
+
+                var currentQty = balance - returnQty;
+                row.Cells["CurrentQty"].Value = currentQty;
+
+                // Taxable
+                decimal taxable = currentQty * saleRate;
+                taxable = Math.Round(taxable, 2); // ✅ 2 decimal round
+                row.Cells["TaxableAmount"].Value = taxable;
+
+                // GST Amount
+                decimal gstAmt = taxable * gstPer / 100;
+                gstAmt = Math.Round(gstAmt, 2);
+
+                // Final Amount
+                decimal total = taxable + gstAmt;
+                total = Math.Round(total, 2);
+
+                row.Cells["Amount"].Value = total;
+                CalculateTotalAmount();
+            }
+        }
+
+        private void CalculateTotalAmount()
+        {
+            decimal total = 0;
+            decimal taxable = 0;
+            int totalPcs = 0;   
+            foreach (DataGridViewRow row in dataGridReturn.Rows)
+            {
+                if (row.IsNewRow) continue;
+                decimal amount = 0;
+                decimal.TryParse(Convert.ToString(row.Cells["Amount"].Value), out amount);
+                total += amount;
+                decimal taxAmount = 0;
+                decimal.TryParse(Convert.ToString(row.Cells["TaxableAmount"].Value), out taxAmount);
+                taxable+= taxAmount;
+                int qty = 0;
+                int.TryParse(Convert.ToString(row.Cells["CurrentQty"].Value), out qty);
+                totalPcs += qty;
+
+            }
+            lblTotalAmount.Text = total.ToString("0.00");
+            lblTaxableAmount.Text = taxable.ToString("0.00");
+            lblTotalPcs.Text = totalPcs.ToString();
         }
 
         private void dataGridReturn_KeyDown(object sender, KeyEventArgs e)
