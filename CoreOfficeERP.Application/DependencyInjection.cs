@@ -1,8 +1,9 @@
 ﻿using CoreOfficeERP.Application.Interfaces;
 using CoreOfficeERP.Application.Services;
 using CoreOfficeERP.Infrastructure.Auth;
+using CoreOfficeERP.Tally.Interfaces;
+using CoreOfficeERP.Tally.Services;
 using Microsoft.Extensions.DependencyInjection;
-
 namespace CoreOfficeERP.Application
 {
     public static class DependencyInjection
@@ -19,6 +20,10 @@ namespace CoreOfficeERP.Application
             services.AddScoped<IFinanceYearService, FinanceYearService>();
             services.AddScoped<IInvoiceService, InvoiceService>();
             services.AddScoped<IDeliveryChallanService, DeliveryChallanService>();
+            services.AddScoped<ITallyConfigService, TallyConfigService>();
+            services.AddScoped<ITallyTransactionService, TallyTransactionService>();
+            services.AddScoped<ITallyProcessService, TallyProcessService>(); 
+            services.AddScoped<ITallyProcessOrchestratorService, TallyProcessOrchestratorService>();
             return services;
         }
     }

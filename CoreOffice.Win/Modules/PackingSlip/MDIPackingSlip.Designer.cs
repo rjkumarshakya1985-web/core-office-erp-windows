@@ -31,6 +31,8 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MDIPackingSlip));
             menuStrip = new MenuStrip();
+            tallyToolStripMenuItem = new ToolStripMenuItem();
+            purchaseToolStripMenuItem = new ToolStripMenuItem();
             fileMenu = new ToolStripMenuItem();
             newToolStripMenuItem = new ToolStripMenuItem();
             toolStripSeparator3 = new ToolStripSeparator();
@@ -40,7 +42,28 @@
             menuStrip.SuspendLayout();
             statusStrip.SuspendLayout();
             SuspendLayout();
-         
+            // 
+            // menuStrip
+            // 
+            menuStrip.Items.AddRange(new ToolStripItem[] { tallyToolStripMenuItem });
+            menuStrip.Location = new Point(0, 0);
+            menuStrip.Name = "menuStrip";
+            menuStrip.Size = new Size(737, 24);
+            menuStrip.TabIndex = 3;
+            // 
+            // tallyToolStripMenuItem
+            // 
+            tallyToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { purchaseToolStripMenuItem });
+            tallyToolStripMenuItem.Name = "tallyToolStripMenuItem";
+            tallyToolStripMenuItem.Size = new Size(43, 20);
+            tallyToolStripMenuItem.Text = "Tally";
+            // 
+            // purchaseToolStripMenuItem
+            // 
+            purchaseToolStripMenuItem.Name = "purchaseToolStripMenuItem";
+            purchaseToolStripMenuItem.Size = new Size(180, 22);
+            purchaseToolStripMenuItem.Text = "Purchase";
+            purchaseToolStripMenuItem.Click += purchaseToolStripMenuItem_Click;
             // 
             // fileMenu
             // 
@@ -113,6 +136,8 @@
         private ToolStripMenuItem fileMenu;
         private ToolStripMenuItem newToolStripMenuItem;
         private ToolStripSeparator toolStripSeparator3;
+        private ToolStripMenuItem tallyToolStripMenuItem;
+        private ToolStripMenuItem purchaseToolStripMenuItem;
     }
 }
 

@@ -16,5 +16,10 @@
         public const string GetDeliveryChallReturnDetail = "deliverychallan/delivery-challan/for-return";
 
         /// Tally
+        public const string GetTallyConfig="TallyConfig";
+        public const string CreateTallyProcessLog = "TallyProcess/savetallyprocess";
+        public const string GetTallyProcessLogByCompanyId = "TallyProcess/tallyprocess";
+        public const string GetTallyProcessLogByPurchaseRef = "TallyProcess/tallyprocess";
+        public const string GetTallyPurchase = "TallyTransaction/purchase";
     }
 }

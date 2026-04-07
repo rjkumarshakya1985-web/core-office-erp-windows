@@ -1,3 +1,4 @@
+using CoreOffice.Win.Modules.Admin;
 using CoreOffice.Win.Modules.Cashier;
 using CoreOffice.Win.Modules.Cashier.Invoices;
 using CoreOffice.Win.Modules.PackingSlip;
@@ -39,7 +40,7 @@ namespace CoreOffice.Win
             services.AddTransient<CompanySelectionForm>();
             services.AddTransient<InvoiceForm>();
             services.AddTransient<DeliveryChallanReturnDetailForm>();
-
+            services.AddTransient<TallySynchPurchase>();
             using var serviceProvider = services.BuildServiceProvider();
 
             var mainForm = serviceProvider.GetRequiredService<Login>();

@@ -32,18 +32,20 @@
         PurchaseReturn = 3,
         SaleReturn = 4
     }
-    public enum TallyProcessStep
+    public enum TallyProcessStepPurchase
     {
         VendorGroup = 1,
-        VendorMaster = 2,
-        CustomerGroup = 3,
-        CustomerMaster = 4,
-        StockCategory = 5,
-        StockGroup = 6,
-        StockItem = 7,
-        PurchaseVoucher = 8,
-        SaleVoucher = 9,
-        PurchaseReturnVoucher = 10,
-        SaleReturnVoucher = 11
+        VendorMaster = 2,        
+        StockCategory = 3,
+        StockGroup = 4,
+        StockItem = 5,
+        PurchaseVoucher = 6        
+    }
+    public enum GSTRegistrationType
+    {
+        Regular = 1,
+        Composition = 2,
+        Unregistered = 3
+        
     }
 }
