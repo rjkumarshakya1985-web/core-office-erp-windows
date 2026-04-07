@@ -1,4 +1,6 @@
-﻿namespace CoreOfficeERP.Common.Enums
+﻿using System.ComponentModel;
+
+namespace CoreOfficeERP.Common.Enums
 {
     public enum RoleEnum
     {
@@ -21,7 +23,9 @@
     /// </summary>
     public enum CustomerTypeEnum
     {
+        [Description("Whole Sale")]
         WholeSale = 1,
+        [Description("Retail")]
         Retail = 2
 
     }
@@ -47,5 +51,33 @@
         Composition = 2,
         Unregistered = 3
         
+    }
+
+    public enum RegistrationTypeEnum
+    {
+        [Description("Regular")]
+        Regular = 1,
+        [Description("Composition")]
+        Composition = 2,
+        [Description("Unregistrated")]
+        Unregistrated = 3
+    }
+
+    public enum DeliveryChallanStatusEnum
+    {
+        Created = 0,
+        Dispatched = 1,
+        PartiallyReturned = 2,
+        FullyReturned = 3,
+        Invoiced = 4,
+        Cancelled = 6
+    }
+
+    public enum InvoiceStatusEnum
+    {
+        Created = 0,
+        DeliveryChallanInvoice = 1,
+        Cancelled = 2,
+        TallySynced = 3
     }
 }

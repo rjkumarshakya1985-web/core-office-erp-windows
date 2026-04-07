@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             groupBox1 = new GroupBox();
-            txtScanner = new TextBox();
-            rdScanner = new RadioButton();
             rdMobile = new RadioButton();
+            rdScanner = new RadioButton();
+            txtScanner = new TextBox();
             groupBox1.SuspendLayout();
             SuspendLayout();
             // 
@@ -47,14 +47,16 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Fetech All PackingSlips By Visitor";
             // 
-            // txtScanner
+            // rdMobile
             // 
-            txtScanner.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtScanner.Location = new Point(34, 56);
-            txtScanner.Name = "txtScanner";
-            txtScanner.Size = new Size(340, 33);
-            txtScanner.TabIndex = 0;
-            txtScanner.KeyDown += txtScanner_KeyDown;
+            rdMobile.AutoSize = true;
+            rdMobile.Location = new Point(237, 25);
+            rdMobile.Name = "rdMobile";
+            rdMobile.Size = new Size(133, 19);
+            rdMobile.TabIndex = 2;
+            rdMobile.TabStop = true;
+            rdMobile.Text = "Search By Mobile no";
+            rdMobile.UseVisualStyleBackColor = true;
             // 
             // rdScanner
             // 
@@ -67,16 +69,14 @@
             rdScanner.Text = "Search By Visitor Slip";
             rdScanner.UseVisualStyleBackColor = true;
             // 
-            // rdMobile
+            // txtScanner
             // 
-            rdMobile.AutoSize = true;
-            rdMobile.Location = new Point(237, 25);
-            rdMobile.Name = "rdMobile";
-            rdMobile.Size = new Size(133, 19);
-            rdMobile.TabIndex = 2;
-            rdMobile.TabStop = true;
-            rdMobile.Text = "Search By Mobile no";
-            rdMobile.UseVisualStyleBackColor = true;
+            txtScanner.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtScanner.Location = new Point(34, 56);
+            txtScanner.Name = "txtScanner";
+            txtScanner.Size = new Size(340, 33);
+            txtScanner.TabIndex = 0;
+            txtScanner.KeyDown += txtScanner_KeyDown;
             // 
             // VisitorForm
             // 
@@ -88,6 +88,7 @@
             Name = "VisitorForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "VisitorForm";
+            Load += VisitorForm_Load;
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ResumeLayout(false);

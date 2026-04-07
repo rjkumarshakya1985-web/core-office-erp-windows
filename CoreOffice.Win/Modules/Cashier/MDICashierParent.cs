@@ -1,6 +1,8 @@
 ﻿
 
 using CoreOffice.Win.Modules.Cashier.Invoices;
+using CoreOffice.Win.Modules.PackingSlip;
+using CoreOffice.Win.Modules.Shared;
 using CoreOffice.Win.Session;
 using CoreOffice.Win.Shared;
 using CoreOfficeERP.Application.Interfaces;
@@ -135,7 +137,7 @@ namespace CoreOffice.Win.Modules.Cashier
         {
 
             var form = new CompanySelectionForm(this);
-            form.ShowDialog();
+            form.Show();
         }
 
         public void UpdateFinanceYear()
@@ -151,7 +153,7 @@ namespace CoreOffice.Win.Modules.Cashier
         }
         private void createInvoiceToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            var childForm = _serviceProvider.GetRequiredService<DeliveryNoteForm>();
+            var childForm = _serviceProvider.GetRequiredService<PendingPackingSlipForm>();
             childForm.MdiParent = this;
             childForm.Text = "Window " + childFormNumber++;
             childForm.Show();
@@ -177,6 +179,69 @@ namespace CoreOffice.Win.Modules.Cashier
         {
             var childForm = _serviceProvider.GetRequiredService<DeliveryChallanReturnDetailForm>();
             childForm.MdiParent = this;
+            childForm.Text = "Window " + childFormNumber++;
+            childForm.Show();
+        }
+
+        private void deliveryChallanToInvoiceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var childForm = _serviceProvider.GetRequiredService<DeliveryChallanToInvoiceForm>();
+            childForm.MdiParent = this;
+            childForm.Text = "Window " + childFormNumber++;
+            childForm.Show();
+        }
+
+        private void createInvoiceToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            var childForm = _serviceProvider.GetRequiredService<InvoiceForm>();
+            childForm.MdiParent = this;
+            childForm.Text = "Window " + childFormNumber++;
+            childForm.Show();
+        }
+
+        private void searchPackingSlipToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var childForm = _serviceProvider.GetRequiredService<PackingSlipViewForm>();
+            childForm.MdiParent = this;
+            childForm.WindowState = FormWindowState.Maximized;
+            childForm.Text = "Window " + childFormNumber++;
+            childForm.Show();
+        }
+
+        private void invoiceListToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var childForm = _serviceProvider.GetRequiredService<InvoiceListForm>();
+            childForm.MdiParent = this;
+            childForm.WindowState = FormWindowState.Maximized;
+            childForm.Text = "Window " + childFormNumber++;
+            childForm.Show();
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            var childForm = _serviceProvider.GetRequiredService<DeliveryChallanEditViewForm>();
+            childForm.MdiParent = this;
+            childForm.WindowState = FormWindowState.Maximized;
+            childForm.Text = "Window " + childFormNumber++;
+            childForm.Show();
+        }
+
+
+        private void searchInvoiceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+            var childForm = _serviceProvider.GetRequiredService<InvoiceSearchForm>();
+            childForm.MdiParent = this;
+            childForm.WindowState = FormWindowState.Maximized;
+            childForm.Text = "Window " + childFormNumber++;
+            childForm.Show();
+        }
+
+        private void createPackingSlipToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var childForm = _serviceProvider.GetRequiredService<FrmPackingSlip>();
+            childForm.MdiParent = this;
+            childForm.WindowState = FormWindowState.Maximized;
             childForm.Text = "Window " + childFormNumber++;
             childForm.Show();
         }

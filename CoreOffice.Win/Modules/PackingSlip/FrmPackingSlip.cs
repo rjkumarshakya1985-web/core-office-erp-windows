@@ -1,9 +1,11 @@
-﻿using CoreOffice.Win.Shared;
+﻿using CoreOffice.Win.Modules.Shared;
+using CoreOffice.Win.Shared;
 using CoreOfficeERP.Application.Interfaces;
 using CoreOfficeERP.Common.Enums;
 using CoreOfficeERP.Domain.Requests.PackingSlip;
 using CoreOfficeERP.Domain.Responses;
 using CoreOfficeERP.Domain.Responses.PackingSlip;
+using CoreOfficeERP.Domain.Responses.SalesPersons;
 using Microsoft.Extensions.DependencyInjection;
 
 
@@ -14,6 +16,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
         private readonly IPackingSlipService _packingSlipService;
         private readonly IServiceProvider _serviceProvider;
         private readonly IStockService _stockService;
+        private readonly ISalesPersonService _salesPersonService;
         private int? VisitorId;
         private int? PackingSlipId;
         private CustomerTypeEnum? VisitorType;
@@ -22,51 +25,72 @@ namespace CoreOffice.Win.Modules.PackingSlip
 
         public FrmPackingSlip(IPackingSlipService packingSlipService,
             IServiceProvider serviceProvider,
-            IStockService stockService)
+            IStockService stockService, ISalesPersonService salesPersonService)
         {
             InitializeComponent();
+
+            cmbSalesPerson.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
+            cmbSalesPerson.AutoCompleteSource = AutoCompleteSource.ListItems;
+
             _packingSlipService = packingSlipService;
             _serviceProvider = serviceProvider;
             _stockService = stockService;
+            _salesPersonService = salesPersonService;
             FormSetting();
             dataGridPackingSlip.AllowUserToAddRows = false;
             btnDelete.Enabled = false;
             txtBarcodeScanner.Focus();
         }
 
-        private void StyleButton(Button btn, Color backColor)
+
+        private async Task LoadSalesPersons()
         {
-            btn.FlatStyle = FlatStyle.Flat;
-            btn.FlatAppearance.BorderSize = 0;
+            var salesPersons = await _salesPersonService.GetActiveSalesPerson();
 
-            btn.BackColor = backColor;
-            btn.ForeColor = Color.White;
+            if (salesPersons != null && salesPersons.Any())
+            {
+                // ✅ Insert blank option on top
+                salesPersons.Insert(0, new SalePersonResponse
+                {
+                    Id = null,
+                    Name = "",
+                    PhoneNumber = "",
+                    StateId = 0,
+                    StateName = "",
+                    CityId = 0,
+                    CityName = "",
+                    Address = "",
+                    IsActive = false,
+                    IsDeleted = false
+                });
 
-            btn.Font = new Font("Segoe UI", 10, FontStyle.Bold);
-
-            btn.Height = 42;
-            btn.Width = 130;
-
-            btn.Cursor = Cursors.Hand;
-
-            btn.TextAlign = ContentAlignment.MiddleCenter;
-
-            btn.FlatAppearance.MouseOverBackColor = ControlPaint.Light(backColor);
-            btn.FlatAppearance.MouseDownBackColor = ControlPaint.Dark(backColor);
+                cmbSalesPerson.DataSource = salesPersons;
+                cmbSalesPerson.DisplayMember = "Name";
+                cmbSalesPerson.ValueMember = "Id";
+            }
         }
+
+
 
         private void FormSetting()
         {
             dataGridPackingSlip.Columns["Quantity"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridPackingSlip.Columns["Amount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dataGridPackingSlip.Columns["Total"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-
             dataGridPackingSlip.Columns["Quantity"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            dataGridPackingSlip.Columns["Amount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             dataGridPackingSlip.Columns["Amount"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dataGridPackingSlip.Columns["Total"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            dataGridPackingSlip.Columns["Taxable"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridPackingSlip.Columns["Taxable"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            dataGridPackingSlip.Columns["AvailableQty"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridPackingSlip.Columns["AvailableQty"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            dataGridPackingSlip.Columns["GstValue"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridPackingSlip.Columns["GstValue"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
             dataGridPackingSlip.Columns["Amount"].DefaultCellStyle.Format = "N2";
-            dataGridPackingSlip.Columns["Total"].DefaultCellStyle.Format = "N2";
+            dataGridPackingSlip.Columns["Taxable"].DefaultCellStyle.Format = "N2";
 
             dataGridPackingSlip.Columns["Id"].Visible = false;
 
@@ -74,31 +98,20 @@ namespace CoreOffice.Win.Modules.PackingSlip
 
             dataGridPackingSlip.ColumnHeadersDefaultCellStyle.BackColor = Color.Navy;
             dataGridPackingSlip.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-            dataGridPackingSlip.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+            //dataGridPackingSlip.ColumnHeadersDefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
 
             dataGridPackingSlip.AlternatingRowsDefaultCellStyle.BackColor = Color.AliceBlue;
 
             txtBarcodeScanner.Font = new Font("Segoe UI", 14, FontStyle.Bold);
 
-
-
-            // Buttons styling
-            //StyleButton(btnVisitor, Color.SteelBlue);
-            //StyleButton(btnRemoved, Color.IndianRed);
-            //StyleButton(btnCancel, Color.DarkOrange);
-            //StyleButton(btnClose, Color.DimGray);
-            //StyleButton(btnSave, Color.Green);
-            //StyleButton(btnUpdate, Color.YellowGreen);
-            //StyleButton(btnDelete, Color.Red);
-
-
             btnRemoved.Text = "Remove Item";
         }
 
-        private void FrmPackingSlip_Load(object sender, EventArgs e)
+        private async void FrmPackingSlip_Load(object sender, EventArgs e)
         {
-
+            await LoadSalesPersons();
         }
+
 
         private void btnVisitor_Click(object sender, EventArgs e)
         {
@@ -142,12 +155,12 @@ namespace CoreOffice.Win.Modules.PackingSlip
             VisitorType = null;
             lblCompanyName.Text = "-";
             lblPhone.Text = "-";
-            lblGrandTotal.Text = "0.00";
-            lblTotalPcs.Text = "0";
+            lblTotalAmount.Text = "0.00";
+            lblTaxableAmount.Text = "0";
             lblVisitorType.Text = "-";
             btnDelete.Enabled = false;
             txtBarcodeScanner.Clear();
-
+            cmbSalesPerson.SelectedIndex = 0;
         }
 
 
@@ -158,18 +171,24 @@ namespace CoreOffice.Win.Modules.PackingSlip
         {
             var price = VisitorType == CustomerTypeEnum.Retail ? item.RetailRate : item.WholeSaleRate;
 
+            var gstPercent = VisitorType == CustomerTypeEnum.Retail ? item.GstRPercent : item.GstWPercent;
 
+            var amount = Math.Round(price * Qty, 2, MidpointRounding.AwayFromZero);
 
+            var gstAmount = Math.Round(amount * gstPercent / 100, 2, MidpointRounding.AwayFromZero);
+
+            var totalAmount = Math.Round(amount + gstAmount, 2, MidpointRounding.AwayFromZero);
             dataGridPackingSlip.Rows.Add(
                 item.Id,
                 item.BarCode,
-                item.StockGroup,
+                item.StockGroup ,
                 item.ProductName,
                 Qty,
                 price,
-                price,
-                item.AvailableQty,
-                item.GstValue
+                amount,
+                gstPercent,
+                totalAmount,
+                item.AvailableQty
             );
 
             CalculatePackingSlip();
@@ -177,25 +196,41 @@ namespace CoreOffice.Win.Modules.PackingSlip
 
         private void CalculatePackingSlip()
         {
-            int TotalPcs = 0;
-            decimal TotalAmount = 0;
+            int totalPcs = 0;
+            decimal totalTaxable = 0;
+            decimal totalAmount = 0;
 
-            dataGridPackingSlip.Rows.Cast<DataGridViewRow>().ToList().ForEach(row =>
+            foreach (DataGridViewRow row in dataGridPackingSlip.Rows)
             {
-                decimal price = Convert.ToDecimal(row.Cells["Amount"].Value);
+                if (row.IsNewRow) continue;
+
+                decimal rate = Convert.ToDecimal(row.Cells["Rate"].Value);
                 int.TryParse(row.Cells["Quantity"].Value?.ToString(), out int qty);
-                decimal total = price * qty;
+                decimal gstPercent = Convert.ToDecimal(row.Cells["GstValue"].Value);
 
-                row.Cells["Total"].Value = total;
+               
+                decimal taxable = Math.Round(rate * qty, 2, MidpointRounding.AwayFromZero);
 
-                TotalAmount += total;
-                TotalPcs += qty;
-            });
+                // 🔹 GST amount
+                decimal gstAmount = Math.Round(taxable * gstPercent / 100, 2, MidpointRounding.AwayFromZero);
 
-            lblGrandTotal.Text = TotalAmount.ToString("0.00");
-            lblTotalPcs.Text = TotalPcs.ToString();
+                // 🔹 Final total
+                decimal total = Math.Round(taxable + gstAmount, 2, MidpointRounding.AwayFromZero);
+
+                // 🔹 Set values in grid
+                row.Cells["Taxable"].Value = taxable;
+                row.Cells["Amount"].Value = total;
+
+                // 🔹 Totals
+                totalTaxable += taxable;
+                totalAmount += total;
+                totalPcs += qty;
+            }
+
+            lblTotalAmount.Text = totalAmount.ToString("0.00");
+            lblTotalPcs.Text = totalPcs.ToString();
+            lblTaxableAmount.Text = totalTaxable.ToString("0.00"); // 🔥 fix (pehle galat tha)
         }
-
         private async void txtBarcodeScanner_KeyDown(object sender, KeyEventArgs e)
         {
 
@@ -233,11 +268,14 @@ namespace CoreOffice.Win.Modules.PackingSlip
                 txtBarcodeScanner.Clear();
                 return;
             }
+
+
             if (stockItems.Count() > 1)
             {
-                var productNames = string.Join(", ", stockItems.Select(s => s.ProductName));
-                MessageBox.Show($"Multiple products found for barcode {barcode}: {productNames}");
-                txtBarcodeScanner.Clear();
+                var frm = new FrmMultipleStockProduct();
+                frm.frm = this;
+                frm.StockResponseList = stockItems.ToList();
+                frm.ShowDialog();
                 return;
             }
 
@@ -255,6 +293,11 @@ namespace CoreOffice.Win.Modules.PackingSlip
 
             e.SuppressKeyPress = true;
 
+            new FrmProductQty(this, item).ShowDialog();
+        }
+
+        public void AddSingleItemToGrid(CurrentStockResponse item)
+        {
             new FrmProductQty(this, item).ShowDialog();
         }
 
@@ -333,9 +376,19 @@ namespace CoreOffice.Win.Modules.PackingSlip
             {
                 AppLoader.Show();
 
+
+
                 if (dataGridPackingSlip.Rows.Count == 0)
                 {
                     MessageBox.Show("Add items first");
+
+                    return;
+                }
+
+                if (string.IsNullOrEmpty(cmbSalesPerson.Text))
+                {
+                    MessageBox.Show("Select Sales Person Firstly");
+                    cmbSalesPerson.Focus();
                     return;
                 }
 
@@ -354,7 +407,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
                     {
                         StockId = Guid.Parse(row.Cells["Id"].Value.ToString()),
                         Qty = Convert.ToInt32(row.Cells["Quantity"].Value),
-                        SaleRate = Convert.ToDecimal(row.Cells["Amount"].Value),
+                        SaleRate = Convert.ToDecimal(row.Cells["Rate"].Value),
                         GstValue = Convert.ToDecimal(row.Cells["GstValue"].Value)
                     });
                 }
@@ -369,6 +422,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
                 {
                     Id = PackingSlipId ?? 0,
                     VisitorId = VisitorId,
+                    SalesPersonId = (Guid?)cmbSalesPerson.SelectedValue,
                     Items = packingSlipItems
                 };
 
@@ -416,6 +470,9 @@ namespace CoreOffice.Win.Modules.PackingSlip
             SetVisitorInfo(
                response.Visitor);
 
+            if (response.SalesPersonId != null)
+                cmbSalesPerson.SelectedValue = response.SalesPersonId.Value;
+
             // Load Items into Grid
             foreach (var item in response.Items)
             {
@@ -426,9 +483,11 @@ namespace CoreOffice.Win.Modules.PackingSlip
                     item.ProductName,
                     item.Qty,
                     item.SaleRate,
+                    item.TaxableAmount,
+                     item.GstValue,
                     item.Amount,
-                    item.AvailableQty,
-                    item.GstValue
+                       item.AvailableQty
+                   
                 );
             }
 
@@ -566,6 +625,13 @@ namespace CoreOffice.Win.Modules.PackingSlip
                 return;
 
             OpenQtyPopup();
+        }
+
+        private void btnPendingPackingSlips_Click(object sender, EventArgs e)
+        {
+            var childForm = _serviceProvider.GetRequiredService<PendingPackingSlipForm>();
+            childForm._frmPackingSlip = this;
+            childForm.ShowDialog();
         }
     }
 

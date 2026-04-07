@@ -1,5 +1,6 @@
 ﻿using CoreOfficeERP.Application.Interfaces;
 using CoreOfficeERP.Domain;
+using CoreOfficeERP.Domain.Responses.MasterData;
 using CoreOfficeERP.Infrastructure.Api;
 
 namespace CoreOfficeERP.Application.Services
@@ -20,5 +21,16 @@ namespace CoreOfficeERP.Application.Services
                 .GetAsync<List<DepartmentResponseDto>>("master/departments");
         }
 
+        public async Task<IEnumerable<CityResponse>?> GetCityByState(int stateId)
+        {
+            return await _apiRepository
+                 .GetAsync<List<CityResponse>>($"master/cities/{stateId}");
+        }
+
+        public async Task<IEnumerable<StateResponse>?> GetStates()
+        {
+            return await _apiRepository
+                      .GetAsync<List<StateResponse>>("master/states");
+        }
     }
 }

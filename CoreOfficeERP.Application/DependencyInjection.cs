@@ -20,6 +20,9 @@ namespace CoreOfficeERP.Application
             services.AddScoped<IFinanceYearService, FinanceYearService>();
             services.AddScoped<IInvoiceService, InvoiceService>();
             services.AddScoped<IDeliveryChallanService, DeliveryChallanService>();
+            services.AddScoped<ISalesPersonService, SalesPersonService>();
+            services.AddScoped<ICustomerService, CustomerService>();
+            services.AddScoped<IDeliveryChallanToInvoiceService, DeliveryChallanToInvoiceService>();
             services.AddScoped<ITallyConfigService, TallyConfigService>();
             services.AddScoped<ITallyTransactionService, TallyTransactionService>();
             services.AddScoped<ITallyProcessService, TallyProcessService>(); 

@@ -35,6 +35,7 @@
             panel6 = new Panel();
             panel11 = new Panel();
             panel10 = new Panel();
+            btnPendingPackingSlips = new Button();
             btnClear = new Button();
             btnClose = new Button();
             btnSave = new Button();
@@ -43,14 +44,19 @@
             btnUpdate = new Button();
             btnRemoved = new Button();
             panel5 = new Panel();
+            panel8 = new Panel();
+            label6 = new Label();
+            cmbSalesPerson = new ComboBox();
             txtBarcodeScanner = new TextBox();
             label5 = new Label();
             panel4 = new Panel();
             panel9 = new Panel();
             groupBox1 = new GroupBox();
-            lblGrandTotal = new Label();
             lblTotalPcs = new Label();
-            lblGrandTotalControl = new Label();
+            label3 = new Label();
+            lblTotalAmount = new Label();
+            lblTaxableAmount = new Label();
+            lbl = new Label();
             lblTotalPcsControl = new Label();
             groupBox2 = new GroupBox();
             lblVisitorType = new Label();
@@ -63,18 +69,20 @@
             dataGridPackingSlip = new DataGridView();
             Id = new DataGridViewTextBoxColumn();
             Barcode = new DataGridViewTextBoxColumn();
-            ProductCategory = new DataGridViewTextBoxColumn();
+            Category = new DataGridViewTextBoxColumn();
             Product = new DataGridViewTextBoxColumn();
             Quantity = new DataGridViewTextBoxColumn();
-            Amount = new DataGridViewTextBoxColumn();
-            Total = new DataGridViewTextBoxColumn();
-            AvailableQty = new DataGridViewTextBoxColumn();
+            Rate = new DataGridViewTextBoxColumn();
+            Taxable = new DataGridViewTextBoxColumn();
             GstValue = new DataGridViewTextBoxColumn();
+            Amount = new DataGridViewTextBoxColumn();
+            AvailableQty = new DataGridViewTextBoxColumn();
             panel1.SuspendLayout();
             panel3.SuspendLayout();
             panel6.SuspendLayout();
             panel10.SuspendLayout();
             panel5.SuspendLayout();
+            panel8.SuspendLayout();
             panel4.SuspendLayout();
             groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
@@ -137,6 +145,7 @@
             // panel10
             // 
             panel10.BackColor = Color.White;
+            panel10.Controls.Add(btnPendingPackingSlips);
             panel10.Controls.Add(btnClear);
             panel10.Controls.Add(btnClose);
             panel10.Controls.Add(btnSave);
@@ -150,12 +159,23 @@
             panel10.Size = new Size(1174, 61);
             panel10.TabIndex = 10;
             // 
+            // btnPendingPackingSlips
+            // 
+            btnPendingPackingSlips.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnPendingPackingSlips.Location = new Point(733, 6);
+            btnPendingPackingSlips.Name = "btnPendingPackingSlips";
+            btnPendingPackingSlips.Size = new Size(179, 48);
+            btnPendingPackingSlips.TabIndex = 12;
+            btnPendingPackingSlips.Text = "Pending Packing Slip List";
+            btnPendingPackingSlips.UseVisualStyleBackColor = true;
+            btnPendingPackingSlips.Click += btnPendingPackingSlips_Click;
+            // 
             // btnClear
             // 
             btnClear.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            btnClear.Location = new Point(163, 4);
+            btnClear.Location = new Point(122, 5);
             btnClear.Name = "btnClear";
-            btnClear.Size = new Size(165, 50);
+            btnClear.Size = new Size(106, 50);
             btnClear.TabIndex = 11;
             btnClear.Text = "Clear";
             btnClear.UseVisualStyleBackColor = true;
@@ -164,9 +184,9 @@
             // btnClose
             // 
             btnClose.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            btnClose.Location = new Point(502, 5);
+            btnClose.Location = new Point(405, 5);
             btnClose.Name = "btnClose";
-            btnClose.Size = new Size(165, 50);
+            btnClose.Size = new Size(99, 50);
             btnClose.TabIndex = 10;
             btnClose.Text = "Close";
             btnClose.UseVisualStyleBackColor = true;
@@ -177,9 +197,9 @@
             btnSave.BackColor = Color.FromArgb(192, 192, 255);
             btnSave.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnSave.ForeColor = Color.Blue;
-            btnSave.Location = new Point(671, 6);
+            btnSave.Location = new Point(513, 6);
             btnSave.Name = "btnSave";
-            btnSave.Size = new Size(159, 48);
+            btnSave.Size = new Size(88, 48);
             btnSave.TabIndex = 3;
             btnSave.Text = "Save";
             btnSave.UseVisualStyleBackColor = false;
@@ -190,7 +210,7 @@
             btnDelete.BackColor = Color.FromArgb(255, 192, 192);
             btnDelete.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnDelete.ForeColor = Color.Red;
-            btnDelete.Location = new Point(1003, 5);
+            btnDelete.Location = new Point(919, 5);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(159, 48);
             btnDelete.TabIndex = 9;
@@ -203,7 +223,7 @@
             btnVisitor.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnVisitor.Location = new Point(6, 6);
             btnVisitor.Name = "btnVisitor";
-            btnVisitor.Size = new Size(151, 50);
+            btnVisitor.Size = new Size(109, 50);
             btnVisitor.TabIndex = 4;
             btnVisitor.Text = "Visitor";
             btnVisitor.UseVisualStyleBackColor = true;
@@ -212,9 +232,9 @@
             // btnUpdate
             // 
             btnUpdate.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            btnUpdate.Location = new Point(835, 5);
+            btnUpdate.Location = new Point(607, 5);
             btnUpdate.Name = "btnUpdate";
-            btnUpdate.Size = new Size(159, 48);
+            btnUpdate.Size = new Size(120, 48);
             btnUpdate.TabIndex = 8;
             btnUpdate.Text = "Edit Bill";
             btnUpdate.UseVisualStyleBackColor = true;
@@ -223,7 +243,7 @@
             // btnRemoved
             // 
             btnRemoved.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            btnRemoved.Location = new Point(334, 5);
+            btnRemoved.Location = new Point(234, 5);
             btnRemoved.Name = "btnRemoved";
             btnRemoved.Size = new Size(165, 50);
             btnRemoved.TabIndex = 7;
@@ -235,6 +255,7 @@
             // 
             panel5.BackColor = Color.FromArgb(64, 64, 64);
             panel5.BorderStyle = BorderStyle.Fixed3D;
+            panel5.Controls.Add(panel8);
             panel5.Controls.Add(txtBarcodeScanner);
             panel5.Controls.Add(label5);
             panel5.Dock = DockStyle.Top;
@@ -242,6 +263,36 @@
             panel5.Name = "panel5";
             panel5.Size = new Size(1174, 50);
             panel5.TabIndex = 3;
+            // 
+            // panel8
+            // 
+            panel8.Controls.Add(label6);
+            panel8.Controls.Add(cmbSalesPerson);
+            panel8.Dock = DockStyle.Right;
+            panel8.Location = new Point(731, 0);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(439, 46);
+            panel8.TabIndex = 5;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI", 11.25F);
+            label6.ForeColor = Color.White;
+            label6.Location = new Point(30, 11);
+            label6.Name = "label6";
+            label6.Size = new Size(134, 20);
+            label6.TabIndex = 1;
+            label6.Text = "Select Sales Person";
+            // 
+            // cmbSalesPerson
+            // 
+            cmbSalesPerson.Font = new Font("Segoe UI", 11.25F);
+            cmbSalesPerson.FormattingEnabled = true;
+            cmbSalesPerson.Location = new Point(184, 7);
+            cmbSalesPerson.Name = "cmbSalesPerson";
+            cmbSalesPerson.Size = new Size(240, 28);
+            cmbSalesPerson.TabIndex = 0;
             // 
             // txtBarcodeScanner
             // 
@@ -285,9 +336,11 @@
             // groupBox1
             // 
             groupBox1.BackColor = SystemColors.ButtonHighlight;
-            groupBox1.Controls.Add(lblGrandTotal);
             groupBox1.Controls.Add(lblTotalPcs);
-            groupBox1.Controls.Add(lblGrandTotalControl);
+            groupBox1.Controls.Add(label3);
+            groupBox1.Controls.Add(lblTotalAmount);
+            groupBox1.Controls.Add(lblTaxableAmount);
+            groupBox1.Controls.Add(lbl);
             groupBox1.Controls.Add(lblTotalPcsControl);
             groupBox1.Dock = DockStyle.Right;
             groupBox1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
@@ -299,35 +352,55 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Packing Slip Information";
             // 
-            // lblGrandTotal
-            // 
-            lblGrandTotal.AutoSize = true;
-            lblGrandTotal.Font = new Font("Segoe UI", 14.25F);
-            lblGrandTotal.Location = new Point(144, 57);
-            lblGrandTotal.Name = "lblGrandTotal";
-            lblGrandTotal.Size = new Size(40, 25);
-            lblGrandTotal.TabIndex = 5;
-            lblGrandTotal.Text = ".......";
-            // 
             // lblTotalPcs
             // 
             lblTotalPcs.AutoSize = true;
             lblTotalPcs.Font = new Font("Segoe UI", 14.25F);
-            lblTotalPcs.Location = new Point(143, 29);
+            lblTotalPcs.Location = new Point(212, 60);
             lblTotalPcs.Name = "lblTotalPcs";
             lblTotalPcs.Size = new Size(40, 25);
-            lblTotalPcs.TabIndex = 4;
+            lblTotalPcs.TabIndex = 7;
             lblTotalPcs.Text = ".......";
             // 
-            // lblGrandTotalControl
+            // label3
             // 
-            lblGrandTotalControl.AutoSize = true;
-            lblGrandTotalControl.Font = new Font("Segoe UI", 14.25F);
-            lblGrandTotalControl.Location = new Point(22, 57);
-            lblGrandTotalControl.Name = "lblGrandTotalControl";
-            lblGrandTotalControl.Size = new Size(118, 25);
-            lblGrandTotalControl.TabIndex = 1;
-            lblGrandTotalControl.Text = "Grand Total :";
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 14.25F);
+            label3.Location = new Point(109, 60);
+            label3.Name = "label3";
+            label3.Size = new Size(93, 25);
+            label3.TabIndex = 6;
+            label3.Text = "Total Pcs :";
+            // 
+            // lblTotalAmount
+            // 
+            lblTotalAmount.AutoSize = true;
+            lblTotalAmount.Font = new Font("Segoe UI", 14.25F);
+            lblTotalAmount.Location = new Point(212, 89);
+            lblTotalAmount.Name = "lblTotalAmount";
+            lblTotalAmount.Size = new Size(40, 25);
+            lblTotalAmount.TabIndex = 5;
+            lblTotalAmount.Text = ".......";
+            // 
+            // lblTaxableAmount
+            // 
+            lblTaxableAmount.AutoSize = true;
+            lblTaxableAmount.Font = new Font("Segoe UI", 14.25F);
+            lblTaxableAmount.Location = new Point(212, 29);
+            lblTaxableAmount.Name = "lblTaxableAmount";
+            lblTaxableAmount.Size = new Size(40, 25);
+            lblTaxableAmount.TabIndex = 4;
+            lblTaxableAmount.Text = ".......";
+            // 
+            // lbl
+            // 
+            lbl.AutoSize = true;
+            lbl.Font = new Font("Segoe UI", 14.25F);
+            lbl.Location = new Point(85, 89);
+            lbl.Name = "lbl";
+            lbl.Size = new Size(118, 25);
+            lbl.TabIndex = 1;
+            lbl.Text = "Grand Total :";
             // 
             // lblTotalPcsControl
             // 
@@ -335,9 +408,9 @@
             lblTotalPcsControl.Font = new Font("Segoe UI", 14.25F);
             lblTotalPcsControl.Location = new Point(46, 29);
             lblTotalPcsControl.Name = "lblTotalPcsControl";
-            lblTotalPcsControl.Size = new Size(93, 25);
+            lblTotalPcsControl.Size = new Size(156, 25);
             lblTotalPcsControl.TabIndex = 0;
-            lblTotalPcsControl.Text = "Total Pcs :";
+            lblTotalPcsControl.Text = "Taxable Amount :";
             // 
             // groupBox2
             // 
@@ -433,10 +506,10 @@
             dataGridPackingSlip.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridPackingSlip.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridPackingSlip.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridPackingSlip.Columns.AddRange(new DataGridViewColumn[] { Id, Barcode, ProductCategory, Product, Quantity, Amount, Total, AvailableQty, GstValue });
+            dataGridPackingSlip.Columns.AddRange(new DataGridViewColumn[] { Id, Barcode, Category, Product, Quantity, Rate, Taxable, GstValue, Amount, AvailableQty });
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle1.BackColor = SystemColors.Window;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dataGridViewCellStyle1.ForeColor = SystemColors.ControlText;
             dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
@@ -463,11 +536,11 @@
             Barcode.Name = "Barcode";
             Barcode.ReadOnly = true;
             // 
-            // ProductCategory
+            // Category
             // 
-            ProductCategory.HeaderText = "Category";
-            ProductCategory.Name = "ProductCategory";
-            ProductCategory.ReadOnly = true;
+            Category.HeaderText = "Category";
+            Category.Name = "Category";
+            Category.ReadOnly = true;
             // 
             // Product
             // 
@@ -481,29 +554,33 @@
             Quantity.Name = "Quantity";
             Quantity.ReadOnly = true;
             // 
+            // Rate
+            // 
+            Rate.HeaderText = "Rate";
+            Rate.Name = "Rate";
+            // 
+            // Taxable
+            // 
+            Taxable.HeaderText = "Taxable Amount";
+            Taxable.Name = "Taxable";
+            Taxable.ReadOnly = true;
+            // 
+            // GstValue
+            // 
+            GstValue.HeaderText = "Gst %";
+            GstValue.Name = "GstValue";
+            GstValue.ReadOnly = true;
+            // 
             // Amount
             // 
             Amount.HeaderText = "Amount";
             Amount.Name = "Amount";
             Amount.ReadOnly = true;
             // 
-            // Total
-            // 
-            Total.HeaderText = "Total";
-            Total.Name = "Total";
-            Total.ReadOnly = true;
-            // 
             // AvailableQty
             // 
             AvailableQty.HeaderText = "AvailableQty";
             AvailableQty.Name = "AvailableQty";
-            AvailableQty.Visible = false;
-            // 
-            // GstValue
-            // 
-            GstValue.HeaderText = "GstValue";
-            GstValue.Name = "GstValue";
-            GstValue.ReadOnly = true;
             // 
             // FrmPackingSlip
             // 
@@ -526,6 +603,8 @@
             panel10.ResumeLayout(false);
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
+            panel8.ResumeLayout(false);
+            panel8.PerformLayout();
             panel4.ResumeLayout(false);
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
@@ -543,7 +622,7 @@
         private GroupBox groupBox2;
         private Label label1;
         private Label lblName;
-        private Label label2;
+        private Label lblTotalPcs;
         private Label label3;
         private Label label4;
         private Panel panel7;
@@ -563,9 +642,9 @@
         private Button btnDelete;
         private Panel panel9;
         private GroupBox groupBox1;
-        private Label lblGrandTotal;
-        private Label lblTotalPcs;
-        private Label lblGrandTotalControl;
+        private Label lblTotalAmount;
+        private Label lblTaxableAmount;
+        private Label lbl;
         private Label lblTotalPcsControl;
         private Panel panel11;
         private Panel panel10;
@@ -573,14 +652,19 @@
         private Button btnClear;
         private Panel panel2;
         private DataGridView dataGridPackingSlip;
+        private Panel panel8;
+        private Label label6;
+        private ComboBox cmbSalesPerson;
+        private Button btnPendingPackingSlips;
         private DataGridViewTextBoxColumn Id;
         private DataGridViewTextBoxColumn Barcode;
-        private DataGridViewTextBoxColumn ProductCategory;
+        private DataGridViewTextBoxColumn Category;
         private DataGridViewTextBoxColumn Product;
         private DataGridViewTextBoxColumn Quantity;
-        private DataGridViewTextBoxColumn Amount;
-        private DataGridViewTextBoxColumn Total;
-        private DataGridViewTextBoxColumn AvailableQty;
+        private DataGridViewTextBoxColumn Rate;
+        private DataGridViewTextBoxColumn Taxable;
         private DataGridViewTextBoxColumn GstValue;
+        private DataGridViewTextBoxColumn Amount;
+        private DataGridViewTextBoxColumn AvailableQty;
     }
 }

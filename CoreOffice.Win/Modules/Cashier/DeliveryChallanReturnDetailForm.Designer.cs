@@ -36,13 +36,16 @@
             dataGridReturn = new DataGridView();
             Id = new DataGridViewTextBoxColumn();
             StockId = new DataGridViewTextBoxColumn();
-            Category = new DataGridViewTextBoxColumn();
             Product = new DataGridViewTextBoxColumn();
             SaleRate = new DataGridViewTextBoxColumn();
             Qty = new DataGridViewTextBoxColumn();
             Returned = new DataGridViewTextBoxColumn();
             Balance = new DataGridViewTextBoxColumn();
             ReturnQty = new DataGridViewTextBoxColumn();
+            CurrentQty = new DataGridViewTextBoxColumn();
+            TaxableAmount = new DataGridViewTextBoxColumn();
+            GstPer = new DataGridViewTextBoxColumn();
+            Amount = new DataGridViewTextBoxColumn();
             panel3 = new Panel();
             btnClose = new Button();
             btnClear = new Button();
@@ -59,6 +62,12 @@
             panel8 = new Panel();
             lblTotalReturnQty = new Label();
             label4 = new Label();
+            lblTotalPcs = new Label();
+            label3 = new Label();
+            lblTotalAmount = new Label();
+            lblTaxableAmount = new Label();
+            lbl = new Label();
+            lblTotalPcsControl = new Label();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridReturn).BeginInit();
@@ -124,7 +133,7 @@
             dataGridReturn.AllowUserToAddRows = false;
             dataGridReturn.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridReturn.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridReturn.Columns.AddRange(new DataGridViewColumn[] { Id, StockId, Category, Product, SaleRate, Qty, Returned, Balance, ReturnQty });
+            dataGridReturn.Columns.AddRange(new DataGridViewColumn[] { Id, StockId, Product, SaleRate, Qty, Returned, Balance, ReturnQty, CurrentQty, TaxableAmount, GstPer, Amount });
             dataGridReturn.Dock = DockStyle.Top;
             dataGridReturn.Location = new Point(0, 88);
             dataGridReturn.Name = "dataGridReturn";
@@ -139,47 +148,74 @@
             // 
             Id.HeaderText = "Id";
             Id.Name = "Id";
+            Id.ReadOnly = true;
+            Id.Visible = false;
             // 
             // StockId
             // 
             StockId.HeaderText = "StockId";
             StockId.Name = "StockId";
-            // 
-            // Category
-            // 
-            Category.HeaderText = "Product Category";
-            Category.Name = "Category";
-            Category.ReadOnly = true;
+            StockId.ReadOnly = true;
+            StockId.Visible = false;
             // 
             // Product
             // 
             Product.HeaderText = "Product";
             Product.Name = "Product";
+            Product.ReadOnly = true;
             // 
             // SaleRate
             // 
             SaleRate.HeaderText = "SaleRate";
             SaleRate.Name = "SaleRate";
+            SaleRate.ReadOnly = true;
             // 
             // Qty
             // 
             Qty.HeaderText = "Qty";
             Qty.Name = "Qty";
+            Qty.ReadOnly = true;
             // 
             // Returned
             // 
             Returned.HeaderText = "Returned";
             Returned.Name = "Returned";
+            Returned.ReadOnly = true;
             // 
             // Balance
             // 
             Balance.HeaderText = "Balance";
             Balance.Name = "Balance";
+            Balance.ReadOnly = true;
             // 
             // ReturnQty
             // 
             ReturnQty.HeaderText = "ReturnQty";
             ReturnQty.Name = "ReturnQty";
+            // 
+            // CurrentQty
+            // 
+            CurrentQty.HeaderText = "Current Qty";
+            CurrentQty.Name = "CurrentQty";
+            CurrentQty.ReadOnly = true;
+            // 
+            // TaxableAmount
+            // 
+            TaxableAmount.HeaderText = "Taxable Amount";
+            TaxableAmount.Name = "TaxableAmount";
+            TaxableAmount.ReadOnly = true;
+            // 
+            // GstPer
+            // 
+            GstPer.HeaderText = "Gst %";
+            GstPer.Name = "GstPer";
+            GstPer.ReadOnly = true;
+            // 
+            // Amount
+            // 
+            Amount.HeaderText = "Amount";
+            Amount.Name = "Amount";
+            Amount.ReadOnly = true;
             // 
             // panel3
             // 
@@ -196,7 +232,7 @@
             // btnClose
             // 
             btnClose.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnClose.Location = new Point(384, 2);
+            btnClose.Location = new Point(465, 3);
             btnClose.Name = "btnClose";
             btnClose.Size = new Size(159, 37);
             btnClose.TabIndex = 3;
@@ -207,7 +243,7 @@
             // btnClear
             // 
             btnClear.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnClear.Location = new Point(218, 3);
+            btnClear.Location = new Point(300, 3);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(159, 37);
             btnClear.TabIndex = 1;
@@ -220,9 +256,9 @@
             btnGenerateDeliveryChallan.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnGenerateDeliveryChallan.Location = new Point(11, 3);
             btnGenerateDeliveryChallan.Name = "btnGenerateDeliveryChallan";
-            btnGenerateDeliveryChallan.Size = new Size(202, 37);
+            btnGenerateDeliveryChallan.Size = new Size(283, 37);
             btnGenerateDeliveryChallan.TabIndex = 0;
-            btnGenerateDeliveryChallan.Text = "Generate &Delivery Challan";
+            btnGenerateDeliveryChallan.Text = "Generate &Delivery Challan Return";
             btnGenerateDeliveryChallan.UseVisualStyleBackColor = true;
             btnGenerateDeliveryChallan.Click += btnGenerateDeliveryChallan_Click;
             // 
@@ -301,6 +337,12 @@
             // 
             // panel6
             // 
+            panel6.Controls.Add(lblTotalPcs);
+            panel6.Controls.Add(label3);
+            panel6.Controls.Add(lblTotalAmount);
+            panel6.Controls.Add(lblTaxableAmount);
+            panel6.Controls.Add(lbl);
+            panel6.Controls.Add(lblTotalPcsControl);
             panel6.Controls.Add(panel7);
             panel6.Dock = DockStyle.Right;
             panel6.Location = new Point(545, 421);
@@ -349,6 +391,66 @@
             label4.TabIndex = 5;
             label4.Text = "Total Return Qty :";
             // 
+            // lblTotalPcs
+            // 
+            lblTotalPcs.AutoSize = true;
+            lblTotalPcs.Font = new Font("Segoe UI", 14.25F);
+            lblTotalPcs.Location = new Point(313, 79);
+            lblTotalPcs.Name = "lblTotalPcs";
+            lblTotalPcs.Size = new Size(40, 25);
+            lblTotalPcs.TabIndex = 13;
+            lblTotalPcs.Text = ".......";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 14.25F);
+            label3.Location = new Point(210, 79);
+            label3.Name = "label3";
+            label3.Size = new Size(93, 25);
+            label3.TabIndex = 12;
+            label3.Text = "Total Pcs :";
+            // 
+            // lblTotalAmount
+            // 
+            lblTotalAmount.AutoSize = true;
+            lblTotalAmount.Font = new Font("Segoe UI", 14.25F);
+            lblTotalAmount.Location = new Point(313, 108);
+            lblTotalAmount.Name = "lblTotalAmount";
+            lblTotalAmount.Size = new Size(40, 25);
+            lblTotalAmount.TabIndex = 11;
+            lblTotalAmount.Text = ".......";
+            // 
+            // lblTaxableAmount
+            // 
+            lblTaxableAmount.AutoSize = true;
+            lblTaxableAmount.Font = new Font("Segoe UI", 14.25F);
+            lblTaxableAmount.Location = new Point(313, 48);
+            lblTaxableAmount.Name = "lblTaxableAmount";
+            lblTaxableAmount.Size = new Size(40, 25);
+            lblTaxableAmount.TabIndex = 10;
+            lblTaxableAmount.Text = ".......";
+            // 
+            // lbl
+            // 
+            lbl.AutoSize = true;
+            lbl.Font = new Font("Segoe UI", 14.25F);
+            lbl.Location = new Point(186, 108);
+            lbl.Name = "lbl";
+            lbl.Size = new Size(118, 25);
+            lbl.TabIndex = 9;
+            lbl.Text = "Grand Total :";
+            // 
+            // lblTotalPcsControl
+            // 
+            lblTotalPcsControl.AutoSize = true;
+            lblTotalPcsControl.Font = new Font("Segoe UI", 14.25F);
+            lblTotalPcsControl.Location = new Point(147, 48);
+            lblTotalPcsControl.Name = "lblTotalPcsControl";
+            lblTotalPcsControl.Size = new Size(156, 25);
+            lblTotalPcsControl.TabIndex = 8;
+            lblTotalPcsControl.Text = "Taxable Amount :";
+            // 
             // DeliveryChallanReturnDetailForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -362,6 +464,7 @@
             Name = "DeliveryChallanReturnDetailForm";
             Text = "Delivery Challan Return Detail";
             WindowState = FormWindowState.Maximized;
+            Load += DeliveryChallanReturnDetailForm_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panel2.ResumeLayout(false);
@@ -373,6 +476,7 @@
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
             panel6.ResumeLayout(false);
+            panel6.PerformLayout();
             panel7.ResumeLayout(false);
             panel8.ResumeLayout(false);
             panel8.PerformLayout();
@@ -405,12 +509,21 @@
         private Label label4;
         private DataGridViewTextBoxColumn Id;
         private DataGridViewTextBoxColumn StockId;
-        private DataGridViewTextBoxColumn Category;
         private DataGridViewTextBoxColumn Product;
         private DataGridViewTextBoxColumn SaleRate;
         private DataGridViewTextBoxColumn Qty;
         private DataGridViewTextBoxColumn Returned;
         private DataGridViewTextBoxColumn Balance;
         private DataGridViewTextBoxColumn ReturnQty;
+        private DataGridViewTextBoxColumn CurrentQty;
+        private DataGridViewTextBoxColumn TaxableAmount;
+        private DataGridViewTextBoxColumn GstPer;
+        private DataGridViewTextBoxColumn Amount;
+        private Label lblTotalPcs;
+        private Label label3;
+        private Label lblTotalAmount;
+        private Label lblTaxableAmount;
+        private Label lbl;
+        private Label lblTotalPcsControl;
     }
 }

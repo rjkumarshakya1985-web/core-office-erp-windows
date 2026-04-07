@@ -1,6 +1,4 @@
-﻿using CoreOffice.Win.Modules.Admin;
-using CoreOffice.Win.Modules.Cashier;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
 
 namespace CoreOffice.Win.Modules.PackingSlip
@@ -41,6 +39,14 @@ namespace CoreOffice.Win.Modules.PackingSlip
         private void purchaseToolStripMenuItem_Click(object sender, EventArgs e)
         {         
             var childForm = _serviceProvider.GetRequiredService<TallySynchPurchase>();
+            childForm.MdiParent = this;
+            childForm.Text = "Window " + childFormNumber++;
+            childForm.Show();
+        }
+
+        private void packingSlipToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var childForm = _serviceProvider.GetRequiredService<FrmPackingSlip>();
             childForm.MdiParent = this;
             childForm.Text = "Window " + childFormNumber++;
             childForm.Show();

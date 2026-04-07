@@ -39,31 +39,19 @@
             statusStrip = new StatusStrip();
             toolStripStatusLabel = new ToolStripStatusLabel();
             toolTip = new ToolTip(components);
+            billingToolStripMenuItem = new ToolStripMenuItem();
+            packingSlipToolStripMenuItem = new ToolStripMenuItem();
             menuStrip.SuspendLayout();
             statusStrip.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip
             // 
-            menuStrip.Items.AddRange(new ToolStripItem[] { tallyToolStripMenuItem });
+            menuStrip.Items.AddRange(new ToolStripItem[] { billingToolStripMenuItem });
             menuStrip.Location = new Point(0, 0);
             menuStrip.Name = "menuStrip";
             menuStrip.Size = new Size(737, 24);
             menuStrip.TabIndex = 3;
-            // 
-            // tallyToolStripMenuItem
-            // 
-            tallyToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { purchaseToolStripMenuItem });
-            tallyToolStripMenuItem.Name = "tallyToolStripMenuItem";
-            tallyToolStripMenuItem.Size = new Size(43, 20);
-            tallyToolStripMenuItem.Text = "Tally";
-            // 
-            // purchaseToolStripMenuItem
-            // 
-            purchaseToolStripMenuItem.Name = "purchaseToolStripMenuItem";
-            purchaseToolStripMenuItem.Size = new Size(180, 22);
-            purchaseToolStripMenuItem.Text = "Purchase";
-            purchaseToolStripMenuItem.Click += purchaseToolStripMenuItem_Click;
             // 
             // fileMenu
             // 
@@ -104,6 +92,20 @@
             toolStripStatusLabel.Size = new Size(39, 17);
             toolStripStatusLabel.Text = "Status";
             // 
+            // billingToolStripMenuItem
+            // 
+            billingToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { packingSlipToolStripMenuItem });
+            billingToolStripMenuItem.Name = "billingToolStripMenuItem";
+            billingToolStripMenuItem.Size = new Size(52, 20);
+            billingToolStripMenuItem.Text = "Billing";
+            // 
+            // packingSlipToolStripMenuItem
+            // 
+            packingSlipToolStripMenuItem.Name = "packingSlipToolStripMenuItem";
+            packingSlipToolStripMenuItem.Size = new Size(180, 22);
+            packingSlipToolStripMenuItem.Text = "PackingSlip";
+            packingSlipToolStripMenuItem.Click += packingSlipToolStripMenuItem_Click;
+            // 
             // MDIPackingSlip
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -136,8 +138,8 @@
         private ToolStripMenuItem fileMenu;
         private ToolStripMenuItem newToolStripMenuItem;
         private ToolStripSeparator toolStripSeparator3;
-        private ToolStripMenuItem tallyToolStripMenuItem;
-        private ToolStripMenuItem purchaseToolStripMenuItem;
+        private ToolStripMenuItem billingToolStripMenuItem;
+        private ToolStripMenuItem packingSlipToolStripMenuItem;
     }
 }
 

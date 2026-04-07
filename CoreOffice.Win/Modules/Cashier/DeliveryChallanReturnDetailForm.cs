@@ -16,6 +16,63 @@ namespace CoreOffice.Win.Modules.Cashier
             InitializeComponent();
 
             _deliveryChallanService = deliveryChallanService;
+
+            FormSetting();
+
+        }
+
+
+        private void FormSetting()
+        {
+           
+            dataGridReturn.Columns["SaleRate"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridReturn.Columns["SaleRate"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            dataGridReturn.Columns["Qty"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridReturn.Columns["Qty"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            dataGridReturn.Columns["Returned"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridReturn.Columns["Returned"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            dataGridReturn.Columns["Balance"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridReturn.Columns["Balance"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            var col = dataGridReturn.Columns["ReturnQty"];
+
+            // Alignment
+            col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            col.HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            // Editable feel color
+            col.DefaultCellStyle.BackColor = Color.LightYellow;
+            col.DefaultCellStyle.SelectionBackColor = Color.Khaki;
+
+            // Text color thoda strong
+            col.DefaultCellStyle.ForeColor = Color.Black;
+
+            // Optional: font thoda bold
+            col.DefaultCellStyle.Font = new Font("Segoe UI", 10, FontStyle.Bold);
+
+            dataGridReturn.Columns["CurrentQty"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridReturn.Columns["CurrentQty"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+        
+            dataGridReturn.Columns["SaleRate"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridReturn.Columns["SaleRate"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            dataGridReturn.Columns["TaxableAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridReturn.Columns["TaxableAmount"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+
+            dataGridReturn.Columns["GstPer"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridReturn.Columns["GstPer"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
+
+            dataGridReturn.Columns["Amount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridReturn.Columns["Amount"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+
+            dataGridReturn.Columns["Product"].DefaultCellStyle.WrapMode = DataGridViewTriState.True;
+            dataGridReturn.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
         }
 
         private async void txtNumber_KeyDown(object sender, KeyEventArgs e)
@@ -61,16 +118,22 @@ namespace CoreOffice.Win.Modules.Cashier
                     dataGridReturn.Rows.Add(
                         item.DeliveryChallanItemId,
                         item.StockId,
-                        item.ProductCategory,
-                        item.ProductName,
+                        item.BarCode + "\n"+item.ProductCategory + "\n" + item.ProductName,
                         item.SaleRate,
                         item.Qty,
                         item.Returned,
                         item.Balance,
-                        item.ReturnQty
+                        item.ReturnQty,
+                        item.Balance,
+                        item.TaxableAmount,
+                        item.GstValue.ToString("0"),
+                        item.Amount
                     );
                 }
 
+                lblTaxableAmount.Text = detail.TotalTaxableAmount.ToString("0.00");
+                lblTotalAmount.Text = detail.TotalAmount.ToString("0.00");
+                lblTotalPcs.Text = detail.TotalQuantity.ToString();
                 dataGridReturn.Focus();
             }
             catch (Exception ex)
@@ -214,6 +277,54 @@ namespace CoreOffice.Win.Modules.Cashier
                 MessageBox.Show("Return Qty adjusted to Balance",
                     "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+            else
+            {
+                decimal saleRate = Convert.ToDecimal(row.Cells["SaleRate"].Value);
+                decimal gstPer = Convert.ToDecimal(row.Cells["GstPer"].Value);
+
+                var currentQty = balance - returnQty;
+                row.Cells["CurrentQty"].Value = currentQty;
+
+                // Taxable
+                decimal taxable = currentQty * saleRate;
+                taxable = Math.Round(taxable, 2); // ✅ 2 decimal round
+                row.Cells["TaxableAmount"].Value = taxable;
+
+                // GST Amount
+                decimal gstAmt = taxable * gstPer / 100;
+                gstAmt = Math.Round(gstAmt, 2);
+
+                // Final Amount
+                decimal total = taxable + gstAmt;
+                total = Math.Round(total, 2);
+
+                row.Cells["Amount"].Value = total;
+                CalculateTotalAmount();
+            }
+        }
+
+        private void CalculateTotalAmount()
+        {
+            decimal total = 0;
+            decimal taxable = 0;
+            int totalPcs = 0;   
+            foreach (DataGridViewRow row in dataGridReturn.Rows)
+            {
+                if (row.IsNewRow) continue;
+                decimal amount = 0;
+                decimal.TryParse(Convert.ToString(row.Cells["Amount"].Value), out amount);
+                total += amount;
+                decimal taxAmount = 0;
+                decimal.TryParse(Convert.ToString(row.Cells["TaxableAmount"].Value), out taxAmount);
+                taxable+= taxAmount;
+                int qty = 0;
+                int.TryParse(Convert.ToString(row.Cells["CurrentQty"].Value), out qty);
+                totalPcs += qty;
+
+            }
+            lblTotalAmount.Text = total.ToString("0.00");
+            lblTaxableAmount.Text = taxable.ToString("0.00");
+            lblTotalPcs.Text = totalPcs.ToString();
         }
 
         private void dataGridReturn_KeyDown(object sender, KeyEventArgs e)
@@ -292,6 +403,11 @@ namespace CoreOffice.Win.Modules.Cashier
         private void btnClose_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void DeliveryChallanReturnDetailForm_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }
