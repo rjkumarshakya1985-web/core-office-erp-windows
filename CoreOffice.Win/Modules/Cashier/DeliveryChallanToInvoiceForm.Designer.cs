@@ -35,7 +35,7 @@
             label4 = new Label();
             dataGridInvoice = new DataGridView();
             Id = new DataGridViewTextBoxColumn();
-            DeliveryChallanNo = new DataGridViewTextBoxColumn();
+            DeliveryChallanNo = new DataGridViewLinkColumn();
             Qty = new DataGridViewTextBoxColumn();
             ReturnQty = new DataGridViewLinkColumn();
             InvoiceQty = new DataGridViewTextBoxColumn();
@@ -131,6 +131,7 @@
             dataGridInvoice.Name = "dataGridInvoice";
             dataGridInvoice.Size = new Size(840, 333);
             dataGridInvoice.TabIndex = 5;
+            dataGridInvoice.CellDoubleClick += dataGridInvoice_CellDoubleClick;
             // 
             // Id
             // 
@@ -144,6 +145,8 @@
             DeliveryChallanNo.HeaderText = "Delivery Challan No";
             DeliveryChallanNo.Name = "DeliveryChallanNo";
             DeliveryChallanNo.ReadOnly = true;
+            DeliveryChallanNo.Resizable = DataGridViewTriState.True;
+            DeliveryChallanNo.SortMode = DataGridViewColumnSortMode.Automatic;
             // 
             // Qty
             // 
@@ -415,6 +418,7 @@
             Name = "DeliveryChallanToInvoiceForm";
             Text = "DeliveryChallan To Invoice ";
             WindowState = FormWindowState.Maximized;
+            Load += DeliveryChallanToInvoiceForm_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             panel10.ResumeLayout(false);
@@ -462,7 +466,7 @@
         private Label lblGSTIN;
         private Label label6;
         private DataGridViewTextBoxColumn Id;
-        private DataGridViewTextBoxColumn DeliveryChallanNo;
+        private DataGridViewLinkColumn DeliveryChallanNo;
         private DataGridViewTextBoxColumn Qty;
         private DataGridViewLinkColumn ReturnQty;
         private DataGridViewTextBoxColumn InvoiceQty;
