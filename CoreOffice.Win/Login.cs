@@ -1,15 +1,12 @@
-﻿using CoreOfficeERP.Application.Interfaces;
+﻿using CoreOffice.Win.Modules.Cashier;
+using CoreOffice.Win.Modules.PackingSlip;
+using CoreOffice.Win.Session;
+using CoreOffice.Win.Shared;
+using CoreOfficeERP.Application.Interfaces;
+using CoreOfficeERP.Common.Enums;
 using CoreOfficeERP.Domain;
 using CoreOfficeERP.Infrastructure.Auth;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace CoreOffice.Win
 {
@@ -18,13 +15,16 @@ namespace CoreOffice.Win
         private readonly IAuthService _authService;
         private readonly ITokenProvider _tokenProvider;
         private readonly IMasterService _masterService;
+        private readonly IServiceProvider _serviceProvider;
+
         //  Constructor injection
-        public Login(IAuthService authService, IMasterService masterService, ITokenProvider tokenProvider)
+        public Login(IServiceProvider serviceProvider,IAuthService authService, IMasterService masterService, ITokenProvider tokenProvider)
         {
             InitializeComponent();
             _authService = authService;
             _masterService = masterService;
             _tokenProvider = tokenProvider;
+            _serviceProvider = serviceProvider;
         }     
         private void btnMinimise_Click(object sender, EventArgs e)
         {
@@ -51,40 +51,56 @@ namespace CoreOffice.Win
         }
         public async void login()
         {
-            var request = new LoginRequestDto();
-            request.Username = txtUser.Text.Trim();
-            request.Password = txtPwd.Text.Trim();
-            request.clientType = 0;
-            var response = await _authService.LoginAsync(request);
-
-            if (response != null && response.IsLoginFailed)
+            try
             {
-                MessageBox.Show($"Login Successful! Welcome {request.Username}");
+                AppLoader.Show();
 
-                //  Set token for later use
-                _tokenProvider.SetToken(response.Token);
-                if (response.RoleName == "SalesMan")
+                var request = new LoginRequestDto();
+                request.Username = txtUser.Text.Trim();
+                request.Password = txtPwd.Text.Trim();
+                request.clientType = (int)ClientType.Web;
+                //  request.clientType = (int)ClientType.Windows;
+
+                var response = await _authService.LoginAsync(request);
+
+                if (response != null && response.IsLoginFailed)
                 {
-                    var dashboard = new Packingslip.Dashboard(request.Username);
-                    dashboard.Show();
-                    this.Hide();
+                    // Set token
+                    _tokenProvider.SetToken(response.Token);
+                     UserSession.RoleEnum = (RoleEnum)Enum.Parse(typeof(RoleEnum), response.RoleName);
+
+                    if (response.RoleName == RoleEnum.PackingSlipOperator.ToString())
+                    {
+                        var dashboard = _serviceProvider.GetRequiredService<MDIPackingSlip>();
+                        dashboard.Show();
+                        this.Hide();
+                    }
+                    else if (response.RoleName == RoleEnum.Cashier.ToString())
+                    {
+                        var dashboard = _serviceProvider.GetRequiredService<MDICashierParent>();
+                        dashboard.Show();
+                        this.Hide();
+                    }
+                    else if (response.RoleName == RoleEnum.StockIncharge.ToString())
+                    {
+                        var dashboard = new MDIPackingSlip(_serviceProvider);
+                        dashboard.Show();
+                        this.Hide();                        
+                    }
                 }
-                else if (response.RoleName == "Cashier")
+                else
                 {
-                    var dashboard = new Cashier.Dashboard();
-                    dashboard.Show();
-                    this.Hide();                    
-                }
-                else if (response.RoleName == "StockIncharge")
-                {
-                    var dashboard = new Packingslip.Dashboard(request.Username);
-                    dashboard.Show();
-                    this.Hide();
+                    MessageBox.Show("Invalid username or password");
                 }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Invalid username or password");
+                AppLoader.Hide();
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                AppLoader.Hide();
             }
         }
         private void btnHelp_Click(object sender, EventArgs e)

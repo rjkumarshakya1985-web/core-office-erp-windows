@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CoreOfficeERP.Common\CoreOfficeERP.Common.csproj" />
+  </ItemGroup>
+
 </Project>

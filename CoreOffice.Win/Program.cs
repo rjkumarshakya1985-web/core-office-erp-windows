@@ -1,6 +1,12 @@
+using CoreOffice.Win.Modules.Cashier;
+using CoreOffice.Win.Modules.Cashier.Invoices;
+using CoreOffice.Win.Modules.MasterData;
+using CoreOffice.Win.Modules.PackingSlip;
+using CoreOffice.Win.Modules.Shared;
+using CoreOffice.Win.Modules.TallySynch;
 using CoreOfficeERP.Application;
 using CoreOfficeERP.Infrastructure;
-using CoreOfficeERP.Infrastructure.Auth;
+using CoreOfficeERP.Tally;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace CoreOffice.Win
@@ -17,18 +23,39 @@ namespace CoreOffice.Win
 
             var services = new ServiceCollection();
 
-           
-            services.AddInfrastructure("https://api.ssbdagra.in/api/");
 
-           
+            // services.AddInfrastructure("https://localhost:7121/api/");
+            services.AddInfrastructure("https://localhost:7121/api/");
+
             services.AddApplication();
+            services.AddApplicationTally();
 
 
             //  Register TokenProvider as Singleton
-            services.AddSingleton<ITokenProvider, TokenProvider>();
 
             services.AddTransient<Login>();
+            services.AddTransient<FrmPackingSlip>();
+           
+            services.AddTransient<MDIPackingSlip>();
+            services.AddTransient<MDICashierParent>();
+            services.AddTransient<CompanySelectionForm>();
 
+            services.AddTransient<DeliveryNoteForm>();
+            services.AddTransient<DeliveryChallanReturnDetailForm>();
+            services.AddTransient<DeliveryChallanToInvoiceForm>();
+            services.AddTransient<DeliveryChallanEditViewForm>();
+
+            services.AddTransient<VistiorCustomerForm>();
+         
+            services.AddTransient<PendingPackingSlipForm>();
+            services.AddTransient<PackingSlipViewForm>();
+
+            services.AddTransient<InvoiceForm>();
+            services.AddTransient<InvoiceListForm>();
+            services.AddTransient<InvoiceSearchForm>();
+
+            services.AddTransient<DeliveryChallanReturnDetailForm>();
+            services.AddTransient<TallySynchPurchase>();
             using var serviceProvider = services.BuildServiceProvider();
 
             var mainForm = serviceProvider.GetRequiredService<Login>();

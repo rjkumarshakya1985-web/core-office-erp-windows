@@ -1,0 +1,83 @@
+﻿using System.ComponentModel;
+
+namespace CoreOfficeERP.Common.Enums
+{
+    public enum RoleEnum
+    {
+        SuperAdmin = 1,
+        Supplier = 2,
+        Cashier = 3,
+        PackingSlipOperator = 4,
+        StockIncharge = 5
+    }
+
+    public enum ClientType
+    {
+        Web,
+        Mobile,
+        Windows
+    }
+
+    /// <summary>
+    ///  Same Enum is used for both Customer and Visitor
+    /// </summary>
+    public enum CustomerTypeEnum
+    {
+        [Description("Whole Sale")]
+        WholeSale = 1,
+        [Description("Retail")]
+        Retail = 2
+
+    }
+    public enum TallyProcessType
+    {
+        Purchase = 1,
+        Sale = 2,
+        PurchaseReturn = 3,
+        SaleReturn = 4
+    }
+    public enum TallyProcessStepPurchase
+    {
+        VendorGroup = 1,
+        VendorMaster = 2,        
+        StockCategory = 3,
+        StockGroup = 4,
+        StockItem = 5,
+        PurchaseVoucher = 6        
+    }
+    public enum GSTRegistrationType
+    {
+        Regular = 1,
+        Composition = 2,
+        Unregistered = 3
+        
+    }
+
+    public enum RegistrationTypeEnum
+    {
+        [Description("Regular")]
+        Regular = 1,
+        [Description("Composition")]
+        Composition = 2,
+        [Description("Unregistrated")]
+        Unregistrated = 3
+    }
+
+    public enum DeliveryChallanStatusEnum
+    {
+        Created = 0,
+        Dispatched = 1,
+        PartiallyReturned = 2,
+        FullyReturned = 3,
+        Invoiced = 4,
+        Cancelled = 6
+    }
+
+    public enum InvoiceStatusEnum
+    {
+        Created = 0,
+        DeliveryChallanInvoice = 1,
+        Cancelled = 2,
+        TallySynced = 3
+    }
+}
