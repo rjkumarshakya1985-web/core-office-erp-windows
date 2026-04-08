@@ -9,7 +9,7 @@ using CoreOfficeERP.Domain.Responses.Tally;
 using CoreOfficeERP.Tally.Interfaces;
 using CoreOfficeERP.Tally.Services;
 using Microsoft.Extensions.DependencyInjection;
-namespace CoreOffice.Win.Modules.Admin
+namespace CoreOffice.Win.Modules.TallySynch
 
 {
     public partial class TallySynchPurchase : Form
@@ -153,30 +153,7 @@ namespace CoreOffice.Win.Modules.Admin
         }
         private void setFormForSaleVoucher(TallyPurchaseResponse purchaseResponse)
         {
-            if (purchaseResponse == null)
-                return;
-
-            if (purchaseResponse.SupplierResponse != null)
-            {
-                lblVisitorName.Text = packingSlipResponse.Visitor.Name;
-                lblVisitorMobile.Text = packingSlipResponse.Visitor.Mobile;
-                VisitorId = packingSlipResponse.Visitor.Id;
-            }
-
-            if (packingSlipResponse.Visitor?.CustomerResponse != null)
-            {
-                lblCustomerName.Text = packingSlipResponse.Visitor.CustomerResponse.Name;
-                lblCustomerMobile.Text = packingSlipResponse.Visitor.CustomerResponse.Mobile;
-                CustomerId = packingSlipResponse.Visitor.CustomerResponse.Id;
-            }
-
-            dataGridInvoice.Rows.Add(
-                 packingSlipResponse.Id,
-                 packingSlipResponse.SlipNumber,
-                 packingSlipResponse.TotalQuantity,
-                 packingSlipResponse.TotalAmount.ToString(".00")
-             );
-            CalculatePackingSlip();
+            
         }
     }
 }

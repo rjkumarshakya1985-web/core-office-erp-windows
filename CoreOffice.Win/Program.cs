@@ -1,9 +1,9 @@
-using CoreOffice.Win.Modules.Admin;
 using CoreOffice.Win.Modules.Cashier;
 using CoreOffice.Win.Modules.Cashier.Invoices;
 using CoreOffice.Win.Modules.MasterData;
 using CoreOffice.Win.Modules.PackingSlip;
 using CoreOffice.Win.Modules.Shared;
+using CoreOffice.Win.Modules.TallySynch;
 using CoreOfficeERP.Application;
 using CoreOfficeERP.Infrastructure;
 using CoreOfficeERP.Tally;

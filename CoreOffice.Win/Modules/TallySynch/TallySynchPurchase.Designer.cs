@@ -1,4 +1,4 @@
-﻿namespace CoreOffice.Win.Modules.Admin
+﻿namespace CoreOffice.Win.Modules.TallySynch
 {
     partial class TallySynchPurchase
     {
