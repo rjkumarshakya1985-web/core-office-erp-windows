@@ -3,6 +3,7 @@ using CoreOffice.Win.Shared;
 using CoreOfficeERP.Application.Interfaces;
 using CoreOfficeERP.Common.Enums;
 using CoreOfficeERP.Common.Extensions;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 namespace CoreOffice.Win.Modules.Cashier
 {
     public partial class DeliveryChallanEditViewForm : Form
@@ -21,6 +22,13 @@ namespace CoreOffice.Win.Modules.Cashier
 
         }
 
+        public async void callForm(string deliverChallanNumber)
+        {
+            txtNumber.Text = deliverChallanNumber;
+            await LoadDeliverChallanDetails(deliverChallanNumber);
+            btnCancel.Visible = false;
+        }
+
         private async void txtNumber_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode != Keys.Enter)
@@ -32,7 +40,12 @@ namespace CoreOffice.Win.Modules.Cashier
             if (string.IsNullOrWhiteSpace(number))
                 return;
 
+            await LoadDeliverChallanDetails(number);
+           
+        }
 
+        public async Task LoadDeliverChallanDetails(string number)
+        {
             try
             {
                 AppLoader.Show();
@@ -85,6 +98,7 @@ namespace CoreOffice.Win.Modules.Cashier
                     dataGrid.Rows.Add(
                         item.DeliveryChallanItemId,
                         item.StockId,
+                        item.BarCode,
                         item.ProductCategory,
                         item.ProductName,
                         item.SaleRate,
