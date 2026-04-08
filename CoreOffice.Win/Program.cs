@@ -1,3 +1,4 @@
+using CoreOffice.Win.Modules.Admin;
 using CoreOffice.Win.Modules.Cashier;
 using CoreOffice.Win.Modules.Cashier.Invoices;
 using CoreOffice.Win.Modules.MasterData;
@@ -53,6 +54,8 @@ namespace CoreOffice.Win
             services.AddTransient<InvoiceListForm>();
             services.AddTransient<InvoiceSearchForm>();
 
+            services.AddTransient<DeliveryChallanReturnDetailForm>();
+            services.AddTransient<TallySynchPurchase>();
             using var serviceProvider = services.BuildServiceProvider();
 
             var mainForm = serviceProvider.GetRequiredService<Login>();

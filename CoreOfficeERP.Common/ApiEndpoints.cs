@@ -32,6 +32,12 @@
         public const string CreateInvoice = "invoice";
         public const string GetInvoice = "invoice";
         public const string CancelInvoice = "invoice/cancel";
+        /// Tally
+        public const string GetTallyConfig="TallyConfig";
+        public const string CreateTallyProcessLog = "TallyProcess/savetallyprocess";
+        public const string GetTallyProcessLogByCompanyId = "TallyProcess/tallyprocess";
+        public const string GetTallyProcessLogByPurchaseRef = "TallyProcess/tallyprocess";
+        public const string GetTallyPurchase = "TallyTransaction/purchase";
     }
 }
 
