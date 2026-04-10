@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.12" />
+    <PackageReference Include="ReportViewerCore.WinForms" Version="15.1.33" />
   </ItemGroup>
 
   <ItemGroup>
@@ -27,6 +28,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Modules\DataSets\DataSetPackingSlip.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DataSetPackingSlip.xsd</DependentUpon>
+    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -43,6 +49,16 @@
 
   <ItemGroup>
     <Folder Include="Modules\Admin\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Modules\DataSets\DataSetPackingSlip.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetPackingSlip.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Modules\Prints\PackingSlip\RDLCPackingSlip.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
