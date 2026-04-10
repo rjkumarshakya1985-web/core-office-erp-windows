@@ -30,7 +30,7 @@
         {
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MDIPackingSlip));
-            menuStrip = new MenuStrip();
+            menuStrip = new MenuStrip();           
             fileMenu = new ToolStripMenuItem();
             newToolStripMenuItem = new ToolStripMenuItem();
             toolStripSeparator3 = new ToolStripSeparator();

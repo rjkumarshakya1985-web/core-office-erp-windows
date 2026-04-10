@@ -3,6 +3,7 @@ using CoreOffice.Win.Shared;
 using CoreOfficeERP.Application.Interfaces;
 using CoreOfficeERP.Domain.Requests.DeliveryChallanToInvoice;
 using CoreOfficeERP.Domain.Responses.DeliveryChallanToInvoice;
+using Microsoft.Extensions.DependencyInjection;
 using System.Data;
 
 namespace CoreOffice.Win.Modules.Cashier
@@ -11,10 +12,15 @@ namespace CoreOffice.Win.Modules.Cashier
     {
         private Guid? CustomerId;
         private readonly IDeliveryChallanToInvoiceService _deliveryChallanToInvoiceService;
-        public DeliveryChallanToInvoiceForm(IDeliveryChallanToInvoiceService deliveryChallanToInvoiceService)
+
+        private readonly IServiceProvider _serviceProvider;
+        public DeliveryChallanToInvoiceForm(
+            IDeliveryChallanToInvoiceService deliveryChallanToInvoiceService,
+            IServiceProvider serviceProvider)
         {
             InitializeComponent();
             _deliveryChallanToInvoiceService = deliveryChallanToInvoiceService;
+            _serviceProvider = serviceProvider;
         }
 
         private async void txtDeliveryChallanNo_KeyDown(object sender, KeyEventArgs e)
@@ -251,5 +257,54 @@ namespace CoreOffice.Win.Modules.Cashier
                 AppLoader.Hide();
             }
         }
+
+        private void DeliveryChallanToInvoiceForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void dataGridInvoice_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return; // header row check
+            OpenDeliveryChallanForm();
+        }
+
+        private void OpenDeliveryChallanForm()
+        {
+            if (dataGridInvoice.CurrentRow == null)
+            {
+                MessageBox.Show("Please select a row");
+                return;
+            }
+
+
+            if (!dataGridInvoice.Columns.Contains("DeliveryChallanNo"))
+            {
+                MessageBox.Show("Delivery Challan No column not found");
+                return;
+            }
+
+            var cellValue = dataGridInvoice.CurrentRow.Cells["DeliveryChallanNo"].Value;
+
+
+            if (cellValue == null || string.IsNullOrWhiteSpace(cellValue.ToString()))
+            {
+                MessageBox.Show("Invalid Delivery Challan Number");
+                return;
+            }
+
+            var packingSlipNumber = cellValue.ToString();
+
+
+            var childForm = _serviceProvider.GetRequiredService<DeliveryChallanEditViewForm>();
+            childForm.callForm(packingSlipNumber);
+            childForm.WindowState = FormWindowState.Normal;
+            childForm.StartPosition = FormStartPosition.WindowsDefaultLocation;
+           
+            childForm.Show();
+
+
+        }
+
     }
 }
