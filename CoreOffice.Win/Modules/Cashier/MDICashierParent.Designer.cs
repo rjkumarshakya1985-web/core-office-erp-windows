@@ -33,6 +33,7 @@
             invoiceToolStripMenuItem = new ToolStripMenuItem();
             createInvoiceToolStripMenuItem = new ToolStripMenuItem();
             searchPackingSlipToolStripMenuItem = new ToolStripMenuItem();
+            createPackingSlipToolStripMenuItem = new ToolStripMenuItem();
             deliveryChallanToolStripMenuItem = new ToolStripMenuItem();
             createDeliveryChallanToolStripMenuItem = new ToolStripMenuItem();
             toolStripMenuItem1 = new ToolStripMenuItem();
@@ -70,7 +71,6 @@
             button2 = new Button();
             btnReturnDeliveryChallan = new Button();
             btnCreateDeliveryChallan = new Button();
-            createPackingSlipToolStripMenuItem = new ToolStripMenuItem();
             menuStrip.SuspendLayout();
             statusStrip.SuspendLayout();
             panel1.SuspendLayout();
@@ -96,16 +96,23 @@
             // createInvoiceToolStripMenuItem
             // 
             createInvoiceToolStripMenuItem.Name = "createInvoiceToolStripMenuItem";
-            createInvoiceToolStripMenuItem.Size = new Size(180, 22);
+            createInvoiceToolStripMenuItem.Size = new Size(176, 22);
             createInvoiceToolStripMenuItem.Text = "Packing Slip List";
             createInvoiceToolStripMenuItem.Click += createInvoiceToolStripMenuItem_Click;
             // 
             // searchPackingSlipToolStripMenuItem
             // 
             searchPackingSlipToolStripMenuItem.Name = "searchPackingSlipToolStripMenuItem";
-            searchPackingSlipToolStripMenuItem.Size = new Size(180, 22);
+            searchPackingSlipToolStripMenuItem.Size = new Size(176, 22);
             searchPackingSlipToolStripMenuItem.Text = "Search Packing Slip";
             searchPackingSlipToolStripMenuItem.Click += searchPackingSlipToolStripMenuItem_Click;
+            // 
+            // createPackingSlipToolStripMenuItem
+            // 
+            createPackingSlipToolStripMenuItem.Name = "createPackingSlipToolStripMenuItem";
+            createPackingSlipToolStripMenuItem.Size = new Size(176, 22);
+            createPackingSlipToolStripMenuItem.Text = "Create Packing Slip";
+            createPackingSlipToolStripMenuItem.Click += createPackingSlipToolStripMenuItem_Click;
             // 
             // deliveryChallanToolStripMenuItem
             // 
@@ -168,52 +175,52 @@
             // deliveryChallanToInvoiceToolStripMenuItem
             // 
             deliveryChallanToInvoiceToolStripMenuItem.Name = "deliveryChallanToInvoiceToolStripMenuItem";
-            deliveryChallanToInvoiceToolStripMenuItem.Size = new Size(212, 22);
-            deliveryChallanToInvoiceToolStripMenuItem.Text = "&Delivery ChallanTo Invoice";
+            deliveryChallanToInvoiceToolStripMenuItem.Size = new Size(215, 22);
+            deliveryChallanToInvoiceToolStripMenuItem.Text = "&Delivery Challan To Invoice";
             deliveryChallanToInvoiceToolStripMenuItem.Click += deliveryChallanToInvoiceToolStripMenuItem_Click;
             // 
             // createInvoiceToolStripMenuItem1
             // 
             createInvoiceToolStripMenuItem1.Name = "createInvoiceToolStripMenuItem1";
-            createInvoiceToolStripMenuItem1.Size = new Size(212, 22);
+            createInvoiceToolStripMenuItem1.Size = new Size(215, 22);
             createInvoiceToolStripMenuItem1.Text = "Create &Invoice";
             createInvoiceToolStripMenuItem1.Click += createInvoiceToolStripMenuItem1_Click;
             // 
             // invoiceListToolStripMenuItem
             // 
             invoiceListToolStripMenuItem.Name = "invoiceListToolStripMenuItem";
-            invoiceListToolStripMenuItem.Size = new Size(212, 22);
+            invoiceListToolStripMenuItem.Size = new Size(215, 22);
             invoiceListToolStripMenuItem.Text = "Invoice List";
             invoiceListToolStripMenuItem.Click += invoiceListToolStripMenuItem_Click;
             // 
             // searchInvoiceToolStripMenuItem
             // 
             searchInvoiceToolStripMenuItem.Name = "searchInvoiceToolStripMenuItem";
-            searchInvoiceToolStripMenuItem.Size = new Size(212, 22);
+            searchInvoiceToolStripMenuItem.Size = new Size(215, 22);
             searchInvoiceToolStripMenuItem.Text = "Search Invoice ";
             searchInvoiceToolStripMenuItem.Click += searchInvoiceToolStripMenuItem_Click;
             // 
             // toolStripSeparator2
             // 
             toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(209, 6);
+            toolStripSeparator2.Size = new Size(212, 6);
             // 
             // createCreditNoteToolStripMenuItem
             // 
             createCreditNoteToolStripMenuItem.Name = "createCreditNoteToolStripMenuItem";
-            createCreditNoteToolStripMenuItem.Size = new Size(212, 22);
+            createCreditNoteToolStripMenuItem.Size = new Size(215, 22);
             createCreditNoteToolStripMenuItem.Text = "Create Credit Note";
             // 
             // creditNoteListToolStripMenuItem
             // 
             creditNoteListToolStripMenuItem.Name = "creditNoteListToolStripMenuItem";
-            creditNoteListToolStripMenuItem.Size = new Size(212, 22);
+            creditNoteListToolStripMenuItem.Size = new Size(215, 22);
             creditNoteListToolStripMenuItem.Text = "Credit Note List";
             // 
             // searchCreditNoteToolStripMenuItem
             // 
             searchCreditNoteToolStripMenuItem.Name = "searchCreditNoteToolStripMenuItem";
-            searchCreditNoteToolStripMenuItem.Size = new Size(212, 22);
+            searchCreditNoteToolStripMenuItem.Size = new Size(215, 22);
             searchCreditNoteToolStripMenuItem.Text = "Search Credit Note";
             // 
             // statusStrip
@@ -439,13 +446,6 @@
             btnCreateDeliveryChallan.TabIndex = 0;
             btnCreateDeliveryChallan.Text = "Create Delivery Challan";
             btnCreateDeliveryChallan.UseVisualStyleBackColor = true;
-            // 
-            // createPackingSlipToolStripMenuItem
-            // 
-            createPackingSlipToolStripMenuItem.Name = "createPackingSlipToolStripMenuItem";
-            createPackingSlipToolStripMenuItem.Size = new Size(180, 22);
-            createPackingSlipToolStripMenuItem.Text = "Create Packing Slip";
-            createPackingSlipToolStripMenuItem.Click += createPackingSlipToolStripMenuItem_Click;
             // 
             // MDICashierParent
             // 

@@ -56,6 +56,7 @@
             label3 = new Label();
             Id = new DataGridViewTextBoxColumn();
             StockId = new DataGridViewTextBoxColumn();
+            Barcode = new DataGridViewTextBoxColumn();
             Category = new DataGridViewTextBoxColumn();
             Product = new DataGridViewTextBoxColumn();
             SalePrice = new DataGridViewTextBoxColumn();
@@ -129,7 +130,7 @@
             dataGrid.AllowUserToAddRows = false;
             dataGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGrid.Columns.AddRange(new DataGridViewColumn[] { Id, StockId, Category, Product, SalePrice, TotalQty, ReturnQty, Balance, TaxableAmount, GstPer, TotalAmount });
+            dataGrid.Columns.AddRange(new DataGridViewColumn[] { Id, StockId, Barcode, Category, Product, SalePrice, TotalQty, ReturnQty, Balance, TaxableAmount, GstPer, TotalAmount });
             dataGrid.Dock = DockStyle.Top;
             dataGrid.Location = new Point(0, 88);
             dataGrid.Name = "dataGrid";
@@ -369,6 +370,12 @@
             StockId.ReadOnly = true;
             StockId.Visible = false;
             // 
+            // Barcode
+            // 
+            Barcode.HeaderText = "Barcode";
+            Barcode.Name = "Barcode";
+            Barcode.ReadOnly = true;
+            // 
             // Category
             // 
             Category.HeaderText = "Category";
@@ -482,6 +489,7 @@
         private Label label7;
         private DataGridViewTextBoxColumn Id;
         private DataGridViewTextBoxColumn StockId;
+        private DataGridViewTextBoxColumn Barcode;
         private DataGridViewTextBoxColumn Category;
         private DataGridViewTextBoxColumn Product;
         private DataGridViewTextBoxColumn SalePrice;

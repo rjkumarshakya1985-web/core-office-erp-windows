@@ -3,6 +3,7 @@ using CoreOffice.Win.Modules.Cashier.Invoices;
 using CoreOffice.Win.Modules.MasterData;
 using CoreOffice.Win.Modules.PackingSlip;
 using CoreOffice.Win.Modules.Shared;
+using CoreOffice.Win.Modules.TallySynch;
 using CoreOfficeERP.Application;
 using CoreOfficeERP.Infrastructure;
 using CoreOfficeERP.Tally;
@@ -53,6 +54,8 @@ namespace CoreOffice.Win
             services.AddTransient<InvoiceListForm>();
             services.AddTransient<InvoiceSearchForm>();
 
+            services.AddTransient<DeliveryChallanReturnDetailForm>();
+            services.AddTransient<TallySynchPurchase>();
             using var serviceProvider = services.BuildServiceProvider();
 
             var mainForm = serviceProvider.GetRequiredService<Login>();
