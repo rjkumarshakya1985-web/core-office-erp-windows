@@ -40,7 +40,6 @@ namespace CoreOffice.Win.Shared
                 <MarginRight>0.2in</MarginRight>
                 <MarginBottom>0.2in</MarginBottom>
             </DeviceInfo>";
-
             Warning[] warnings;
             m_streams = new List<Stream>();
 
