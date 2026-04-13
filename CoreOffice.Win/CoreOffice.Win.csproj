@@ -29,6 +29,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Modules\DataSets\DataSetDeliveryChallan.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DataSetDeliveryChallan.xsd</DependentUpon>
+    </Compile>
     <Compile Update="Modules\DataSets\DataSetPackingSlip.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -50,6 +55,21 @@
 
   <ItemGroup>
     <Service Include="{c0c07587-41a7-46c8-8fbd-3f9c8ebe2ddc}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Modules\DataSets\DataSetDeliveryChallan.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetDeliveryChallan.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Modules\Prints\DeliveryChallan\RDLCDeliverChallan.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Datasets\" />
+    <Folder Include="Shared\Print\Invoice\" />
   </ItemGroup>
 
 </Project>
