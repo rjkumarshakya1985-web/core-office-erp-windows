@@ -10,6 +10,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Datasets\**" />
+    <EmbeddedResource Remove="Datasets\**" />
+    <None Remove="Datasets\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.12" />
     <PackageReference Include="ReportViewerCore.WinForms" Version="15.1.33" />
   </ItemGroup>
@@ -29,6 +35,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Modules\DataSets\DataSetDeliveryChallan.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DataSetDeliveryChallan.xsd</DependentUpon>
+    </Compile>
     <Compile Update="Modules\DataSets\DataSetPackingSlip.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -50,6 +61,24 @@
 
   <ItemGroup>
     <Service Include="{c0c07587-41a7-46c8-8fbd-3f9c8ebe2ddc}" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Modules\DataSets\DataSetDeliveryChallan.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetDeliveryChallan.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Modules\DataSets\DataSetPackingSlip.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetPackingSlip.Designer.cs</LastGenOutput>
+    </None>
+    <None Update="Modules\Prints\DeliveryChallan\RDLCDeliverChallan.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Shared\Print\Invoice\" />
   </ItemGroup>
 
 </Project>
