@@ -482,3 +482,12 @@ $RECYCLE.BIN/
 
 # Vim temporary swap files
 *.swp
+/CoreOffice.Win/Modules/PackingSlip/Crystal Reports/CrystalReportTest.cs
+/CoreOffice.Win/Modules/DataSets/DataSetDeliveryChallan.cs
+/CoreOffice.Win/Modules/DataSets/DataSetDeliveryChallan.Designer.cs
+/CoreOffice.Win/Modules/DataSets/DataSetDeliveryChallan.xsd
+/CoreOffice.Win/Modules/DataSets/DataSetDeliveryChallan.xsc
+/CoreOffice.Win/Modules/DataSets/DataSetDeliveryChallan.xss
+/CoreOffice.Win/Modules/PackingSlip/FrmPackingSlip.cs
+/CoreOffice.Win/Modules/Prints/DeliveryChallan/RDLCDeliverChallan.rdlc
+/CoreOffice.Win/CoreOffice.Win.csproj

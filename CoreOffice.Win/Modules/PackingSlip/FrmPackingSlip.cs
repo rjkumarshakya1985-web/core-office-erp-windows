@@ -378,7 +378,9 @@ namespace CoreOffice.Win.Modules.PackingSlip
             try
             {
                 LocalReport report = new LocalReport();
-                report.ReportPath = "Modules/Prints/PackingSlip/RDLCPackingSlip.rdlc";
+               // report.ReportPath = "Modules/Prints/DeliveryChallan/Report1.rdlc";
+                 report.ReportPath = "Modules/Prints/DeliveryChallan/RDLCDeliverChallan.rdlc";
+                // report.ReportPath = "Modules/Prints/PackingSlip/RDLCPackingSlip.rdlc";
                 // 1. Create Data
                 var data = new List<PackingSlipRDLCResponse>
 {
@@ -411,14 +413,14 @@ namespace CoreOffice.Win.Modules.PackingSlip
     }
 };
                 report.DataSources.Clear();
-                report.DataSources.Add(new ReportDataSource("DataSetPackingSlip", data));
-                report.DataSources.Add(new ReportDataSource("DataSetCompany", data));
+               // report.DataSources.Add(new ReportDataSource("DataSetPackingSlip", data));
+                //report.DataSources.Add(new ReportDataSource("DataSetCompany", data));
                 report.Refresh(); // 🔥 VERY IMPORTANT
                 // 🔥 EXTENSION CALL
                 report.PrintToPrinter(
                     printerName: "Microsoft Print to PDF",          // "" = default printer
-                    pageWidth: "3.15in",      // thermal → 80mm
-                    pageHeight: "10in",
+                    pageWidth: "8in",      // thermal → 80mm
+                    pageHeight: "11in",
                     copies: 1
                 );
             }

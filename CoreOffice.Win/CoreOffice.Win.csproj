@@ -68,10 +68,6 @@
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>DataSetDeliveryChallan.Designer.cs</LastGenOutput>
     </None>
-    <None Update="Modules\DataSets\DataSetPackingSlip.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DataSetPackingSlip.Designer.cs</LastGenOutput>
-    </None>
     <None Update="Modules\Prints\DeliveryChallan\RDLCDeliverChallan.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
