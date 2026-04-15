@@ -1,5 +1,7 @@
 ﻿using CoreOffice.Win.Modules.Shared;
 using CoreOffice.Win.Shared;
+using CoreOffice.Win.Shared.Mappers;
+using CoreOffice.Win.Shared.RDLCModels;
 using CoreOfficeERP.Application.Interfaces;
 using CoreOfficeERP.Common.Enums;
 using CoreOfficeERP.Domain.Requests.PackingSlip;
@@ -373,53 +375,36 @@ namespace CoreOffice.Win.Modules.PackingSlip
             catch
             { }
         }
-        public void Print()
+        public void Print(List<PackingSlipItemModel> items)
         {
             try
             {
-                LocalReport report = new LocalReport();
-               // report.ReportPath = "Modules/Prints/DeliveryChallan/Report1.rdlc";
-                 report.ReportPath = "Modules/Prints/DeliveryChallan/RDLCDeliverChallan.rdlc";
-                // report.ReportPath = "Modules/Prints/PackingSlip/RDLCPackingSlip.rdlc";
-                // 1. Create Data
-                var data = new List<PackingSlipRDLCResponse>
-{
-    new PackingSlipRDLCResponse
-    {
-        Id = 1,
-        SlipNumber = "PS-001",
-        Date = DateTime.Now,
-        VisitorName = "Ashish",
-        VisitorMobile = "8299344397",
-        ProductName = "Rice Bag",
-        BarCode = "123456",
-        Qty = 10,
-        SaleRate = 500,
-        Amount = 5000,
-        GrandTotal = 5000,
-        GstValue=5,
-        TaxableAmount=4750,
-        Address = "B-222, Yamuna River, Agra",
-        Phone = "8299344397",
-        Name = "Shiv Sahay Bhagwan Das Pvt Ltd Agra",
-        GstIn="07ADFPY6443H1Z1",
-        Email="ssbdagra@gmail.com",
-        State="Uttar Pradesh",
-        StateCode="07",
-        UserName="Raj",
-        Salesman="Dilip"
+                LocalReport report = new LocalReport();               
+                report.ReportPath = "Shared/Prints/PackingSlip/RDLCPackingSlip.rdlc";
+             
+                // 1. Should be Replaced with Company Header Response- Currently setup as static
+                var data = new List<PackingSlipCompanyModel>
+                  {
+                     new PackingSlipCompanyModel
+                         {
+                         Address = "B-222, Yamuna River, Agra",
+                         Phone = "8299344397",
+                         Name = "Shiv Sahay Bhagwan Das Pvt Ltd Agra",
+                         GstIn="07ADFPY6443H1Z1",
+                         Email="ssbdagra@gmail.com",
+                         State="Uttar Pradesh",
+                         StateCode="07"
+                         }
+                        };
 
-
-    }
-};
                 report.DataSources.Clear();
-               // report.DataSources.Add(new ReportDataSource("DataSetPackingSlip", data));
-                //report.DataSources.Add(new ReportDataSource("DataSetCompany", data));
+                report.DataSources.Add(new ReportDataSource("DataSetPackingSlip", items));
+                report.DataSources.Add(new ReportDataSource("DataSetCompany", data));
                 report.Refresh(); // 🔥 VERY IMPORTANT
                 // 🔥 EXTENSION CALL
                 report.PrintToPrinter(
                     printerName: "Microsoft Print to PDF",          // "" = default printer
-                    pageWidth: "8in",      // thermal → 80mm
+                    pageWidth: "3.15in",      // thermal → 80mm
                     pageHeight: "11in",
                     copies: 1
                 );
@@ -431,84 +416,94 @@ namespace CoreOffice.Win.Modules.PackingSlip
         }
 
         private async void btnSave_Click(object sender, EventArgs e)
-        {
-            Print();
-            //try
-            //{               
-            //    AppLoader.Show();
+        {          
+            try
+            {
+                AppLoader.Show();
 
 
 
-            //    if (dataGridPackingSlip.Rows.Count == 0)
-            //    {
-            //        MessageBox.Show("Add items first");
+                if (dataGridPackingSlip.Rows.Count == 0)
+                {
+                    MessageBox.Show("Add items first");
 
-            //        return;
-            //    }
+                    return;
+                }
 
-            //    if (string.IsNullOrEmpty(cmbSalesPerson.Text))
-            //    {
-            //        MessageBox.Show("Select Sales Person Firstly");
-            //        cmbSalesPerson.Focus();
-            //        return;
-            //    }
+                if (string.IsNullOrEmpty(cmbSalesPerson.Text))
+                {
+                    MessageBox.Show("Select Sales Person Firstly");
+                    cmbSalesPerson.Focus();
+                    return;
+                }
 
-            //    var packingSlipItems = new List<PackingSlipItemRequest>();
+                var packingSlipItems = new List<PackingSlipItemRequest>();
 
-            //    foreach (DataGridViewRow row in dataGridPackingSlip.Rows)
-            //    {
-            //        if (row.IsNewRow) continue;
+                foreach (DataGridViewRow row in dataGridPackingSlip.Rows)
+                {
+                    if (row.IsNewRow) continue;
 
-            //        if (row.Cells["Id"].Value == null ||
-            //            row.Cells["Quantity"].Value == null ||
-            //            row.Cells["Amount"].Value == null)
-            //            continue;
+                    if (row.Cells["Id"].Value == null ||
+                        row.Cells["Quantity"].Value == null ||
+                        row.Cells["Amount"].Value == null)
+                        continue;
 
-            //        packingSlipItems.Add(new PackingSlipItemRequest
-            //        {
-            //            StockId = Guid.Parse(row.Cells["Id"].Value.ToString()),
-            //            Qty = Convert.ToInt32(row.Cells["Quantity"].Value),
-            //            SaleRate = Convert.ToDecimal(row.Cells["Rate"].Value),
-            //            GstValue = Convert.ToDecimal(row.Cells["GstValue"].Value)
-            //        });
-            //    }
+                    packingSlipItems.Add(new PackingSlipItemRequest
+                    {
+                        StockId = Guid.Parse(row.Cells["Id"].Value.ToString()),
+                        Qty = Convert.ToInt32(row.Cells["Quantity"].Value),
+                        SaleRate = Convert.ToDecimal(row.Cells["Rate"].Value),
+                        GstValue = Convert.ToDecimal(row.Cells["GstValue"].Value)
+                    });
+                }
 
-            //    if (!packingSlipItems.Any())
-            //    {
-            //        MessageBox.Show("No valid items found");
-            //        return;
-            //    }
+                if (!packingSlipItems.Any())
+                {
+                    MessageBox.Show("No valid items found");
+                    return;
+                }
 
-            //    var request = new PackingSlipRequest
-            //    {
-            //        Id = PackingSlipId ?? 0,
-            //        VisitorId = VisitorId,
-            //        SalesPersonId = (Guid?)cmbSalesPerson.SelectedValue,
-            //        Items = packingSlipItems
-            //    };
+                var request = new PackingSlipRequest
+                {
+                    Id = PackingSlipId ?? 0,
+                    VisitorId = VisitorId,
+                    SalesPersonId = (Guid?)cmbSalesPerson.SelectedValue,
+                    Items = packingSlipItems
+                };
 
-            //    if (PackingSlipId == null)
-            //    {
-            //        var id = await _packingSlipService.CreateAsync(request);
-            //        MessageBox.Show($"Packing Slip Created : {id}");
-            //        Print();
-            //    }
-            //    else
-            //    {
-            //        await _packingSlipService.UpdateAsync(PackingSlipId, request);
-            //        MessageBox.Show("Packing Slip Updated");
-            //    }
+                if (PackingSlipId == null)
+                {
+                    var id = await _packingSlipService.CreateAsync(request);
+                    //MessageBox.Show($"Packing Slip Created : {id}");
+                    // 👉 Step 1: Fetch data using new ID
+                    var data = await _packingSlipService.GetByIdAsync(id);
+                    // 👉 Step 2: Map to RDLC model                 
+                    var items = PackingSlipMapper.ToItems(data);                 
+                    // 👉 Step 3: Pass into Print
+                    Print(items);                  
+                }
+                else
+                {
+                    await _packingSlipService.UpdateAsync(PackingSlipId, request);                  
+                    if (PackingSlipId.HasValue)
+                    {
+                        var data = await _packingSlipService.GetByIdAsync(PackingSlipId.Value);                       
+                        var items = PackingSlipMapper.ToItems(data);
 
-            //    Clear();
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show(ex.Message);
-            //}
-            //finally
-            //{
-            //    AppLoader.Hide();
-            //}
+                        Print(items);
+                    }
+                }
+
+                Clear();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                AppLoader.Hide();
+            }
         }
 
         private void btnUpdate_Click(object sender, EventArgs e)

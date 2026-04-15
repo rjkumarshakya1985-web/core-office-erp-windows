@@ -10,9 +10,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Datasets\**" />
-    <EmbeddedResource Remove="Datasets\**" />
-    <None Remove="Datasets\**" />
+    <Compile Remove="Shared\Print\**" />
+    <EmbeddedResource Remove="Shared\Print\**" />
+    <None Remove="Shared\Print\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,12 +35,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Modules\DataSets\DataSetDeliveryChallan.Designer.cs">
+    <Compile Update="DataSets\DataSetDeliveryChallan.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>DataSetDeliveryChallan.xsd</DependentUpon>
     </Compile>
-    <Compile Update="Modules\DataSets\DataSetPackingSlip.Designer.cs">
+    <Compile Update="DataSets\DataSetPackingSlip.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>DataSetPackingSlip.xsd</DependentUpon>
@@ -64,17 +64,20 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Modules\DataSets\DataSetDeliveryChallan.xsd">
+    <None Update="DataSets\DataSetDeliveryChallan.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>DataSetDeliveryChallan.Designer.cs</LastGenOutput>
     </None>
-    <None Update="Modules\Prints\DeliveryChallan\RDLCDeliverChallan.rdlc">
+    <None Update="Shared\Prints\DeliveryChallan\RDLCDeliverChallan.rdlc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Shared\Prints\PackingSlip\RDLCPackingSlip.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Shared\Print\Invoice\" />
+    <Folder Include="Shared\Prints\Invoice\" />
   </ItemGroup>
 
 </Project>
