@@ -7,5 +7,6 @@ namespace CoreOfficeERP.Domain.Responses.Customers
         public Guid Id { get; set; }
         public required string Name { get; set; }
         public required string Mobile { get; set; }
+        public decimal? Discount { get; set; }
     }
 }

@@ -15,6 +15,9 @@ namespace CoreOfficeERP.Domain.Responses
         public string? Mobile { get; set; }
 
         public int? CustomerType { get; set; }
+
+    
+
         public DateTimeOffset VisitDate { get; set; }
         public string? Remarks { get; set; }
 
