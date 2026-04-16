@@ -40,6 +40,11 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>DataSetDeliveryChallan.xsd</DependentUpon>
     </Compile>
+    <Compile Update="Datasets\DataSetInvoice.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>DataSetInvoice.xsd</DependentUpon>
+    </Compile>
     <Compile Update="DataSets\DataSetPackingSlip.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
@@ -68,16 +73,16 @@
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>DataSetDeliveryChallan.Designer.cs</LastGenOutput>
     </None>
+    <None Update="Datasets\DataSetInvoice.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSetInvoice.Designer.cs</LastGenOutput>
+    </None>
     <None Update="Shared\Prints\DeliveryChallan\RDLCDeliverChallan.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Shared\Prints\PackingSlip\RDLCPackingSlip.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Shared\Prints\Invoice\" />
   </ItemGroup>
 
 </Project>
