@@ -196,9 +196,10 @@ namespace CoreOfficeERP.Tally.Services
             grp.arlHsnDetails.Add(hsn);        
             return _tb.DoTransferStockGroup(grp);
         }
-
         public TallyResponse CreateStockItem(StockitemResponse item, TallyConfigResponse config)
-        {       
+        {          
+
+            StockItemGstDetails gstDetails;
             var si = new StockItem
             {
 
@@ -233,39 +234,80 @@ namespace CoreOfficeERP.Tally.Services
                 //Valid values: "Goods", "Services"
                 gstTypeOfSupply = "Goods",
             };
-            var gst18 = new StockItemGstDetails
-            {
-                applicableFrom = DateTime.ParseExact("01-Jul-2017", "dd-MMM-yyyy", null),
+           // if (!item.IsGstRule)
+           // {
+                gstDetails = new StockItemGstDetails
+                {
+                    applicableFrom = DateTime.ParseExact("01-Jul-2017", "dd-MMM-yyyy", null),
 
-                //The value for this must be a valid value as per the Tally dropdown, e.g. "Specify Details Here" or "As per Company/Stock Group"
-                sourceOfGstDetails = "Specify Details Here",
+                    //The value for this must be a valid value as per the Tally dropdown, e.g. "Specify Details Here" or "As per Company/Stock Group"
+                    sourceOfGstDetails = "Specify Details Here",
 
-                //The value for this must be a valid value as per the Tally dropdown, e.g.. "Exempt", "Nil Rated", or "Taxable"
-                taxability = "Taxable",
-                isReverseChargeApplicable = false,
-                igstRate = 18,
-                cgstRate = 9,
-                sgstRate = 9,
-                cessRate = 0
-            };
+                    //The value for this must be a valid value as per the Tally dropdown, e.g.. "Exempt", "Nil Rated", or "Taxable"
+                    taxability = "Taxable",
+                    isReverseChargeApplicable = false,
+                    igstRate = item.Gst,
+                    cgstRate = item.Gst/2,
+                    sgstRate = item.Gst / 2,
+                    cessRate = 0
+                };
+                //The ArrayList arlGstDetails should be filled up with objects of type StockItemGstDetails
+                //It represents the Tax Rate History, and there should be 1 object for each date when the tax rate or other GST details were changed
+                si.arlGstDetails.Add(gstDetails);
+         //   }
+          //  else
+          //  {              
 
-            //The ArrayList arlGstDetails should be filled up with objects of type StockItemGstDetails
-            //It represents the Tax Rate History, and there should be 1 object for each date when the tax rate or other GST details were changed
-            si.arlGstDetails.Add(gst18);
-            var gst12 = new StockItemGstDetails
-            {
-                applicableFrom = DateTime.ParseExact("01-Jan-2018", "dd-MMM-yyyy", null),
-                sourceOfGstDetails = "Specify Details Here",
-                taxability = "Taxable",
-                isReverseChargeApplicable = false,
-                igstRate = 12,
-                cgstRate = 6,
-                sgstRate = 6,
-                cessRate = 0
-              
-            };
-            si.arlGstDetails.Add(gst12);
+                // 2nd GST Details (Slab-based from 01-Jul-2017)          
+                gstDetails = new StockItemGstDetails
+                {
+                    applicableFrom = DateTime.ParseExact("22-Oct-2025", "dd-MMM-yyyy", null),
+                    sourceOfGstDetails = "Specify Slab-Based Rates",
+                    isSlabRateOnMrp = false
+                };
+                // --- 1st Slab (<= 2500 : 5%) ---
+                var gstSlabDetails = new StockItemGstSlabDetails
+                {
+                    taxability = "Taxable",
+                    toItemRate = 2500,
+                    igstRate = 5,
+                    cgstRate = 2.5m,
+                    sgstRate = 2.5m,
+                    cessRate = 0
+                };
+                gstDetails.arlGstSlabDetails.Add(gstSlabDetails);
 
+                // --- 2nd Slab (> 2500 : 18%) ---
+                gstSlabDetails = new StockItemGstSlabDetails
+                {
+                    taxability = "Taxable",
+                    toItemRate = 0, // IMPORTANT: last slab must be 0
+                    igstRate = 18,
+                    cgstRate = 9,
+                    sgstRate = 9,
+                    cessRate = 0
+                };
+
+                gstDetails.arlGstSlabDetails.Add(gstSlabDetails);
+
+                si.arlGstDetails.Add(gstDetails);
+                gstDetails = new StockItemGstDetails
+                {
+                    applicableFrom = DateTime.ParseExact("01-Jul-2017", "dd-MMM-yyyy", null),
+
+                    //The value for this must be a valid value as per the Tally dropdown, e.g. "Specify Details Here" or "As per Company/Stock Group"
+                    sourceOfGstDetails = "Specify Details Here",
+
+                    //The value for this must be a valid value as per the Tally dropdown, e.g.. "Exempt", "Nil Rated", or "Taxable"
+                    taxability = "Taxable",
+                    isReverseChargeApplicable = false,
+                    igstRate = 12,
+                    cgstRate = 6,
+                    sgstRate = 6,
+                    cessRate = 0
+                };               
+                si.arlGstDetails.Add(gstDetails);
+          //  }
             var hsn = new StockItemHsnDetails
             {
                 applicableFrom = DateTime.ParseExact("01-Aug-2017", "dd-MMM-yyyy", null),

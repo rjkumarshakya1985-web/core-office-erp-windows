@@ -19,7 +19,7 @@ namespace CoreOfficeERP.Application.Services
         {
             _apiRepository = apiRepository;
         }
-        public async Task<TallyConfigResponse?> GetTallyConfig(int companyId)
+        public async Task<TallyConfigResponse> GetTallyConfig(int companyId)
         {
             var reuslt = await _apiRepository
              .GetAsync<ApiResponse<TallyConfigResponse>>($"{ApiEndpoints.GetTallyConfig}/{companyId}");

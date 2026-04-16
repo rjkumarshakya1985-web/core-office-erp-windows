@@ -4,6 +4,6 @@ namespace CoreOfficeERP.Application.Interfaces
 {
     public interface ITallyTransactionService
     {
-        Task<IEnumerable<TallyPurchaseResponse>> GetTallyPurchase(int id);
+        Task<TallyPurchaseResponse> GetTallyPurchase(int id);
     }
 }

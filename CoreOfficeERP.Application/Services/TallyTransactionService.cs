@@ -1,9 +1,11 @@
 ﻿using CoreOfficeERP.Application.Interfaces;
 using CoreOfficeERP.Common;
 using CoreOfficeERP.Domain;
+using CoreOfficeERP.Domain.Responses;
 using CoreOfficeERP.Domain.Responses.PackingSlip;
 using CoreOfficeERP.Domain.Responses.Tally;
 using CoreOfficeERP.Infrastructure.Api;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace CoreOfficeERP.Application.Services
 {
@@ -16,13 +18,13 @@ namespace CoreOfficeERP.Application.Services
 
             _apiRepository = apiRepository;
         }        
-        public async Task<IEnumerable<TallyPurchaseResponse?>> GetTallyPurchase(int id)
+        public async Task<TallyPurchaseResponse> GetTallyPurchase(int id)
         {
-            var reuslt = await _apiRepository
-             .GetAsync<ApiResponse<IEnumerable<TallyPurchaseResponse>>>($"{ApiEndpoints.GetTallyPurchase}/{id}");
-            var apiend = $"{ApiEndpoints.GetTallyPurchase}/{id}";    
+            var reuslt = await _apiRepository          
+             .GetAsync<ApiResponse<TallyPurchaseResponse>>($"{ApiEndpoints.GetTallyPurchase}/{id}");           
             return reuslt?.Data;
-        }
+
+        }      
 
 
     }
