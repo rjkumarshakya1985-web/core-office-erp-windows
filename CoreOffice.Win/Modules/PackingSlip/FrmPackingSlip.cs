@@ -1,6 +1,7 @@
 ﻿using CoreOffice.Win.Modules.Shared;
 using CoreOffice.Win.Shared;
 using CoreOffice.Win.Shared.Mappers;
+using CoreOffice.Win.Shared.Prints;
 using CoreOffice.Win.Shared.RDLCModels;
 using CoreOfficeERP.Application.Interfaces;
 using CoreOfficeERP.Common.Enums;
@@ -20,7 +21,9 @@ namespace CoreOffice.Win.Modules.PackingSlip
         private readonly IServiceProvider _serviceProvider;
         private readonly IStockService _stockService;
         private readonly ISalesPersonService _salesPersonService;
+        private readonly PrintService _printService;
         private int? VisitorId;
+        private Guid? CustomerId;
         private decimal? VisitorDiscount;
         private int? PackingSlipId;
         private CustomerTypeEnum? VisitorType;
@@ -29,7 +32,8 @@ namespace CoreOffice.Win.Modules.PackingSlip
 
         public FrmPackingSlip(IPackingSlipService packingSlipService,
             IServiceProvider serviceProvider,
-            IStockService stockService, ISalesPersonService salesPersonService)
+            IStockService stockService, ISalesPersonService salesPersonService,
+            PrintService printService)
         {
             InitializeComponent();
 
@@ -40,6 +44,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
             _serviceProvider = serviceProvider;
             _stockService = stockService;
             _salesPersonService = salesPersonService;
+            _printService = printService;
             FormSetting();
             dataGridPackingSlip.AllowUserToAddRows = false;
             btnDelete.Enabled = false;
@@ -87,6 +92,15 @@ namespace CoreOffice.Win.Modules.PackingSlip
             dataGridPackingSlip.Columns["Taxable"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             dataGridPackingSlip.Columns["Taxable"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
 
+            dataGridPackingSlip.Columns["Discount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridPackingSlip.Columns["Discount"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            dataGridPackingSlip.Columns["Rate"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridPackingSlip.Columns["Rate"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            dataGridPackingSlip.Columns["NetTaxable"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridPackingSlip.Columns["NetTaxable"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+
             dataGridPackingSlip.Columns["AvailableQty"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridPackingSlip.Columns["AvailableQty"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleCenter;
 
@@ -125,28 +139,31 @@ namespace CoreOffice.Win.Modules.PackingSlip
 
         public void SetVisitorInfo(VisitorResponse? response)
         {
-            if(response == null)
+            if (response == null)
             {
-              
+
                 Clear();
                 return;
             }
-               
-          
-                VisitorId = response.Id;
-                lblPhone.Text = response.Mobile;
-                lblCompanyName.Text = response.Name;
-                lblVisitorType.Text = response.CustomerType == 1 ? "W" : "R";
-                VisitorType = (CustomerTypeEnum)response.CustomerType;
-                lblDiscount.Text = response.CustomerResponse != null
-                    ? (response.CustomerResponse.Discount > 0
-                        ? response.CustomerResponse.Discount + " %"
-                        : "0 %")
-                    : "0 %";
-                VisitorDiscount = response.CustomerResponse != null
-                    ? response.CustomerResponse.Discount : 0
-                       ;
-            
+
+
+            VisitorId = response.Id;
+            lblPhone.Text = response.Mobile;
+            lblCompanyName.Text = response.Name;
+            lblVisitorType.Text = response.CustomerType == 1 ? "W" : "R";
+            VisitorType = (CustomerTypeEnum)response.CustomerType;
+            lblDiscount.Text = response.CustomerResponse != null
+                ? (response.CustomerResponse.Discount > 0
+                    ? response.CustomerResponse.Discount + " %"
+                    : "0 %")
+                : "0 %";
+
+            CustomerId = response.CustomerResponse != null ? response.CustomerResponse.Id : null;
+
+            VisitorDiscount = response.CustomerResponse != null
+                ? response.CustomerResponse.Discount : 0
+                   ;
+
         }
 
         public void Clear()
@@ -156,6 +173,8 @@ namespace CoreOffice.Win.Modules.PackingSlip
                 dataGridPackingSlip.Rows.Clear();
             }
             VisitorId = null;
+            CustomerId = null;
+             VisitorDiscount = null;
             PackingSlipId = null;
             VisitorType = null;
             lblCompanyName.Text = "-";
@@ -230,10 +249,20 @@ namespace CoreOffice.Win.Modules.PackingSlip
                 int.TryParse(row.Cells["Quantity"].Value?.ToString(), out int qty);
                 decimal gstPercent = Convert.ToDecimal(row.Cells["GstValue"].Value);
 
-                // ✅ Get Discount from grid
-                decimal discountAmount = Convert.ToDecimal(row.Cells["Discount"].Value);
+                
+
+
 
                 decimal taxable = Math.Round(rate * qty, 2, MidpointRounding.AwayFromZero);
+
+
+                var discountPercent = VisitorDiscount ?? 0;
+
+                var discountAmount = Math.Round(
+                    taxable * discountPercent / 100,
+                    2,
+                    MidpointRounding.AwayFromZero
+                );
 
                 // ✅ Net after discount
                 decimal netAmount = Math.Round(taxable - discountAmount, 2, MidpointRounding.AwayFromZero);
@@ -248,6 +277,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
                 row.Cells["Taxable"].Value = taxable;
                 row.Cells["NetTaxable"].Value = netAmount;
                 row.Cells["Amount"].Value = total;
+                row.Cells["Discount"].Value = discountAmount;
 
                 // 🔹 Totals
                 totalTaxable += netAmount;
@@ -255,9 +285,9 @@ namespace CoreOffice.Win.Modules.PackingSlip
                 totalPcs += qty;
             }
 
-            lblTotalAmount.Text = totalAmount.ToString("0.00");
+            lblTotalAmount.Text = Math.Round(totalAmount, 0, MidpointRounding.AwayFromZero).ToString("0.00");
             lblTotalPcs.Text = totalPcs.ToString();
-            lblTaxableAmount.Text = totalTaxable.ToString("0.00");
+            lblTaxableAmount.Text = Math.Round(totalTaxable, 0, MidpointRounding.AwayFromZero).ToString("0.00");
         }
         private async void txtBarcodeScanner_KeyDown(object sender, KeyEventArgs e)
         {
@@ -475,7 +505,8 @@ namespace CoreOffice.Win.Modules.PackingSlip
                         StockId = Guid.Parse(row.Cells["Id"].Value.ToString()),
                         Qty = Convert.ToInt32(row.Cells["Quantity"].Value),
                         SaleRate = Convert.ToDecimal(row.Cells["Rate"].Value),
-                        GstValue = Convert.ToDecimal(row.Cells["GstValue"].Value)
+                        GstPercent = Convert.ToDecimal(row.Cells["GstValue"].Value),
+                        DiscountPercent = VisitorDiscount
                     });
                 }
 
@@ -490,33 +521,28 @@ namespace CoreOffice.Win.Modules.PackingSlip
                     Id = PackingSlipId ?? 0,
                     VisitorId = VisitorId,
                     SalesPersonId = (Guid?)cmbSalesPerson.SelectedValue,
+                    CustomerId = CustomerId,
                     Items = packingSlipItems
                 };
 
                 if (PackingSlipId == null)
                 {
                     var id = await _packingSlipService.CreateAsync(request);
-                    //MessageBox.Show($"Packing Slip Created : {id}");
-                    // 👉 Step 1: Fetch data using new ID
-                    var data = await _packingSlipService.GetByIdAsync(id);
-                    // 👉 Step 2: Map to RDLC model                 
-                    var items = PackingSlipMapper.ToItems(data);
-                    // 👉 Step 3: Pass into Print
-                    Print(items);
+                    if(id>0)
+                    await _printService.PrintPackingSlipAsync(id);
                 }
                 else
                 {
                     await _packingSlipService.UpdateAsync(PackingSlipId, request);
                     if (PackingSlipId.HasValue)
                     {
-                        var data = await _packingSlipService.GetByIdAsync(PackingSlipId.Value);
-                        var items = PackingSlipMapper.ToItems(data);
-
-                        Print(items);
+                        var id = await _packingSlipService.CreateAsync(request);
+                        if (id > 0)
+                            await _printService.PrintPackingSlipAsync(id);
                     }
                 }
 
-                Clear();
+               
             }
             catch (Exception ex)
             {
@@ -525,6 +551,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
             finally
             {
                 AppLoader.Hide();
+                Clear();
             }
         }
 
@@ -632,18 +659,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
         }
 
 
-        private void dataGridPackingSlip_RowEnter(object sender, DataGridViewCellEventArgs e)
-        {
-            if (e.RowIndex < 0)
-                return;
 
-            var row = dataGridPackingSlip.Rows[e.RowIndex];
-
-            _selectedBarcode = row.Cells["Barcode"].Value?.ToString();
-            _selectedQty = Convert.ToInt32(row.Cells["Quantity"].Value ?? 0);
-
-
-        }
 
         public void UpdateQty(int qty)
         {
@@ -662,16 +678,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
             }
         }
 
-        private void dataGridPackingSlip_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                e.Handled = true;
-                e.SuppressKeyPress = true;
 
-                OpenQtyPopup();
-            }
-        }
 
         private void OpenQtyPopup()
         {
@@ -696,6 +703,15 @@ namespace CoreOffice.Win.Modules.PackingSlip
             txtBarcodeScanner.Focus();
         }
 
+
+
+        private void btnPendingPackingSlips_Click(object sender, EventArgs e)
+        {
+            var childForm = _serviceProvider.GetRequiredService<PendingPackingSlipForm>();
+            childForm._frmPackingSlip = this;
+            childForm.ShowDialog();
+        }
+
         private void dataGridPackingSlip_CellDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex < 0)
@@ -704,11 +720,28 @@ namespace CoreOffice.Win.Modules.PackingSlip
             OpenQtyPopup();
         }
 
-        private void btnPendingPackingSlips_Click(object sender, EventArgs e)
+        private void dataGridPackingSlip_RowEnter(object sender, DataGridViewCellEventArgs e)
         {
-            var childForm = _serviceProvider.GetRequiredService<PendingPackingSlipForm>();
-            childForm._frmPackingSlip = this;
-            childForm.ShowDialog();
+            if (e.RowIndex < 0)
+                return;
+
+            var row = dataGridPackingSlip.Rows[e.RowIndex];
+
+            _selectedBarcode = row.Cells["Barcode"].Value?.ToString();
+            _selectedQty = Convert.ToInt32(row.Cells["Quantity"].Value ?? 0);
+
+
+        }
+
+        private void dataGridPackingSlip_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+
+                OpenQtyPopup();
+            }
         }
     }
 

@@ -545,6 +545,9 @@
             dataGridPackingSlip.Name = "dataGridPackingSlip";
             dataGridPackingSlip.Size = new Size(1174, 537);
             dataGridPackingSlip.TabIndex = 2;
+            dataGridPackingSlip.CellDoubleClick += dataGridPackingSlip_CellDoubleClick;
+            dataGridPackingSlip.RowEnter += dataGridPackingSlip_RowEnter;
+            dataGridPackingSlip.KeyDown += dataGridPackingSlip_KeyDown;
             // 
             // Id
             // 

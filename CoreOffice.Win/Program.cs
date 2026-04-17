@@ -4,6 +4,7 @@ using CoreOffice.Win.Modules.MasterData;
 using CoreOffice.Win.Modules.PackingSlip;
 using CoreOffice.Win.Modules.Shared;
 using CoreOffice.Win.Modules.TallySynch;
+using CoreOffice.Win.Shared.Prints;
 using CoreOfficeERP.Application;
 using CoreOfficeERP.Infrastructure;
 using CoreOfficeERP.Tally;
@@ -34,6 +35,8 @@ namespace CoreOffice.Win
             //  Register TokenProvider as Singleton
 
             services.AddTransient<Login>();
+
+            services.AddTransient<PrintService>();
             services.AddTransient<FrmPackingSlip>();
            
             services.AddTransient<MDIPackingSlip>();
@@ -57,6 +60,7 @@ namespace CoreOffice.Win
             services.AddTransient<DeliveryChallanReturnDetailForm>();
             services.AddTransient<TallySynchPurchase>();
             using var serviceProvider = services.BuildServiceProvider();
+
 
             var mainForm = serviceProvider.GetRequiredService<Login>();
             Application.Run(mainForm);
