@@ -28,12 +28,35 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             panel1 = new Panel();
             txtNumber = new TextBox();
             label5 = new Label();
             panel2 = new Panel();
             label1 = new Label();
             dataGridReturn = new DataGridView();
+            panel3 = new Panel();
+            btnClose = new Button();
+            btnClear = new Button();
+            btnGenerateDeliveryChallan = new Button();
+            panel4 = new Panel();
+            lblDiscount = new Label();
+            label8 = new Label();
+            lblCustomer = new Label();
+            label6 = new Label();
+            lblDate = new Label();
+            Date = new Label();
+            panel5 = new Panel();
+            label2 = new Label();
+            panel6 = new Panel();
+            lblTotalPcs = new Label();
+            label3 = new Label();
+            lblTotalAmount = new Label();
+            lbl = new Label();
+            panel7 = new Panel();
+            panel8 = new Panel();
+            lblTotalReturnQty = new Label();
+            label4 = new Label();
             Id = new DataGridViewTextBoxColumn();
             StockId = new DataGridViewTextBoxColumn();
             Product = new DataGridViewTextBoxColumn();
@@ -44,30 +67,10 @@
             ReturnQty = new DataGridViewTextBoxColumn();
             CurrentQty = new DataGridViewTextBoxColumn();
             TaxableAmount = new DataGridViewTextBoxColumn();
+            Discount = new DataGridViewTextBoxColumn();
+            NetTaxable = new DataGridViewTextBoxColumn();
             GstPer = new DataGridViewTextBoxColumn();
             Amount = new DataGridViewTextBoxColumn();
-            panel3 = new Panel();
-            btnClose = new Button();
-            btnClear = new Button();
-            btnGenerateDeliveryChallan = new Button();
-            panel4 = new Panel();
-            lblCustomer = new Label();
-            label6 = new Label();
-            lblDate = new Label();
-            Date = new Label();
-            panel5 = new Panel();
-            label2 = new Label();
-            panel6 = new Panel();
-            panel7 = new Panel();
-            panel8 = new Panel();
-            lblTotalReturnQty = new Label();
-            label4 = new Label();
-            lblTotalPcs = new Label();
-            label3 = new Label();
-            lblTotalAmount = new Label();
-            lblTaxableAmount = new Label();
-            lbl = new Label();
-            lblTotalPcsControl = new Label();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridReturn).BeginInit();
@@ -133,7 +136,7 @@
             dataGridReturn.AllowUserToAddRows = false;
             dataGridReturn.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridReturn.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridReturn.Columns.AddRange(new DataGridViewColumn[] { Id, StockId, Product, SaleRate, Qty, Returned, Balance, ReturnQty, CurrentQty, TaxableAmount, GstPer, Amount });
+            dataGridReturn.Columns.AddRange(new DataGridViewColumn[] { Id, StockId, Product, SaleRate, Qty, Returned, Balance, ReturnQty, CurrentQty, TaxableAmount, Discount, NetTaxable, GstPer, Amount });
             dataGridReturn.Dock = DockStyle.Top;
             dataGridReturn.Location = new Point(0, 88);
             dataGridReturn.Name = "dataGridReturn";
@@ -143,79 +146,6 @@
             dataGridReturn.CellValidating += dataGridReturn_CellValidating;
             dataGridReturn.CellValueChanged += dataGridReturn_CellValueChanged;
             dataGridReturn.KeyDown += dataGridReturn_KeyDown;
-            // 
-            // Id
-            // 
-            Id.HeaderText = "Id";
-            Id.Name = "Id";
-            Id.ReadOnly = true;
-            Id.Visible = false;
-            // 
-            // StockId
-            // 
-            StockId.HeaderText = "StockId";
-            StockId.Name = "StockId";
-            StockId.ReadOnly = true;
-            StockId.Visible = false;
-            // 
-            // Product
-            // 
-            Product.HeaderText = "Product";
-            Product.Name = "Product";
-            Product.ReadOnly = true;
-            // 
-            // SaleRate
-            // 
-            SaleRate.HeaderText = "SaleRate";
-            SaleRate.Name = "SaleRate";
-            SaleRate.ReadOnly = true;
-            // 
-            // Qty
-            // 
-            Qty.HeaderText = "Qty";
-            Qty.Name = "Qty";
-            Qty.ReadOnly = true;
-            // 
-            // Returned
-            // 
-            Returned.HeaderText = "Returned";
-            Returned.Name = "Returned";
-            Returned.ReadOnly = true;
-            // 
-            // Balance
-            // 
-            Balance.HeaderText = "Balance";
-            Balance.Name = "Balance";
-            Balance.ReadOnly = true;
-            // 
-            // ReturnQty
-            // 
-            ReturnQty.HeaderText = "ReturnQty";
-            ReturnQty.Name = "ReturnQty";
-            // 
-            // CurrentQty
-            // 
-            CurrentQty.HeaderText = "Current Qty";
-            CurrentQty.Name = "CurrentQty";
-            CurrentQty.ReadOnly = true;
-            // 
-            // TaxableAmount
-            // 
-            TaxableAmount.HeaderText = "Taxable Amount";
-            TaxableAmount.Name = "TaxableAmount";
-            TaxableAmount.ReadOnly = true;
-            // 
-            // GstPer
-            // 
-            GstPer.HeaderText = "Gst %";
-            GstPer.Name = "GstPer";
-            GstPer.ReadOnly = true;
-            // 
-            // Amount
-            // 
-            Amount.HeaderText = "Amount";
-            Amount.Name = "Amount";
-            Amount.ReadOnly = true;
             // 
             // panel3
             // 
@@ -264,6 +194,8 @@
             // 
             // panel4
             // 
+            panel4.Controls.Add(lblDiscount);
+            panel4.Controls.Add(label8);
             panel4.Controls.Add(lblCustomer);
             panel4.Controls.Add(label6);
             panel4.Controls.Add(lblDate);
@@ -274,6 +206,26 @@
             panel4.Name = "panel4";
             panel4.Size = new Size(426, 149);
             panel4.TabIndex = 7;
+            // 
+            // lblDiscount
+            // 
+            lblDiscount.AutoSize = true;
+            lblDiscount.Font = new Font("Segoe UI", 11.25F);
+            lblDiscount.Location = new Point(108, 101);
+            lblDiscount.Name = "lblDiscount";
+            lblDiscount.Size = new Size(45, 20);
+            lblDiscount.TabIndex = 6;
+            lblDiscount.Text = "............";
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("Segoe UI", 11.25F);
+            label8.Location = new Point(35, 101);
+            label8.Name = "label8";
+            label8.Size = new Size(74, 20);
+            label8.TabIndex = 5;
+            label8.Text = "Discount :";
             // 
             // lblCustomer
             // 
@@ -340,15 +292,53 @@
             panel6.Controls.Add(lblTotalPcs);
             panel6.Controls.Add(label3);
             panel6.Controls.Add(lblTotalAmount);
-            panel6.Controls.Add(lblTaxableAmount);
             panel6.Controls.Add(lbl);
-            panel6.Controls.Add(lblTotalPcsControl);
             panel6.Controls.Add(panel7);
             panel6.Dock = DockStyle.Right;
             panel6.Location = new Point(545, 421);
             panel6.Name = "panel6";
             panel6.Size = new Size(426, 149);
             panel6.TabIndex = 8;
+            // 
+            // lblTotalPcs
+            // 
+            lblTotalPcs.AutoSize = true;
+            lblTotalPcs.Font = new Font("Segoe UI", 14.25F);
+            lblTotalPcs.Location = new Point(313, 79);
+            lblTotalPcs.Name = "lblTotalPcs";
+            lblTotalPcs.Size = new Size(40, 25);
+            lblTotalPcs.TabIndex = 13;
+            lblTotalPcs.Text = ".......";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 14.25F);
+            label3.Location = new Point(210, 79);
+            label3.Name = "label3";
+            label3.Size = new Size(93, 25);
+            label3.TabIndex = 12;
+            label3.Text = "Total Pcs :";
+            // 
+            // lblTotalAmount
+            // 
+            lblTotalAmount.AutoSize = true;
+            lblTotalAmount.Font = new Font("Segoe UI", 14.25F);
+            lblTotalAmount.Location = new Point(313, 108);
+            lblTotalAmount.Name = "lblTotalAmount";
+            lblTotalAmount.Size = new Size(40, 25);
+            lblTotalAmount.TabIndex = 11;
+            lblTotalAmount.Text = ".......";
+            // 
+            // lbl
+            // 
+            lbl.AutoSize = true;
+            lbl.Font = new Font("Segoe UI", 14.25F);
+            lbl.Location = new Point(186, 108);
+            lbl.Name = "lbl";
+            lbl.Size = new Size(118, 25);
+            lbl.TabIndex = 9;
+            lbl.Text = "Grand Total :";
             // 
             // panel7
             // 
@@ -391,65 +381,92 @@
             label4.TabIndex = 5;
             label4.Text = "Total Return Qty :";
             // 
-            // lblTotalPcs
+            // Id
             // 
-            lblTotalPcs.AutoSize = true;
-            lblTotalPcs.Font = new Font("Segoe UI", 14.25F);
-            lblTotalPcs.Location = new Point(313, 79);
-            lblTotalPcs.Name = "lblTotalPcs";
-            lblTotalPcs.Size = new Size(40, 25);
-            lblTotalPcs.TabIndex = 13;
-            lblTotalPcs.Text = ".......";
+            Id.HeaderText = "Id";
+            Id.Name = "Id";
+            Id.ReadOnly = true;
+            Id.Visible = false;
             // 
-            // label3
+            // StockId
             // 
-            label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 14.25F);
-            label3.Location = new Point(210, 79);
-            label3.Name = "label3";
-            label3.Size = new Size(93, 25);
-            label3.TabIndex = 12;
-            label3.Text = "Total Pcs :";
+            StockId.HeaderText = "StockId";
+            StockId.Name = "StockId";
+            StockId.ReadOnly = true;
+            StockId.Visible = false;
             // 
-            // lblTotalAmount
+            // Product
             // 
-            lblTotalAmount.AutoSize = true;
-            lblTotalAmount.Font = new Font("Segoe UI", 14.25F);
-            lblTotalAmount.Location = new Point(313, 108);
-            lblTotalAmount.Name = "lblTotalAmount";
-            lblTotalAmount.Size = new Size(40, 25);
-            lblTotalAmount.TabIndex = 11;
-            lblTotalAmount.Text = ".......";
+            dataGridViewCellStyle2.Font = new Font("Microsoft Sans Serif", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Product.DefaultCellStyle = dataGridViewCellStyle2;
+            Product.HeaderText = "Product";
+            Product.Name = "Product";
+            Product.ReadOnly = true;
             // 
-            // lblTaxableAmount
+            // SaleRate
             // 
-            lblTaxableAmount.AutoSize = true;
-            lblTaxableAmount.Font = new Font("Segoe UI", 14.25F);
-            lblTaxableAmount.Location = new Point(313, 48);
-            lblTaxableAmount.Name = "lblTaxableAmount";
-            lblTaxableAmount.Size = new Size(40, 25);
-            lblTaxableAmount.TabIndex = 10;
-            lblTaxableAmount.Text = ".......";
+            SaleRate.HeaderText = "SaleRate";
+            SaleRate.Name = "SaleRate";
+            SaleRate.ReadOnly = true;
             // 
-            // lbl
+            // Qty
             // 
-            lbl.AutoSize = true;
-            lbl.Font = new Font("Segoe UI", 14.25F);
-            lbl.Location = new Point(186, 108);
-            lbl.Name = "lbl";
-            lbl.Size = new Size(118, 25);
-            lbl.TabIndex = 9;
-            lbl.Text = "Grand Total :";
+            Qty.HeaderText = "Qty";
+            Qty.Name = "Qty";
+            Qty.ReadOnly = true;
             // 
-            // lblTotalPcsControl
+            // Returned
             // 
-            lblTotalPcsControl.AutoSize = true;
-            lblTotalPcsControl.Font = new Font("Segoe UI", 14.25F);
-            lblTotalPcsControl.Location = new Point(147, 48);
-            lblTotalPcsControl.Name = "lblTotalPcsControl";
-            lblTotalPcsControl.Size = new Size(156, 25);
-            lblTotalPcsControl.TabIndex = 8;
-            lblTotalPcsControl.Text = "Taxable Amount :";
+            Returned.HeaderText = "Returned";
+            Returned.Name = "Returned";
+            Returned.ReadOnly = true;
+            // 
+            // Balance
+            // 
+            Balance.HeaderText = "Balance";
+            Balance.Name = "Balance";
+            Balance.ReadOnly = true;
+            // 
+            // ReturnQty
+            // 
+            ReturnQty.HeaderText = "ReturnQty";
+            ReturnQty.Name = "ReturnQty";
+            // 
+            // CurrentQty
+            // 
+            CurrentQty.HeaderText = "Current Qty";
+            CurrentQty.Name = "CurrentQty";
+            CurrentQty.ReadOnly = true;
+            // 
+            // TaxableAmount
+            // 
+            TaxableAmount.HeaderText = "Taxable";
+            TaxableAmount.Name = "TaxableAmount";
+            TaxableAmount.ReadOnly = true;
+            // 
+            // Discount
+            // 
+            Discount.HeaderText = "Discount";
+            Discount.Name = "Discount";
+            Discount.ReadOnly = true;
+            // 
+            // NetTaxable
+            // 
+            NetTaxable.HeaderText = "NetTaxable";
+            NetTaxable.Name = "NetTaxable";
+            NetTaxable.ReadOnly = true;
+            // 
+            // GstPer
+            // 
+            GstPer.HeaderText = "Gst %";
+            GstPer.Name = "GstPer";
+            GstPer.ReadOnly = true;
+            // 
+            // Amount
+            // 
+            Amount.HeaderText = "Amount";
+            Amount.Name = "Amount";
+            Amount.ReadOnly = true;
             // 
             // DeliveryChallanReturnDetailForm
             // 
@@ -507,6 +524,14 @@
         private Panel panel8;
         private Label lblTotalReturnQty;
         private Label label4;
+        private Label lblTotalPcs;
+        private Label label3;
+        private Label lblTotalAmount;
+        private Label lblTaxableAmount;
+        private Label lbl;
+        private Label lblTotalPcsControl;
+        private Label lblDiscount;
+        private Label label8;
         private DataGridViewTextBoxColumn Id;
         private DataGridViewTextBoxColumn StockId;
         private DataGridViewTextBoxColumn Product;
@@ -517,13 +542,9 @@
         private DataGridViewTextBoxColumn ReturnQty;
         private DataGridViewTextBoxColumn CurrentQty;
         private DataGridViewTextBoxColumn TaxableAmount;
+        private DataGridViewTextBoxColumn Discount;
+        private DataGridViewTextBoxColumn NetTaxable;
         private DataGridViewTextBoxColumn GstPer;
         private DataGridViewTextBoxColumn Amount;
-        private Label lblTotalPcs;
-        private Label label3;
-        private Label lblTotalAmount;
-        private Label lblTaxableAmount;
-        private Label lbl;
-        private Label lblTotalPcsControl;
     }
 }

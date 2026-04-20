@@ -37,6 +37,12 @@
             btnPrint = new Button();
             panel2 = new Panel();
             groupBox1 = new GroupBox();
+            lblTotalPcs = new Label();
+            label3 = new Label();
+            lblTotalAmount = new Label();
+            lblTaxableAmount = new Label();
+            lbl = new Label();
+            lblTotalPcsControl = new Label();
             groupBox2 = new GroupBox();
             lblVisitorType = new Label();
             lblPhone = new Label();
@@ -48,21 +54,17 @@
             dataGridPackingSlip = new DataGridView();
             Id = new DataGridViewTextBoxColumn();
             Barcode = new DataGridViewTextBoxColumn();
-            ProductCategory = new DataGridViewTextBoxColumn();
             Product = new DataGridViewTextBoxColumn();
             Quantity = new DataGridViewTextBoxColumn();
             Rate = new DataGridViewTextBoxColumn();
-            TaxableAmount = new DataGridViewTextBoxColumn();
+            Taxable = new DataGridViewTextBoxColumn();
+            Discount = new DataGridViewTextBoxColumn();
+            NetTaxable = new DataGridViewTextBoxColumn();
             GstPer = new DataGridViewTextBoxColumn();
             Amount = new DataGridViewTextBoxColumn();
             AvailableQty = new DataGridViewTextBoxColumn();
-            GstValue = new DataGridViewTextBoxColumn();
-            lblTotalPcs = new Label();
-            label3 = new Label();
-            lblTotalAmount = new Label();
-            lblTaxableAmount = new Label();
-            lbl = new Label();
-            lblTotalPcsControl = new Label();
+            lblDiscount = new Label();
+            label4 = new Label();
             panel1.SuspendLayout();
             panel3.SuspendLayout();
             panel2.SuspendLayout();
@@ -162,181 +164,6 @@
             groupBox1.TabStop = false;
             groupBox1.Text = "Packing Slip Information";
             // 
-            // groupBox2
-            // 
-            groupBox2.BackColor = SystemColors.ButtonHighlight;
-            groupBox2.Controls.Add(lblVisitorType);
-            groupBox2.Controls.Add(lblPhone);
-            groupBox2.Controls.Add(lblCompanyName);
-            groupBox2.Controls.Add(lblVisitorControl);
-            groupBox2.Controls.Add(lblPhoneControl);
-            groupBox2.Controls.Add(lblName);
-            groupBox2.Dock = DockStyle.Left;
-            groupBox2.FlatStyle = FlatStyle.Popup;
-            groupBox2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
-            groupBox2.ForeColor = SystemColors.ActiveCaptionText;
-            groupBox2.Location = new Point(0, 0);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(394, 141);
-            groupBox2.TabIndex = 4;
-            groupBox2.TabStop = false;
-            groupBox2.Text = "Visitor Information";
-            // 
-            // lblVisitorType
-            // 
-            lblVisitorType.AutoSize = true;
-            lblVisitorType.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblVisitorType.Location = new Point(196, 90);
-            lblVisitorType.Name = "lblVisitorType";
-            lblVisitorType.Size = new Size(40, 25);
-            lblVisitorType.TabIndex = 5;
-            lblVisitorType.Text = ".......";
-            // 
-            // lblPhone
-            // 
-            lblPhone.AutoSize = true;
-            lblPhone.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblPhone.Location = new Point(194, 57);
-            lblPhone.Name = "lblPhone";
-            lblPhone.Size = new Size(40, 25);
-            lblPhone.TabIndex = 4;
-            lblPhone.Text = ".......";
-            // 
-            // lblCompanyName
-            // 
-            lblCompanyName.AutoSize = true;
-            lblCompanyName.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblCompanyName.Location = new Point(193, 28);
-            lblCompanyName.Name = "lblCompanyName";
-            lblCompanyName.Size = new Size(40, 25);
-            lblCompanyName.TabIndex = 3;
-            lblCompanyName.Text = ".......";
-            // 
-            // lblVisitorControl
-            // 
-            lblVisitorControl.AutoSize = true;
-            lblVisitorControl.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblVisitorControl.Location = new Point(62, 90);
-            lblVisitorControl.Name = "lblVisitorControl";
-            lblVisitorControl.Size = new Size(128, 25);
-            lblVisitorControl.TabIndex = 2;
-            lblVisitorControl.Text = "Visitory Type :";
-            // 
-            // lblPhoneControl
-            // 
-            lblPhoneControl.AutoSize = true;
-            lblPhoneControl.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblPhoneControl.Location = new Point(115, 58);
-            lblPhoneControl.Name = "lblPhoneControl";
-            lblPhoneControl.Size = new Size(75, 25);
-            lblPhoneControl.TabIndex = 1;
-            lblPhoneControl.Text = "Phone :";
-            // 
-            // lblName
-            // 
-            lblName.AutoSize = true;
-            lblName.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblName.Location = new Point(22, 28);
-            lblName.Name = "lblName";
-            lblName.Size = new Size(168, 25);
-            lblName.TabIndex = 0;
-            lblName.Text = "Name / Company :";
-            // 
-            // panel4
-            // 
-            panel4.Controls.Add(dataGridPackingSlip);
-            panel4.Dock = DockStyle.Fill;
-            panel4.Location = new Point(0, 46);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(931, 257);
-            panel4.TabIndex = 4;
-            // 
-            // dataGridPackingSlip
-            // 
-            dataGridPackingSlip.AllowUserToAddRows = false;
-            dataGridPackingSlip.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridPackingSlip.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            dataGridPackingSlip.BackgroundColor = Color.White;
-            dataGridPackingSlip.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridPackingSlip.Columns.AddRange(new DataGridViewColumn[] { Id, Barcode, ProductCategory, Product, Quantity, Rate, TaxableAmount, GstPer, Amount, AvailableQty, GstValue });
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = SystemColors.Window;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
-            dataGridPackingSlip.DefaultCellStyle = dataGridViewCellStyle1;
-            dataGridPackingSlip.Dock = DockStyle.Fill;
-            dataGridPackingSlip.Location = new Point(0, 0);
-            dataGridPackingSlip.Name = "dataGridPackingSlip";
-            dataGridPackingSlip.Size = new Size(931, 257);
-            dataGridPackingSlip.TabIndex = 1;
-            // 
-            // Id
-            // 
-            Id.HeaderText = "Id";
-            Id.Name = "Id";
-            Id.Visible = false;
-            // 
-            // Barcode
-            // 
-            Barcode.HeaderText = "Barcode";
-            Barcode.Name = "Barcode";
-            Barcode.ReadOnly = true;
-            // 
-            // ProductCategory
-            // 
-            ProductCategory.HeaderText = "Category";
-            ProductCategory.Name = "ProductCategory";
-            ProductCategory.ReadOnly = true;
-            // 
-            // Product
-            // 
-            Product.HeaderText = "Product";
-            Product.Name = "Product";
-            Product.ReadOnly = true;
-            // 
-            // Quantity
-            // 
-            Quantity.HeaderText = "Quantity";
-            Quantity.Name = "Quantity";
-            Quantity.ReadOnly = true;
-            // 
-            // Rate
-            // 
-            Rate.HeaderText = "Rate";
-            Rate.Name = "Rate";
-            // 
-            // TaxableAmount
-            // 
-            TaxableAmount.HeaderText = "Taxable Amount";
-            TaxableAmount.Name = "TaxableAmount";
-            // 
-            // GstPer
-            // 
-            GstPer.HeaderText = "Gst %";
-            GstPer.Name = "GstPer";
-            // 
-            // Amount
-            // 
-            Amount.HeaderText = "Amount";
-            Amount.Name = "Amount";
-            Amount.ReadOnly = true;
-            // 
-            // AvailableQty
-            // 
-            AvailableQty.HeaderText = "AvailableQty";
-            AvailableQty.Name = "AvailableQty";
-            AvailableQty.Visible = false;
-            // 
-            // GstValue
-            // 
-            GstValue.HeaderText = "GstValue";
-            GstValue.Name = "GstValue";
-            GstValue.ReadOnly = true;
-            GstValue.Visible = false;
-            // 
             // lblTotalPcs
             // 
             lblTotalPcs.AutoSize = true;
@@ -391,11 +218,205 @@
             // 
             lblTotalPcsControl.AutoSize = true;
             lblTotalPcsControl.Font = new Font("Segoe UI", 14.25F);
-            lblTotalPcsControl.Location = new Point(68, 35);
+            lblTotalPcsControl.Location = new Point(34, 35);
             lblTotalPcsControl.Name = "lblTotalPcsControl";
-            lblTotalPcsControl.Size = new Size(156, 25);
+            lblTotalPcsControl.Size = new Size(191, 25);
             lblTotalPcsControl.TabIndex = 8;
-            lblTotalPcsControl.Text = "Taxable Amount :";
+            lblTotalPcsControl.Text = "Taxable Net Amount :";
+            // 
+            // groupBox2
+            // 
+            groupBox2.BackColor = SystemColors.ButtonHighlight;
+            groupBox2.Controls.Add(lblDiscount);
+            groupBox2.Controls.Add(label4);
+            groupBox2.Controls.Add(lblVisitorType);
+            groupBox2.Controls.Add(lblPhone);
+            groupBox2.Controls.Add(lblCompanyName);
+            groupBox2.Controls.Add(lblVisitorControl);
+            groupBox2.Controls.Add(lblPhoneControl);
+            groupBox2.Controls.Add(lblName);
+            groupBox2.Dock = DockStyle.Left;
+            groupBox2.FlatStyle = FlatStyle.Popup;
+            groupBox2.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 0);
+            groupBox2.ForeColor = SystemColors.ActiveCaptionText;
+            groupBox2.Location = new Point(0, 0);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(394, 141);
+            groupBox2.TabIndex = 4;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Visitor Information";
+            // 
+            // lblVisitorType
+            // 
+            lblVisitorType.AutoSize = true;
+            lblVisitorType.Font = new Font("Segoe UI", 12F);
+            lblVisitorType.Location = new Point(197, 76);
+            lblVisitorType.Name = "lblVisitorType";
+            lblVisitorType.Size = new Size(31, 21);
+            lblVisitorType.TabIndex = 5;
+            lblVisitorType.Text = ".......";
+            // 
+            // lblPhone
+            // 
+            lblPhone.AutoSize = true;
+            lblPhone.Font = new Font("Segoe UI", 12F);
+            lblPhone.Location = new Point(194, 51);
+            lblPhone.Name = "lblPhone";
+            lblPhone.Size = new Size(31, 21);
+            lblPhone.TabIndex = 4;
+            lblPhone.Text = ".......";
+            // 
+            // lblCompanyName
+            // 
+            lblCompanyName.AutoSize = true;
+            lblCompanyName.Font = new Font("Segoe UI", 12F);
+            lblCompanyName.Location = new Point(193, 28);
+            lblCompanyName.Name = "lblCompanyName";
+            lblCompanyName.Size = new Size(31, 21);
+            lblCompanyName.TabIndex = 3;
+            lblCompanyName.Text = ".......";
+            // 
+            // lblVisitorControl
+            // 
+            lblVisitorControl.AutoSize = true;
+            lblVisitorControl.Font = new Font("Segoe UI", 12F);
+            lblVisitorControl.Location = new Point(69, 76);
+            lblVisitorControl.Name = "lblVisitorControl";
+            lblVisitorControl.Size = new Size(106, 21);
+            lblVisitorControl.TabIndex = 2;
+            lblVisitorControl.Text = "Visitory Type :";
+            // 
+            // lblPhoneControl
+            // 
+            lblPhoneControl.AutoSize = true;
+            lblPhoneControl.Font = new Font("Segoe UI", 12F);
+            lblPhoneControl.Location = new Point(115, 52);
+            lblPhoneControl.Name = "lblPhoneControl";
+            lblPhoneControl.Size = new Size(61, 21);
+            lblPhoneControl.TabIndex = 1;
+            lblPhoneControl.Text = "Phone :";
+            // 
+            // lblName
+            // 
+            lblName.AutoSize = true;
+            lblName.Font = new Font("Segoe UI", 12F);
+            lblName.Location = new Point(37, 28);
+            lblName.Name = "lblName";
+            lblName.Size = new Size(140, 21);
+            lblName.TabIndex = 0;
+            lblName.Text = "Name / Company :";
+            // 
+            // panel4
+            // 
+            panel4.Controls.Add(dataGridPackingSlip);
+            panel4.Dock = DockStyle.Fill;
+            panel4.Location = new Point(0, 46);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(931, 257);
+            panel4.TabIndex = 4;
+            // 
+            // dataGridPackingSlip
+            // 
+            dataGridPackingSlip.AllowUserToAddRows = false;
+            dataGridPackingSlip.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridPackingSlip.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dataGridPackingSlip.BackgroundColor = Color.White;
+            dataGridPackingSlip.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridPackingSlip.Columns.AddRange(new DataGridViewColumn[] { Id, Barcode, Product, Quantity, Rate, Taxable, Discount, NetTaxable, GstPer, Amount, AvailableQty });
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Window;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
+            dataGridPackingSlip.DefaultCellStyle = dataGridViewCellStyle1;
+            dataGridPackingSlip.Dock = DockStyle.Fill;
+            dataGridPackingSlip.Location = new Point(0, 0);
+            dataGridPackingSlip.Name = "dataGridPackingSlip";
+            dataGridPackingSlip.Size = new Size(931, 257);
+            dataGridPackingSlip.TabIndex = 1;
+            // 
+            // Id
+            // 
+            Id.HeaderText = "Id";
+            Id.Name = "Id";
+            Id.Visible = false;
+            // 
+            // Barcode
+            // 
+            Barcode.HeaderText = "Barcode";
+            Barcode.Name = "Barcode";
+            Barcode.ReadOnly = true;
+            // 
+            // Product
+            // 
+            Product.HeaderText = "Product";
+            Product.Name = "Product";
+            Product.ReadOnly = true;
+            // 
+            // Quantity
+            // 
+            Quantity.HeaderText = "Qty";
+            Quantity.Name = "Quantity";
+            Quantity.ReadOnly = true;
+            // 
+            // Rate
+            // 
+            Rate.HeaderText = "Rate";
+            Rate.Name = "Rate";
+            // 
+            // Taxable
+            // 
+            Taxable.HeaderText = "Taxable";
+            Taxable.Name = "Taxable";
+            // 
+            // Discount
+            // 
+            Discount.HeaderText = "Discount";
+            Discount.Name = "Discount";
+            // 
+            // NetTaxable
+            // 
+            NetTaxable.HeaderText = "Net Taxable";
+            NetTaxable.Name = "NetTaxable";
+            // 
+            // GstPer
+            // 
+            GstPer.HeaderText = "Gst %";
+            GstPer.Name = "GstPer";
+            // 
+            // Amount
+            // 
+            Amount.HeaderText = "Amount";
+            Amount.Name = "Amount";
+            Amount.ReadOnly = true;
+            // 
+            // AvailableQty
+            // 
+            AvailableQty.HeaderText = "AvailableQty";
+            AvailableQty.Name = "AvailableQty";
+            AvailableQty.Visible = false;
+            // 
+            // lblDiscount
+            // 
+            lblDiscount.AutoSize = true;
+            lblDiscount.Font = new Font("Segoe UI", 12F);
+            lblDiscount.Location = new Point(194, 104);
+            lblDiscount.Name = "lblDiscount";
+            lblDiscount.Size = new Size(31, 21);
+            lblDiscount.TabIndex = 7;
+            lblDiscount.Text = ".......";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 12F);
+            label4.Location = new Point(96, 104);
+            label4.Name = "label4";
+            label4.Size = new Size(78, 21);
+            label4.TabIndex = 6;
+            label4.Text = "Discount :";
             // 
             // PackingSlipViewForm
             // 
@@ -441,22 +462,24 @@
         private TextBox txtPackingSlip;
         private Label label1;
         private Button btnClose;
-        private DataGridViewTextBoxColumn Id;
-        private DataGridViewTextBoxColumn Barcode;
-        private DataGridViewTextBoxColumn ProductCategory;
-        private DataGridViewTextBoxColumn Product;
-        private DataGridViewTextBoxColumn Quantity;
-        private DataGridViewTextBoxColumn Rate;
-        private DataGridViewTextBoxColumn TaxableAmount;
-        private DataGridViewTextBoxColumn GstPer;
-        private DataGridViewTextBoxColumn Amount;
-        private DataGridViewTextBoxColumn AvailableQty;
-        private DataGridViewTextBoxColumn GstValue;
         private Label lblTotalPcs;
         private Label label3;
         private Label lblTotalAmount;
         private Label lblTaxableAmount;
         private Label lbl;
         private Label lblTotalPcsControl;
+        private DataGridViewTextBoxColumn Id;
+        private DataGridViewTextBoxColumn Barcode;
+        private DataGridViewTextBoxColumn Product;
+        private DataGridViewTextBoxColumn Quantity;
+        private DataGridViewTextBoxColumn Rate;
+        private DataGridViewTextBoxColumn Taxable;
+        private DataGridViewTextBoxColumn Discount;
+        private DataGridViewTextBoxColumn NetTaxable;
+        private DataGridViewTextBoxColumn GstPer;
+        private DataGridViewTextBoxColumn Amount;
+        private DataGridViewTextBoxColumn AvailableQty;
+        private Label lblDiscount;
+        private Label label4;
     }
 }

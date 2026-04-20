@@ -10,6 +10,7 @@ namespace CoreOfficeERP.Domain.Responses.DeliveryChallan
         public Guid CustomerId { get; set; }
         public required string CustomerName { get; set; }
 
+        public decimal DiscountPercent { get; set; }
         public int TotalQuantity { get; set; }
         public decimal TotalAmount { get; set; }
 
@@ -40,7 +41,11 @@ namespace CoreOfficeERP.Domain.Responses.DeliveryChallan
 
         public decimal TaxableAmount { get; set; }
 
-        public decimal GstValue { get; set; }
+        public decimal DiscountAmount { get; set; }
+
+        public decimal NetAmount { get; set; }
+
+        public decimal GstPercent { get; set; }
 
         public decimal Amount { get; set; }
     }

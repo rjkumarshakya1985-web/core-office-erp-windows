@@ -64,6 +64,8 @@
             ReturnQty = new DataGridViewTextBoxColumn();
             Balance = new DataGridViewTextBoxColumn();
             TaxableAmount = new DataGridViewTextBoxColumn();
+            Discount = new DataGridViewTextBoxColumn();
+            NetTaxable = new DataGridViewTextBoxColumn();
             GstPer = new DataGridViewTextBoxColumn();
             TotalAmount = new DataGridViewTextBoxColumn();
             panel1.SuspendLayout();
@@ -130,7 +132,7 @@
             dataGrid.AllowUserToAddRows = false;
             dataGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGrid.Columns.AddRange(new DataGridViewColumn[] { Id, StockId, Barcode, Category, Product, SalePrice, TotalQty, ReturnQty, Balance, TaxableAmount, GstPer, TotalAmount });
+            dataGrid.Columns.AddRange(new DataGridViewColumn[] { Id, StockId, Barcode, Category, Product, SalePrice, TotalQty, ReturnQty, Balance, TaxableAmount, Discount, NetTaxable, GstPer, TotalAmount });
             dataGrid.Dock = DockStyle.Top;
             dataGrid.Location = new Point(0, 88);
             dataGrid.Name = "dataGrid";
@@ -414,8 +416,20 @@
             // 
             // TaxableAmount
             // 
-            TaxableAmount.HeaderText = "Taxable Amount";
+            TaxableAmount.HeaderText = "Taxable";
             TaxableAmount.Name = "TaxableAmount";
+            // 
+            // Discount
+            // 
+            Discount.HeaderText = "Discount";
+            Discount.Name = "Discount";
+            Discount.ReadOnly = true;
+            // 
+            // NetTaxable
+            // 
+            NetTaxable.HeaderText = "Net Taxable";
+            NetTaxable.Name = "NetTaxable";
+            NetTaxable.ReadOnly = true;
             // 
             // GstPer
             // 
@@ -497,6 +511,8 @@
         private DataGridViewTextBoxColumn ReturnQty;
         private DataGridViewTextBoxColumn Balance;
         private DataGridViewTextBoxColumn TaxableAmount;
+        private DataGridViewTextBoxColumn Discount;
+        private DataGridViewTextBoxColumn NetTaxable;
         private DataGridViewTextBoxColumn GstPer;
         private DataGridViewTextBoxColumn TotalAmount;
     }

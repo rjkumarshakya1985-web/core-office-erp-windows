@@ -9,6 +9,7 @@ namespace CoreOffice.Win.Modules.Shared
     {
         private readonly IPackingSlipService _packingSlipService;
         public string PackingSlipNumber;
+        private decimal? VisitorDiscount;
         public PackingSlipViewForm(IPackingSlipService packingSlipService)
         {
             InitializeComponent();
@@ -90,21 +91,23 @@ namespace CoreOffice.Win.Modules.Shared
             foreach (var item in response.Items)
             {
                 dataGridPackingSlip.Rows.Add(
-                    item.StockId,      // Id column (hidden)
-                    item.BarCode,
-                    item.StockGroup,
-                    item.ProductName,
-                    item.Qty,
-                    item.SaleRate,
-                    item.TaxableAmount,
-                    item.GstValue,
-                    item.Amount,
-                    item.AvailableQty,
-                    item.GstValue
-                );
+                   item.StockId,      // Id column (hidden)
+                   item.BarCode,
+                   item.StockGroup + "\n" + item.ProductName,
+                   item.Qty,
+                   item.SaleRate,
+                   item.TaxableAmount,
+                   item.DiscountAmount,
+                   item.NetAmount,
+                   item.GstPercent,
+                   item.TotalAmount,
+                   item.AvailableQty
+               );
             }
 
+            VisitorDiscount = response.Items.Count == 0 ? null : response.Items.First().DiscountPercent;
 
+            lblDiscount.Text = VisitorDiscount.HasValue ? $"{VisitorDiscount.Value}%" : "0%";
             CalculatePackingSlip();
 
         }
@@ -159,23 +162,50 @@ namespace CoreOffice.Win.Modules.Shared
             {
                 if (row.IsNewRow) continue;
 
-                decimal taxable = Convert.ToDecimal(row.Cells["TaxableAmount"].Value);
+                decimal rate = Convert.ToDecimal(row.Cells["Rate"].Value);
                 int.TryParse(row.Cells["Quantity"].Value?.ToString(), out int qty);
-                decimal gstPercent = Convert.ToDecimal(row.Cells["GstValue"].Value);
-                decimal amount = Convert.ToDecimal(row.Cells["Amount"].Value);
+                decimal gstPercent = Convert.ToDecimal(row.Cells["GstPer"].Value);
 
+
+
+
+
+                decimal taxable = Math.Round(rate * qty, 2, MidpointRounding.AwayFromZero);
+
+
+                var discountPercent = VisitorDiscount ?? 0;
+
+                var discountAmount = Math.Round(
+                    taxable * discountPercent / 100,
+                    2,
+                    MidpointRounding.AwayFromZero
+                );
+
+                // ✅ Net after discount
+                decimal netAmount = Math.Round(taxable - discountAmount, 2, MidpointRounding.AwayFromZero);
+
+                // ✅ GST on NET
+                decimal gstAmount = Math.Round(netAmount * gstPercent / 100, 2, MidpointRounding.AwayFromZero);
+
+                // ✅ Final
+                decimal total = Math.Round(netAmount + gstAmount, 2, MidpointRounding.AwayFromZero);
+
+                // 🔹 Update grid
+                row.Cells["Taxable"].Value = taxable;
+                row.Cells["NetTaxable"].Value = netAmount;
+                row.Cells["Amount"].Value = total;
+                row.Cells["Discount"].Value = discountAmount;
 
                 // 🔹 Totals
-                totalTaxable += taxable;
-                totalAmount += amount;
+                totalTaxable += netAmount;
+                totalAmount += total;
                 totalPcs += qty;
             }
 
-            lblTotalAmount.Text = totalAmount.ToString("0.00");
+            lblTotalAmount.Text = Math.Round(totalAmount, 0, MidpointRounding.AwayFromZero).ToString("0.00");
             lblTotalPcs.Text = totalPcs.ToString();
-            lblTaxableAmount.Text = totalTaxable.ToString("0.00"); 
+            lblTaxableAmount.Text = Math.Round(totalTaxable, 0, MidpointRounding.AwayFromZero).ToString("0.00");
         }
-
         private void btnClose_Click(object sender, EventArgs e)
         {
             Close();

@@ -105,9 +105,11 @@ namespace CoreOffice.Win.Modules.Cashier
                         item.Qty,
                         item.Returned,
                         item.Balance,
-                        item.TaxableAmount,
-                        item.GstValue.ToString("0"),
-                        item.Amount
+                        item.TaxableAmount.ToString("0.00"),
+                        item.DiscountAmount.ToString("0.00"),
+                        item.NetAmount.ToString("0.00"),
+                        item.GstPercent.ToString("0"),
+                        item.Amount.ToString("0.00")
                     );
                 }
 

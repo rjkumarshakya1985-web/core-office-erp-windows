@@ -11,6 +11,7 @@ namespace CoreOffice.Win.Modules.Cashier
         private int? DeliveryChallanId;
         private Guid? CustomerId;
         private readonly IDeliveryChallanService _deliveryChallanService;
+        private decimal DiscountPercent = 0; //  For future use, if you want to apply visitor discount on return
         public DeliveryChallanReturnDetailForm(IDeliveryChallanService deliveryChallanService)
         {
             InitializeComponent();
@@ -62,6 +63,13 @@ namespace CoreOffice.Win.Modules.Cashier
 
             dataGridReturn.Columns["TaxableAmount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
             dataGridReturn.Columns["TaxableAmount"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+            dataGridReturn.Columns["Discount"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridReturn.Columns["Discount"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
+
+
+            dataGridReturn.Columns["NetTaxable"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridReturn.Columns["NetTaxable"].HeaderCell.Style.Alignment = DataGridViewContentAlignment.MiddleRight;
 
 
             dataGridReturn.Columns["GstPer"].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -118,7 +126,7 @@ namespace CoreOffice.Win.Modules.Cashier
                     dataGridReturn.Rows.Add(
                         item.DeliveryChallanItemId,
                         item.StockId,
-                        item.BarCode + "\n"+item.ProductCategory + "\n" + item.ProductName,
+                        item.BarCode + "  " +item.ProductCategory + "\n" + item.ProductName,
                         item.SaleRate,
                         item.Qty,
                         item.Returned,
@@ -126,14 +134,17 @@ namespace CoreOffice.Win.Modules.Cashier
                         item.ReturnQty,
                         item.Balance,
                         item.TaxableAmount,
-                        item.GstValue.ToString("0"),
+                        item.DiscountAmount,
+                        item.NetAmount,
+                        item.GstPercent.ToString("0"),
                         item.Amount
                     );
                 }
 
-                lblTaxableAmount.Text = detail.TotalTaxableAmount.ToString("0.00");
-                lblTotalAmount.Text = detail.TotalAmount.ToString("0.00");
+                DiscountPercent = detail.DiscountPercent;
+                lblTotalAmount.Text = Math.Round(detail.TotalAmount,0).ToString("0.00");
                 lblTotalPcs.Text = detail.TotalQuantity.ToString();
+                lblDiscount.Text = detail.DiscountPercent.ToString("0.##") + " %";
                 dataGridReturn.Focus();
             }
             catch (Exception ex)
@@ -287,18 +298,22 @@ namespace CoreOffice.Win.Modules.Cashier
 
                 // Taxable
                 decimal taxable = currentQty * saleRate;
-                taxable = Math.Round(taxable, 2); // ✅ 2 decimal round
+                taxable = Math.Round(taxable,0); // ✅ 2 decimal round
                 row.Cells["TaxableAmount"].Value = taxable;
 
-                // GST Amount
-                decimal gstAmt = taxable * gstPer / 100;
-                gstAmt = Math.Round(gstAmt, 2);
+                var discount = Math.Round(taxable * DiscountPercent / 100);
+                var netTaxable = Math.Round(taxable - discount);
+               
+                row.Cells["Discount"].Value = discount.ToString("0.00");
+                row.Cells["NetTaxable"].Value = netTaxable.ToString("0.00");
+                decimal gstAmt = netTaxable * gstPer / 100;
+                gstAmt = Math.Round(gstAmt, 0);
 
                 // Final Amount
-                decimal total = taxable + gstAmt;
-                total = Math.Round(total, 2);
+                decimal total = netTaxable + gstAmt;
+                total = Math.Round(total,0);
 
-                row.Cells["Amount"].Value = total;
+                row.Cells["Amount"].Value = total.ToString("0.00");
                 CalculateTotalAmount();
             }
         }
@@ -322,8 +337,7 @@ namespace CoreOffice.Win.Modules.Cashier
                 totalPcs += qty;
 
             }
-            lblTotalAmount.Text = total.ToString("0.00");
-            lblTaxableAmount.Text = taxable.ToString("0.00");
+            lblTotalAmount.Text =Math.Round(total,0).ToString("0.00");
             lblTotalPcs.Text = totalPcs.ToString();
         }
 
@@ -396,6 +410,8 @@ namespace CoreOffice.Win.Modules.Cashier
             txtNumber.Clear();
             lblCustomer.Text = ".........";
             lblDate.Text = "..........";
+            lblTotalPcs.Text = "0";
+            lblTotalAmount.Text = "0.00";
             DeliveryChallanId = null;
             CustomerId = null;
         }

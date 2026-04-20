@@ -409,11 +409,11 @@
             // 
             lblTotalPcsControl.AutoSize = true;
             lblTotalPcsControl.Font = new Font("Segoe UI", 14.25F);
-            lblTotalPcsControl.Location = new Point(46, 29);
+            lblTotalPcsControl.Location = new Point(12, 29);
             lblTotalPcsControl.Name = "lblTotalPcsControl";
-            lblTotalPcsControl.Size = new Size(156, 25);
+            lblTotalPcsControl.Size = new Size(191, 25);
             lblTotalPcsControl.TabIndex = 0;
-            lblTotalPcsControl.Text = "Taxable Amount :";
+            lblTotalPcsControl.Text = "Taxable Net Amount :";
             // 
             // groupBox2
             // 
@@ -610,6 +610,7 @@
             // 
             AvailableQty.HeaderText = "AvailableQty";
             AvailableQty.Name = "AvailableQty";
+            AvailableQty.Visible = false;
             // 
             // FrmPackingSlip
             // 

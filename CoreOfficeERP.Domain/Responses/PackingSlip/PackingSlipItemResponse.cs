@@ -8,13 +8,17 @@
         public required string ProductName { get; set; }
         public required string BarCode { get; set; }
         public required int Qty { get; set; }
-        public int AvailableQty { get; set; }
-
-        public decimal GstValue { get; set; }
         public decimal SaleRate { get; set; }
-
+        public decimal GstPercent { get; set; }
+        public decimal? DiscountPercent { get; set; }
         public decimal TaxableAmount { get; set; }
+        public decimal DiscountAmount { get; set; }
 
-        public decimal Amount { get; set; }
+        public decimal NetAmount { get; set; }
+        public decimal GstAmount { get; set; }
+
+        public decimal TotalAmount { get; set; }
+
+        public int AvailableQty { get; set; }
     }
 }

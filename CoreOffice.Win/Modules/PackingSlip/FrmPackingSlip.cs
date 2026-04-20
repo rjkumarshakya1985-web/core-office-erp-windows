@@ -1,6 +1,5 @@
 ﻿using CoreOffice.Win.Modules.Shared;
 using CoreOffice.Win.Shared;
-using CoreOffice.Win.Shared.Mappers;
 using CoreOffice.Win.Shared.Prints;
 using CoreOffice.Win.Shared.RDLCModels;
 using CoreOfficeERP.Application.Interfaces;
@@ -174,7 +173,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
             }
             VisitorId = null;
             CustomerId = null;
-             VisitorDiscount = null;
+            VisitorDiscount = null;
             PackingSlipId = null;
             VisitorType = null;
             lblCompanyName.Text = "-";
@@ -183,6 +182,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
             lblTaxableAmount.Text = "0";
             lblVisitorType.Text = "-";
             lblTotalPcs.Text = "0";
+            lblDiscount.Text = "0 %";
             btnDelete.Enabled = false;
             txtBarcodeScanner.Clear();
             cmbSalesPerson.SelectedIndex = 0;
@@ -249,7 +249,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
                 int.TryParse(row.Cells["Quantity"].Value?.ToString(), out int qty);
                 decimal gstPercent = Convert.ToDecimal(row.Cells["GstValue"].Value);
 
-                
+
 
 
 
@@ -528,21 +528,23 @@ namespace CoreOffice.Win.Modules.PackingSlip
                 if (PackingSlipId == null)
                 {
                     var id = await _packingSlipService.CreateAsync(request);
-                    if(id>0)
-                    await _printService.PrintPackingSlipAsync(id);
+                    if (id > 0)
+                    {
+                        Clear();
+                        //  await _printService.PrintPackingSlipAsync(id);
+                    }
                 }
                 else
                 {
                     await _packingSlipService.UpdateAsync(PackingSlipId, request);
                     if (PackingSlipId.HasValue)
                     {
-                        var id = await _packingSlipService.CreateAsync(request);
-                        if (id > 0)
-                            await _printService.PrintPackingSlipAsync(id);
+                        Clear();
+                        // await _printService.PrintPackingSlipAsync(PackingSlipId.Value);
                     }
                 }
 
-               
+
             }
             catch (Exception ex)
             {
@@ -551,7 +553,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
             finally
             {
                 AppLoader.Hide();
-                Clear();
+
             }
         }
 
@@ -585,19 +587,20 @@ namespace CoreOffice.Win.Modules.PackingSlip
                 dataGridPackingSlip.Rows.Add(
                     item.StockId,      // Id column (hidden)
                     item.BarCode,
-                    item.StockGroup,
-                    item.ProductName,
+                    item.StockGroup + "\n" + item.ProductName,
                     item.Qty,
                     item.SaleRate,
                     item.TaxableAmount,
-                     item.GstValue,
-                    item.Amount,
-                       item.AvailableQty
-
+                    item.DiscountAmount,
+                    item.NetAmount,
+                    item.GstPercent,
+                    item.TotalAmount,
+                    item.AvailableQty
                 );
             }
 
-
+            VisitorDiscount = response.Items.FirstOrDefault().DiscountPercent;
+            lblDiscount.Text = response.Items.FirstOrDefault().DiscountPercent > 0 ? VisitorDiscount + " %" : "0 %";
             CalculatePackingSlip();
             btnDelete.Enabled = true; // Show delete button in edit mode
         }
