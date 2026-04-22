@@ -26,7 +26,6 @@ namespace CoreOfficeERP.Infrastructure.Api
         {
             var response = await _httpClient.GetAsync(endpoint);
             response.EnsureSuccessStatusCode();
-
             return await DeserializeResponse<TResponse>(response);
         }
 
@@ -53,6 +52,15 @@ namespace CoreOfficeERP.Infrastructure.Api
             var content = CreateJsonContent(data);
 
             var response = await _httpClient.PutAsync($"{endpoint}/{id}", content);
+            response.EnsureSuccessStatusCode();
+
+            return await DeserializeResponse<TResponse>(response);
+        }
+        public async Task<TResponse?> PutAsync<TRequest, TResponse>(string endpoint, TRequest data)
+        {
+            var content = CreateJsonContent(data);
+
+            var response = await _httpClient.PutAsync($"{endpoint}", content);
             response.EnsureSuccessStatusCode();
 
             return await DeserializeResponse<TResponse>(response);

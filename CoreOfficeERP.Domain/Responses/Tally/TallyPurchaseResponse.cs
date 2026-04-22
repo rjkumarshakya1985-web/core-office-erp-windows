@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,6 +19,7 @@ namespace CoreOfficeERP.Domain.Responses.Tally
     }
     public class SupplierResponse
     {
+        public Guid Id { get; set; }
         public string? Department { get; set; }
         public string? SubDepartment { get; set; }
         public string Code { get; set; }
@@ -79,11 +81,15 @@ namespace CoreOfficeERP.Domain.Responses.Tally
         public string? TallyLedgerName { get; set; }
         public int GstValue { get; set; }
         public string? Description { get; set; }
+        public string? HsnCode { get; set; }
+        public bool IsGstRule { get; set; }
+        public decimal StartRange { get; set; }
+        public decimal EndRange { get; set; }
 
     }
     public class StockitemResponse
     {
-
+        public Guid Id { get; set; }
         public string? ProductName { get; set; }
         public string? TallyLedgerName { get; set; }
 
@@ -101,9 +107,9 @@ namespace CoreOfficeERP.Domain.Responses.Tally
         public decimal Total { get; set; }
         public decimal PayableAmount { get; set; }
         public decimal MrpRate { get; set; }
-        //public bool IsGstRule { get; set; }
-        //public decimal StartRange { get; set; }
-        //public decimal EndRange { get; set; }
+        public bool IsGstRule { get; set; }
+        public decimal StartRange { get; set; }
+        public decimal EndRange { get; set; }
     }
     public class SaleVoucherPrint
     {
@@ -120,7 +126,7 @@ namespace CoreOfficeERP.Domain.Responses.Tally
         public string? SupplierBillNumber { get; set; }
         public string? GstIn { get; set; }    
         public decimal Discount { get; set; }
-        public DateTime? Date { get; set; }   
+        public DateTime Date { get; set; }   
        
        
     }

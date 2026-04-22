@@ -1,6 +1,8 @@
 ﻿using CoreOfficeERP.Application.Interfaces;
 using CoreOfficeERP.Common;
 using CoreOfficeERP.Domain;
+using CoreOfficeERP.Domain.Requests.PackingSlip;
+using CoreOfficeERP.Domain.Requests.Tally;
 using CoreOfficeERP.Domain.Responses;
 using CoreOfficeERP.Domain.Responses.PackingSlip;
 using CoreOfficeERP.Domain.Responses.Tally;
@@ -24,8 +26,14 @@ namespace CoreOfficeERP.Application.Services
              .GetAsync<ApiResponse<TallyPurchaseResponse>>($"{ApiEndpoints.GetTallyPurchase}/{id}");           
             return reuslt?.Data;
 
-        }      
-
+        }
+        public async Task<int> TallyDataUpdate(List<TallyNameRequest> request)
+        {
+            var reuslt = await _apiRepository
+             .PutAsync<List<TallyNameRequest>, ApiResponse<int>>(ApiEndpoints.TallyDataUpdate, request);
+            return reuslt!.Data;
+           
+        }  
 
     }
 }

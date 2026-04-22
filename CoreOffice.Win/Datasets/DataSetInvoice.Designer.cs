@@ -10,7 +10,7 @@
 
 #pragma warning disable 1591
 
-namespace CoreOffice.Win.Datasets {
+namespace CoreOffice.Win.DataSets {
     
     
     /// <summary>

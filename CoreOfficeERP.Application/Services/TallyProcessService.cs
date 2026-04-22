@@ -18,12 +18,15 @@ namespace CoreOfficeERP.Application.Services
         {
             _apiRepository = apiRepository;
         }
-        public async Task<int> CreateAsync(TallyProcessBatchRequest request)
+
+        public async Task<bool> CreateAsync(List<TallyProcessRequest> logs)
         {
             var response = await _apiRepository
-                .PostAsync<TallyProcessBatchRequest, ApiResponse<int>>(ApiEndpoints.CreateTallyProcessLog, request);
+                .PostAsync<List<TallyProcessRequest>, bool>(
+                    ApiEndpoints.CreateTallyProcessLog,
+                    logs);
 
-            return response!.Data;
+            return response;
         }
         public async Task<TallyProcessResponse?> GetTallyProcess(int companyId)
         {

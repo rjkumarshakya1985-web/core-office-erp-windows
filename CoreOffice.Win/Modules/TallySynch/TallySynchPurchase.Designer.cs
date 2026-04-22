@@ -29,6 +29,10 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            label24 = new Label();
+            cmbFiananceYear = new ComboBox();
+            label23 = new Label();
+            cmbCompanies = new ComboBox();
             groupBox2 = new GroupBox();
             lblAgentName = new Label();
             label22 = new Label();
@@ -88,6 +92,10 @@
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(192, 255, 192);
+            panel1.Controls.Add(label24);
+            panel1.Controls.Add(cmbFiananceYear);
+            panel1.Controls.Add(label23);
+            panel1.Controls.Add(cmbCompanies);
             panel1.Controls.Add(groupBox2);
             panel1.Controls.Add(groupBox1);
             panel1.Controls.Add(label1);
@@ -96,6 +104,42 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1028, 221);
             panel1.TabIndex = 0;
+            // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.Font = new Font("Segoe UI", 8F);
+            label24.Location = new Point(761, 24);
+            label24.Name = "label24";
+            label24.Size = new Size(37, 13);
+            label24.TabIndex = 27;
+            label24.Text = "Code:";
+            // 
+            // cmbFiananceYear
+            // 
+            cmbFiananceYear.FormattingEnabled = true;
+            cmbFiananceYear.Location = new Point(804, 14);
+            cmbFiananceYear.Name = "cmbFiananceYear";
+            cmbFiananceYear.Size = new Size(212, 23);
+            cmbFiananceYear.TabIndex = 26;
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Font = new Font("Segoe UI", 8F);
+            label23.Location = new Point(325, 18);
+            label23.Name = "label23";
+            label23.Size = new Size(37, 13);
+            label23.TabIndex = 25;
+            label23.Text = "Code:";
+            // 
+            // cmbCompanies
+            // 
+            cmbCompanies.FormattingEnabled = true;
+            cmbCompanies.Location = new Point(368, 12);
+            cmbCompanies.Name = "cmbCompanies";
+            cmbCompanies.Size = new Size(364, 23);
+            cmbCompanies.TabIndex = 16;
             // 
             // groupBox2
             // 
@@ -561,7 +605,7 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 18F);
-            label1.Location = new Point(408, 2);
+            label1.Location = new Point(5, 5);
             label1.Name = "label1";
             label1.Size = new Size(179, 32);
             label1.TabIndex = 0;
@@ -715,5 +759,9 @@
         private Label lblAGSTIN;
         private Label lblContactPer;
         private Label lblAMobile;
+        private ComboBox cmbCompanies;
+        private Label label23;
+        private ComboBox cmbFiananceYear;
+        private Label label24;
     }
 }

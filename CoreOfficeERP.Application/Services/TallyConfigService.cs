@@ -1,6 +1,7 @@
 ﻿using CoreOfficeERP.Application.Interfaces;
 using CoreOfficeERP.Common;
 using CoreOfficeERP.Domain;
+using CoreOfficeERP.Domain.Responses;
 using CoreOfficeERP.Domain.Responses.Tally;
 using CoreOfficeERP.Infrastructure.Api;
 using System;
@@ -23,6 +24,13 @@ namespace CoreOfficeERP.Application.Services
         {
             var reuslt = await _apiRepository
              .GetAsync<ApiResponse<TallyConfigResponse>>($"{ApiEndpoints.GetTallyConfig}/{companyId}");
+
+            return reuslt?.Data;
+        }
+        public async Task<IEnumerable<TallyCompanyResponse>> GetAllCompanies()
+        {
+            var reuslt = await _apiRepository
+              .GetAsync<ApiResponse<IEnumerable<TallyCompanyResponse>>>(ApiEndpoints.GetTallyCompanies);
 
             return reuslt?.Data;
         }

@@ -2,7 +2,10 @@
 using CoreOfficeERP.Domain.Responses.Agent;
 using CoreOfficeERP.Domain.Responses.Tally;
 using CoreOfficeERP.Tally.Interfaces;
+using System.Globalization;
 using Tally;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+
 
 
 // Alias for DLL
@@ -20,7 +23,7 @@ namespace CoreOfficeERP.Tally.Services
         }
 
         public TallyResponse CreateVendorGroup(AgentTableResponse agentTable, TallyConfigResponse config)
-        {     
+        {
             var group = new Group
             {
                 //Valid Tally Company Name
@@ -28,7 +31,7 @@ namespace CoreOfficeERP.Tally.Services
 
                 //This line is required only if the vendor group is being altered or re-uploaded. 
                 //During initial vendor group creation, this line is not required.
-                oldGroupName = agentTable.TallyLedgerName??agentTable.Name,
+                oldGroupName = agentTable.TallyLedgerName ?? agentTable.Name,
                 groupName = agentTable.Name,
                 //Alias of the vendor group, if you wish to maintain; else you need not pass it
                 groupAlias = "",
@@ -146,57 +149,81 @@ namespace CoreOfficeERP.Tally.Services
                // parentGroupName = "Sarees",
                 isAddable = true,
             };
-            var gst = new StockGroupGstDetails
+            if (!group.IsGstRule)
             {
+                var gst = new StockGroupGstDetails
+                {
 
-                applicableFrom = DateTime.ParseExact("22-Sep-2025", "dd-MMM-yyyy", null),
+                    applicableFrom = DateTime.ParseExact("22-Sep-2025", "dd-MMM-yyyy", CultureInfo.InvariantCulture),
 
-                //The value for this must be a valid value as per the Tally dropdown, e.g. "Specify Details Here" or "As per Company/Stock Group"
-                sourceOfGstDetails = "Specify Details Here",
+                    //The value for this must be a valid value as per the Tally dropdown, e.g. "Specify Details Here" or "As per Company/Stock Group"
+                    sourceOfGstDetails = "Specify Details Here",
 
-                //The value for this must be a valid value as per the Tally dropdown, e.g.. "Exempt", "Nil Rated", or "Taxable"
-                taxability = "Taxable",
-                isReverseChargeApplicable = false,
-                
-                igstRate = group.GstValue,
-                cgstRate = group.GstValue/2,
-                sgstRate = group.GstValue / 2
-                
-            };
+                    //The value for this must be a valid value as per the Tally dropdown, e.g.. "Exempt", "Nil Rated", or "Taxable"
+                    taxability = "Taxable",
+                    isReverseChargeApplicable = false,
 
-            //The ArrayList arlGstDetails should be filled up with objects of type StockGroupGstDetails
-            //It represents the Tax Rate History, and there should be 1 object for each date when the tax rate or other GST details were changed
-            grp.arlGstDetails.Add(gst);
-            var gst18 = new StockGroupGstDetails
+                    igstRate = group.GstValue,
+                    cgstRate = group.GstValue / 2,
+                    sgstRate = group.GstValue / 2
+
+                };
+
+                //The ArrayList arlGstDetails should be filled up with objects of type StockGroupGstDetails
+                //It represents the Tax Rate History, and there should be 1 object for each date when the tax rate or other GST details were changed
+                grp.arlGstDetails.Add(gst);
+            }
+            else
             {
-              
-                applicableFrom = DateTime.ParseExact("01-Jul-2017", "dd-MMM-yyyy", null),
-                sourceOfGstDetails = "Specify Details Here",
-                taxability = "Taxable",
-                isReverseChargeApplicable = false,
-                igstRate = 12,
-                cgstRate = 6,
-                sgstRate = 6,
-                cessRate = 0
-              
+                var gstSlab = new StockGroupGstDetails
+                {
+                    applicableFrom = DateTime.ParseExact("22-Sep-2025", "dd-MMM-yyyy", CultureInfo.InvariantCulture),
+                    sourceOfGstDetails = "Specify Slab-Based Rates",
+                    isSlabRateOnMrp = false
+                };
+                // ✅ First slab
+                var slab1 = new StockGroupGstSlabDetails
+                {
+                    taxability = "Taxable",
+                    toItemRate = 2500,
+                    igstRate = 5,
+                    cgstRate = 2.5m,
+                    sgstRate = 2.5m,
+                    cessRate = 0
+                };
 
+                gstSlab.arlGstSlabDetails.Add(slab1);
 
-            };
-            grp.arlGstDetails.Add(gst18);
+                // ✅ Second slab
+                var slab2 = new StockGroupGstSlabDetails
+                {
+                    taxability = "Taxable",
+                    toItemRate = 0, // last slab
+                    igstRate = 18,
+                    cgstRate = 9,
+                    sgstRate = 9,
+                    cessRate = 0
+                };
 
+                gstSlab.arlGstSlabDetails.Add(slab2);
+
+                // Add to group
+                grp.arlGstDetails.Add(gstSlab);
+               
+            }
             var hsn = new StockGroupHsnDetails
             {            
-               applicableFrom = DateTime.ParseExact("01-Aug-2017", "dd-MMM-yyyy", null),
+               applicableFrom = DateTime.ParseExact("01-Aug-2017", "dd-MMM-yyyy", CultureInfo.InvariantCulture),
 
                 //The value for this must be a valid value as per the Tally dropdown, e.g. "Specify Details Here" or "As per Company/Stock Group"
                 sourceOfHsnDetails = "Specify Details Here",
                 hsnCode = "540752",
-                hsnDescription = "SAREE"
+                hsnDescription = group.Description,
             };
             grp.arlHsnDetails.Add(hsn);        
             return _tb.DoTransferStockGroup(grp);
         }
-        public TallyResponse CreateStockItem(StockitemResponse item, TallyConfigResponse config)
+        public TallyResponse CreateStockItem(StockitemResponse item,TallyConfigResponse config, TallyPurchaseResponse data)
         {          
 
             StockItemGstDetails gstDetails;
@@ -224,7 +251,7 @@ namespace CoreOfficeERP.Tally.Services
 
                 //The stock group should already exist in Tally
                 //You can leave this blank, if you do not wish to maintain Stock Groups in Tally
-                stockGroupName = "Group Name",
+                stockGroupName = data.SaleVoucherPrint.CompanyName,
 
                 //The stock category should already exist in Tally
                 //You can leave this blank if you do not wish to maintain Stock Categories in Tally
@@ -234,11 +261,11 @@ namespace CoreOfficeERP.Tally.Services
                 //Valid values: "Goods", "Services"
                 gstTypeOfSupply = "Goods",
             };
-           // if (!item.IsGstRule)
-           // {
+            if (!item.IsGstRule)
+            {
                 gstDetails = new StockItemGstDetails
                 {
-                    applicableFrom = DateTime.ParseExact("01-Jul-2017", "dd-MMM-yyyy", null),
+                    applicableFrom = DateTime.ParseExact("01-Jul-2017", "dd-MMM-yyyy", CultureInfo.InvariantCulture),
 
                     //The value for this must be a valid value as per the Tally dropdown, e.g. "Specify Details Here" or "As per Company/Stock Group"
                     sourceOfGstDetails = "Specify Details Here",
@@ -254,14 +281,14 @@ namespace CoreOfficeERP.Tally.Services
                 //The ArrayList arlGstDetails should be filled up with objects of type StockItemGstDetails
                 //It represents the Tax Rate History, and there should be 1 object for each date when the tax rate or other GST details were changed
                 si.arlGstDetails.Add(gstDetails);
-         //   }
-          //  else
-          //  {              
+            }
+            else
+            {
 
                 // 2nd GST Details (Slab-based from 01-Jul-2017)          
                 gstDetails = new StockItemGstDetails
                 {
-                    applicableFrom = DateTime.ParseExact("22-Oct-2025", "dd-MMM-yyyy", null),
+                    applicableFrom = DateTime.ParseExact("22-Oct-2025", "dd-MMM-yyyy", CultureInfo.InvariantCulture),
                     sourceOfGstDetails = "Specify Slab-Based Rates",
                     isSlabRateOnMrp = false
                 };
@@ -291,26 +318,11 @@ namespace CoreOfficeERP.Tally.Services
                 gstDetails.arlGstSlabDetails.Add(gstSlabDetails);
 
                 si.arlGstDetails.Add(gstDetails);
-                gstDetails = new StockItemGstDetails
-                {
-                    applicableFrom = DateTime.ParseExact("01-Jul-2017", "dd-MMM-yyyy", null),
-
-                    //The value for this must be a valid value as per the Tally dropdown, e.g. "Specify Details Here" or "As per Company/Stock Group"
-                    sourceOfGstDetails = "Specify Details Here",
-
-                    //The value for this must be a valid value as per the Tally dropdown, e.g.. "Exempt", "Nil Rated", or "Taxable"
-                    taxability = "Taxable",
-                    isReverseChargeApplicable = false,
-                    igstRate = 12,
-                    cgstRate = 6,
-                    sgstRate = 6,
-                    cessRate = 0
-                };               
-                si.arlGstDetails.Add(gstDetails);
-          //  }
+                
+           }
             var hsn = new StockItemHsnDetails
             {
-                applicableFrom = DateTime.ParseExact("01-Aug-2017", "dd-MMM-yyyy", null),
+                applicableFrom = DateTime.ParseExact("01-Aug-2017", "dd-MMM-yyyy", CultureInfo.InvariantCulture),
 
                 //The value for this must be a valid value as per the Tally dropdown, e.g. "Specify Details Here" or "As per Company/Stock Group"
                 sourceOfHsnDetails = "Specify Details Here",
@@ -321,25 +333,39 @@ namespace CoreOfficeERP.Tally.Services
             return _tb.DoTransferStockItem(si);
         }
         public TallyResponse CreatePurchaseVoucher(TallyPurchaseResponse data, TallyConfigResponse config)
-        {
+        {          
+            DateTime dt1 = DateTime.ParseExact(data.SaleVoucherPrint.Date.ToString(), "dd-MMM-yy h:mm:ss tt", CultureInfo.InvariantCulture);          
+            string s = dt1.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);          
+
             var invoice = new PurchaseVoucher
             {
                 tallyCompanyName = config.Company.Name,
                 companyGstin = config.Company.GSTIN,
                 companyGstRegistrationName = "Uttar Pradesh Registration",
-                companyGstRegistrationType = "Regular",
-                companyGstState = "Uttar Pradesh",
+                companyGstRegistrationType = config.Company.GSTRegistrationType,
+                companyGstState = config.Company.StateName,
 
                 voucherForeignKey = data.SaleVoucherPrint.VoucherForeignkey,
-                dtOfVoucher = DateTime.ParseExact(data.SaleVoucherPrint.Date.ToString(), "dd/MM/yyyy", null),
+
+                // If Tally API needs string:
+                // dtOfVoucher = DateTime.ParseExact(s, "dd/MM/yyyy", null),
+                dtOfVoucher = DateTime.ParseExact("01/03/2026", "dd/MM/yyyy", null),
+
+                // dtOfVoucher = DateTime.ParseExact(data.SaleVoucherPrint.Date.ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture),
+                // dtOfVoucher = data.SaleVoucherPrint.Date,
 
                 voucherTypeName = config.Purchase.MainLedger,
                 typeOfVoucher = "Purchase",
 
                 voucherNo = data.SaleVoucherPrint.Id.ToString(),
                 reference = data.SaleVoucherPrint.SupplierBillNumber,
-                referenceDate = DateTime.ParseExact(data.SaleVoucherPrint.Date.ToString(), "dd/MM/yyyy", null),
-                voucherIdentifier = data.SaleVoucherPrint.Id.ToString(),
+                
+               
+               // referenceDate = DateTime.ParseExact(data.SaleVoucherPrint.Date.ToString(),"dd/MM/yyyy", CultureInfo.InvariantCulture),
+               // referenceDate = DateTime.ParseExact(parsedDate.ToString(), "dd/MM/yyyy", null),
+                //  referenceDate = DateTime.ParseExact(data.SaleVoucherPrint.Date.ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture),
+                   referenceDate = DateTime.ParseExact("01/03/2026", "dd/MM/yyyy", null),
+                voucherIdentifier = data.SaleVoucherPrint.VoucherForeignkey,
 
                 //  receiptDocNo = "Receipt Doc11",
                 //  receiptDocDt = DateTime.Parse("31-Jan-2026"),
@@ -367,23 +393,21 @@ namespace CoreOfficeERP.Tally.Services
                 supplierPincode = data.SupplierResponse.Pincode,
                 supplierGstin = data.SupplierResponse.GstIn,
                 supplierGstRegType = data.SupplierResponse.RegType.ToTallyString(),
-                placeOfSupply = "Uttar Pradesh",
+                placeOfSupply = config.Company.StateName,
 
                 consigneeName = config.Company.Name,
                 consigneeMailingName = config.Company.Name,
                 consigneeAddress = new string[]
                 {
-            "6/20, Yamuna Kinara Road, Belanganj, Agra",
-            "Accounts- 7817803383 Sales- 7817803384",
-            "MSME- UP-01-0072013",
-            "E-Mail : ssbd432@gmail.com"
+           config.Company.ConsigneeAddress,
+            "E-Mail :"+config.Company.Email
                 },
-                consigneeState = "Uttar Pradesh",
+                consigneeState = config.Company.StateName,
                 consigneeCountry = "India",
-                consigneePincode = "282004",
-                consigneeGstin = "09AARCS1924P1ZJ",
+                consigneePincode =config.Company.PINCode,
+                consigneeGstin = config.Company.GSTIN,
 
-                narration = "Some Narration",
+                narration = "",
                 isInvoice = true,
                 isOptional = false
             };
@@ -412,7 +436,7 @@ namespace CoreOfficeERP.Tally.Services
 
             foreach (var stockItem in data.StockitemResponse)
             {
-                var amount = -(stockItem.Quantity * stockItem.PurchasePrice); // Negative for Purchase
+              
 
                 var item = new InventoryEntry
                 {
@@ -424,7 +448,7 @@ namespace CoreOfficeERP.Tally.Services
                     rate = stockItem.PurchasePrice,
                     rateUnit = "Pcs",
                     discountPerc = stockItem.Discount,
-                    amount = stockItem.DiscountAmount
+                    amount = -stockItem.DiscountAmount
                 };
 
                 // Batch Allocation
@@ -435,12 +459,13 @@ namespace CoreOfficeERP.Tally.Services
                     billedQty = item.billedQty,
                     amount = item.amount,
                     qtyUnit = item.qtyUnit
-                });
+                });               
 
                 // Accounting Allocation
                 item.arlAccountingAllocations.Add(new LedgerEntry
                 {
-                    ledgerName = config.Purchase.MainLedger, // or stockItem.tallyLedgerName if available
+                    ledgerName = "Purchase B/O",
+                    // ledgerName = config.Purchase.MainLedger, // or stockItem.tallyLedgerName if available
                     ledgerAmount = item.amount
                 });
 
