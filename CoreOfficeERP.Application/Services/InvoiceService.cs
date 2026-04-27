@@ -2,10 +2,9 @@
 using CoreOfficeERP.Common;
 using CoreOfficeERP.Domain;
 using CoreOfficeERP.Domain.Requests.DeliveryChallan;
-
+using CoreOfficeERP.Domain.Responses;
 using CoreOfficeERP.Domain.Responses.Invoices;
 using CoreOfficeERP.Infrastructure.Api;
-
 
 namespace CoreOfficeERP.Application.Services
 {
@@ -67,6 +66,29 @@ namespace CoreOfficeERP.Application.Services
                 throw new Exception(response.Message ?? "Failed to fetch invoice");
 
             return response.Data;
+        }
+
+        public async Task<List<StatusCountView>> GetInvoiceStatusCountsAsync(int financialYearId)
+        {
+            var url = $"{ApiEndpoints.GetInvoiceStatusCount}/{financialYearId}";
+            var response = await _apiRepository
+                .GetAsync<ApiResponse<List<StatusCountView>>>(url);
+
+            if (response == null)
+                throw new Exception("No response from server");
+
+            if (!response.Success)
+                throw new Exception(response.Message ?? "Failed to fetch invoice status counts");
+
+            return response.Data;
+        }
+
+        public async Task<TableResult<InvoiceListResponse>> GetTableData(TableDataRequest tableDataRequest, int finYearId)
+        {
+            var response = await _apiRepository
+                .PostAsync<TableDataRequest, TableResult<InvoiceListResponse>>($"{ApiEndpoints.GetInvoiceList}/{finYearId}", tableDataRequest);
+
+            return response;
         }
     }
 }

@@ -34,6 +34,9 @@
         public const string CreateInvoice = "invoice";
         public const string GetInvoice = "invoice";
         public const string CancelInvoice = "invoice/cancel";
+        public const string GetInvoiceList = "invoice/table";
+        public const string GetInvoiceStatusCount = "invoice/status-counts";
+
         /// Tally
         public const string GetTallyConfig="TallyConfig";
         public const string CreateTallyProcessLog = "TallyProcess/savetallyprocess";

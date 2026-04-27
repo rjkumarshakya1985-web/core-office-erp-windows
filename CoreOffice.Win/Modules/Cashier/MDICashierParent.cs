@@ -215,6 +215,8 @@ namespace CoreOffice.Win.Modules.Cashier
             childForm.WindowState = FormWindowState.Maximized;
             childForm.Text = "Window " + childFormNumber++;
             childForm.Show();
+
+        
         }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
