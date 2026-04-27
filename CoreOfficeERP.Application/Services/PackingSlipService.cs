@@ -81,10 +81,18 @@ namespace CoreOfficeERP.Application.Services
             return result?.Data ?? new List<PackingSlipResponse>();
         }
 
+        public async Task<TableResult<PackingSlipListResponse>> GetTableData(TableDataRequest tableDataRequest)
+        {
+            var response = await _apiRepository
+                .PostAsync<TableDataRequest, TableResult<PackingSlipListResponse>>(ApiEndpoints.CreatePackingSlip, tableDataRequest);
+
+            return response;
+        }
+
         public async Task<int> UpdateAsync(object id, PackingSlipRequest request)
         {
             var response = await _apiRepository
-                .PutAsync<PackingSlipRequest, ApiResponse<int>>(ApiEndpoints.CreatePackingSlip, id, request);
+                .PutAsync<PackingSlipRequest, ApiResponse<int>>(ApiEndpoints.GetPackingSlipPendingList, id, request);
 
             return response!.Data;
         }

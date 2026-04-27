@@ -140,6 +140,7 @@
             toolStripMenuItem2.Name = "toolStripMenuItem2";
             toolStripMenuItem2.Size = new Size(218, 22);
             toolStripMenuItem2.Text = "Delivery Challan List";
+            toolStripMenuItem2.Click += toolStripMenuItem2_Click;
             // 
             // toolStripSeparator1
             // 

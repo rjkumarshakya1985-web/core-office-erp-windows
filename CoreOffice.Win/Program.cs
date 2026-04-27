@@ -47,6 +47,7 @@ namespace CoreOffice.Win
             services.AddTransient<DeliveryChallanReturnDetailForm>();
             services.AddTransient<DeliveryChallanToInvoiceForm>();
             services.AddTransient<DeliveryChallanEditViewForm>();
+            services.AddTransient<DeliveryChallanListForm>();
 
             services.AddTransient<VistiorCustomerForm>();
          

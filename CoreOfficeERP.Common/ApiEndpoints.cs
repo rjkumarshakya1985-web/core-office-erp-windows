@@ -3,6 +3,7 @@
     public static class ApiEndpoints
     {
         public const string CreatePackingSlip = "packingslip";
+        public const string GetPackingSlipPendingList = "packingslip/table";
         public const string GetVisitor = "visitor";
         public const string GetStockItemsByBarcode = "stock/barcode";
         public const string GetPackingSlipNumber = "packingslip/number";
@@ -16,6 +17,7 @@
         public const string CreateDeliveryChallanReturn = "deliverychallan/delivery-challan/return";
         public const string GetDeliveryChallReturnDetail = "deliverychallan/delivery-challan/for-return";
         public const string CancelDeliveryChallan = "deliverychallan/cancel";
+        public const string GetDeliveryChallanList = "deliverychallan/table";
 
 
         /// Sales

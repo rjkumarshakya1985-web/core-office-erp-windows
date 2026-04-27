@@ -77,7 +77,7 @@ namespace CoreOffice.Win.Modules.Cashier.Invoices
                         item.ProductName,
                          item.Qty,
                         item.SaleRate,
-                        item.Amount
+                        item.Amount.ToString("0,00")
                     );
                 }
 

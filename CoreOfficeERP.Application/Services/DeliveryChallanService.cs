@@ -16,6 +16,14 @@ namespace CoreOfficeERP.Application.Services
             _apiRepository = apiRepository;
         }
 
+        public async Task<TableResult<DeliveryChallanListResponse>> GetTableData(TableDataRequest tableDataRequest, int finYearId)
+        {
+            var response = await _apiRepository
+                .PostAsync<TableDataRequest, TableResult<DeliveryChallanListResponse>>($"{ApiEndpoints.GetDeliveryChallanList}/{finYearId}", tableDataRequest);
+
+            return response;
+        }
+
         public async Task<bool> CancelDeliveryChallan(int delviveryChallanId)
         {
 

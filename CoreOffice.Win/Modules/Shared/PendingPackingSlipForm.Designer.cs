@@ -38,11 +38,11 @@
             Quantity = new DataGridViewTextBoxColumn();
             TotalAmount = new DataGridViewTextBoxColumn();
             panel3 = new Panel();
+            btnClose = new Button();
             btnShow = new Button();
             btnEdit = new Button();
             btnDelete = new Button();
             btnPrint = new Button();
-            btnClose = new Button();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGrid).BeginInit();
             panel3.SuspendLayout();
@@ -53,16 +53,16 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(845, 49);
+            panel1.Size = new Size(845, 50);
             panel1.TabIndex = 0;
             // 
             // panel2
             // 
             panel2.Controls.Add(dataGrid);
             panel2.Dock = DockStyle.Fill;
-            panel2.Location = new Point(0, 49);
+            panel2.Location = new Point(0, 50);
             panel2.Name = "panel2";
-            panel2.Size = new Size(845, 401);
+            panel2.Size = new Size(845, 400);
             panel2.TabIndex = 1;
             // 
             // dataGrid
@@ -74,7 +74,7 @@
             dataGrid.Dock = DockStyle.Fill;
             dataGrid.Location = new Point(0, 0);
             dataGrid.Name = "dataGrid";
-            dataGrid.Size = new Size(845, 401);
+            dataGrid.Size = new Size(845, 400);
             dataGrid.TabIndex = 0;
             dataGrid.CellContentClick += dataGrid_CellContentClick;
             // 
@@ -114,7 +114,7 @@
             // TotalAmount
             // 
             TotalAmount.FillWeight = 121.827477F;
-            TotalAmount.HeaderText = "TotalAmount";
+            TotalAmount.HeaderText = "Total Amount";
             TotalAmount.Name = "TotalAmount";
             TotalAmount.ReadOnly = true;
             // 
@@ -130,6 +130,16 @@
             panel3.Name = "panel3";
             panel3.Size = new Size(845, 49);
             panel3.TabIndex = 2;
+            // 
+            // btnClose
+            // 
+            btnClose.Location = new Point(137, 7);
+            btnClose.Name = "btnClose";
+            btnClose.Size = new Size(117, 36);
+            btnClose.TabIndex = 4;
+            btnClose.Text = "Close";
+            btnClose.UseVisualStyleBackColor = true;
+            btnClose.Click += btnClose_Click;
             // 
             // btnShow
             // 
@@ -171,16 +181,6 @@
             btnPrint.UseVisualStyleBackColor = true;
             btnPrint.Click += btnPrint_Click;
             // 
-            // btnClose
-            // 
-            btnClose.Location = new Point(137, 7);
-            btnClose.Name = "btnClose";
-            btnClose.Size = new Size(117, 36);
-            btnClose.TabIndex = 4;
-            btnClose.Text = "Close";
-            btnClose.UseVisualStyleBackColor = true;
-            btnClose.Click += btnClose_Click;
-            // 
             // PendingPackingSlipForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -206,16 +206,16 @@
         private Panel panel2;
         private Panel panel3;
         private DataGridView dataGrid;
+        private Button btnShow;
+        private Button btnEdit;
+        private Button btnDelete;
+        private Button btnPrint;
+        private Button btnClose;
         private DataGridViewTextBoxColumn Id;
         private DataGridViewTextBoxColumn Date;
         private DataGridViewTextBoxColumn Visitor;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private DataGridViewTextBoxColumn Quantity;
         private DataGridViewTextBoxColumn TotalAmount;
-        private Button btnShow;
-        private Button btnEdit;
-        private Button btnDelete;
-        private Button btnPrint;
-        private Button btnClose;
     }
 }

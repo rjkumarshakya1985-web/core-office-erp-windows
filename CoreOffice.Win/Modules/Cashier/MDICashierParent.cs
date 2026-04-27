@@ -245,5 +245,14 @@ namespace CoreOffice.Win.Modules.Cashier
             childForm.Text = "Window " + childFormNumber++;
             childForm.Show();
         }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            var childForm = _serviceProvider.GetRequiredService<DeliveryChallanListForm>();
+            childForm.MdiParent = this;
+            childForm.WindowState = FormWindowState.Maximized;
+            childForm.Text = "Window " + childFormNumber++;
+            childForm.Show();
+        }
     }
 }

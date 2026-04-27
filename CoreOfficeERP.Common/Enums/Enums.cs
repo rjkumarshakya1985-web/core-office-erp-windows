@@ -70,7 +70,8 @@ namespace CoreOfficeERP.Common.Enums
         PartiallyReturned = 2,
         FullyReturned = 3,
         Invoiced = 4,
-        Cancelled = 6
+        Cancelled = 6,
+        TallySynced = 7
     }
 
     public enum InvoiceStatusEnum

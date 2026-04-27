@@ -1,4 +1,5 @@
-﻿using CoreOfficeERP.Domain.Requests.DeliveryChallan;
+﻿using CoreOfficeERP.Domain;
+using CoreOfficeERP.Domain.Requests.DeliveryChallan;
 using CoreOfficeERP.Domain.Responses.DeliveryChallan;
 
 
@@ -6,6 +7,8 @@ namespace CoreOfficeERP.Application.Interfaces
 {
     public interface IDeliveryChallanService
     {
+        Task<TableResult<DeliveryChallanListResponse>> GetTableData(TableDataRequest tableDataRequest,int finYearId);
+
         Task<int> CreateAsync(BillingRequest request);
 
         public Task<DeliveryChallanReturnDetailResponse?> GetDeliveryChallanForReturn(string number, int finYearId);
