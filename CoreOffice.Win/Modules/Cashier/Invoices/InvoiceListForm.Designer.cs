@@ -354,7 +354,7 @@
             // btnNext
             // 
             btnNext.Font = new Font("Microsoft Tai Le", 9.75F);
-            btnNext.Location = new Point(353, 42);
+            btnNext.Location = new Point(331, 42);
             btnNext.Name = "btnNext";
             btnNext.Size = new Size(30, 28);
             btnNext.TabIndex = 4;
@@ -366,7 +366,7 @@
             // 
             btnPageDetail.BackColor = Color.White;
             btnPageDetail.Font = new Font("Microsoft Tai Le", 9.75F);
-            btnPageDetail.Location = new Point(236, 42);
+            btnPageDetail.Location = new Point(214, 42);
             btnPageDetail.Name = "btnPageDetail";
             btnPageDetail.Size = new Size(114, 28);
             btnPageDetail.TabIndex = 3;
@@ -376,7 +376,7 @@
             // btnPre
             // 
             btnPre.Font = new Font("Microsoft Tai Le", 9.75F);
-            btnPre.Location = new Point(204, 42);
+            btnPre.Location = new Point(182, 42);
             btnPre.Name = "btnPre";
             btnPre.Size = new Size(31, 28);
             btnPre.TabIndex = 2;
@@ -388,7 +388,7 @@
             // 
             btnTotalRecord.BackColor = Color.White;
             btnTotalRecord.Font = new Font("Microsoft Tai Le", 9.75F);
-            btnTotalRecord.Location = new Point(90, 42);
+            btnTotalRecord.Location = new Point(68, 42);
             btnTotalRecord.Name = "btnTotalRecord";
             btnTotalRecord.Size = new Size(114, 28);
             btnTotalRecord.TabIndex = 1;
@@ -403,7 +403,7 @@
             cmbPageSize.Items.AddRange(new object[] { "2", "10", "20", "50", "100", "200" });
             cmbPageSize.Location = new Point(5, 44);
             cmbPageSize.Name = "cmbPageSize";
-            cmbPageSize.Size = new Size(84, 24);
+            cmbPageSize.Size = new Size(57, 24);
             cmbPageSize.TabIndex = 0;
             cmbPageSize.SelectedIndexChanged += cmbPageSize_SelectedIndexChanged;
             // 

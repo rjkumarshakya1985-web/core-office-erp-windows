@@ -34,6 +34,7 @@ namespace CoreOffice.Win.Modules.Cashier.Invoices
 
             // 👉 Default select "All"
             cmbInvoiceStatus.SelectedIndex = 0;
+            cmbPageSize.SelectedIndex = 0;
         }
 
         private TableDataRequest TableDataRequest()
