@@ -2,6 +2,10 @@
 {
 }
 
+namespace CoreOffice.Win.DataSets
+{
+}
+
 namespace CoreOffice.Win.Datasets
 {
 }
