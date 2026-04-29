@@ -81,4 +81,13 @@ namespace CoreOfficeERP.Common.Enums
         Cancelled = 2,
         TallySynced = 3
     }
+    public enum TallyType
+    {
+        Agent = 0,
+        Supplier = 1,
+        StockCategory = 2,
+        StockGroup = 3,
+        StockItem = 4,
+        Other = 5
+    }
 }

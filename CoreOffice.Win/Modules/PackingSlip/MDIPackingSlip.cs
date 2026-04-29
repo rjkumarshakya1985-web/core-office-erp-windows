@@ -33,12 +33,12 @@ namespace CoreOffice.Win.Modules.PackingSlip
 
         private void purchaseSynchToolStripMenuItem_Click(object sender, EventArgs e)
         {
-          
+
 
         }
 
         private void purchaseToolStripMenuItem_Click(object sender, EventArgs e)
-        {         
+        {
             var childForm = _serviceProvider.GetRequiredService<TallySynchPurchase>();
             childForm.MdiParent = this;
             childForm.Text = "Window " + childFormNumber++;
@@ -48,6 +48,14 @@ namespace CoreOffice.Win.Modules.PackingSlip
         private void packingSlipToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var childForm = _serviceProvider.GetRequiredService<FrmPackingSlip>();
+            childForm.MdiParent = this;
+            childForm.Text = "Window " + childFormNumber++;
+            childForm.Show();
+        }
+
+        private void tallyPurchaseSynchToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var childForm = _serviceProvider.GetRequiredService<TallySynchPurchase>();
             childForm.MdiParent = this;
             childForm.Text = "Window " + childFormNumber++;
             childForm.Show();

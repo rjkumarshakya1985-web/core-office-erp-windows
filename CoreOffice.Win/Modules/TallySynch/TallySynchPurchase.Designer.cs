@@ -29,53 +29,73 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            label24 = new Label();
+            cmbFiananceYear = new ComboBox();
+            label23 = new Label();
+            cmbCompanies = new ComboBox();
+            groupBox2 = new GroupBox();
+            lblAgentName = new Label();
+            label22 = new Label();
+            lblDiscount = new Label();
+            label13 = new Label();
+            lblGSTTreatment = new Label();
+            label18 = new Label();
+            lblCreditDays = new Label();
+            label14 = new Label();
+            lblCreditLimit = new Label();
+            label12 = new Label();
+            lblAPAN = new Label();
+            lblATallyName = new Label();
+            label15 = new Label();
+            lblAGSTIN = new Label();
+            label19 = new Label();
+            lblContactPer = new Label();
+            label17 = new Label();
+            lblAMobile = new Label();
+            label21 = new Label();
+            label20 = new Label();
+            groupBox1 = new GroupBox();
+            lblSupplierCode = new Label();
+            lblEmail = new Label();
+            lblMobile = new Label();
+            lblState = new Label();
+            lblPIN = new Label();
+            lblAddress = new Label();
+            lblSupplier = new Label();
+            lblPAN = new Label();
+            lblTallyName = new Label();
+            lblGSTIN = new Label();
+            label16 = new Label();
+            label11 = new Label();
+            label10 = new Label();
+            label9 = new Label();
+            label8 = new Label();
+            label7 = new Label();
             label2 = new Label();
+            label6 = new Label();
+            label4 = new Label();
+            label5 = new Label();
             label1 = new Label();
             panel2 = new Panel();
             btnClear = new Button();
             btnSynch = new Button();
             label3 = new Label();
             txtVoucher = new TextBox();
-            label4 = new Label();
-            label5 = new Label();
-            label6 = new Label();
-            groupBox1 = new GroupBox();
-            label7 = new Label();
-            label8 = new Label();
-            label9 = new Label();
-            label10 = new Label();
-            label11 = new Label();
-            label12 = new Label();
-            label16 = new Label();
-            groupBox2 = new GroupBox();
-            label18 = new Label();
-            label19 = new Label();
-            label20 = new Label();
-            label13 = new Label();
-            label14 = new Label();
-            label15 = new Label();
-            label17 = new Label();
-            label21 = new Label();
-            label22 = new Label();
             dataGridInvoice = new DataGridView();
-            Product = new DataGridViewTextBoxColumn();
-            Category = new DataGridViewTextBoxColumn();
-            Group = new DataGridViewTextBoxColumn();
-            GST = new DataGridViewTextBoxColumn();
-            HSN = new DataGridViewTextBoxColumn();
-            Purchase = new DataGridViewTextBoxColumn();
-            Qty = new DataGridViewTextBoxColumn();
-            Total = new DataGridViewTextBoxColumn();
             panel1.SuspendLayout();
-            panel2.SuspendLayout();
-            groupBox1.SuspendLayout();
             groupBox2.SuspendLayout();
+            groupBox1.SuspendLayout();
+            panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridInvoice).BeginInit();
             SuspendLayout();
             // 
             // panel1
             // 
             panel1.BackColor = Color.FromArgb(192, 255, 192);
+            panel1.Controls.Add(label24);
+            panel1.Controls.Add(cmbFiananceYear);
+            panel1.Controls.Add(label23);
+            panel1.Controls.Add(cmbCompanies);
             panel1.Controls.Add(groupBox2);
             panel1.Controls.Add(groupBox1);
             panel1.Controls.Add(label1);
@@ -84,6 +104,462 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(1028, 221);
             panel1.TabIndex = 0;
+            // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.Font = new Font("Segoe UI", 8F);
+            label24.Location = new Point(761, 24);
+            label24.Name = "label24";
+            label24.Size = new Size(37, 13);
+            label24.TabIndex = 27;
+            label24.Text = "Code:";
+            // 
+            // cmbFiananceYear
+            // 
+            cmbFiananceYear.FormattingEnabled = true;
+            cmbFiananceYear.Location = new Point(804, 14);
+            cmbFiananceYear.Name = "cmbFiananceYear";
+            cmbFiananceYear.Size = new Size(212, 23);
+            cmbFiananceYear.TabIndex = 26;
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Font = new Font("Segoe UI", 8F);
+            label23.Location = new Point(325, 18);
+            label23.Name = "label23";
+            label23.Size = new Size(37, 13);
+            label23.TabIndex = 25;
+            label23.Text = "Code:";
+            // 
+            // cmbCompanies
+            // 
+            cmbCompanies.FormattingEnabled = true;
+            cmbCompanies.Location = new Point(368, 12);
+            cmbCompanies.Name = "cmbCompanies";
+            cmbCompanies.Size = new Size(364, 23);
+            cmbCompanies.TabIndex = 16;
+            // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(lblAgentName);
+            groupBox2.Controls.Add(label22);
+            groupBox2.Controls.Add(lblDiscount);
+            groupBox2.Controls.Add(label13);
+            groupBox2.Controls.Add(lblGSTTreatment);
+            groupBox2.Controls.Add(label18);
+            groupBox2.Controls.Add(lblCreditDays);
+            groupBox2.Controls.Add(label14);
+            groupBox2.Controls.Add(lblCreditLimit);
+            groupBox2.Controls.Add(label12);
+            groupBox2.Controls.Add(lblAPAN);
+            groupBox2.Controls.Add(lblATallyName);
+            groupBox2.Controls.Add(label15);
+            groupBox2.Controls.Add(lblAGSTIN);
+            groupBox2.Controls.Add(label19);
+            groupBox2.Controls.Add(lblContactPer);
+            groupBox2.Controls.Add(label17);
+            groupBox2.Controls.Add(lblAMobile);
+            groupBox2.Controls.Add(label21);
+            groupBox2.Controls.Add(label20);
+            groupBox2.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            groupBox2.Location = new Point(538, 40);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(487, 178);
+            groupBox2.TabIndex = 15;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Business information";
+            // 
+            // lblAgentName
+            // 
+            lblAgentName.AutoSize = true;
+            lblAgentName.Font = new Font("Segoe UI", 8F);
+            lblAgentName.Location = new Point(102, 18);
+            lblAgentName.Name = "lblAgentName";
+            lblAgentName.Size = new Size(22, 13);
+            lblAgentName.TabIndex = 34;
+            lblAgentName.Text = "NA";
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.Font = new Font("Segoe UI", 8F);
+            label22.Location = new Point(6, 33);
+            label22.Name = "label22";
+            label22.Size = new Size(97, 13);
+            label22.TabIndex = 15;
+            label22.Text = "Agent Tally Name:";
+            // 
+            // lblDiscount
+            // 
+            lblDiscount.AutoSize = true;
+            lblDiscount.Font = new Font("Segoe UI", 8F);
+            lblDiscount.Location = new Point(102, 153);
+            lblDiscount.Name = "lblDiscount";
+            lblDiscount.Size = new Size(22, 13);
+            lblDiscount.TabIndex = 33;
+            lblDiscount.Text = "NA";
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Font = new Font("Segoe UI", 8F);
+            label13.Location = new Point(6, 18);
+            label13.Name = "label13";
+            label13.Size = new Size(41, 13);
+            label13.TabIndex = 19;
+            label13.Text = "Agent:";
+            // 
+            // lblGSTTreatment
+            // 
+            lblGSTTreatment.AutoSize = true;
+            lblGSTTreatment.Font = new Font("Segoe UI", 8F);
+            lblGSTTreatment.Location = new Point(102, 138);
+            lblGSTTreatment.Name = "lblGSTTreatment";
+            lblGSTTreatment.Size = new Size(22, 13);
+            lblGSTTreatment.TabIndex = 32;
+            lblGSTTreatment.Text = "NA";
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.Font = new Font("Segoe UI", 8F);
+            label18.Location = new Point(6, 138);
+            label18.Name = "label18";
+            label18.Size = new Size(85, 13);
+            label18.TabIndex = 13;
+            label18.Text = "GST Treatment :";
+            // 
+            // lblCreditDays
+            // 
+            lblCreditDays.AutoSize = true;
+            lblCreditDays.Font = new Font("Segoe UI", 8F);
+            lblCreditDays.Location = new Point(102, 108);
+            lblCreditDays.Name = "lblCreditDays";
+            lblCreditDays.Size = new Size(22, 13);
+            lblCreditDays.TabIndex = 31;
+            lblCreditDays.Text = "NA";
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Font = new Font("Segoe UI", 8F);
+            label14.Location = new Point(6, 48);
+            label14.Name = "label14";
+            label14.Size = new Size(88, 13);
+            label14.TabIndex = 15;
+            label14.Text = "Contact Person:";
+            // 
+            // lblCreditLimit
+            // 
+            lblCreditLimit.AutoSize = true;
+            lblCreditLimit.Font = new Font("Segoe UI", 8F);
+            lblCreditLimit.Location = new Point(102, 125);
+            lblCreditLimit.Name = "lblCreditLimit";
+            lblCreditLimit.Size = new Size(22, 13);
+            lblCreditLimit.TabIndex = 30;
+            lblCreditLimit.Text = "NA";
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Font = new Font("Segoe UI", 8F);
+            label12.Location = new Point(6, 153);
+            label12.Name = "label12";
+            label12.Size = new Size(56, 13);
+            label12.TabIndex = 10;
+            label12.Text = "Discount:";
+            // 
+            // lblAPAN
+            // 
+            lblAPAN.AutoSize = true;
+            lblAPAN.Font = new Font("Segoe UI", 8F);
+            lblAPAN.Location = new Point(102, 93);
+            lblAPAN.Name = "lblAPAN";
+            lblAPAN.Size = new Size(22, 13);
+            lblAPAN.TabIndex = 29;
+            lblAPAN.Text = "NA";
+            // 
+            // lblATallyName
+            // 
+            lblATallyName.AutoSize = true;
+            lblATallyName.Font = new Font("Segoe UI", 8F);
+            lblATallyName.Location = new Point(102, 34);
+            lblATallyName.Name = "lblATallyName";
+            lblATallyName.Size = new Size(22, 13);
+            lblATallyName.TabIndex = 25;
+            lblATallyName.Text = "NA";
+            // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Font = new Font("Segoe UI", 8F);
+            label15.Location = new Point(6, 93);
+            label15.Name = "label15";
+            label15.Size = new Size(30, 13);
+            label15.TabIndex = 18;
+            label15.Text = "PAN:";
+            // 
+            // lblAGSTIN
+            // 
+            lblAGSTIN.AutoSize = true;
+            lblAGSTIN.Font = new Font("Segoe UI", 8F);
+            lblAGSTIN.Location = new Point(102, 78);
+            lblAGSTIN.Name = "lblAGSTIN";
+            lblAGSTIN.Size = new Size(22, 13);
+            lblAGSTIN.TabIndex = 28;
+            lblAGSTIN.Text = "NA";
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.Font = new Font("Segoe UI", 8F);
+            label19.Location = new Point(6, 123);
+            label19.Name = "label19";
+            label19.Size = new Size(68, 13);
+            label19.TabIndex = 12;
+            label19.Text = "Credit Limit:";
+            // 
+            // lblContactPer
+            // 
+            lblContactPer.AutoSize = true;
+            lblContactPer.Font = new Font("Segoe UI", 8F);
+            lblContactPer.Location = new Point(102, 48);
+            lblContactPer.Name = "lblContactPer";
+            lblContactPer.Size = new Size(22, 13);
+            lblContactPer.TabIndex = 26;
+            lblContactPer.Text = "NA";
+            // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.Font = new Font("Segoe UI", 8F);
+            label17.Location = new Point(6, 63);
+            label17.Name = "label17";
+            label17.Size = new Size(46, 13);
+            label17.TabIndex = 16;
+            label17.Text = "Mobile:";
+            // 
+            // lblAMobile
+            // 
+            lblAMobile.AutoSize = true;
+            lblAMobile.Font = new Font("Segoe UI", 8F);
+            lblAMobile.Location = new Point(102, 63);
+            lblAMobile.Name = "lblAMobile";
+            lblAMobile.Size = new Size(22, 13);
+            lblAMobile.TabIndex = 27;
+            lblAMobile.Text = "NA";
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.Font = new Font("Segoe UI", 8F);
+            label21.Location = new Point(6, 78);
+            label21.Name = "label21";
+            label21.Size = new Size(40, 13);
+            label21.TabIndex = 17;
+            label21.Text = "GSTIN:";
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.Font = new Font("Segoe UI", 8F);
+            label20.Location = new Point(6, 108);
+            label20.Name = "label20";
+            label20.Size = new Size(67, 13);
+            label20.TabIndex = 11;
+            label20.Text = "Credit days:";
+            // 
+            // groupBox1
+            // 
+            groupBox1.Controls.Add(lblSupplierCode);
+            groupBox1.Controls.Add(lblEmail);
+            groupBox1.Controls.Add(lblMobile);
+            groupBox1.Controls.Add(lblState);
+            groupBox1.Controls.Add(lblPIN);
+            groupBox1.Controls.Add(lblAddress);
+            groupBox1.Controls.Add(lblSupplier);
+            groupBox1.Controls.Add(lblPAN);
+            groupBox1.Controls.Add(lblTallyName);
+            groupBox1.Controls.Add(lblGSTIN);
+            groupBox1.Controls.Add(label16);
+            groupBox1.Controls.Add(label11);
+            groupBox1.Controls.Add(label10);
+            groupBox1.Controls.Add(label9);
+            groupBox1.Controls.Add(label8);
+            groupBox1.Controls.Add(label7);
+            groupBox1.Controls.Add(label2);
+            groupBox1.Controls.Add(label6);
+            groupBox1.Controls.Add(label4);
+            groupBox1.Controls.Add(label5);
+            groupBox1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            groupBox1.Location = new Point(3, 40);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(529, 178);
+            groupBox1.TabIndex = 5;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Supplier information";
+            // 
+            // lblSupplierCode
+            // 
+            lblSupplierCode.AutoSize = true;
+            lblSupplierCode.Font = new Font("Segoe UI", 8F);
+            lblSupplierCode.Location = new Point(111, 18);
+            lblSupplierCode.Name = "lblSupplierCode";
+            lblSupplierCode.Size = new Size(22, 13);
+            lblSupplierCode.TabIndex = 24;
+            lblSupplierCode.Text = "NA";
+            // 
+            // lblEmail
+            // 
+            lblEmail.AutoSize = true;
+            lblEmail.Font = new Font("Segoe UI", 8F);
+            lblEmail.Location = new Point(111, 162);
+            lblEmail.Name = "lblEmail";
+            lblEmail.Size = new Size(22, 13);
+            lblEmail.TabIndex = 23;
+            lblEmail.Text = "NA";
+            // 
+            // lblMobile
+            // 
+            lblMobile.AutoSize = true;
+            lblMobile.Font = new Font("Segoe UI", 8F);
+            lblMobile.Location = new Point(111, 146);
+            lblMobile.Name = "lblMobile";
+            lblMobile.Size = new Size(22, 13);
+            lblMobile.TabIndex = 22;
+            lblMobile.Text = "NA";
+            // 
+            // lblState
+            // 
+            lblState.AutoSize = true;
+            lblState.Font = new Font("Segoe UI", 8F);
+            lblState.Location = new Point(111, 114);
+            lblState.Name = "lblState";
+            lblState.Size = new Size(22, 13);
+            lblState.TabIndex = 21;
+            lblState.Text = "NA";
+            // 
+            // lblPIN
+            // 
+            lblPIN.AutoSize = true;
+            lblPIN.Font = new Font("Segoe UI", 8F);
+            lblPIN.Location = new Point(111, 130);
+            lblPIN.Name = "lblPIN";
+            lblPIN.Size = new Size(22, 13);
+            lblPIN.TabIndex = 20;
+            lblPIN.Text = "NA";
+            // 
+            // lblAddress
+            // 
+            lblAddress.AutoSize = true;
+            lblAddress.Font = new Font("Segoe UI", 8F);
+            lblAddress.Location = new Point(111, 98);
+            lblAddress.Name = "lblAddress";
+            lblAddress.Size = new Size(22, 13);
+            lblAddress.TabIndex = 19;
+            lblAddress.Text = "NA";
+            // 
+            // lblSupplier
+            // 
+            lblSupplier.AutoSize = true;
+            lblSupplier.Font = new Font("Segoe UI", 8F);
+            lblSupplier.Location = new Point(111, 34);
+            lblSupplier.Name = "lblSupplier";
+            lblSupplier.Size = new Size(22, 13);
+            lblSupplier.TabIndex = 15;
+            lblSupplier.Text = "NA";
+            // 
+            // lblPAN
+            // 
+            lblPAN.AutoSize = true;
+            lblPAN.Font = new Font("Segoe UI", 8F);
+            lblPAN.Location = new Point(111, 82);
+            lblPAN.Name = "lblPAN";
+            lblPAN.Size = new Size(22, 13);
+            lblPAN.TabIndex = 18;
+            lblPAN.Text = "NA";
+            // 
+            // lblTallyName
+            // 
+            lblTallyName.AutoSize = true;
+            lblTallyName.Font = new Font("Segoe UI", 8F);
+            lblTallyName.Location = new Point(111, 50);
+            lblTallyName.Name = "lblTallyName";
+            lblTallyName.Size = new Size(22, 13);
+            lblTallyName.TabIndex = 16;
+            lblTallyName.Text = "NA";
+            // 
+            // lblGSTIN
+            // 
+            lblGSTIN.AutoSize = true;
+            lblGSTIN.Font = new Font("Segoe UI", 8F);
+            lblGSTIN.Location = new Point(111, 66);
+            lblGSTIN.Name = "lblGSTIN";
+            lblGSTIN.Size = new Size(22, 13);
+            lblGSTIN.TabIndex = 17;
+            lblGSTIN.Text = "NA";
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Font = new Font("Segoe UI", 8F);
+            label16.Location = new Point(7, 18);
+            label16.Name = "label16";
+            label16.Size = new Size(37, 13);
+            label16.TabIndex = 14;
+            label16.Text = "Code:";
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Font = new Font("Segoe UI", 8F);
+            label11.Location = new Point(7, 162);
+            label11.Name = "label11";
+            label11.Size = new Size(37, 13);
+            label11.TabIndex = 9;
+            label11.Text = "Email:";
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Font = new Font("Segoe UI", 8F);
+            label10.Location = new Point(7, 146);
+            label10.Name = "label10";
+            label10.Size = new Size(46, 13);
+            label10.TabIndex = 8;
+            label10.Text = "Mobile:";
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Font = new Font("Segoe UI", 8F);
+            label9.Location = new Point(7, 114);
+            label9.Name = "label9";
+            label9.Size = new Size(36, 13);
+            label9.TabIndex = 7;
+            label9.Text = "State:";
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("Segoe UI", 8F);
+            label8.Location = new Point(7, 130);
+            label8.Name = "label8";
+            label8.Size = new Size(57, 13);
+            label8.TabIndex = 6;
+            label8.Text = "PIN Code:";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI", 8F);
+            label7.Location = new Point(7, 98);
+            label7.Name = "label7";
+            label7.Size = new Size(51, 13);
+            label7.TabIndex = 5;
+            label7.Text = "Address:";
             // 
             // label2
             // 
@@ -95,11 +571,41 @@
             label2.TabIndex = 1;
             label2.Text = "Supplier:";
             // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI", 8F);
+            label6.Location = new Point(7, 82);
+            label6.Name = "label6";
+            label6.Size = new Size(30, 13);
+            label6.TabIndex = 4;
+            label6.Text = "PAN:";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 8F);
+            label4.Location = new Point(7, 50);
+            label4.Name = "label4";
+            label4.Size = new Size(109, 13);
+            label4.TabIndex = 2;
+            label4.Text = "Supplier Tally Name:";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 8F);
+            label5.Location = new Point(7, 66);
+            label5.Name = "label5";
+            label5.Size = new Size(40, 13);
+            label5.TabIndex = 3;
+            label5.Text = "GSTIN:";
+            // 
             // label1
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 18F);
-            label1.Location = new Point(408, 2);
+            label1.Location = new Point(5, 5);
             label1.Name = "label1";
             label1.Size = new Size(179, 32);
             label1.TabIndex = 0;
@@ -165,290 +671,16 @@
             txtVoucher.TabIndex = 0;
             txtVoucher.KeyDown += txtVoucher_KeyDown;
             // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 8F);
-            label4.Location = new Point(7, 50);
-            label4.Name = "label4";
-            label4.Size = new Size(109, 13);
-            label4.TabIndex = 2;
-            label4.Text = "Supplier Tally Name:";
-            // 
-            // label5
-            // 
-            label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI", 8F);
-            label5.Location = new Point(7, 66);
-            label5.Name = "label5";
-            label5.Size = new Size(40, 13);
-            label5.TabIndex = 3;
-            label5.Text = "GSTIN:";
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI", 8F);
-            label6.Location = new Point(7, 82);
-            label6.Name = "label6";
-            label6.Size = new Size(30, 13);
-            label6.TabIndex = 4;
-            label6.Text = "PAN:";
-            // 
-            // groupBox1
-            // 
-            groupBox1.Controls.Add(label16);
-            groupBox1.Controls.Add(label11);
-            groupBox1.Controls.Add(label10);
-            groupBox1.Controls.Add(label9);
-            groupBox1.Controls.Add(label8);
-            groupBox1.Controls.Add(label7);
-            groupBox1.Controls.Add(label2);
-            groupBox1.Controls.Add(label6);
-            groupBox1.Controls.Add(label4);
-            groupBox1.Controls.Add(label5);
-            groupBox1.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            groupBox1.Location = new Point(3, 40);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(411, 178);
-            groupBox1.TabIndex = 5;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Supplier information";
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Font = new Font("Segoe UI", 8F);
-            label7.Location = new Point(7, 98);
-            label7.Name = "label7";
-            label7.Size = new Size(51, 13);
-            label7.TabIndex = 5;
-            label7.Text = "Address:";
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Font = new Font("Segoe UI", 8F);
-            label8.Location = new Point(7, 130);
-            label8.Name = "label8";
-            label8.Size = new Size(57, 13);
-            label8.TabIndex = 6;
-            label8.Text = "PIN Code:";
-            // 
-            // label9
-            // 
-            label9.AutoSize = true;
-            label9.Font = new Font("Segoe UI", 8F);
-            label9.Location = new Point(7, 114);
-            label9.Name = "label9";
-            label9.Size = new Size(36, 13);
-            label9.TabIndex = 7;
-            label9.Text = "State:";
-            // 
-            // label10
-            // 
-            label10.AutoSize = true;
-            label10.Font = new Font("Segoe UI", 8F);
-            label10.Location = new Point(7, 146);
-            label10.Name = "label10";
-            label10.Size = new Size(46, 13);
-            label10.TabIndex = 8;
-            label10.Text = "Mobile:";
-            // 
-            // label11
-            // 
-            label11.AutoSize = true;
-            label11.Font = new Font("Segoe UI", 8F);
-            label11.Location = new Point(7, 162);
-            label11.Name = "label11";
-            label11.Size = new Size(37, 13);
-            label11.TabIndex = 9;
-            label11.Text = "Email:";
-            // 
-            // label12
-            // 
-            label12.AutoSize = true;
-            label12.Font = new Font("Segoe UI", 8F);
-            label12.Location = new Point(6, 153);
-            label12.Name = "label12";
-            label12.Size = new Size(56, 13);
-            label12.TabIndex = 10;
-            label12.Text = "Discount:";
-            // 
-            // label16
-            // 
-            label16.AutoSize = true;
-            label16.Font = new Font("Segoe UI", 8F);
-            label16.Location = new Point(7, 18);
-            label16.Name = "label16";
-            label16.Size = new Size(37, 13);
-            label16.TabIndex = 14;
-            label16.Text = "Code:";
-            // 
-            // groupBox2
-            // 
-            groupBox2.Controls.Add(label22);
-            groupBox2.Controls.Add(label13);
-            groupBox2.Controls.Add(label18);
-            groupBox2.Controls.Add(label14);
-            groupBox2.Controls.Add(label12);
-            groupBox2.Controls.Add(label15);
-            groupBox2.Controls.Add(label19);
-            groupBox2.Controls.Add(label17);
-            groupBox2.Controls.Add(label21);
-            groupBox2.Controls.Add(label20);
-            groupBox2.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            groupBox2.Location = new Point(420, 40);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(388, 178);
-            groupBox2.TabIndex = 15;
-            groupBox2.TabStop = false;
-            groupBox2.Text = "Business information";
-            // 
-            // label18
-            // 
-            label18.AutoSize = true;
-            label18.Font = new Font("Segoe UI", 8F);
-            label18.Location = new Point(6, 138);
-            label18.Name = "label18";
-            label18.Size = new Size(85, 13);
-            label18.TabIndex = 13;
-            label18.Text = "GST Treatment :";
-            // 
-            // label19
-            // 
-            label19.AutoSize = true;
-            label19.Font = new Font("Segoe UI", 8F);
-            label19.Location = new Point(6, 123);
-            label19.Name = "label19";
-            label19.Size = new Size(68, 13);
-            label19.TabIndex = 12;
-            label19.Text = "Credit Limit:";
-            // 
-            // label20
-            // 
-            label20.AutoSize = true;
-            label20.Font = new Font("Segoe UI", 8F);
-            label20.Location = new Point(6, 108);
-            label20.Name = "label20";
-            label20.Size = new Size(67, 13);
-            label20.TabIndex = 11;
-            label20.Text = "Credit days:";
-            // 
-            // label13
-            // 
-            label13.AutoSize = true;
-            label13.Font = new Font("Segoe UI", 8F);
-            label13.Location = new Point(6, 18);
-            label13.Name = "label13";
-            label13.Size = new Size(41, 13);
-            label13.TabIndex = 19;
-            label13.Text = "Agent:";
-            // 
-            // label14
-            // 
-            label14.AutoSize = true;
-            label14.Font = new Font("Segoe UI", 8F);
-            label14.Location = new Point(6, 48);
-            label14.Name = "label14";
-            label14.Size = new Size(88, 13);
-            label14.TabIndex = 15;
-            label14.Text = "Contact Person:";
-            // 
-            // label15
-            // 
-            label15.AutoSize = true;
-            label15.Font = new Font("Segoe UI", 8F);
-            label15.Location = new Point(6, 93);
-            label15.Name = "label15";
-            label15.Size = new Size(30, 13);
-            label15.TabIndex = 18;
-            label15.Text = "PAN:";
-            // 
-            // label17
-            // 
-            label17.AutoSize = true;
-            label17.Font = new Font("Segoe UI", 8F);
-            label17.Location = new Point(6, 63);
-            label17.Name = "label17";
-            label17.Size = new Size(46, 13);
-            label17.TabIndex = 16;
-            label17.Text = "Mobile:";
-            // 
-            // label21
-            // 
-            label21.AutoSize = true;
-            label21.Font = new Font("Segoe UI", 8F);
-            label21.Location = new Point(6, 78);
-            label21.Name = "label21";
-            label21.Size = new Size(40, 13);
-            label21.TabIndex = 17;
-            label21.Text = "GSTIN:";
-            // 
-            // label22
-            // 
-            label22.AutoSize = true;
-            label22.Font = new Font("Segoe UI", 8F);
-            label22.Location = new Point(6, 33);
-            label22.Name = "label22";
-            label22.Size = new Size(97, 13);
-            label22.TabIndex = 15;
-            label22.Text = "Agent Tally Name:";
-            // 
             // dataGridInvoice
             // 
             dataGridInvoice.AllowUserToAddRows = false;
             dataGridInvoice.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridInvoice.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridInvoice.Columns.AddRange(new DataGridViewColumn[] { Product, Category, Group, GST, HSN, Purchase, Qty, Total });
             dataGridInvoice.Dock = DockStyle.Top;
             dataGridInvoice.Location = new Point(0, 221);
             dataGridInvoice.Name = "dataGridInvoice";
             dataGridInvoice.Size = new Size(1028, 333);
             dataGridInvoice.TabIndex = 6;
-            // 
-            // Product
-            // 
-            Product.HeaderText = "PackingSlip No";
-            Product.Name = "Product";
-            Product.ReadOnly = true;
-            // 
-            // Category
-            // 
-            Category.HeaderText = "Category";
-            Category.Name = "Category";
-            // 
-            // Group
-            // 
-            Group.HeaderText = "Group";
-            Group.Name = "Group";
-            // 
-            // GST
-            // 
-            GST.HeaderText = "GST";
-            GST.Name = "GST";
-            // 
-            // HSN
-            // 
-            HSN.HeaderText = "HSN";
-            HSN.Name = "HSN";
-            // 
-            // Purchase
-            // 
-            Purchase.HeaderText = "Purchase";
-            Purchase.Name = "Purchase";
-            // 
-            // Qty
-            // 
-            Qty.HeaderText = "Quantity";
-            Qty.Name = "Qty";
-            Qty.ReadOnly = true;
-            // 
-            // Total
-            // 
-            Total.HeaderText = "Total";
-            Total.Name = "Total";
-            Total.ReadOnly = true;
             // 
             // TallySynchPurchase
             // 
@@ -465,12 +697,12 @@
             Load += TallySynchPurchase_Load;
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
-            panel2.ResumeLayout(false);
-            panel2.PerformLayout();
-            groupBox1.ResumeLayout(false);
-            groupBox1.PerformLayout();
             groupBox2.ResumeLayout(false);
             groupBox2.PerformLayout();
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridInvoice).EndInit();
             ResumeLayout(false);
         }
@@ -507,13 +739,29 @@
         private Label label21;
         private Label label22;
         private DataGridView dataGridInvoice;
-        private DataGridViewTextBoxColumn Product;
-        private DataGridViewTextBoxColumn Category;
-        private DataGridViewTextBoxColumn Group;
-        private DataGridViewTextBoxColumn GST;
-        private DataGridViewTextBoxColumn HSN;
-        private DataGridViewTextBoxColumn Purchase;
-        private DataGridViewTextBoxColumn Qty;
-        private DataGridViewTextBoxColumn Total;
+        private Label lblSupplierCode;
+        private Label lblEmail;
+        private Label lblMobile;
+        private Label lblState;
+        private Label lblPIN;
+        private Label lblAddress;
+        private Label lblSupplier;
+        private Label lblPAN;
+        private Label lblTallyName;
+        private Label lblGSTIN;
+        private Label lblAgentName;
+        private Label lblDiscount;
+        private Label lblGSTTreatment;
+        private Label lblCreditDays;
+        private Label lblCreditLimit;
+        private Label lblAPAN;
+        private Label lblATallyName;
+        private Label lblAGSTIN;
+        private Label lblContactPer;
+        private Label lblAMobile;
+        private ComboBox cmbCompanies;
+        private Label label23;
+        private ComboBox cmbFiananceYear;
+        private Label label24;
     }
 }

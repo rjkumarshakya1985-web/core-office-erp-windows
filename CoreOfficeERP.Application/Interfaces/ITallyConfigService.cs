@@ -1,4 +1,5 @@
-﻿using CoreOfficeERP.Domain.Responses.Tally;
+﻿using CoreOfficeERP.Domain.Responses;
+using CoreOfficeERP.Domain.Responses.Tally;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,7 @@ namespace CoreOfficeERP.Application.Interfaces
 {
     public interface ITallyConfigService
     {
-        Task<TallyConfigResponse> GetTallyConfig(int id);
+        public Task<TallyConfigResponse> GetTallyConfig(int id);
+        public Task<IEnumerable<TallyCompanyResponse>> GetAllCompanies();
     }
 }

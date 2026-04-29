@@ -2,6 +2,7 @@
 using CoreOfficeERP.Domain.Requests.Tally;
 using CoreOfficeERP.Domain.Responses.Tally;
 using CoreOfficeERP.Tally.Interfaces;
+using System.Text.Json;
 using Tally;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
@@ -15,35 +16,46 @@ namespace CoreOfficeERP.Tally.Services
             _tally = tally;
         }
 
-        public List<TallyProcessRequest> ExecutePurchase(TallyPurchaseResponse data,TallyConfigResponse config)
+        public async Task<List<TallyProcessRequest>> ExecutePurchase(TallyPurchaseResponse data,TallyConfigResponse config,int finid)
         {
             var logs = new List<TallyProcessRequest>();
             int step = 1;
             try
             {
                 var supplier = data.SupplierResponse;
-                ExecuteStep("Vendor Group", step++, () => _tally.CreateVendorGroup(supplier.AgentObj, config),logs,data,config);
-                ExecuteStep("Vendor", step++, () => _tally.CreateVendor(supplier, config),logs,data,config);
+                if (!ExecuteStep("Vendor Group", step++,supplier.AgentObj, () => _tally.CreateVendorGroup(supplier.AgentObj, config), logs, data, config,finid))
+                    return logs;
+
+                if (!ExecuteStep("Vendor", step++,supplier, () => _tally.CreateVendor(supplier, config), logs, data, config, finid))
+                    return logs;
+
 
                 // Loop for Stock Categories
                 foreach (var category in data.StockCategoryResponse)
                 {
-                    ExecuteStep($"Stock Category: {category.Name}", step++, () =>
-                        _tally.CreateStockCategory(category, config),logs,data, config);
+                    if (!ExecuteStep($"Stock Category: {category.Name}", step++,category,
+                        () => _tally.CreateStockCategory(category, config), logs, data, config, finid))
+                        return logs;
                 }
+
                 // Loop for Stock Groups
                 foreach (var group in data.StockGroupResponse)
                 {
-                    ExecuteStep($"Stock Group: {group.Name}", step++,
-                        () => _tally.CreateStockGroup(group, config),logs,data, config);
+                    if (!ExecuteStep($"Stock Group: {group.Name}", step++,group,
+                        () => _tally.CreateStockGroup(group, config), logs, data, config, finid))
+                        return logs;
                 }
+
                 // Loop for Stock Items
                 foreach (var item in data.StockitemResponse)
                 {
-                    ExecuteStep($"Stock Item: {item.ProductName}", step++,
-                        () => _tally.CreateStockItem(item, config),logs,data, config);
+                    if (!ExecuteStep($"Stock Item: {item.ProductName}", step++,item,
+                        () => _tally.CreateStockItem(item, config, data), logs, data, config, finid))
+                        return logs;
                 }
-                ExecuteStep("Purchase Entry", step++, () => _tally.CreatePurchaseVoucher(data, config),logs,data, config);
+                if (!ExecuteStep("Purchase Entry", step++,data,
+                () => _tally.CreatePurchaseVoucher(data, config), logs, data, config, finid))
+                    return logs;              
             }
             catch (Exception ex)
             {
@@ -54,31 +66,39 @@ namespace CoreOfficeERP.Tally.Services
                     IsSuccess = false,
                     ErrorMessage = ex.Message,
                     CreatedOn = DateTime.Now
-                });
-
-                throw;
+                });               
             }
             return logs;
 
         }
 
-        private void ExecuteStep(string stepName, int stepNo, Func<TallyResponse> action,List<TallyProcessRequest> logs,TallyPurchaseResponse data,TallyConfigResponse config)
+        private bool ExecuteStep<TRequest>(string stepName, int stepNo, TRequest requestObj, Func<TallyResponse> action,List<TallyProcessRequest> logs,TallyPurchaseResponse data,TallyConfigResponse config,int finid)
         {
             var log = new TallyProcessRequest
-            {
-                Id = data.SaleVoucherPrint.Id,
+            {               
                 CompanyId = config.CompanyId, // map properly
-                FinanceYearId = 1, // map properly
-                ReferenceNo = data.SaleVoucherPrint.SupplierBillNumber,
+                FinanceYearId = finid, // map properly
+                ReferenceNo = data.SaleVoucherPrint.Id.ToString(),
                 ProcessType = (int)TallyProcessType.Purchase,
                 Step = stepNo,
+                RequestData = JsonSerializer.Serialize(requestObj), // ✅ REAL DATA
+                ResponseData =null, // This will be updated after action execution
+                ErrorMessage = null,
                 CreatedOn = DateTime.Now
             };
 
             try
             {
                 var res = action();
+                if (res == null)
+                {
+                    log.IsSuccess = false;
+                    log.ErrorMessage = $"{stepName} returned null response";
+                    log.ResponseData = JsonSerializer.Serialize(res); // ✅ FULL RESPONSE
 
+                    logs.Add(log);
+                    return false; // ❌ STOP but no exception
+                }
                 log.IsSuccess = res.errorCode == 0;
                 log.ResponseData = res.errorMsg;
 
@@ -86,7 +106,8 @@ namespace CoreOfficeERP.Tally.Services
                 {
                     log.ErrorMessage = res.errorMsg;
                     logs.Add(log);
-                    throw new Exception($"{stepName} Failed: {res.errorMsg}");
+                    return false; // ❌ STOP
+                    //throw new Exception($"{stepName} Failed: {res.errorMsg}");
                 }
             }
             catch (Exception ex)
@@ -94,10 +115,11 @@ namespace CoreOfficeERP.Tally.Services
                 log.IsSuccess = false;
                 log.ErrorMessage = ex.Message;
                 logs.Add(log);
-                throw;
+                return false; // ❌ STOP               
             }
 
             logs.Add(log);
+            return true; // ✅ CONTINUE
         }
        
     }

@@ -9,6 +9,8 @@ namespace CoreOffice.Win.Session
 
         public static string FinanceYearName { get; set; }
 
+        public static int TallyCompId { get; set; }
+        public static string TallyCompanyName { get; set; }
         public static RoleEnum RoleEnum { get; set; }
      
     }

@@ -1,9 +1,11 @@
-﻿using CoreOfficeERP.Domain.Responses.Tally;
+﻿using CoreOfficeERP.Domain.Requests.Tally;
+using CoreOfficeERP.Domain.Responses.Tally;
 
 namespace CoreOfficeERP.Application.Interfaces
 {
     public interface ITallyTransactionService
     {
-        Task<IEnumerable<TallyPurchaseResponse>> GetTallyPurchase(int id);
+        Task<TallyPurchaseResponse> GetTallyPurchase(int id);
+        Task<int> TallyDataUpdate(List<TallyNameRequest> request);
     }
 }

@@ -5,7 +5,7 @@ namespace CoreOfficeERP.Application.Interfaces
 {
     public interface ITallyProcessService
     {
-        Task<int> CreateAsync(TallyProcessBatchRequest request);
+        Task<bool> CreateAsync(List<TallyProcessRequest> logs);   
         Task<TallyProcessResponse> GetTallyProcess(int id);
     }
 

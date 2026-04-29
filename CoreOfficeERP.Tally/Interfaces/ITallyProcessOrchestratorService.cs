@@ -12,6 +12,6 @@ namespace CoreOfficeERP.Tally.Interfaces
 {
     public interface ITallyProcessOrchestratorService
     {      
-        List<TallyProcessRequest> ExecutePurchase(TallyPurchaseResponse data, TallyConfigResponse tallyConfig);
+        Task<List<TallyProcessRequest>> ExecutePurchase(TallyPurchaseResponse data, TallyConfigResponse tallyConfig,int finid);
     }
 }

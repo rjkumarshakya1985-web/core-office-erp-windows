@@ -1,4 +1,5 @@
 ﻿
+using CoreOffice.Win.Session;
 using CoreOffice.Win.Shared;
 using CoreOfficeERP.Application.Interfaces;
 using CoreOfficeERP.Application.Services;
@@ -9,6 +10,7 @@ using CoreOfficeERP.Domain.Responses.Tally;
 using CoreOfficeERP.Tally.Interfaces;
 using CoreOfficeERP.Tally.Services;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.VisualBasic;
 namespace CoreOffice.Win.Modules.TallySynch
 
 {
@@ -22,7 +24,7 @@ namespace CoreOffice.Win.Modules.TallySynch
         private TallyProcessType? ProcessType;
         private readonly ITallyProcessService _tallyProcessService;
 
-        public TallySynchPurchase(ITallyPurchaseService tallyPurchaseService, IServiceProvider serviceProvider, ITallyTransactionService tallyTransactionsService, ITallyProcessOrchestratorService tallyProcessOrchestrator, ITallyProcessService tallyProcessService)
+        public TallySynchPurchase(ITallyPurchaseService tallyPurchaseService, IServiceProvider serviceProvider, ITallyTransactionService tallyTransactionsService, ITallyProcessOrchestratorService tallyProcessOrchestrator, ITallyProcessService tallyProcessService,ITallyConfigService tallyConfigService)
         {
             InitializeComponent();
             this._tallyPurchaseService = tallyPurchaseService;
@@ -30,6 +32,7 @@ namespace CoreOffice.Win.Modules.TallySynch
             _tallyTransactionsService = tallyTransactionsService;
             _tallyProcessOrchestrator = tallyProcessOrchestrator;
             _tallyProcessService = tallyProcessService;
+            _tallyConfigService = tallyConfigService;
             btnSynch.Enabled = false;
             txtVoucher.Focus();
         }
@@ -37,16 +40,93 @@ namespace CoreOffice.Win.Modules.TallySynch
         private void ClearData()
         {
             txtVoucher.Text = string.Empty;
-            //  lbllrdate.Text = "NA";           
-            //  dataGridView1.Rows.Clear();
-            // dataGridView1.Refresh();
-            // dataGridView1.Rows.Add(200);            
+            dataGridInvoice.DataSource = null;
+            dataGridInvoice.Refresh();
+            lblSupplier.Text = "NA";
+            lblSupplierCode.Text = "NA";
+            lblTallyName.Text = "NA";
+            lblGSTIN.Text = "NA";
+            lblPAN.Text = "NA";
+            lblAddress.Text = "NA";
+            lblState.Text = "NA";
+            lblPIN.Text = "NA";
+            lblMobile.Text = "NA";
+            lblEmail.Text = "NA";
+            lblAgentName.Text = "NA";
+            lblATallyName.Text = "NA";
+            lblContactPer.Text = "NA";
+            lblAMobile.Text = "NA";
+            lblAGSTIN.Text = "NA";
+            lblAPAN.Text = "NA";
+            lblCreditDays.Text = "NA";
+            lblCreditLimit.Text = "NA";
+            lblGSTTreatment.Text = "NA";
+            lblDiscount.Text = "NA";          
 
         }
 
-        private void TallySynchPurchase_Load(object sender, EventArgs e)
+        private async void TallySynchPurchase_Load(object sender, EventArgs e)
         {
+            AppLoader.Show();
+            if (AppCache.Companies != null && AppCache.Companies.Any())
+            {
+                cmbFiananceYear.DataSource = AppCache.Companies;
+                cmbFiananceYear.DisplayMember = "Name";
+                cmbFiananceYear.ValueMember = "Id";
+                cmbFiananceYear.SelectedValue = 1;
+            }
+            else
+            {
+                MessageBox.Show("No companies found");
+            }
+            if (AppCache.TallyCompanies != null && AppCache.TallyCompanies.Any())
+            {
+                cmbCompanies.DataSource = AppCache.TallyCompanies;
+                cmbCompanies.DisplayMember = "Name";
+                cmbCompanies.ValueMember = "Id";
+                cmbCompanies.SelectedValue = UserSession.TallyCompId;
+            }
+            else
+            {
+                try
+                {
+                    var result = await _tallyConfigService.GetAllCompanies();
+                    if (result == null)
+                    {
+                        MessageBox.Show("No data from API");
+                        return;
+                    }
 
+                    if (!result.Any())
+                    {
+                        MessageBox.Show("No companies found");
+                        return;
+                    }
+                    if (result != null && result.Any())
+                    {
+                        AppCache.TallyCompanies = result.ToList();
+                        cmbCompanies.DataSource = AppCache.TallyCompanies;
+                        cmbCompanies.DisplayMember = "Name";
+                        cmbCompanies.ValueMember = "Id";
+
+                        var activeComp = result.FirstOrDefault();
+                        if (activeComp != null)
+                        {
+                            UserSession.TallyCompId = activeComp.Id;
+                            UserSession.TallyCompanyName = activeComp.Name;
+                        }
+                    }
+                    else
+                    {
+                      //  lblCompanyInfo.Text = "No Active Financial Year";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error loading financial year: " + ex.Message);
+                }
+                AppLoader.Hide();
+            }
         }
 
         private async void btnSynch_Click(object sender, EventArgs e)
@@ -60,15 +140,35 @@ namespace CoreOffice.Win.Modules.TallySynch
             btnSynch.Enabled = false;
             AppLoader.Show();
             List<TallyProcessRequest> logs = new();
-           
+            var completedPurchase = _currentPurchase; // ✅ store reference
+            bool isSuccess = false;
             try
-            {               
-                logs = await Task.Run(() =>
-                _tallyProcessOrchestrator.ExecutePurchase(_currentPurchase, _tallyConfig));
-                MessageBox.Show("Voucher successfully sent to Tally!","SSBD",MessageBoxButtons.OK,MessageBoxIcon.Information);
+            {
+                // ✅ Call orchestrator (NO Task.Run)
+                logs = await _tallyProcessOrchestrator
+                    .ExecutePurchase(_currentPurchase, _tallyConfig,1);
+                // ✅ Determine success
+                isSuccess = logs != null && logs.Any() && logs.All(x => x.IsSuccess);
+                if (isSuccess)
+                {
+                    MessageBox.Show("Voucher successfully sent to Tally!", "SSBD",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // ✅ Modify response AFTER success
+                    MapLedgerNames(completedPurchase);
+                    // ✅ Clear after success
+                    _currentPurchase = null;
+                    ClearData();
+                }
+                else
+                {
+                    var failedStep = logs.FirstOrDefault(x => !x.IsSuccess);
 
-                // ✅ Clear after success
-                _currentPurchase = null;
+                    MessageBox.Show(
+                        $"Process failed at Step {failedStep?.Step}: {failedStep?.ErrorMessage}",
+                        "SSBD",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                }
             }
             catch (Exception ex)
             {
@@ -78,15 +178,23 @@ namespace CoreOffice.Win.Modules.TallySynch
             {
                 try
                 {
+                    // ✅ SINGLE API CALL (logs)
                     if (logs != null && logs.Any())
                     {
-                        var request = new TallyProcessBatchRequest
+                        await _tallyProcessService.CreateAsync(logs);
+                    }
+                    
+                    // ✅ NEW: Send updated purchase via PUT
+                    // ✅ ONLY update if success
+                    if (isSuccess && completedPurchase != null)
+                    {
+                    //    var updateResult = await _tallyTransactionsService.TallyDataUpdate(completedPurchase?.SaleVoucherPrint?.Id, completedPurchase);
+                        var bulkRequest = BuildTallyNameRequests(completedPurchase);
+
+                        if (bulkRequest.Any())
                         {
-                            VoucherId = _currentPurchase?.SaleVoucherPrint?.Id ?? 0,
-                            Steps = logs
-                        };
-                        var result = await _tallyProcessService.CreateAsync(request);
-                       
+                            await _tallyTransactionsService.TallyDataUpdate(bulkRequest);
+                        }
                     }
                 }
                 catch (Exception apiEx)
@@ -95,6 +203,7 @@ namespace CoreOffice.Win.Modules.TallySynch
                 }
 
                 btnSynch.Enabled = true;
+                AppLoader.Hide();
             }
         }
 
@@ -122,14 +231,17 @@ namespace CoreOffice.Win.Modules.TallySynch
             // 1. Get Purchase Data
             var vouchers = await _tallyTransactionsService.GetTallyPurchase(id);
 
-            if (vouchers == null || !vouchers.Any())
+            if (vouchers == null)
             {
-                MessageBox.Show("Sale Voucher not Found");
+                MessageBox.Show("Sale Voucher not Found",
+                    "Not Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
                 txtVoucher.Clear();
                 return;
             }
             // 2. Get Tally Config (IMPORTANT)
-            var tallyConfig = await _tallyConfigService.GetTallyConfig(1);
+            int config = 1;
+            var tallyConfig = await _tallyConfigService.GetTallyConfig(config);
           
 
             if (tallyConfig == null)
@@ -141,15 +253,142 @@ namespace CoreOffice.Win.Modules.TallySynch
 
             e.SuppressKeyPress = true;
             // ✅ Store in memory
-            _currentPurchase = vouchers.First();
+            _currentPurchase = vouchers;
             _tallyConfig = tallyConfig;
-
+            // ✅ Bind UI
+            BindHeader();
+            BindGrid();
             txtVoucher.Clear();
 
             // Optional: UI feedback
-            MessageBox.Show("Voucher Loaded Successfully. Click Process to send to Tally.");  
+          //  MessageBox.Show("Voucher Loaded Successfully. Click Process to send to Tally.");  
             btnSynch.Enabled = true;
 
+        }
+        private void BindHeader()
+        {
+            //Binding Supplier data
+            lblSupplier.Text = _currentPurchase.SupplierResponse.Name;
+            lblTallyName.Text = _currentPurchase.SupplierResponse.TallyLedgerName;
+            lblGSTIN.Text = _currentPurchase.SupplierResponse.GstIn;
+            lblPAN.Text = _currentPurchase.SupplierResponse.PAN;
+            lblAddress.Text = _currentPurchase.SupplierResponse.Address;
+            lblState.Text = _currentPurchase.SupplierResponse.State;
+            lblPIN.Text = _currentPurchase.SupplierResponse.Pincode;
+            lblMobile.Text = _currentPurchase.SupplierResponse.Mobile;
+            lblEmail.Text = _currentPurchase.SupplierResponse.Email;
+
+
+            //Binding Agent Data
+            lblAgentName.Text= _currentPurchase.SupplierResponse.AgentObj.Name;
+            lblATallyName.Text= _currentPurchase.SupplierResponse.AgentObj.TallyLedgerName;
+            lblContactPer.Text= _currentPurchase.SupplierResponse.AgentObj.ContactPersonName;
+            lblAMobile.Text = _currentPurchase.SupplierResponse.AgentObj.ContactPersonMobile;
+            lblAGSTIN.Text= _currentPurchase.SupplierResponse.AgentObj.GSTIN;
+            lblAPAN.Text=   _currentPurchase.SupplierResponse.AgentObj.PAN;
+            lblCreditDays.Text = _currentPurchase.SupplierResponse.CreditDays.ToString();
+            lblCreditLimit.Text = _currentPurchase.SupplierResponse.CreditLimit.ToString();
+            lblGSTTreatment.Text=_currentPurchase.SupplierResponse.RegType == 1 ? "Regular" : _currentPurchase.SupplierResponse.RegType == 2 ? "Composition" : "Unregistered";
+            lblDiscount.Text = _currentPurchase.SupplierResponse.Discount.ToString("0.00");
+
+        }
+        private void BindGrid()
+        {          
+
+            var data = _currentPurchase.StockitemResponse.Select(x => new
+            {
+                Product = x.ProductName,
+                HSN= x.HsnCode,
+                Quantity = x.Quantity,
+                Rate = x.PurchasePrice,
+                GST = x.Gst,
+                Amount = x.Total                
+            }).ToList();
+
+            dataGridInvoice.DataSource = data;
+          
+        }
+        private void MapLedgerNames(TallyPurchaseResponse data)
+        {
+            if (data == null) return;
+
+            // Supplier
+            if (data.SupplierResponse != null)
+            {
+                data.SupplierResponse.TallyLedgerName = data.SupplierResponse.Name;
+            }
+
+            // Stock Groups
+            foreach (var group in data.StockGroupResponse ?? new List<StockGroupResponse>())
+            {
+                group.TallyLedgerName = group.Name;
+            }
+
+            // Stock Categories
+            foreach (var category in data.StockCategoryResponse ?? new List<StockCategoryResponse>())
+            {
+                category.TallyLedgerName = category.Name;
+            }
+
+            // Stock Items
+            foreach (var item in data.StockitemResponse ?? new List<StockitemResponse>())
+            {
+                item.TallyLedgerName = item.ProductName;
+            }
+        }
+        private List<TallyNameRequest> BuildTallyNameRequests(TallyPurchaseResponse data)
+        {
+            var list = new List<TallyNameRequest>();
+
+            // ✅ Supplier
+            if (data.SupplierResponse != null)
+            {
+                list.Add(new TallyNameRequest
+                {
+                    Id = data.SupplierResponse.Id.ToString(),
+                    Name = data.SupplierResponse.Name,
+                    TallyName = data.SupplierResponse.TallyLedgerName,
+                    Type = TallyType.Supplier
+                });
+            }
+
+            // ✅ Agent
+            if (data.SupplierResponse?.AgentObj != null)
+            {
+                list.Add(new TallyNameRequest
+                {
+                    Id = data.SupplierResponse.AgentObj.Id.ToString(),
+                    Name = data.SupplierResponse.AgentObj.Name,
+                    TallyName = data.SupplierResponse.AgentObj.TallyLedgerName,
+                    Type = TallyType.Agent
+                });
+            }
+
+            // ✅ Stock Groups
+            foreach (var group in data.StockCategoryResponse ?? new())
+            {
+                list.Add(new TallyNameRequest
+                {
+                    Id = group.Id.ToString(),
+                    Name = group.Name,
+                    TallyName = group.TallyLedgerName,
+                    Type = TallyType.StockGroup
+                });
+            }
+
+            // ✅ Items (if needed)
+            foreach (var item in data.StockitemResponse ?? new())
+            {
+                list.Add(new TallyNameRequest
+                {
+                    Id = item.Id.ToString(),
+                    Name = item.ProductName,
+                    TallyName = item.TallyLedgerName,
+                    Type = TallyType.StockItem
+                });
+            }
+
+            return list;
         }
         private void setFormForSaleVoucher(TallyPurchaseResponse purchaseResponse)
         {
