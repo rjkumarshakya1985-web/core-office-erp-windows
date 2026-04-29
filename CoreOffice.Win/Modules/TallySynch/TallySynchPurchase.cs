@@ -10,6 +10,7 @@ using CoreOfficeERP.Domain.Responses.Tally;
 using CoreOfficeERP.Tally.Interfaces;
 using CoreOfficeERP.Tally.Services;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Reporting.Map.WebForms.BingMaps;
 using Microsoft.VisualBasic;
 namespace CoreOffice.Win.Modules.TallySynch
 
@@ -23,8 +24,9 @@ namespace CoreOffice.Win.Modules.TallySynch
         private readonly IServiceProvider _serviceProvider;
         private TallyProcessType? ProcessType;
         private readonly ITallyProcessService _tallyProcessService;
+        private readonly IFinanceYearService _financeYearService;
 
-        public TallySynchPurchase(ITallyPurchaseService tallyPurchaseService, IServiceProvider serviceProvider, ITallyTransactionService tallyTransactionsService, ITallyProcessOrchestratorService tallyProcessOrchestrator, ITallyProcessService tallyProcessService,ITallyConfigService tallyConfigService)
+        public TallySynchPurchase(ITallyPurchaseService tallyPurchaseService, IServiceProvider serviceProvider, ITallyTransactionService tallyTransactionsService, ITallyProcessOrchestratorService tallyProcessOrchestrator, ITallyProcessService tallyProcessService,ITallyConfigService tallyConfigService, IFinanceYearService financeYearService)
         {
             InitializeComponent();
             this._tallyPurchaseService = tallyPurchaseService;
@@ -33,6 +35,7 @@ namespace CoreOffice.Win.Modules.TallySynch
             _tallyProcessOrchestrator = tallyProcessOrchestrator;
             _tallyProcessService = tallyProcessService;
             _tallyConfigService = tallyConfigService;
+            _financeYearService = financeYearService;
             btnSynch.Enabled = false;
             txtVoucher.Focus();
         }
@@ -73,11 +76,52 @@ namespace CoreOffice.Win.Modules.TallySynch
                 cmbFiananceYear.DataSource = AppCache.Companies;
                 cmbFiananceYear.DisplayMember = "Name";
                 cmbFiananceYear.ValueMember = "Id";
-                cmbFiananceYear.SelectedValue = 1;
+                cmbFiananceYear.SelectedValue = UserSession.FinanceYearId;
             }
             else
             {
-                MessageBox.Show("No companies found");
+                try
+                {
+
+                    var result = await _financeYearService.GetActiveFinanceYears();
+                    if (result == null)
+                    {
+                        MessageBox.Show("No data from API");
+                        return;
+                    }
+
+                    if (!result.Any())
+                    {
+                        MessageBox.Show("No Financial Year found");
+                        return;
+                    }
+                    if (result != null && result.Any())
+                    {
+
+                        AppCache.Companies = result.ToList();
+                        cmbFiananceYear.DataSource = AppCache.Companies;
+                        cmbFiananceYear.DisplayMember = "Name";
+                        cmbFiananceYear.ValueMember = "Id";
+                        cmbCompanies.SelectedValue = UserSession.TallyCompId;
+
+
+                        var activeFY = result.FirstOrDefault();
+
+                        if (activeFY != null)
+                        {
+                            UserSession.FinanceYearId = activeFY.Id;
+                        }
+
+                    }
+                    else
+                    {
+                        // lblCompanyInfo.Text = "No Active Financial Year";
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error loading financial year: " + ex.Message);
+                }
             }
             if (AppCache.TallyCompanies != null && AppCache.TallyCompanies.Any())
             {
@@ -123,7 +167,7 @@ namespace CoreOffice.Win.Modules.TallySynch
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show("Error loading financial year: " + ex.Message);
+                    MessageBox.Show("Error loading Tally Companies: " + ex.Message);
                 }
                 AppLoader.Hide();
             }
@@ -146,7 +190,7 @@ namespace CoreOffice.Win.Modules.TallySynch
             {
                 // ✅ Call orchestrator (NO Task.Run)
                 logs = await _tallyProcessOrchestrator
-                    .ExecutePurchase(_currentPurchase, _tallyConfig,1);
+                    .ExecutePurchase(_currentPurchase, _tallyConfig,Convert.ToInt32(cmbFiananceYear.SelectedValue.ToString()));
                 // ✅ Determine success
                 isSuccess = logs != null && logs.Any() && logs.All(x => x.IsSuccess);
                 if (isSuccess)
@@ -239,8 +283,9 @@ namespace CoreOffice.Win.Modules.TallySynch
                 txtVoucher.Clear();
                 return;
             }
+           
             // 2. Get Tally Config (IMPORTANT)
-            int config = 1;
+            int config = Convert.ToInt32(cmbCompanies.SelectedValue.ToString());
             var tallyConfig = await _tallyConfigService.GetTallyConfig(config);
           
 

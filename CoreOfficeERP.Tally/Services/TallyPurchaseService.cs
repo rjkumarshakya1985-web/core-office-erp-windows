@@ -334,8 +334,8 @@ namespace CoreOfficeERP.Tally.Services
         }
         public TallyResponse CreatePurchaseVoucher(TallyPurchaseResponse data, TallyConfigResponse config)
         {          
-            DateTime dt1 = DateTime.ParseExact(data.SaleVoucherPrint.Date.ToString(), "dd-MMM-yy h:mm:ss tt", CultureInfo.InvariantCulture);          
-            string s = dt1.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);          
+            //DateTime dt1 = DateTime.ParseExact(data.SaleVoucherPrint.Date.ToString(),"dd/MM/yyyy", CultureInfo.InvariantCulture);          
+            string s = data.SaleVoucherPrint.Date.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);          
 
             var invoice = new PurchaseVoucher
             {
@@ -348,8 +348,8 @@ namespace CoreOfficeERP.Tally.Services
                 voucherForeignKey = data.SaleVoucherPrint.VoucherForeignkey,
 
                 // If Tally API needs string:
-                // dtOfVoucher = DateTime.ParseExact(s, "dd/MM/yyyy", null),
-                dtOfVoucher = DateTime.ParseExact("01/03/2026", "dd/MM/yyyy", null),
+                 dtOfVoucher = DateTime.ParseExact(s, "dd/MM/yyyy", null),
+               // dtOfVoucher = DateTime.ParseExact("01/03/2026", "dd/MM/yyyy", null),
 
                 // dtOfVoucher = DateTime.ParseExact(data.SaleVoucherPrint.Date.ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture),
                 // dtOfVoucher = data.SaleVoucherPrint.Date,
@@ -464,8 +464,7 @@ namespace CoreOfficeERP.Tally.Services
                 // Accounting Allocation
                 item.arlAccountingAllocations.Add(new LedgerEntry
                 {
-                    ledgerName = "Purchase B/O",
-                    // ledgerName = config.Purchase.MainLedger, // or stockItem.tallyLedgerName if available
+                    ledgerName = config.Purchase.MainLedger,                  
                     ledgerAmount = item.amount
                 });
 
