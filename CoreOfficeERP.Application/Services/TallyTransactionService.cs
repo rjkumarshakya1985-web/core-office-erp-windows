@@ -23,7 +23,12 @@ namespace CoreOfficeERP.Application.Services
         public async Task<TallyPurchaseResponse> GetTallyPurchase(int id)
         {
             var reuslt = await _apiRepository          
-             .GetAsync<ApiResponse<TallyPurchaseResponse>>($"{ApiEndpoints.GetTallyPurchase}/{id}");           
+             .GetAsync<ApiResponse<TallyPurchaseResponse>>($"{ApiEndpoints.GetTallyPurchase}/{id}");
+            if (reuslt == null)
+                throw new Exception("No response from server");
+
+            if (!reuslt.Success)
+                throw new Exception(reuslt.Message ?? "Failed to fetch Sale Voucher");
             return reuslt?.Data;
 
         }

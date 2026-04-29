@@ -24,14 +24,22 @@ namespace CoreOfficeERP.Application.Services
         {
             var reuslt = await _apiRepository
              .GetAsync<ApiResponse<TallyConfigResponse>>($"{ApiEndpoints.GetTallyConfig}/{companyId}");
+            if (reuslt == null)
+                throw new Exception("No response from server");
 
+            if (!reuslt.Success)
+                throw new Exception(reuslt.Message ?? "Failed to fetch Tally Configs");
             return reuslt?.Data;
         }
         public async Task<IEnumerable<TallyCompanyResponse>> GetAllCompanies()
         {
             var reuslt = await _apiRepository
               .GetAsync<ApiResponse<IEnumerable<TallyCompanyResponse>>>(ApiEndpoints.GetTallyCompanies);
+            if (reuslt == null)
+                throw new Exception("No response from server");
 
+            if (!reuslt.Success)
+                throw new Exception(reuslt.Message ?? "Failed to fetch Tally Companies");
             return reuslt?.Data;
         }
     }

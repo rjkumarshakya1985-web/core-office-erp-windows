@@ -70,7 +70,7 @@
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Monotype Corsiva", 18F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            label2.Location = new Point(103, 136);
+            label2.Location = new Point(98, 136);
             label2.Name = "label2";
             label2.Size = new Size(108, 28);
             label2.TabIndex = 3;
@@ -80,7 +80,7 @@
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Monotype Corsiva", 18F, FontStyle.Italic, GraphicsUnit.Point, 0);
-            label3.Location = new Point(115, 199);
+            label3.Location = new Point(110, 199);
             label3.Name = "label3";
             label3.Size = new Size(96, 28);
             label3.TabIndex = 4;
