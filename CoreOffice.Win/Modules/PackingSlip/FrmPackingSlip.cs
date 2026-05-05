@@ -7,12 +7,9 @@ using CoreOfficeERP.Common.Enums;
 using CoreOfficeERP.Domain.Requests.PackingSlip;
 using CoreOfficeERP.Domain.Responses;
 using CoreOfficeERP.Domain.Responses.PackingSlip;
-using CoreOfficeERP.Domain.Responses.Print;
 using CoreOfficeERP.Domain.Responses.SalesPersons;
-using CoreOfficeERP.Domain.Responses.Tally;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Reporting.WinForms;
-using System.Xml.Linq;
 
 
 namespace CoreOffice.Win.Modules.PackingSlip
@@ -24,6 +21,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
         private readonly IStockService _stockService;
         private readonly ISalesPersonService _salesPersonService;
         private int? VisitorId;
+        private decimal? VisitorDiscount;
         private int? PackingSlipId;
         private CustomerTypeEnum? VisitorType;
         private string _selectedBarcode;
@@ -127,28 +125,29 @@ namespace CoreOffice.Win.Modules.PackingSlip
 
         public void SetVisitorInfo(VisitorResponse? response)
         {
-            if (response == null)
+            if(response == null)
             {
-                VisitorId = null;
-                lblPhone.Text = "......";
-                lblCompanyName.Text = "......";
-                lblVisitorType.Text = "......";
-                VisitorType = null;
+              
+                Clear();
+                return;
             }
-            else
-            {
+               
+          
                 VisitorId = response.Id;
                 lblPhone.Text = response.Mobile;
                 lblCompanyName.Text = response.Name;
                 lblVisitorType.Text = response.CustomerType == 1 ? "W" : "R";
                 VisitorType = (CustomerTypeEnum)response.CustomerType;
-            }
+                lblDiscount.Text = response.CustomerResponse != null
+                    ? (response.CustomerResponse.Discount > 0
+                        ? response.CustomerResponse.Discount + " %"
+                        : "0 %")
+                    : "0 %";
+                VisitorDiscount = response.CustomerResponse != null
+                    ? response.CustomerResponse.Discount : 0
+                       ;
+            
         }
-
-
-
-
-
 
         public void Clear()
         {
@@ -164,36 +163,53 @@ namespace CoreOffice.Win.Modules.PackingSlip
             lblTotalAmount.Text = "0.00";
             lblTaxableAmount.Text = "0";
             lblVisitorType.Text = "-";
+            lblTotalPcs.Text = "0";
             btnDelete.Enabled = false;
             txtBarcodeScanner.Clear();
             cmbSalesPerson.SelectedIndex = 0;
+
         }
-
-
-
 
 
         private void AddNewItemToGrid(CurrentStockResponse item, int Qty)
         {
-            var price = VisitorType == CustomerTypeEnum.Retail ? item.RetailRate : item.WholeSaleRate;
+            var price = VisitorType == CustomerTypeEnum.Retail
+                ? item.RetailRate
+                : item.WholeSaleRate;
 
-            var gstPercent = VisitorType == CustomerTypeEnum.Retail ? item.GstRPercent : item.GstWPercent;
+            var gstPercent = VisitorType == CustomerTypeEnum.Retail
+                ? item.GstRPercent
+                : item.GstWPercent;
 
             var amount = Math.Round(price * Qty, 2, MidpointRounding.AwayFromZero);
 
-            var gstAmount = Math.Round(amount * gstPercent / 100, 2, MidpointRounding.AwayFromZero);
+            // ✅ FIXED Discount
+            var discountPercent = VisitorDiscount ?? 0;
 
-            var totalAmount = Math.Round(amount + gstAmount, 2, MidpointRounding.AwayFromZero);
+            var discountAmount = Math.Round(
+                amount * discountPercent / 100,
+                2,
+                MidpointRounding.AwayFromZero
+            );
+
+            var netAmount = Math.Round(amount - discountAmount, 2, MidpointRounding.AwayFromZero);
+
+            // ✅ GST AFTER DISCOUNT
+            var gstAmount = Math.Round(netAmount * gstPercent / 100, 2, MidpointRounding.AwayFromZero);
+
+            var totalAmount = Math.Round(netAmount + gstAmount, 2, MidpointRounding.AwayFromZero);
+
             dataGridPackingSlip.Rows.Add(
                 item.Id,
                 item.BarCode,
-                item.StockGroup ,
-                item.ProductName,
+                item.StockGroup + "\n" + item.ProductName,
                 Qty,
                 price,
-                amount,
-                gstPercent,
-                totalAmount,
+                amount,           // Taxable
+                discountAmount,   // Discount
+                netAmount,        // Net Taxable
+                gstPercent,       // GST %
+                totalAmount,      // ✅ Final Amount (Net + GST)
                 item.AvailableQty
             );
 
@@ -214,28 +230,34 @@ namespace CoreOffice.Win.Modules.PackingSlip
                 int.TryParse(row.Cells["Quantity"].Value?.ToString(), out int qty);
                 decimal gstPercent = Convert.ToDecimal(row.Cells["GstValue"].Value);
 
-               
+                // ✅ Get Discount from grid
+                decimal discountAmount = Convert.ToDecimal(row.Cells["Discount"].Value);
+
                 decimal taxable = Math.Round(rate * qty, 2, MidpointRounding.AwayFromZero);
 
-                // 🔹 GST amount
-                decimal gstAmount = Math.Round(taxable * gstPercent / 100, 2, MidpointRounding.AwayFromZero);
+                // ✅ Net after discount
+                decimal netAmount = Math.Round(taxable - discountAmount, 2, MidpointRounding.AwayFromZero);
 
-                // 🔹 Final total
-                decimal total = Math.Round(taxable + gstAmount, 2, MidpointRounding.AwayFromZero);
+                // ✅ GST on NET
+                decimal gstAmount = Math.Round(netAmount * gstPercent / 100, 2, MidpointRounding.AwayFromZero);
 
-                // 🔹 Set values in grid
+                // ✅ Final
+                decimal total = Math.Round(netAmount + gstAmount, 2, MidpointRounding.AwayFromZero);
+
+                // 🔹 Update grid
                 row.Cells["Taxable"].Value = taxable;
+                row.Cells["NetTaxable"].Value = netAmount;
                 row.Cells["Amount"].Value = total;
 
                 // 🔹 Totals
-                totalTaxable += taxable;
+                totalTaxable += netAmount;
                 totalAmount += total;
                 totalPcs += qty;
             }
 
             lblTotalAmount.Text = totalAmount.ToString("0.00");
             lblTotalPcs.Text = totalPcs.ToString();
-            lblTaxableAmount.Text = totalTaxable.ToString("0.00"); // 🔥 fix (pehle galat tha)
+            lblTaxableAmount.Text = totalTaxable.ToString("0.00");
         }
         private async void txtBarcodeScanner_KeyDown(object sender, KeyEventArgs e)
         {
@@ -379,9 +401,9 @@ namespace CoreOffice.Win.Modules.PackingSlip
         {
             try
             {
-                LocalReport report = new LocalReport();               
+                LocalReport report = new LocalReport();
                 report.ReportPath = "Shared/Prints/PackingSlip/RDLCPackingSlip.rdlc";
-             
+
                 // 1. Should be Replaced with Company Header Response- Currently setup as static
                 var data = new List<PackingSlipCompanyModel>
                   {
@@ -416,7 +438,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
         }
 
         private async void btnSave_Click(object sender, EventArgs e)
-        {          
+        {
             try
             {
                 AppLoader.Show();
@@ -478,16 +500,16 @@ namespace CoreOffice.Win.Modules.PackingSlip
                     // 👉 Step 1: Fetch data using new ID
                     var data = await _packingSlipService.GetByIdAsync(id);
                     // 👉 Step 2: Map to RDLC model                 
-                    var items = PackingSlipMapper.ToItems(data);                 
+                    var items = PackingSlipMapper.ToItems(data);
                     // 👉 Step 3: Pass into Print
-                    Print(items);                  
+                    Print(items);
                 }
                 else
                 {
-                    await _packingSlipService.UpdateAsync(PackingSlipId, request);                  
+                    await _packingSlipService.UpdateAsync(PackingSlipId, request);
                     if (PackingSlipId.HasValue)
                     {
-                        var data = await _packingSlipService.GetByIdAsync(PackingSlipId.Value);                       
+                        var data = await _packingSlipService.GetByIdAsync(PackingSlipId.Value);
                         var items = PackingSlipMapper.ToItems(data);
 
                         Print(items);
@@ -544,7 +566,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
                      item.GstValue,
                     item.Amount,
                        item.AvailableQty
-                   
+
                 );
             }
 
@@ -596,8 +618,6 @@ namespace CoreOffice.Win.Modules.PackingSlip
                 Clear();
             }
         }
-
-
 
         private void btnClose_Click(object sender, EventArgs e)
         {
