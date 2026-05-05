@@ -228,16 +228,23 @@ namespace CoreOffice.Win.Modules.Shared
         private async void btnShow_Click(object sender, EventArgs e)
         {
             var id = GetSelectedPackingSlipId();
-            if (id == null || _frmPackingSlip == null) return;
+            if (id == null) return;
 
             if (UserSession.RoleEnum == RoleEnum.PackingSlipOperator)
             {
                 await LoadPackingSlipAsync(id.Value); //  Edit mode
                 return;
             }
+            else if(UserSession.RoleEnum== RoleEnum.Cashier)
+            {
+                var packingSlip = await _packingSlipService.GetByIdAsync(id.Value);
+                var frm = new PackingSlipViewForm(_packingSlipService);
+              
+                frm.CallPackingSlipNumber(packingSlip.SlipNumber);
+                frm.ShowDialog();
+            }
 
-            //  View mode (future)
-            MessageBox.Show($"View Packing Slip: {id}");
+                
         }
 
         private void btnClose_Click(object sender, EventArgs e)

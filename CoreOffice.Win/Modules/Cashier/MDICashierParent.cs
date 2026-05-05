@@ -3,6 +3,7 @@
 using CoreOffice.Win.Modules.Cashier.Invoices;
 using CoreOffice.Win.Modules.PackingSlip;
 using CoreOffice.Win.Modules.Shared;
+using CoreOffice.Win.Modules.TallySynch;
 using CoreOffice.Win.Session;
 using CoreOffice.Win.Shared;
 using CoreOfficeERP.Application.Interfaces;
@@ -216,7 +217,7 @@ namespace CoreOffice.Win.Modules.Cashier
             childForm.Text = "Window " + childFormNumber++;
             childForm.Show();
 
-        
+
         }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
@@ -251,6 +252,15 @@ namespace CoreOffice.Win.Modules.Cashier
         private void toolStripMenuItem2_Click(object sender, EventArgs e)
         {
             var childForm = _serviceProvider.GetRequiredService<DeliveryChallanListForm>();
+            childForm.MdiParent = this;
+            childForm.WindowState = FormWindowState.Maximized;
+            childForm.Text = "Window " + childFormNumber++;
+            childForm.Show();
+        }
+
+        private void purchaseTallySnyncToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var childForm = _serviceProvider.GetRequiredService<TallySynchPurchase>();
             childForm.MdiParent = this;
             childForm.WindowState = FormWindowState.Maximized;
             childForm.Text = "Window " + childFormNumber++;

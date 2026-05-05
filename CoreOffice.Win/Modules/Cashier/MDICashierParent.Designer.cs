@@ -71,6 +71,8 @@
             button2 = new Button();
             btnReturnDeliveryChallan = new Button();
             btnCreateDeliveryChallan = new Button();
+            tallyToolStripMenuItem = new ToolStripMenuItem();
+            purchaseTallySnyncToolStripMenuItem = new ToolStripMenuItem();
             menuStrip.SuspendLayout();
             statusStrip.SuspendLayout();
             panel1.SuspendLayout();
@@ -78,7 +80,7 @@
             // 
             // menuStrip
             // 
-            menuStrip.Items.AddRange(new ToolStripItem[] { invoiceToolStripMenuItem, deliveryChallanToolStripMenuItem, invoiceToolStripMenuItem1 });
+            menuStrip.Items.AddRange(new ToolStripItem[] { invoiceToolStripMenuItem, deliveryChallanToolStripMenuItem, invoiceToolStripMenuItem1, tallyToolStripMenuItem });
             menuStrip.Location = new Point(0, 0);
             menuStrip.Name = "menuStrip";
             menuStrip.Padding = new Padding(7, 2, 0, 2);
@@ -448,6 +450,20 @@
             btnCreateDeliveryChallan.Text = "Create Delivery Challan";
             btnCreateDeliveryChallan.UseVisualStyleBackColor = true;
             // 
+            // tallyToolStripMenuItem
+            // 
+            tallyToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { purchaseTallySnyncToolStripMenuItem });
+            tallyToolStripMenuItem.Name = "tallyToolStripMenuItem";
+            tallyToolStripMenuItem.Size = new Size(42, 20);
+            tallyToolStripMenuItem.Text = "Tally";
+            // 
+            // purchaseTallySnyncToolStripMenuItem
+            // 
+            purchaseTallySnyncToolStripMenuItem.Name = "purchaseTallySnyncToolStripMenuItem";
+            purchaseTallySnyncToolStripMenuItem.Size = new Size(180, 22);
+            purchaseTallySnyncToolStripMenuItem.Text = "Purchase Tally Sync";
+            purchaseTallySnyncToolStripMenuItem.Click += purchaseTallySnyncToolStripMenuItem_Click;
+            // 
             // MDICashierParent
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -519,6 +535,8 @@
         private Button button1;
         private Button button2;
         private ToolStripMenuItem createPackingSlipToolStripMenuItem;
+        private ToolStripMenuItem tallyToolStripMenuItem;
+        private ToolStripMenuItem purchaseTallySnyncToolStripMenuItem;
     }
 }
 

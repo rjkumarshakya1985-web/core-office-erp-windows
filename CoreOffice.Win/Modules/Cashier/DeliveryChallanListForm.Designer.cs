@@ -28,49 +28,356 @@
         /// </summary>
         private void InitializeComponent()
         {
-            dataGrid = new DataGridView();
-            Id = new DataGridViewTextBoxColumn();
-            Date = new DataGridViewTextBoxColumn();
-            ChallanNo = new DataGridViewTextBoxColumn();
-            Customer = new DataGridViewTextBoxColumn();
-            Quantity = new DataGridViewTextBoxColumn();
-            ReturnQty = new DataGridViewTextBoxColumn();
-            BalanceQty = new DataGridViewTextBoxColumn();
-            TotalAmount = new DataGridViewTextBoxColumn();
-            Status = new DataGridViewTextBoxColumn();
-            panel2 = new Panel();
-            panel1 = new Panel();
             panel4 = new Panel();
-            cmbPageSize = new ComboBox();
+            label1 = new Label();
+            lblTotalInvoice = new Label();
+            panel5 = new Panel();
+            label4 = new Label();
+            lblTotalTallySynced = new Label();
+            panel6 = new Panel();
+            label6 = new Label();
+            lblTotalCancel = new Label();
+            panel9 = new Panel();
+            label3 = new Label();
+            lblTotalPendinginvoice = new Label();
+            panel1 = new Panel();
+            panel2 = new Panel();
+            panel3 = new Panel();
+            btnClear = new Button();
+            btnSearch = new Button();
+            comboBox1 = new ComboBox();
+            label2 = new Label();
+            txtCustomerName = new TextBox();
+            label5 = new Label();
+            txtChallanNo = new TextBox();
+            label7 = new Label();
             btnNext = new Button();
             btnPageDetail = new Button();
             btnPre = new Button();
             btnTotalRecord = new Button();
-            txtSearch = new TextBox();
-            panel3 = new Panel();
-            btnClose = new Button();
-            btnShow = new Button();
-            btnEdit = new Button();
-            btnDelete = new Button();
-            btnPrint = new Button();
-            ((System.ComponentModel.ISupportInitialize)dataGrid).BeginInit();
-            panel2.SuspendLayout();
-            panel1.SuspendLayout();
+            cmbPageSize = new ComboBox();
+            dataGrid = new DataGridView();
+            Id = new DataGridViewTextBoxColumn();
+            Date = new DataGridViewTextBoxColumn();
+            InvoiceNumber = new DataGridViewTextBoxColumn();
+            Customer = new DataGridViewTextBoxColumn();
+            Quantity = new DataGridViewTextBoxColumn();
+            ReturnQty = new DataGridViewTextBoxColumn();
+            BalanceQty = new DataGridViewTextBoxColumn();
+            BillAmount = new DataGridViewTextBoxColumn();
+            Status = new DataGridViewTextBoxColumn();
             panel4.SuspendLayout();
+            panel5.SuspendLayout();
+            panel6.SuspendLayout();
+            panel9.SuspendLayout();
+            panel1.SuspendLayout();
+            panel2.SuspendLayout();
             panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGrid).BeginInit();
             SuspendLayout();
+            // 
+            // panel4
+            // 
+            panel4.BackColor = Color.Green;
+            panel4.BorderStyle = BorderStyle.FixedSingle;
+            panel4.Controls.Add(lblTotalInvoice);
+            panel4.Controls.Add(label1);
+            panel4.ForeColor = Color.White;
+            panel4.Location = new Point(23, 9);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(200, 62);
+            panel4.TabIndex = 0;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(4, 4);
+            label1.Name = "label1";
+            label1.Size = new Size(93, 15);
+            label1.TabIndex = 0;
+            label1.Text = "TOTAL INVOICES";
+            // 
+            // lblTotalInvoice
+            // 
+            lblTotalInvoice.AutoSize = true;
+            lblTotalInvoice.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTotalInvoice.Location = new Point(59, 23);
+            lblTotalInvoice.Name = "lblTotalInvoice";
+            lblTotalInvoice.Size = new Size(25, 30);
+            lblTotalInvoice.TabIndex = 1;
+            lblTotalInvoice.Text = "0";
+            // 
+            // panel5
+            // 
+            panel5.BackColor = Color.Blue;
+            panel5.BorderStyle = BorderStyle.FixedSingle;
+            panel5.Controls.Add(lblTotalTallySynced);
+            panel5.Controls.Add(label4);
+            panel5.ForeColor = Color.White;
+            panel5.Location = new Point(440, 9);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(200, 62);
+            panel5.TabIndex = 1;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(4, 5);
+            label4.Name = "label4";
+            label4.Size = new Size(139, 15);
+            label4.TabIndex = 2;
+            label4.Text = "TALLY SYNCED INVOICES";
+            // 
+            // lblTotalTallySynced
+            // 
+            lblTotalTallySynced.AutoSize = true;
+            lblTotalTallySynced.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTotalTallySynced.Location = new Point(73, 24);
+            lblTotalTallySynced.Name = "lblTotalTallySynced";
+            lblTotalTallySynced.Size = new Size(25, 30);
+            lblTotalTallySynced.TabIndex = 3;
+            lblTotalTallySynced.Text = "0";
+            // 
+            // panel6
+            // 
+            panel6.BackColor = Color.FromArgb(192, 0, 0);
+            panel6.BorderStyle = BorderStyle.FixedSingle;
+            panel6.Controls.Add(lblTotalCancel);
+            panel6.Controls.Add(label6);
+            panel6.ForeColor = Color.White;
+            panel6.Location = new Point(650, 8);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(200, 62);
+            panel6.TabIndex = 2;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(3, 6);
+            label6.Name = "label6";
+            label6.Size = new Size(106, 15);
+            label6.TabIndex = 2;
+            label6.Text = "CANCEL INVOICES";
+            // 
+            // lblTotalCancel
+            // 
+            lblTotalCancel.AutoSize = true;
+            lblTotalCancel.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTotalCancel.Location = new Point(78, 25);
+            lblTotalCancel.Name = "lblTotalCancel";
+            lblTotalCancel.Size = new Size(25, 30);
+            lblTotalCancel.TabIndex = 3;
+            lblTotalCancel.Text = "0";
+            // 
+            // panel9
+            // 
+            panel9.BackColor = Color.FromArgb(255, 128, 0);
+            panel9.BorderStyle = BorderStyle.FixedSingle;
+            panel9.Controls.Add(lblTotalPendinginvoice);
+            panel9.Controls.Add(label3);
+            panel9.ForeColor = Color.White;
+            panel9.Location = new Point(229, 9);
+            panel9.Name = "panel9";
+            panel9.Size = new Size(200, 62);
+            panel9.TabIndex = 3;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(1, 4);
+            label3.Name = "label3";
+            label3.Size = new Size(192, 15);
+            label3.TabIndex = 2;
+            label3.Text = "PENDING TALLY SYNCED INVOICES";
+            // 
+            // lblTotalPendinginvoice
+            // 
+            lblTotalPendinginvoice.AutoSize = true;
+            lblTotalPendinginvoice.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTotalPendinginvoice.Location = new Point(73, 24);
+            lblTotalPendinginvoice.Name = "lblTotalPendinginvoice";
+            lblTotalPendinginvoice.Size = new Size(25, 30);
+            lblTotalPendinginvoice.TabIndex = 3;
+            lblTotalPendinginvoice.Text = "0";
+            // 
+            // panel1
+            // 
+            panel1.BackColor = Color.FromArgb(224, 224, 224);
+            panel1.Controls.Add(panel9);
+            panel1.Controls.Add(panel6);
+            panel1.Controls.Add(panel5);
+            panel1.Controls.Add(panel4);
+            panel1.Dock = DockStyle.Top;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(1020, 79);
+            panel1.TabIndex = 1;
+            // 
+            // panel2
+            // 
+            panel2.Controls.Add(panel3);
+            panel2.Controls.Add(btnNext);
+            panel2.Controls.Add(btnPageDetail);
+            panel2.Controls.Add(btnPre);
+            panel2.Controls.Add(btnTotalRecord);
+            panel2.Controls.Add(cmbPageSize);
+            panel2.Dock = DockStyle.Top;
+            panel2.Location = new Point(0, 79);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(1020, 73);
+            panel2.TabIndex = 7;
+            // 
+            // panel3
+            // 
+            panel3.BackColor = Color.White;
+            panel3.BorderStyle = BorderStyle.FixedSingle;
+            panel3.Controls.Add(btnClear);
+            panel3.Controls.Add(btnSearch);
+            panel3.Controls.Add(comboBox1);
+            panel3.Controls.Add(label2);
+            panel3.Controls.Add(txtCustomerName);
+            panel3.Controls.Add(label5);
+            panel3.Controls.Add(txtChallanNo);
+            panel3.Controls.Add(label7);
+            panel3.Dock = DockStyle.Top;
+            panel3.Location = new Point(0, 0);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(1020, 36);
+            panel3.TabIndex = 5;
+            // 
+            // btnClear
+            // 
+            btnClear.Location = new Point(909, 4);
+            btnClear.Name = "btnClear";
+            btnClear.Size = new Size(104, 27);
+            btnClear.TabIndex = 7;
+            btnClear.Text = "Clear";
+            btnClear.UseVisualStyleBackColor = true;
+            // 
+            // btnSearch
+            // 
+            btnSearch.Location = new Point(800, 4);
+            btnSearch.Name = "btnSearch";
+            btnSearch.Size = new Size(104, 27);
+            btnSearch.TabIndex = 6;
+            btnSearch.Text = "Search";
+            btnSearch.UseVisualStyleBackColor = true;
+            // 
+            // comboBox1
+            // 
+            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new Point(581, 6);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(213, 23);
+            comboBox1.TabIndex = 5;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Location = new Point(536, 10);
+            label2.Name = "label2";
+            label2.Size = new Size(39, 15);
+            label2.TabIndex = 4;
+            label2.Text = "Status";
+            // 
+            // txtCustomerName
+            // 
+            txtCustomerName.Location = new Point(358, 6);
+            txtCustomerName.Name = "txtCustomerName";
+            txtCustomerName.Size = new Size(168, 23);
+            txtCustomerName.TabIndex = 3;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(259, 9);
+            label5.Name = "label5";
+            label5.Size = new Size(94, 15);
+            label5.TabIndex = 2;
+            label5.Text = "Customer Name";
+            // 
+            // txtChallanNo
+            // 
+            txtChallanNo.Location = new Point(116, 5);
+            txtChallanNo.Name = "txtChallanNo";
+            txtChallanNo.Size = new Size(130, 23);
+            txtChallanNo.TabIndex = 1;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(14, 9);
+            label7.Name = "label7";
+            label7.Size = new Size(94, 15);
+            label7.TabIndex = 0;
+            label7.Text = "Challan Number";
+            // 
+            // btnNext
+            // 
+            btnNext.Font = new Font("Microsoft Tai Le", 9.75F);
+            btnNext.Location = new Point(331, 42);
+            btnNext.Name = "btnNext";
+            btnNext.Size = new Size(30, 28);
+            btnNext.TabIndex = 4;
+            btnNext.Text = ">";
+            btnNext.UseVisualStyleBackColor = true;
+            // 
+            // btnPageDetail
+            // 
+            btnPageDetail.BackColor = Color.White;
+            btnPageDetail.Font = new Font("Microsoft Tai Le", 9.75F);
+            btnPageDetail.Location = new Point(214, 42);
+            btnPageDetail.Name = "btnPageDetail";
+            btnPageDetail.Size = new Size(114, 28);
+            btnPageDetail.TabIndex = 3;
+            btnPageDetail.Text = "1/1";
+            btnPageDetail.UseVisualStyleBackColor = false;
+            // 
+            // btnPre
+            // 
+            btnPre.Font = new Font("Microsoft Tai Le", 9.75F);
+            btnPre.Location = new Point(182, 42);
+            btnPre.Name = "btnPre";
+            btnPre.Size = new Size(31, 28);
+            btnPre.TabIndex = 2;
+            btnPre.Text = "<";
+            btnPre.UseVisualStyleBackColor = true;
+            // 
+            // btnTotalRecord
+            // 
+            btnTotalRecord.BackColor = Color.White;
+            btnTotalRecord.Font = new Font("Microsoft Tai Le", 9.75F);
+            btnTotalRecord.Location = new Point(68, 42);
+            btnTotalRecord.Name = "btnTotalRecord";
+            btnTotalRecord.Size = new Size(114, 28);
+            btnTotalRecord.TabIndex = 1;
+            btnTotalRecord.Text = "Total (0)";
+            btnTotalRecord.UseVisualStyleBackColor = false;
+            // 
+            // cmbPageSize
+            // 
+            cmbPageSize.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbPageSize.Font = new Font("Microsoft Tai Le", 9.75F);
+            cmbPageSize.FormattingEnabled = true;
+            cmbPageSize.Items.AddRange(new object[] { "2", "10", "20", "50", "100", "200" });
+            cmbPageSize.Location = new Point(5, 44);
+            cmbPageSize.Name = "cmbPageSize";
+            cmbPageSize.Size = new Size(57, 24);
+            cmbPageSize.TabIndex = 0;
             // 
             // dataGrid
             // 
             dataGrid.AllowUserToAddRows = false;
             dataGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGrid.BackgroundColor = Color.White;
             dataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGrid.Columns.AddRange(new DataGridViewColumn[] { Id, Date, ChallanNo, Customer, Quantity, ReturnQty, BalanceQty, TotalAmount, Status });
+            dataGrid.Columns.AddRange(new DataGridViewColumn[] { Id, Date, InvoiceNumber, Customer, Quantity, ReturnQty, BalanceQty, BillAmount, Status });
             dataGrid.Dock = DockStyle.Fill;
-            dataGrid.Location = new Point(0, 0);
+            dataGrid.Location = new Point(0, 152);
             dataGrid.Name = "dataGrid";
-            dataGrid.Size = new Size(800, 357);
-            dataGrid.TabIndex = 0;
+            dataGrid.Size = new Size(1020, 356);
+            dataGrid.TabIndex = 8;
             // 
             // Id
             // 
@@ -85,22 +392,20 @@
             Date.Name = "Date";
             Date.ReadOnly = true;
             // 
-            // ChallanNo
+            // InvoiceNumber
             // 
-            ChallanNo.HeaderText = "Number";
-            ChallanNo.Name = "ChallanNo";
-            ChallanNo.ReadOnly = true;
+            InvoiceNumber.HeaderText = "Number";
+            InvoiceNumber.Name = "InvoiceNumber";
+            InvoiceNumber.ReadOnly = true;
             // 
             // Customer
             // 
-            Customer.FillWeight = 121.827477F;
             Customer.HeaderText = "Customer";
             Customer.Name = "Customer";
             Customer.ReadOnly = true;
             // 
             // Quantity
             // 
-            Quantity.FillWeight = 121.827477F;
             Quantity.HeaderText = "Quantity";
             Quantity.Name = "Quantity";
             Quantity.ReadOnly = true;
@@ -117,12 +422,11 @@
             BalanceQty.Name = "BalanceQty";
             BalanceQty.ReadOnly = true;
             // 
-            // TotalAmount
+            // BillAmount
             // 
-            TotalAmount.FillWeight = 121.827477F;
-            TotalAmount.HeaderText = "Total Amount";
-            TotalAmount.Name = "TotalAmount";
-            TotalAmount.ReadOnly = true;
+            BillAmount.HeaderText = "Bill Amount";
+            BillAmount.Name = "BillAmount";
+            BillAmount.ReadOnly = true;
             // 
             // Status
             // 
@@ -130,213 +434,71 @@
             Status.Name = "Status";
             Status.ReadOnly = true;
             // 
-            // panel2
-            // 
-            panel2.Controls.Add(dataGrid);
-            panel2.Dock = DockStyle.Fill;
-            panel2.Location = new Point(0, 44);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(800, 357);
-            panel2.TabIndex = 4;
-            // 
-            // panel1
-            // 
-            panel1.Controls.Add(panel4);
-            panel1.Controls.Add(txtSearch);
-            panel1.Dock = DockStyle.Top;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(800, 44);
-            panel1.TabIndex = 3;
-            // 
-            // panel4
-            // 
-            panel4.Controls.Add(cmbPageSize);
-            panel4.Controls.Add(btnNext);
-            panel4.Controls.Add(btnPageDetail);
-            panel4.Controls.Add(btnPre);
-            panel4.Controls.Add(btnTotalRecord);
-            panel4.Dock = DockStyle.Right;
-            panel4.Location = new Point(367, 0);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(433, 44);
-            panel4.TabIndex = 1;
-            // 
-            // cmbPageSize
-            // 
-            cmbPageSize.DropDownStyle = ComboBoxStyle.DropDownList;
-            cmbPageSize.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            cmbPageSize.FormattingEnabled = true;
-            cmbPageSize.Items.AddRange(new object[] { "2", "10", "50", "100", "200" });
-            cmbPageSize.Location = new Point(77, 10);
-            cmbPageSize.Name = "cmbPageSize";
-            cmbPageSize.Size = new Size(63, 25);
-            cmbPageSize.TabIndex = 5;
-            cmbPageSize.SelectedIndexChanged += cmbPageSize_SelectedIndexChanged;
-            // 
-            // btnNext
-            // 
-            btnNext.BackColor = Color.Black;
-            btnNext.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            btnNext.ForeColor = Color.White;
-            btnNext.Location = new Point(371, 8);
-            btnNext.Name = "btnNext";
-            btnNext.Size = new Size(43, 28);
-            btnNext.TabIndex = 4;
-            btnNext.Text = ">";
-            btnNext.UseVisualStyleBackColor = false;
-            btnNext.Click += btnNext_Click;
-            // 
-            // btnPageDetail
-            // 
-            btnPageDetail.BackColor = Color.White;
-            btnPageDetail.FlatStyle = FlatStyle.System;
-            btnPageDetail.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            btnPageDetail.Location = new Point(270, 8);
-            btnPageDetail.Name = "btnPageDetail";
-            btnPageDetail.Size = new Size(102, 28);
-            btnPageDetail.TabIndex = 3;
-            btnPageDetail.Text = "1/900";
-            btnPageDetail.UseVisualStyleBackColor = false;
-            // 
-            // btnPre
-            // 
-            btnPre.BackColor = Color.Black;
-            btnPre.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            btnPre.ForeColor = Color.White;
-            btnPre.Location = new Point(228, 8);
-            btnPre.Name = "btnPre";
-            btnPre.Size = new Size(43, 28);
-            btnPre.TabIndex = 2;
-            btnPre.Text = "<";
-            btnPre.UseVisualStyleBackColor = false;
-            btnPre.Click += btnPre_Click;
-            // 
-            // btnTotalRecord
-            // 
-            btnTotalRecord.BackColor = Color.FromArgb(224, 224, 224);
-            btnTotalRecord.FlatStyle = FlatStyle.System;
-            btnTotalRecord.Font = new Font("Segoe UI", 9.75F, FontStyle.Bold);
-            btnTotalRecord.Location = new Point(139, 8);
-            btnTotalRecord.Name = "btnTotalRecord";
-            btnTotalRecord.Size = new Size(90, 28);
-            btnTotalRecord.TabIndex = 0;
-            btnTotalRecord.Text = "Total (3000)";
-            btnTotalRecord.UseVisualStyleBackColor = false;
-            // 
-            // txtSearch
-            // 
-            txtSearch.Location = new Point(43, 12);
-            txtSearch.Name = "txtSearch";
-            txtSearch.Size = new Size(235, 23);
-            txtSearch.TabIndex = 0;
-            txtSearch.KeyDown += txtSearch_KeyDown;
-            // 
-            // panel3
-            // 
-            panel3.Controls.Add(btnClose);
-            panel3.Controls.Add(btnShow);
-            panel3.Controls.Add(btnEdit);
-            panel3.Controls.Add(btnDelete);
-            panel3.Controls.Add(btnPrint);
-            panel3.Dock = DockStyle.Bottom;
-            panel3.Location = new Point(0, 401);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(800, 49);
-            panel3.TabIndex = 5;
-            // 
-            // btnClose
-            // 
-            btnClose.Location = new Point(137, 7);
-            btnClose.Name = "btnClose";
-            btnClose.Size = new Size(117, 36);
-            btnClose.TabIndex = 4;
-            btnClose.Text = "Close";
-            btnClose.UseVisualStyleBackColor = true;
-            // 
-            // btnShow
-            // 
-            btnShow.Location = new Point(261, 7);
-            btnShow.Name = "btnShow";
-            btnShow.Size = new Size(117, 36);
-            btnShow.TabIndex = 3;
-            btnShow.Text = "Show Detail";
-            btnShow.UseVisualStyleBackColor = true;
-            // 
-            // btnEdit
-            // 
-            btnEdit.Location = new Point(507, 7);
-            btnEdit.Name = "btnEdit";
-            btnEdit.Size = new Size(117, 36);
-            btnEdit.TabIndex = 2;
-            btnEdit.Text = "Edit";
-            btnEdit.UseVisualStyleBackColor = true;
-            // 
-            // btnDelete
-            // 
-            btnDelete.Location = new Point(384, 7);
-            btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(117, 36);
-            btnDelete.TabIndex = 1;
-            btnDelete.Text = "Delete";
-            btnDelete.UseVisualStyleBackColor = true;
-            // 
-            // btnPrint
-            // 
-            btnPrint.Location = new Point(16, 7);
-            btnPrint.Name = "btnPrint";
-            btnPrint.Size = new Size(117, 36);
-            btnPrint.TabIndex = 0;
-            btnPrint.Text = "Print";
-            btnPrint.UseVisualStyleBackColor = true;
-            // 
             // DeliveryChallanListForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(1020, 508);
+            Controls.Add(dataGrid);
             Controls.Add(panel2);
             Controls.Add(panel1);
-            Controls.Add(panel3);
             Name = "DeliveryChallanListForm";
-            Text = "Delivery Challan List";
-            WindowState = FormWindowState.Maximized;
-            Load += DeliveryChallanListForm_Load;
-            ((System.ComponentModel.ISupportInitialize)dataGrid).EndInit();
-            panel2.ResumeLayout(false);
-            panel1.ResumeLayout(false);
-            panel1.PerformLayout();
+            Text = "DeliveryChallanListForm";
             panel4.ResumeLayout(false);
+            panel4.PerformLayout();
+            panel5.ResumeLayout(false);
+            panel5.PerformLayout();
+            panel6.ResumeLayout(false);
+            panel6.PerformLayout();
+            panel9.ResumeLayout(false);
+            panel9.PerformLayout();
+            panel1.ResumeLayout(false);
+            panel2.ResumeLayout(false);
             panel3.ResumeLayout(false);
+            panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGrid).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private DataGridView dataGrid;
-        private Panel panel2;
-        private Panel panel1;
-        private Panel panel3;
-        private Button btnClose;
-        private Button btnShow;
-        private Button btnEdit;
-        private Button btnDelete;
-        private Button btnPrint;
         private Panel panel4;
-        private Button btnTotalRecord;
-        private TextBox txtSearch;
+        private Label lblTotalInvoice;
+        private Label label1;
+        private Panel panel5;
+        private Label lblTotalTallySynced;
+        private Label label4;
+        private Panel panel6;
+        private Label lblTotalCancel;
+        private Label label6;
+        private Panel panel9;
+        private Label lblTotalPendinginvoice;
+        private Label label3;
+        private Panel panel1;
+        private Panel panel2;
+        private Panel panel3;
+        private Button btnClear;
+        private Button btnSearch;
+        private ComboBox comboBox1;
+        private Label label2;
+        private TextBox txtCustomerName;
+        private Label label5;
+        private TextBox txtChallanNo;
+        private Label label7;
         private Button btnNext;
         private Button btnPageDetail;
         private Button btnPre;
+        private Button btnTotalRecord;
+        private ComboBox cmbPageSize;
+        private DataGridView dataGrid;
         private DataGridViewTextBoxColumn Id;
         private DataGridViewTextBoxColumn Date;
-        private DataGridViewTextBoxColumn ChallanNo;
+        private DataGridViewTextBoxColumn InvoiceNumber;
         private DataGridViewTextBoxColumn Customer;
         private DataGridViewTextBoxColumn Quantity;
+        private DataGridViewTextBoxColumn BillAmount;
+        private DataGridViewTextBoxColumn Status;
         private DataGridViewTextBoxColumn ReturnQty;
         private DataGridViewTextBoxColumn BalanceQty;
-        private DataGridViewTextBoxColumn TotalAmount;
-        private DataGridViewTextBoxColumn Status;
-        private ComboBox cmbPageSize;
     }
 }

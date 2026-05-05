@@ -92,7 +92,7 @@ namespace CoreOfficeERP.Application.Services
         public async Task<int> UpdateAsync(object id, PackingSlipRequest request)
         {
             var response = await _apiRepository
-                .PutAsync<PackingSlipRequest, ApiResponse<int>>(ApiEndpoints.GetPackingSlipPendingList, id, request);
+                .PutAsync<PackingSlipRequest, ApiResponse<int>>(ApiEndpoints.CreatePackingSlip, id, request);
 
             return response!.Data;
         }

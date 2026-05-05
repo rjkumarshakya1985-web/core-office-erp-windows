@@ -63,15 +63,17 @@ namespace CoreOffice.Win.Modules.Shared
         }
 
         private async void txtPackingSlip_KeyDown(object sender, KeyEventArgs e)
-        {
+{
+    if (e.KeyCode != Keys.Enter)
+        return;
 
-            if (e.KeyCode != Keys.Enter)
-                return;
-            e.Handled = true; // prevent ding sound
-            if (txtPackingSlip.Text.Trim() == "")
-                return;
-            await LoadPackingSlip(txtPackingSlip.Text.Trim());
-        }
+    e.Handled = true; // prevent ding sound
+
+    if (txtPackingSlip.Text.Trim() == "")
+        return;
+
+    await LoadPackingSlip(txtPackingSlip.Text.Trim());
+}
 
         public void LoadPackingSlip(PackingSlipResponse response)
         {
@@ -143,7 +145,7 @@ namespace CoreOffice.Win.Modules.Shared
 
             lblCompanyName.Text = "-";
             lblPhone.Text = "-";
-    
+
             lblTotalPcs.Text = "0";
             lblVisitorType.Text = "-";
             lblTotalAmount.Text = "0.00";
@@ -209,6 +211,18 @@ namespace CoreOffice.Win.Modules.Shared
         private void btnClose_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+
+        ///
+        public void CallPackingSlipNumber(string packingSlipNumber)
+        {
+            if (string.IsNullOrEmpty(packingSlipNumber))
+                return;
+           
+            txtPackingSlip.Enter += async (s, e) => await LoadPackingSlip(packingSlipNumber);
+            txtPackingSlip.Text = packingSlipNumber;
+           
         }
     }
 }
