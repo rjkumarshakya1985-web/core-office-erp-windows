@@ -11,6 +11,7 @@ namespace CoreOfficeERP.Tally
         {
             services.AddScoped<ITallyPurchaseService, TallyPurchaseService>();
             return services;
+
         }
     }
 }

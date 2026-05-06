@@ -27,6 +27,7 @@ namespace CoreOfficeERP.Application
             services.AddScoped<ITallyTransactionService, TallyTransactionService>();
             services.AddScoped<ITallyProcessService, TallyProcessService>(); 
             services.AddScoped<ITallyProcessOrchestratorService, TallyProcessOrchestratorService>();
+            services.AddScoped<IPrintDataService, PrintDataService>();
             return services;
         }
     }
