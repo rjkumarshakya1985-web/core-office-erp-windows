@@ -1,6 +1,7 @@
 ﻿using CoreOffice.Win.Modules.PackingSlip;
 using CoreOffice.Win.Session;
 using CoreOffice.Win.Shared;
+using CoreOffice.Win.Shared.Prints;
 using CoreOfficeERP.Application.Interfaces;
 using CoreOfficeERP.Common.Enums;
 using CoreOfficeERP.Domain.Responses.PackingSlip;
@@ -13,12 +14,13 @@ namespace CoreOffice.Win.Modules.Shared
         private readonly IPackingSlipService _packingSlipService;
         public FrmPackingSlip _frmPackingSlip;
         private List<PackingSlipResponse> list;
-        public PendingPackingSlipForm(IPackingSlipService packingSlipService)
+        private PrintService _printService;
+        public PendingPackingSlipForm(IPackingSlipService packingSlipService, PrintService printService)
         {
-            InitializeComponent();
             _packingSlipService = packingSlipService;
-
-
+            _printService = printService;
+            InitializeComponent();
+          
         }
 
         private async Task LoadPackingSlips()
@@ -108,12 +110,12 @@ namespace CoreOffice.Win.Modules.Shared
             await LoadPackingSlips();
         }
 
-        private void btnPrint_Click(object sender, EventArgs e)
+        private async void btnPrint_Click(object sender, EventArgs e)
         {
             var id = GetSelectedPackingSlipId();
             if (id == null) return;
 
-            MessageBox.Show($"Print Packing Slip: {id}");
+            await _printService.PrintPackingSlipAsync(id.Value);
 
         }
 

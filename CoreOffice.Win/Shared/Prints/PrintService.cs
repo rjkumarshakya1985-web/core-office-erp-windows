@@ -7,17 +7,17 @@ namespace CoreOffice.Win.Shared.Prints
 {
     public class PrintService
     {
-        private readonly IPackingSlipService _packingSlipService;
-        public PrintService(IPackingSlipService packingSlipService) { 
-            _packingSlipService = packingSlipService;
+        private readonly IPrintDataService _printDataService;
+        public PrintService(IPrintDataService printDataService)
+        {
+            _printDataService = printDataService;
         }
 
         public async Task<bool> PrintPackingSlipAsync(int packingSlipId)
         {
             try
             {
-                
-                var packingSlip = await _packingSlipService.GetByIdAsync(packingSlipId);
+                var packingSlip = await _printDataService.GetPackingSlipPrint(packingSlipId);
 
                 if (packingSlip == null)
                 {
@@ -57,7 +57,7 @@ namespace CoreOffice.Win.Shared.Prints
 
                
                 report.PrintToPrinter(
-                    printerName: "", 
+                    printerName: "ESYPOS ETP5311(250N)", 
                     pageWidth: "3.15in",
                     pageHeight: "11in",
                     copies: 1

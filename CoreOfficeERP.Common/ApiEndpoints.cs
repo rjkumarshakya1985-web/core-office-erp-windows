@@ -37,6 +37,10 @@
         public const string GetInvoiceList = "invoice/table";
         public const string GetInvoiceStatusCount = "invoice/status-counts";
 
+
+        /// Billing
+        public const string PackingSlipPrint = "billingprint/packingslip";
+
         /// Tally
         public const string GetTallyConfig="TallyConfig";
         public const string GetTallyCompanies = "TallyConfig/companies";
