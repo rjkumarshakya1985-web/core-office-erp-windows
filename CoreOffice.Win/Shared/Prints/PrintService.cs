@@ -16,7 +16,7 @@ namespace CoreOffice.Win.Shared.Prints
         {
             try
             {
-                
+
                 var packingSlip = await _packingSlipService.GetByIdAsync(packingSlipId);
 
                 if (packingSlip == null)
@@ -26,7 +26,7 @@ namespace CoreOffice.Win.Shared.Prints
                 }
                 var items = PackingSlipMapper.ToItems(packingSlip);
 
-               
+
                 LocalReport report = new LocalReport();
                 report.ReportPath = Path.Combine(
                     AppDomain.CurrentDomain.BaseDirectory,
@@ -47,8 +47,34 @@ namespace CoreOffice.Win.Shared.Prints
                 StateCode = "07"
             }
                    };
-
+            //    var items = new List<PackingSlipItemModel>
+            //      {
+            //          new PackingSlipItemModel
+            //{
+            //              SlipNumber="0008",
+            //              Date=DateTime.Now,
+            //                VisitorName="Shiv Sahay Bhagwan Das Pvt Ltd Agra",
+            //                VisitorType="Customer",
+            //                VisitorMobile="8299344397",
+            //                TotalPcs=10,
+            //                GrandTotal=1000,
+            //                StockGroup="Group A",
+            //                BarCode="1234567890123",
+            //                    Qty=10,
+            //                    GstValue=5,
+            //                    SaleRate=100,
+            //                    TaxableAmount=950,
+            //                    Amount=1000,
+            //                        Salesman="John Doe",
+            //                        UserName="admin",
+            //                        Department="Sales",
+            //                        SubDepartment="Retail",
+            //    ProductName = "B-222, Yamuna River, Agra",
                
+            //}
+            //       };
+
+
                 report.DataSources.Clear();
                 report.DataSources.Add(new ReportDataSource("DataSetPackingSlip", items));
                 report.DataSources.Add(new ReportDataSource("DataSetCompany", companyData));
@@ -57,7 +83,7 @@ namespace CoreOffice.Win.Shared.Prints
 
                
                 report.PrintToPrinter(
-                    printerName: "", 
+                    printerName: "ESYPOS ETP5311(250N)", 
                     pageWidth: "3.15in",
                     pageHeight: "11in",
                     copies: 1

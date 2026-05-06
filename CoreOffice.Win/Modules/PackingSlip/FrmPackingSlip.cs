@@ -455,7 +455,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
                 report.Refresh(); // 🔥 VERY IMPORTANT
                 // 🔥 EXTENSION CALL
                 report.PrintToPrinter(
-                    printerName: "Microsoft Print to PDF",          // "" = default printer
+                    printerName: "ESYPOS ETP5311(250N)",          // "" = default printer
                     pageWidth: "3.15in",      // thermal → 80mm
                     pageHeight: "11in",
                     copies: 1
@@ -469,6 +469,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
 
         private async void btnSave_Click(object sender, EventArgs e)
         {
+           
             try
             {
                 AppLoader.Show();
@@ -540,7 +541,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
                     if (PackingSlipId.HasValue)
                     {
                         Clear();
-                        // await _printService.PrintPackingSlipAsync(PackingSlipId.Value);
+                         await _printService.PrintPackingSlipAsync(PackingSlipId.Value);
                     }
                 }
 
