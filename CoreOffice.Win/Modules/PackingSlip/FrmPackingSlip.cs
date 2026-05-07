@@ -57,20 +57,20 @@ namespace CoreOffice.Win.Modules.PackingSlip
 
             if (salesPersons != null && salesPersons.Any())
             {
-                // ✅ Insert blank option on top
-                salesPersons.Insert(0, new SalePersonResponse
-                {
-                    Id = null,
-                    Name = "",
-                    PhoneNumber = "",
-                    StateId = 0,
-                    StateName = "",
-                    CityId = 0,
-                    CityName = "",
-                    Address = "",
-                    IsActive = false,
-                    IsDeleted = false
-                });
+                //// ✅ Insert blank option on top
+                //salesPersons.Insert(0, new SalePersonResponse
+                //{
+                //    Id = null,
+                //    Name = "",
+                //    PhoneNumber = "",
+                //    StateId = 0,
+                //    StateName = "",
+                //    CityId = 0,
+                //    CityName = "",
+                //    Address = "",
+                //    IsActive = false,
+                //    IsDeleted = false
+                //});
 
                 cmbSalesPerson.DataSource = salesPersons;
                 cmbSalesPerson.DisplayMember = "Name";
@@ -289,32 +289,26 @@ namespace CoreOffice.Win.Modules.PackingSlip
             lblTotalPcs.Text = totalPcs.ToString();
             lblTaxableAmount.Text = Math.Round(totalTaxable, 0, MidpointRounding.AwayFromZero).ToString("0.00");
         }
-        private async void txtBarcodeScanner_KeyDown(object sender, KeyEventArgs e)
+        public async Task ScanBarcode()
         {
-
-            if (e.KeyCode != Keys.Enter)
-                return;
-
             if (VisitorType == null)
             {
                 MessageBox.Show("Please select visitor first");
                 return;
             }
-            e.Handled = true;
-
             var barcode = txtBarcodeScanner.Text.Trim();
-
-
 
             if (string.IsNullOrWhiteSpace(barcode))
                 return;
 
+            // Check duplicate product
             foreach (DataGridViewRow row in dataGridPackingSlip.Rows)
             {
                 if (row.Cells["Barcode"].Value?.ToString() == barcode)
                 {
                     MessageBox.Show("Product already added. You can change quantity from the grid.");
                     txtBarcodeScanner.Clear();
+                    txtBarcodeScanner.Focus();
                     return;
                 }
             }
@@ -324,10 +318,11 @@ namespace CoreOffice.Win.Modules.PackingSlip
             {
                 MessageBox.Show("Product not found");
                 txtBarcodeScanner.Clear();
+                txtBarcodeScanner.Focus();
                 return;
             }
 
-
+            // Multiple products found
             if (stockItems.Count() > 1)
             {
                 var frm = new FrmMultipleStockProduct();
@@ -343,15 +338,23 @@ namespace CoreOffice.Win.Modules.PackingSlip
             {
                 MessageBox.Show("Stock not available");
                 txtBarcodeScanner.Clear();
+                txtBarcodeScanner.Focus();
                 return;
             }
 
 
             txtBarcodeScanner.Clear();
-
-            e.SuppressKeyPress = true;
-
             new FrmProductQty(this, item).ShowDialog();
+            txtBarcodeScanner.Focus();
+
+        }
+        private async void txtBarcodeScanner_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode != Keys.Enter)
+                return;
+            e.Handled = true;
+            e.SuppressKeyPress = true;
+            await ScanBarcode();
         }
 
         public void AddSingleItemToGrid(CurrentStockResponse item)
@@ -469,7 +472,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
 
         private async void btnSave_Click(object sender, EventArgs e)
         {
-           
+
             try
             {
                 AppLoader.Show();
@@ -532,7 +535,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
                     if (id > 0)
                     {
                         Clear();
-                          await _printService.PrintPackingSlipAsync(id);
+                        await _printService.PrintPackingSlipAsync(id);
                     }
                 }
                 else
@@ -743,9 +746,13 @@ namespace CoreOffice.Win.Modules.PackingSlip
             {
                 e.Handled = true;
                 e.SuppressKeyPress = true;
-
                 OpenQtyPopup();
             }
+        }
+
+        private async void btnEnter_Click(object sender, EventArgs e)
+        {
+            await ScanBarcode();
         }
     }
 

@@ -59,6 +59,7 @@
             ClientSize = new Size(422, 121);
             Controls.Add(groupBox1);
             Name = "FrmPackingSlipNumber";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "PackingSlip Number";
             Load += FrmPackingSlipNumber_Load;
             groupBox1.ResumeLayout(false);
