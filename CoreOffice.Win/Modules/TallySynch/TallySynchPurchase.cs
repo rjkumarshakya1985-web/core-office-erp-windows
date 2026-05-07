@@ -24,7 +24,7 @@ namespace CoreOffice.Win.Modules.TallySynch
         private TallyProcessType? ProcessType;
         private readonly ITallyProcessService _tallyProcessService;
 
-        public TallySynchPurchase(ITallyPurchaseService tallyPurchaseService, IServiceProvider serviceProvider, ITallyTransactionService tallyTransactionsService, ITallyProcessOrchestratorService tallyProcessOrchestrator, ITallyProcessService tallyProcessService,ITallyConfigService tallyConfigService)
+        public TallySynchPurchase(ITallyPurchaseService tallyPurchaseService, IServiceProvider serviceProvider, ITallyTransactionService tallyTransactionsService, ITallyProcessOrchestratorService tallyProcessOrchestrator, ITallyProcessService tallyProcessService, ITallyConfigService tallyConfigService)
         {
             InitializeComponent();
             this._tallyPurchaseService = tallyPurchaseService;
@@ -36,7 +36,7 @@ namespace CoreOffice.Win.Modules.TallySynch
             btnSynch.Enabled = false;
             txtVoucher.Focus();
         }
-       
+
         private void ClearData()
         {
             txtVoucher.Text = string.Empty;
@@ -61,7 +61,7 @@ namespace CoreOffice.Win.Modules.TallySynch
             lblCreditDays.Text = "NA";
             lblCreditLimit.Text = "NA";
             lblGSTTreatment.Text = "NA";
-            lblDiscount.Text = "NA";          
+            lblDiscount.Text = "NA";
 
         }
 
@@ -118,7 +118,7 @@ namespace CoreOffice.Win.Modules.TallySynch
                     }
                     else
                     {
-                      //  lblCompanyInfo.Text = "No Active Financial Year";
+                        //  lblCompanyInfo.Text = "No Active Financial Year";
                     }
                 }
                 catch (Exception ex)
@@ -131,7 +131,7 @@ namespace CoreOffice.Win.Modules.TallySynch
 
         private async void btnSynch_Click(object sender, EventArgs e)
         {
-            
+
             if (_currentPurchase == null || _tallyConfig == null)
             {
                 MessageBox.Show("No voucher loaded. Please enter voucher first.");
@@ -146,7 +146,7 @@ namespace CoreOffice.Win.Modules.TallySynch
             {
                 // ✅ Call orchestrator (NO Task.Run)
                 logs = await _tallyProcessOrchestrator
-                    .ExecutePurchase(_currentPurchase, _tallyConfig,1);
+                    .ExecutePurchase(_currentPurchase, _tallyConfig, 1);
                 // ✅ Determine success
                 isSuccess = logs != null && logs.Any() && logs.All(x => x.IsSuccess);
                 if (isSuccess)
@@ -183,12 +183,12 @@ namespace CoreOffice.Win.Modules.TallySynch
                     {
                         await _tallyProcessService.CreateAsync(logs);
                     }
-                    
+
                     // ✅ NEW: Send updated purchase via PUT
                     // ✅ ONLY update if success
                     if (isSuccess && completedPurchase != null)
                     {
-                    //    var updateResult = await _tallyTransactionsService.TallyDataUpdate(completedPurchase?.SaleVoucherPrint?.Id, completedPurchase);
+                        //    var updateResult = await _tallyTransactionsService.TallyDataUpdate(completedPurchase?.SaleVoucherPrint?.Id, completedPurchase);
                         var bulkRequest = BuildTallyNameRequests(completedPurchase);
 
                         if (bulkRequest.Any())
@@ -216,9 +216,9 @@ namespace CoreOffice.Win.Modules.TallySynch
         private async void txtVoucher_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode != Keys.Enter)
-                return;       
-           
-            if (txtVoucher.Text == string.Empty|| txtVoucher.Text==null)
+                return;
+
+            if (txtVoucher.Text == string.Empty || txtVoucher.Text == null)
             {
                 MessageBox.Show("Please Enter Voucher No first");
                 this.txtVoucher.Focus();
@@ -226,7 +226,7 @@ namespace CoreOffice.Win.Modules.TallySynch
             }
             e.Handled = true;
 
-          int.TryParse(txtVoucher.Text.Trim(), out int id);
+            int.TryParse(txtVoucher.Text.Trim(), out int id);
 
             // 1. Get Purchase Data
             var vouchers = await _tallyTransactionsService.GetTallyPurchase(id);
@@ -242,7 +242,7 @@ namespace CoreOffice.Win.Modules.TallySynch
             // 2. Get Tally Config (IMPORTANT)
             int config = 1;
             var tallyConfig = await _tallyConfigService.GetTallyConfig(config);
-          
+
 
             if (tallyConfig == null)
             {
@@ -261,7 +261,7 @@ namespace CoreOffice.Win.Modules.TallySynch
             txtVoucher.Clear();
 
             // Optional: UI feedback
-          //  MessageBox.Show("Voucher Loaded Successfully. Click Process to send to Tally.");  
+            //  MessageBox.Show("Voucher Loaded Successfully. Click Process to send to Tally.");  
             btnSynch.Enabled = true;
 
         }
@@ -280,33 +280,33 @@ namespace CoreOffice.Win.Modules.TallySynch
 
 
             //Binding Agent Data
-            lblAgentName.Text= _currentPurchase.SupplierResponse.AgentObj.Name;
-            lblATallyName.Text= _currentPurchase.SupplierResponse.AgentObj.TallyLedgerName;
-            lblContactPer.Text= _currentPurchase.SupplierResponse.AgentObj.ContactPersonName;
+            lblAgentName.Text = _currentPurchase.SupplierResponse.AgentObj.Name;
+            lblATallyName.Text = _currentPurchase.SupplierResponse.AgentObj.TallyLedgerName;
+            lblContactPer.Text = _currentPurchase.SupplierResponse.AgentObj.ContactPersonName;
             lblAMobile.Text = _currentPurchase.SupplierResponse.AgentObj.ContactPersonMobile;
-            lblAGSTIN.Text= _currentPurchase.SupplierResponse.AgentObj.GSTIN;
-            lblAPAN.Text=   _currentPurchase.SupplierResponse.AgentObj.PAN;
+            lblAGSTIN.Text = _currentPurchase.SupplierResponse.AgentObj.GSTIN;
+            lblAPAN.Text = _currentPurchase.SupplierResponse.AgentObj.PAN;
             lblCreditDays.Text = _currentPurchase.SupplierResponse.CreditDays.ToString();
             lblCreditLimit.Text = _currentPurchase.SupplierResponse.CreditLimit.ToString();
-            lblGSTTreatment.Text=_currentPurchase.SupplierResponse.RegType == 1 ? "Regular" : _currentPurchase.SupplierResponse.RegType == 2 ? "Composition" : "Unregistered";
+            lblGSTTreatment.Text = _currentPurchase.SupplierResponse.RegType == 1 ? "Regular" : _currentPurchase.SupplierResponse.RegType == 2 ? "Composition" : "Unregistered";
             lblDiscount.Text = _currentPurchase.SupplierResponse.Discount.ToString("0.00");
 
         }
         private void BindGrid()
-        {          
+        {
 
             var data = _currentPurchase.StockitemResponse.Select(x => new
             {
                 Product = x.ProductName,
-                HSN= x.HsnCode,
+                HSN = x.HsnCode,
                 Quantity = x.Quantity,
                 Rate = x.PurchasePrice,
                 GST = x.Gst,
-                Amount = x.Total                
+                Amount = x.Total
             }).ToList();
 
             dataGridInvoice.DataSource = data;
-          
+
         }
         private void MapLedgerNames(TallyPurchaseResponse data)
         {
@@ -392,7 +392,16 @@ namespace CoreOffice.Win.Modules.TallySynch
         }
         private void setFormForSaleVoucher(TallyPurchaseResponse purchaseResponse)
         {
-            
+
+        }
+
+        private void btnClose_Click_1(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Do you want to close this window?","Confirm",MessageBoxButtons.YesNo,MessageBoxIcon.Warning);
+            if (result == DialogResult.Yes)
+            { 
+            this.Close();
+            }
         }
     }
 }

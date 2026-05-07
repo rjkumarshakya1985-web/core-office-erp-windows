@@ -31,7 +31,21 @@ namespace CoreOffice.Win.Modules.Cashier
             InitializeHeader();
         }
 
+        public T GetService<T>()
+        {
+            return _serviceProvider.GetRequiredService<T>();
+        }
+        public void OpenFormInPanel(Form form)
+        {
+            panelContainer.Controls.Clear();
 
+            form.TopLevel = false;
+            form.FormBorderStyle = FormBorderStyle.None;
+            form.Dock = DockStyle.Fill;
+
+            panelContainer.Controls.Add(form);
+            form.Show();
+        }
         private void InitializeHeader()
         {
             topPanel = new Panel
@@ -132,8 +146,69 @@ namespace CoreOffice.Win.Modules.Cashier
             {
                 MessageBox.Show("Error loading financial year: " + ex.Message);
             }
-        }
+            BindPanelsidebar();
+            OpenChild(new DashboardForm());
 
+        }
+        private void OpenChild(Form child)
+        {
+            foreach (Form frm in panelContainer.Controls)
+            {
+                frm.Close();
+            }
+
+            panelContainer.Controls.Clear();
+
+            child.TopLevel = false; // IMPORTANT
+            child.FormBorderStyle = FormBorderStyle.None;
+            child.Dock = DockStyle.Fill;
+
+            panelContainer.Controls.Add(child);
+            child.Show();
+        }
+        public void BindPanelsidebar()
+        {
+            panelSidebar.Controls.Add(CreateSidebarButton("Dashboard", Properties.Resources.home, 120));
+            panelSidebar.Controls.Add(CreateSidebarButton("Packing Slip", Properties.Resources.packingslip, 170));
+            panelSidebar.Controls.Add(CreateSidebarButton("Delivery Challan", Properties.Resources.delivery, 180));
+            panelSidebar.Controls.Add(CreateSidebarButton("Invoice", Properties.Resources.bill, 220));
+            panelSidebar.Controls.Add(CreateSidebarButton("Tally", Properties.Resources.calculator, 280));
+            panelSidebar.Controls.Add(CreateSidebarButton("Reports", Properties.Resources.combo_chart, 330));
+            panelSidebar.Controls.Add(CreateSidebarButton("Settings", Properties.Resources.settings, 380));
+        }
+        private Panel CreateSidebarButton(string text, Image icon, int top)
+        {
+            Panel panel = new Panel();
+            panel.Width = 220;
+            panel.Height = 50;
+            panel.Top = top;
+            panel.BackColor = Color.FromArgb(27, 79, 156);
+            panel.Cursor = Cursors.Hand;
+
+            PictureBox pic = new PictureBox();
+            pic.Image = icon;
+            pic.SizeMode = PictureBoxSizeMode.Zoom;
+            pic.Size = new Size(24, 24);
+            pic.Location = new Point(15, 13);
+
+            Label lbl = new Label();
+            lbl.Text = text;
+            lbl.ForeColor = Color.White;
+            lbl.Font = new Font("Segoe UI", 10);
+            lbl.AutoSize = true;
+            lbl.Location = new Point(50, 15);
+
+            panel.Controls.Add(pic);
+            panel.Controls.Add(lbl);
+
+            panel.MouseEnter += (s, e) =>
+                panel.BackColor = Color.FromArgb(47, 128, 237);
+
+            panel.MouseLeave += (s, e) =>
+                panel.BackColor = Color.FromArgb(27, 79, 156);
+
+            return panel;
+        }
         private void BtnChangeCompany_Click(object sender, EventArgs e)
         {
 
@@ -265,6 +340,20 @@ namespace CoreOffice.Win.Modules.Cashier
             childForm.WindowState = FormWindowState.Maximized;
             childForm.Text = "Window " + childFormNumber++;
             childForm.Show();
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void menuicon_Click(object sender, EventArgs e)
+        {
+            if (panelSidebar.Width == 220)
+                    panelSidebar.Width = 60;
+                else
+                    panelSidebar.Width = 220;
+            
         }
     }
 }

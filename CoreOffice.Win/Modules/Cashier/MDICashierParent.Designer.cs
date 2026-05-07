@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MDICashierParent));
             menuStrip = new MenuStrip();
             invoiceToolStripMenuItem = new ToolStripMenuItem();
             createInvoiceToolStripMenuItem = new ToolStripMenuItem();
@@ -51,31 +52,25 @@
             createCreditNoteToolStripMenuItem = new ToolStripMenuItem();
             creditNoteListToolStripMenuItem = new ToolStripMenuItem();
             searchCreditNoteToolStripMenuItem = new ToolStripMenuItem();
+            tallyToolStripMenuItem = new ToolStripMenuItem();
+            purchaseTallySnyncToolStripMenuItem = new ToolStripMenuItem();
             statusStrip = new StatusStrip();
             lblCompany = new ToolStripStatusLabel();
             toolTip = new ToolTip(components);
-            panel1 = new Panel();
-            button13 = new Button();
-            button14 = new Button();
-            button11 = new Button();
-            button12 = new Button();
-            button9 = new Button();
-            button10 = new Button();
-            button7 = new Button();
-            button8 = new Button();
-            button5 = new Button();
-            button6 = new Button();
-            button3 = new Button();
+            panelTop = new Panel();
+            menuicon = new PictureBox();
             button4 = new Button();
-            button1 = new Button();
-            button2 = new Button();
-            btnReturnDeliveryChallan = new Button();
-            btnCreateDeliveryChallan = new Button();
-            tallyToolStripMenuItem = new ToolStripMenuItem();
-            purchaseTallySnyncToolStripMenuItem = new ToolStripMenuItem();
+            label4 = new Label();
+            label3 = new Label();
+            panelSidebar = new Panel();
+            pictureBox1 = new PictureBox();
+            panelContainer = new Panel();
             menuStrip.SuspendLayout();
             statusStrip.SuspendLayout();
-            panel1.SuspendLayout();
+            panelTop.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)menuicon).BeginInit();
+            panelSidebar.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // menuStrip
@@ -178,53 +173,67 @@
             // deliveryChallanToInvoiceToolStripMenuItem
             // 
             deliveryChallanToInvoiceToolStripMenuItem.Name = "deliveryChallanToInvoiceToolStripMenuItem";
-            deliveryChallanToInvoiceToolStripMenuItem.Size = new Size(215, 22);
+            deliveryChallanToInvoiceToolStripMenuItem.Size = new Size(216, 22);
             deliveryChallanToInvoiceToolStripMenuItem.Text = "&Delivery Challan To Invoice";
             deliveryChallanToInvoiceToolStripMenuItem.Click += deliveryChallanToInvoiceToolStripMenuItem_Click;
             // 
             // createInvoiceToolStripMenuItem1
             // 
             createInvoiceToolStripMenuItem1.Name = "createInvoiceToolStripMenuItem1";
-            createInvoiceToolStripMenuItem1.Size = new Size(215, 22);
+            createInvoiceToolStripMenuItem1.Size = new Size(216, 22);
             createInvoiceToolStripMenuItem1.Text = "Create &Invoice";
             createInvoiceToolStripMenuItem1.Click += createInvoiceToolStripMenuItem1_Click;
             // 
             // invoiceListToolStripMenuItem
             // 
             invoiceListToolStripMenuItem.Name = "invoiceListToolStripMenuItem";
-            invoiceListToolStripMenuItem.Size = new Size(215, 22);
+            invoiceListToolStripMenuItem.Size = new Size(216, 22);
             invoiceListToolStripMenuItem.Text = "Invoice List";
             invoiceListToolStripMenuItem.Click += invoiceListToolStripMenuItem_Click;
             // 
             // searchInvoiceToolStripMenuItem
             // 
             searchInvoiceToolStripMenuItem.Name = "searchInvoiceToolStripMenuItem";
-            searchInvoiceToolStripMenuItem.Size = new Size(215, 22);
+            searchInvoiceToolStripMenuItem.Size = new Size(216, 22);
             searchInvoiceToolStripMenuItem.Text = "Search Invoice ";
             searchInvoiceToolStripMenuItem.Click += searchInvoiceToolStripMenuItem_Click;
             // 
             // toolStripSeparator2
             // 
             toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(212, 6);
+            toolStripSeparator2.Size = new Size(213, 6);
             // 
             // createCreditNoteToolStripMenuItem
             // 
             createCreditNoteToolStripMenuItem.Name = "createCreditNoteToolStripMenuItem";
-            createCreditNoteToolStripMenuItem.Size = new Size(215, 22);
+            createCreditNoteToolStripMenuItem.Size = new Size(216, 22);
             createCreditNoteToolStripMenuItem.Text = "Create Credit Note";
             // 
             // creditNoteListToolStripMenuItem
             // 
             creditNoteListToolStripMenuItem.Name = "creditNoteListToolStripMenuItem";
-            creditNoteListToolStripMenuItem.Size = new Size(215, 22);
+            creditNoteListToolStripMenuItem.Size = new Size(216, 22);
             creditNoteListToolStripMenuItem.Text = "Credit Note List";
             // 
             // searchCreditNoteToolStripMenuItem
             // 
             searchCreditNoteToolStripMenuItem.Name = "searchCreditNoteToolStripMenuItem";
-            searchCreditNoteToolStripMenuItem.Size = new Size(215, 22);
+            searchCreditNoteToolStripMenuItem.Size = new Size(216, 22);
             searchCreditNoteToolStripMenuItem.Text = "Search Credit Note";
+            // 
+            // tallyToolStripMenuItem
+            // 
+            tallyToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { purchaseTallySnyncToolStripMenuItem });
+            tallyToolStripMenuItem.Name = "tallyToolStripMenuItem";
+            tallyToolStripMenuItem.Size = new Size(43, 20);
+            tallyToolStripMenuItem.Text = "Tally";
+            // 
+            // purchaseTallySnyncToolStripMenuItem
+            // 
+            purchaseTallySnyncToolStripMenuItem.Name = "purchaseTallySnyncToolStripMenuItem";
+            purchaseTallySnyncToolStripMenuItem.Size = new Size(177, 22);
+            purchaseTallySnyncToolStripMenuItem.Text = "Purchase Tally Sync";
+            purchaseTallySnyncToolStripMenuItem.Click += purchaseTallySnyncToolStripMenuItem_Click;
             // 
             // statusStrip
             // 
@@ -242,250 +251,119 @@
             lblCompany.Size = new Size(39, 17);
             lblCompany.Text = "Status";
             // 
-            // panel1
+            // panelTop
             // 
-            panel1.Controls.Add(button13);
-            panel1.Controls.Add(button14);
-            panel1.Controls.Add(button11);
-            panel1.Controls.Add(button12);
-            panel1.Controls.Add(button9);
-            panel1.Controls.Add(button10);
-            panel1.Controls.Add(button7);
-            panel1.Controls.Add(button8);
-            panel1.Controls.Add(button5);
-            panel1.Controls.Add(button6);
-            panel1.Controls.Add(button3);
-            panel1.Controls.Add(button4);
-            panel1.Controls.Add(button1);
-            panel1.Controls.Add(button2);
-            panel1.Controls.Add(btnReturnDeliveryChallan);
-            panel1.Controls.Add(btnCreateDeliveryChallan);
-            panel1.Dock = DockStyle.Right;
-            panel1.Location = new Point(601, 24);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(136, 477);
-            panel1.TabIndex = 4;
+            panelTop.BackColor = Color.White;
+            panelTop.Controls.Add(menuicon);
+            panelTop.Controls.Add(button4);
+            panelTop.Controls.Add(label4);
+            panelTop.Controls.Add(label3);
+            panelTop.Dock = DockStyle.Top;
+            panelTop.Location = new Point(0, 24);
+            panelTop.Name = "panelTop";
+            panelTop.Padding = new Padding(10, 5, 10, 5);
+            panelTop.Size = new Size(737, 55);
+            panelTop.TabIndex = 6;
             // 
-            // button13
+            // menuicon
             // 
-            button13.BackColor = Color.Silver;
-            button13.Dock = DockStyle.Top;
-            button13.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button13.Location = new Point(0, 480);
-            button13.Name = "button13";
-            button13.Size = new Size(136, 32);
-            button13.TabIndex = 15;
-            button13.Text = "Cancel Delivery Challan";
-            button13.UseVisualStyleBackColor = false;
-            // 
-            // button14
-            // 
-            button14.Dock = DockStyle.Top;
-            button14.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button14.Location = new Point(0, 448);
-            button14.Name = "button14";
-            button14.Size = new Size(136, 32);
-            button14.TabIndex = 14;
-            button14.Text = "Create Delivery Challan";
-            button14.UseVisualStyleBackColor = true;
-            // 
-            // button11
-            // 
-            button11.BackColor = Color.Silver;
-            button11.Dock = DockStyle.Top;
-            button11.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button11.Location = new Point(0, 416);
-            button11.Name = "button11";
-            button11.Size = new Size(136, 32);
-            button11.TabIndex = 13;
-            button11.Text = "Cancel Delivery Challan";
-            button11.UseVisualStyleBackColor = false;
-            // 
-            // button12
-            // 
-            button12.Dock = DockStyle.Top;
-            button12.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button12.Location = new Point(0, 384);
-            button12.Name = "button12";
-            button12.Size = new Size(136, 32);
-            button12.TabIndex = 12;
-            button12.Text = "Create Delivery Challan";
-            button12.UseVisualStyleBackColor = true;
-            // 
-            // button9
-            // 
-            button9.BackColor = Color.Silver;
-            button9.Dock = DockStyle.Top;
-            button9.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button9.Location = new Point(0, 352);
-            button9.Name = "button9";
-            button9.Size = new Size(136, 32);
-            button9.TabIndex = 11;
-            button9.Text = "Cancel Delivery Challan";
-            button9.UseVisualStyleBackColor = false;
-            // 
-            // button10
-            // 
-            button10.Dock = DockStyle.Top;
-            button10.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button10.Location = new Point(0, 320);
-            button10.Name = "button10";
-            button10.Size = new Size(136, 32);
-            button10.TabIndex = 10;
-            button10.Text = "Create Delivery Challan";
-            button10.UseVisualStyleBackColor = true;
-            // 
-            // button7
-            // 
-            button7.BackColor = Color.Silver;
-            button7.Dock = DockStyle.Top;
-            button7.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button7.Location = new Point(0, 288);
-            button7.Name = "button7";
-            button7.Size = new Size(136, 32);
-            button7.TabIndex = 9;
-            button7.Text = "Cancel Delivery Challan";
-            button7.UseVisualStyleBackColor = false;
-            // 
-            // button8
-            // 
-            button8.Dock = DockStyle.Top;
-            button8.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button8.Location = new Point(0, 256);
-            button8.Name = "button8";
-            button8.Size = new Size(136, 32);
-            button8.TabIndex = 8;
-            button8.Text = "Create Delivery Challan";
-            button8.UseVisualStyleBackColor = true;
-            // 
-            // button5
-            // 
-            button5.BackColor = Color.Silver;
-            button5.Dock = DockStyle.Top;
-            button5.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button5.Location = new Point(0, 224);
-            button5.Name = "button5";
-            button5.Size = new Size(136, 32);
-            button5.TabIndex = 7;
-            button5.Text = "Cancel Delivery Challan";
-            button5.UseVisualStyleBackColor = false;
-            // 
-            // button6
-            // 
-            button6.Dock = DockStyle.Top;
-            button6.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button6.Location = new Point(0, 192);
-            button6.Name = "button6";
-            button6.Size = new Size(136, 32);
-            button6.TabIndex = 6;
-            button6.Text = "Create Delivery Challan";
-            button6.UseVisualStyleBackColor = true;
-            // 
-            // button3
-            // 
-            button3.BackColor = Color.Silver;
-            button3.Dock = DockStyle.Top;
-            button3.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button3.Location = new Point(0, 160);
-            button3.Name = "button3";
-            button3.Size = new Size(136, 32);
-            button3.TabIndex = 5;
-            button3.Text = "Cancel Delivery Challan";
-            button3.UseVisualStyleBackColor = false;
+            menuicon.Cursor = Cursors.Hand;
+            menuicon.Image = Properties.Resources.menu;
+            menuicon.Location = new Point(7, 8);
+            menuicon.Name = "menuicon";
+            menuicon.Size = new Size(47, 39);
+            menuicon.SizeMode = PictureBoxSizeMode.StretchImage;
+            menuicon.TabIndex = 3;
+            menuicon.TabStop = false;
+            menuicon.Click += menuicon_Click;
             // 
             // button4
             // 
-            button4.Dock = DockStyle.Top;
-            button4.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button4.Location = new Point(0, 128);
+            button4.FlatStyle = FlatStyle.Flat;
+            button4.Location = new Point(1100, 12);
             button4.Name = "button4";
-            button4.Size = new Size(136, 32);
-            button4.TabIndex = 4;
-            button4.Text = "Create Delivery Challan";
+            button4.Size = new Size(75, 35);
+            button4.TabIndex = 2;
+            button4.Text = "Logout";
             button4.UseVisualStyleBackColor = true;
             // 
-            // button1
+            // label4
             // 
-            button1.BackColor = Color.Silver;
-            button1.Dock = DockStyle.Top;
-            button1.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button1.Location = new Point(0, 96);
-            button1.Name = "button1";
-            button1.Size = new Size(136, 32);
-            button1.TabIndex = 3;
-            button1.Text = "Cancel Delivery Challan";
-            button1.UseVisualStyleBackColor = false;
+            label4.AutoSize = true;
+            label4.Location = new Point(1000, 18);
+            label4.Name = "label4";
+            label4.Size = new Size(99, 15);
+            label4.TabIndex = 1;
+            label4.Text = "Welcome, Admin";
             // 
-            // button2
+            // label3
             // 
-            button2.Dock = DockStyle.Top;
-            button2.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            button2.Location = new Point(0, 64);
-            button2.Name = "button2";
-            button2.Size = new Size(136, 32);
-            button2.TabIndex = 2;
-            button2.Text = "Create Delivery Challan";
-            button2.UseVisualStyleBackColor = true;
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 12F);
+            label3.ForeColor = Color.FromArgb(27, 79, 156);
+            label3.Location = new Point(60, 15);
+            label3.Name = "label3";
+            label3.Size = new Size(336, 21);
+            label3.TabIndex = 0;
+            label3.Text = "SHIV SAHAY BHAGWAN DAS SAREES PVT. LTD.";
             // 
-            // btnReturnDeliveryChallan
+            // panelSidebar
             // 
-            btnReturnDeliveryChallan.BackColor = Color.Silver;
-            btnReturnDeliveryChallan.Dock = DockStyle.Top;
-            btnReturnDeliveryChallan.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnReturnDeliveryChallan.Location = new Point(0, 32);
-            btnReturnDeliveryChallan.Name = "btnReturnDeliveryChallan";
-            btnReturnDeliveryChallan.Size = new Size(136, 32);
-            btnReturnDeliveryChallan.TabIndex = 1;
-            btnReturnDeliveryChallan.Text = "Cancel Delivery Challan";
-            btnReturnDeliveryChallan.UseVisualStyleBackColor = false;
+            panelSidebar.BackColor = Color.FromArgb(27, 79, 156);
+            panelSidebar.Controls.Add(pictureBox1);
+            panelSidebar.Dock = DockStyle.Left;
+            panelSidebar.Location = new Point(0, 79);
+            panelSidebar.Name = "panelSidebar";
+            panelSidebar.Size = new Size(220, 422);
+            panelSidebar.TabIndex = 7;
             // 
-            // btnCreateDeliveryChallan
+            // pictureBox1
             // 
-            btnCreateDeliveryChallan.Dock = DockStyle.Top;
-            btnCreateDeliveryChallan.Font = new Font("Segoe UI", 8.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnCreateDeliveryChallan.Location = new Point(0, 0);
-            btnCreateDeliveryChallan.Name = "btnCreateDeliveryChallan";
-            btnCreateDeliveryChallan.Size = new Size(136, 32);
-            btnCreateDeliveryChallan.TabIndex = 0;
-            btnCreateDeliveryChallan.Text = "Create Delivery Challan";
-            btnCreateDeliveryChallan.UseVisualStyleBackColor = true;
+            pictureBox1.Image = Properties.Resources.ssbd_sidebar_logo;
+            pictureBox1.Location = new Point(0, 0);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(220, 113);
+            pictureBox1.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox1.TabIndex = 0;
+            pictureBox1.TabStop = false;
             // 
-            // tallyToolStripMenuItem
+            // panelContainer
             // 
-            tallyToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { purchaseTallySnyncToolStripMenuItem });
-            tallyToolStripMenuItem.Name = "tallyToolStripMenuItem";
-            tallyToolStripMenuItem.Size = new Size(42, 20);
-            tallyToolStripMenuItem.Text = "Tally";
-            // 
-            // purchaseTallySnyncToolStripMenuItem
-            // 
-            purchaseTallySnyncToolStripMenuItem.Name = "purchaseTallySnyncToolStripMenuItem";
-            purchaseTallySnyncToolStripMenuItem.Size = new Size(180, 22);
-            purchaseTallySnyncToolStripMenuItem.Text = "Purchase Tally Sync";
-            purchaseTallySnyncToolStripMenuItem.Click += purchaseTallySnyncToolStripMenuItem_Click;
+            panelContainer.Dock = DockStyle.Fill;
+            panelContainer.Location = new Point(220, 79);
+            panelContainer.Name = "panelContainer";
+            panelContainer.Size = new Size(517, 422);
+            panelContainer.TabIndex = 9;
             // 
             // MDICashierParent
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.White;
+            BackColor = Color.FromArgb(245, 247, 250);
             ClientSize = new Size(737, 523);
-            Controls.Add(panel1);
+            Controls.Add(panelContainer);
+            Controls.Add(panelSidebar);
+            Controls.Add(panelTop);
             Controls.Add(statusStrip);
             Controls.Add(menuStrip);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             IsMdiContainer = true;
             MainMenuStrip = menuStrip;
             Margin = new Padding(4, 3, 4, 3);
             Name = "MDICashierParent";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "MDICashierParent";
+            Text = "Shiv Sahay Bhagwan das Sarees Pvt Ltd. -MDI";
             WindowState = FormWindowState.Maximized;
             Load += MDICashierParent_Load;
             menuStrip.ResumeLayout(false);
             menuStrip.PerformLayout();
             statusStrip.ResumeLayout(false);
             statusStrip.PerformLayout();
-            panel1.ResumeLayout(false);
+            panelTop.ResumeLayout(false);
+            panelTop.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)menuicon).EndInit();
+            panelSidebar.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();
 
@@ -499,9 +377,6 @@
         private System.Windows.Forms.ToolTip toolTip;
         private ToolStripMenuItem invoiceToolStripMenuItem;
         private ToolStripMenuItem createInvoiceToolStripMenuItem;
-        private Panel panel1;
-        private Button btnReturnDeliveryChallan;
-        private Button btnCreateDeliveryChallan;
         private ToolStripMenuItem deliveryChallanToolStripMenuItem;
         private ToolStripMenuItem createDeliveryChallanToolStripMenuItem;
         private ToolStripMenuItem returnDeliverChallanItemToolStripMenuItem;
@@ -520,23 +395,17 @@
         private ToolStripMenuItem createCreditNoteToolStripMenuItem;
         private ToolStripMenuItem creditNoteListToolStripMenuItem;
         private ToolStripMenuItem searchCreditNoteToolStripMenuItem;
-        private Button button13;
-        private Button button14;
-        private Button button11;
-        private Button button12;
-        private Button button9;
-        private Button button10;
-        private Button button7;
-        private Button button8;
-        private Button button5;
-        private Button button6;
-        private Button button3;
-        private Button button4;
-        private Button button1;
-        private Button button2;
         private ToolStripMenuItem createPackingSlipToolStripMenuItem;
         private ToolStripMenuItem tallyToolStripMenuItem;
         private ToolStripMenuItem purchaseTallySnyncToolStripMenuItem;
+        private Panel panelTop;
+        private Label label3;
+        private Label label4;
+        private Button button4;
+        private Panel panelSidebar;
+        private Panel panelContainer;
+        private PictureBox menuicon;
+        private PictureBox pictureBox1;
     }
 }
 

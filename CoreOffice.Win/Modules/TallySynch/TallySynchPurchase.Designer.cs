@@ -77,6 +77,7 @@
             label5 = new Label();
             label1 = new Label();
             panel2 = new Panel();
+            btnClose = new Button();
             btnClear = new Button();
             btnSynch = new Button();
             label3 = new Label();
@@ -102,23 +103,23 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1028, 221);
+            panel1.Size = new Size(977, 221);
             panel1.TabIndex = 0;
             // 
             // label24
             // 
             label24.AutoSize = true;
             label24.Font = new Font("Segoe UI", 8F);
-            label24.Location = new Point(761, 24);
+            label24.Location = new Point(669, 18);
             label24.Name = "label24";
-            label24.Size = new Size(37, 13);
+            label24.Size = new Size(24, 13);
             label24.TabIndex = 27;
-            label24.Text = "Code:";
+            label24.Text = "FY :";
             // 
             // cmbFiananceYear
             // 
             cmbFiananceYear.FormattingEnabled = true;
-            cmbFiananceYear.Location = new Point(804, 14);
+            cmbFiananceYear.Location = new Point(699, 12);
             cmbFiananceYear.Name = "cmbFiananceYear";
             cmbFiananceYear.Size = new Size(212, 23);
             cmbFiananceYear.TabIndex = 26;
@@ -127,16 +128,16 @@
             // 
             label23.AutoSize = true;
             label23.Font = new Font("Segoe UI", 8F);
-            label23.Location = new Point(325, 18);
+            label23.Location = new Point(198, 18);
             label23.Name = "label23";
-            label23.Size = new Size(37, 13);
+            label23.Size = new Size(61, 13);
             label23.TabIndex = 25;
-            label23.Text = "Code:";
+            label23.Text = "Company :";
             // 
             // cmbCompanies
             // 
             cmbCompanies.FormattingEnabled = true;
-            cmbCompanies.Location = new Point(368, 12);
+            cmbCompanies.Location = new Point(265, 11);
             cmbCompanies.Name = "cmbCompanies";
             cmbCompanies.Size = new Size(364, 23);
             cmbCompanies.TabIndex = 16;
@@ -166,7 +167,7 @@
             groupBox2.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             groupBox2.Location = new Point(538, 40);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(487, 178);
+            groupBox2.Size = new Size(439, 178);
             groupBox2.TabIndex = 15;
             groupBox2.TabStop = false;
             groupBox2.Text = "Business information";
@@ -614,37 +615,56 @@
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(64, 64, 64);
+            panel2.Controls.Add(btnClose);
             panel2.Controls.Add(btnClear);
             panel2.Controls.Add(btnSynch);
             panel2.Controls.Add(label3);
             panel2.Controls.Add(txtVoucher);
             panel2.Dock = DockStyle.Bottom;
-            panel2.Location = new Point(0, 526);
+            panel2.Location = new Point(0, 441);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1028, 83);
+            panel2.Size = new Size(977, 57);
             panel2.TabIndex = 1;
+            // 
+            // btnClose
+            // 
+            btnClose.BackColor = Color.LightSalmon;
+            btnClose.FlatAppearance.BorderSize = 0;
+            btnClose.FlatStyle = FlatStyle.Flat;
+            btnClose.Font = new Font("Segoe UI", 10F);
+            btnClose.Location = new Point(768, 12);
+            btnClose.Name = "btnClose";
+            btnClose.Size = new Size(145, 34);
+            btnClose.TabIndex = 5;
+            btnClose.Text = "Close";
+            btnClose.UseVisualStyleBackColor = false;
+            btnClose.Click += btnClose_Click_1;
             // 
             // btnClear
             // 
+            btnClear.BackColor = Color.White;
+            btnClear.FlatAppearance.BorderSize = 0;
+            btnClear.FlatStyle = FlatStyle.Flat;
             btnClear.Font = new Font("Segoe UI", 10F);
-            btnClear.Location = new Point(654, 28);
+            btnClear.Location = new Point(617, 12);
             btnClear.Name = "btnClear";
-            btnClear.Size = new Size(193, 34);
+            btnClear.Size = new Size(145, 34);
             btnClear.TabIndex = 4;
             btnClear.Text = "Clear";
-            btnClear.UseVisualStyleBackColor = true;
+            btnClear.UseVisualStyleBackColor = false;
             btnClear.Click += btnClose_Click;
             // 
             // btnSynch
             // 
-            btnSynch.BackColor = Color.Maroon;
+            btnSynch.BackColor = Color.Green;
             btnSynch.FlatAppearance.BorderColor = Color.White;
-            btnSynch.FlatStyle = FlatStyle.Popup;
+            btnSynch.FlatAppearance.BorderSize = 0;
+            btnSynch.FlatStyle = FlatStyle.Flat;
             btnSynch.Font = new Font("Segoe UI", 10F);
             btnSynch.ForeColor = Color.White;
-            btnSynch.Location = new Point(455, 28);
+            btnSynch.Location = new Point(467, 12);
             btnSynch.Name = "btnSynch";
-            btnSynch.Size = new Size(193, 34);
+            btnSynch.Size = new Size(144, 34);
             btnSynch.TabIndex = 3;
             btnSynch.Text = "Synch";
             btnSynch.UseVisualStyleBackColor = false;
@@ -656,7 +676,7 @@
             label3.BackColor = Color.Transparent;
             label3.Font = new Font("Segoe UI", 12F);
             label3.ForeColor = Color.White;
-            label3.Location = new Point(13, 37);
+            label3.Location = new Point(25, 21);
             label3.Name = "label3";
             label3.Size = new Size(95, 21);
             label3.TabIndex = 2;
@@ -665,7 +685,7 @@
             // txtVoucher
             // 
             txtVoucher.Font = new Font("Segoe UI", 15F);
-            txtVoucher.Location = new Point(114, 28);
+            txtVoucher.Location = new Point(126, 12);
             txtVoucher.Name = "txtVoucher";
             txtVoucher.Size = new Size(323, 34);
             txtVoucher.TabIndex = 0;
@@ -676,17 +696,17 @@
             dataGridInvoice.AllowUserToAddRows = false;
             dataGridInvoice.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridInvoice.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridInvoice.Dock = DockStyle.Top;
+            dataGridInvoice.Dock = DockStyle.Fill;
             dataGridInvoice.Location = new Point(0, 221);
             dataGridInvoice.Name = "dataGridInvoice";
-            dataGridInvoice.Size = new Size(1028, 333);
+            dataGridInvoice.Size = new Size(977, 220);
             dataGridInvoice.TabIndex = 6;
             // 
             // TallySynchPurchase
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1028, 609);
+            ClientSize = new Size(977, 498);
             Controls.Add(dataGridInvoice);
             Controls.Add(panel2);
             Controls.Add(panel1);
@@ -763,5 +783,6 @@
         private Label label23;
         private ComboBox cmbFiananceYear;
         private Label label24;
+        private Button btnClose;
     }
 }

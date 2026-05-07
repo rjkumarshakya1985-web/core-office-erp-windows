@@ -33,6 +33,14 @@ namespace CoreOffice.Win
 
         private void btnClose_Click(object sender, EventArgs e)
         {
+            DialogResult confirm= MessageBox.Show(
+                "Are you sure you want to exit the application?",
+                "Confirm Exit",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);          
+
+            if (confirm != DialogResult.Yes)
+                return;
             Application.Exit();
         }
 
@@ -105,7 +113,7 @@ namespace CoreOffice.Win
         }
         private void btnHelp_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Please reach out us");
+            MessageBox.Show("Please reach out us at info@brainsoftsoftware.com");
         }
     }
 }
