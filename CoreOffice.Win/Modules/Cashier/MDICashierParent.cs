@@ -34,18 +34,32 @@ namespace CoreOffice.Win.Modules.Cashier
         public T GetService<T>()
         {
             return _serviceProvider.GetRequiredService<T>();
-        }
-        public void OpenFormInPanel(Form form)
-        {
-            panelContainer.Controls.Clear();
+        }   
 
-            form.TopLevel = false;
-            form.FormBorderStyle = FormBorderStyle.None;
-            form.Dock = DockStyle.Fill;
+        //public void OpenFormInPanel(Form form)
+        //{
+        //    // Close existing form
+        //    if (activeForm != null)
+        //    {
+        //        activeForm.Close();
+        //        activeForm.Dispose();
+        //    }
 
-            panelContainer.Controls.Add(form);
-            form.Show();
-        }
+        //    panelContainer.Controls.Clear();
+
+        //    activeForm = form;
+
+        //    form.TopLevel = false;
+        //    form.FormBorderStyle = FormBorderStyle.None;
+        //    form.Dock = DockStyle.Fill;
+
+        //    panelContainer.Controls.Add(form);
+
+        //    form.FormClosed += Form_FormClosed;
+
+        //    form.Show();
+        //}
+       
         private void InitializeHeader()
         {
             topPanel = new Panel
@@ -112,6 +126,7 @@ namespace CoreOffice.Win.Modules.Cashier
             lblCompanyInfo.Refresh();
 
         }
+        private DashboardForm dashboard;
         private async void MDICashierParent_Load(object sender, EventArgs e)
         {
             try
@@ -146,37 +161,85 @@ namespace CoreOffice.Win.Modules.Cashier
             {
                 MessageBox.Show("Error loading financial year: " + ex.Message);
             }
-            BindPanelsidebar();
-            OpenChild(new DashboardForm());
-
+            BindPanelsidebar(); 
+            dashboard = new DashboardForm();
+            OpenChild(dashboard);
         }
-        private void OpenChild(Form child)
+        private Form activeForm = null;      
+        public void OpenChild(Form child)
         {
-            foreach (Form frm in panelContainer.Controls)
+            // Remove current form
+            if (activeForm != null)
             {
-                frm.Close();
+                panelContainer.Controls.Remove(activeForm);
+                // Don't dispose dashboard
+                if (!(activeForm is DashboardForm))
+                {
+                    activeForm.FormClosed -= Child_FormClosed;
+                    activeForm.Close();
+                    activeForm.Dispose();
+                }
+                else
+                {
+                    activeForm.Hide();
+                }
             }
 
-            panelContainer.Controls.Clear();
+            activeForm = child;
 
-            child.TopLevel = false; // IMPORTANT
+            child.TopLevel = false;
             child.FormBorderStyle = FormBorderStyle.None;
             child.Dock = DockStyle.Fill;
+            if (!panelContainer.Controls.Contains(child))
+            {
+                panelContainer.Controls.Add(child);
 
-            panelContainer.Controls.Add(child);
+                child.FormClosed -= Child_FormClosed;
+                child.FormClosed += Child_FormClosed;
+            }
             child.Show();
+            child.BringToFront();
+        }
+        private void Logout()
+        {
+            DialogResult result = MessageBox.Show(
+                "Do you want to logout?",
+                "Confirm Logout",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                // Clear session data             
+                UserSession.FinanceYearId = 0;
+
+                // Open login form
+                Login login = new Login(null,null,null,null);
+                login.Show();
+
+                // Hide or close current form
+                this.Hide();
+            }
+        }
+        private void Child_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            if (!(sender is DashboardForm))
+            {
+                OpenChild(dashboard);
+            }
         }
         public void BindPanelsidebar()
         {
-            panelSidebar.Controls.Add(CreateSidebarButton("Dashboard", Properties.Resources.home, 120));
-            panelSidebar.Controls.Add(CreateSidebarButton("Packing Slip", Properties.Resources.packingslip, 170));
-            panelSidebar.Controls.Add(CreateSidebarButton("Delivery Challan", Properties.Resources.delivery, 180));
-            panelSidebar.Controls.Add(CreateSidebarButton("Invoice", Properties.Resources.bill, 220));
-            panelSidebar.Controls.Add(CreateSidebarButton("Tally", Properties.Resources.calculator, 280));
-            panelSidebar.Controls.Add(CreateSidebarButton("Reports", Properties.Resources.combo_chart, 330));
-            panelSidebar.Controls.Add(CreateSidebarButton("Settings", Properties.Resources.settings, 380));
+            panelSidebar.Controls.Add(CreateSidebarButton("Dashboard", Properties.Resources.home, 120, (s, e) =>{OpenChild(dashboard);}));
+            panelSidebar.Controls.Add(CreateSidebarButton("Packing Slip", Properties.Resources.packingslip, 170, (s, e) =>{var frm = GetService<FrmPackingSlip>();OpenChild(frm);}));
+            panelSidebar.Controls.Add(CreateSidebarButton("Delivery Challan", Properties.Resources.delivery, 180,(s, e) =>{ OpenChild(dashboard); }));
+            panelSidebar.Controls.Add(CreateSidebarButton("Invoice", Properties.Resources.bill, 220, (s, e) => { OpenChild(dashboard); }));
+            panelSidebar.Controls.Add(CreateSidebarButton("Tally", Properties.Resources.calculator, 280, (s, e) => { var frm = GetService<TallySynchPurchase>(); OpenChild(frm); }));
+            panelSidebar.Controls.Add(CreateSidebarButton("Reports", Properties.Resources.combo_chart, 330, (s, e) => { OpenChild(dashboard); }));
+            panelSidebar.Controls.Add(CreateSidebarButton("Settings", Properties.Resources.settings, 380, (s, e) => { OpenChild(dashboard); }));
+            panelSidebar.Controls.Add(CreateSidebarButton("Logout", Properties.Resources.turn_off, 420, (s, e) => { Logout(); }));
         }
-        private Panel CreateSidebarButton(string text, Image icon, int top)
+        private Panel CreateSidebarButton(string text, Image icon, int top,  EventHandler clickEvent)
         {
             Panel panel = new Panel();
             panel.Width = 220;
@@ -190,6 +253,8 @@ namespace CoreOffice.Win.Modules.Cashier
             pic.SizeMode = PictureBoxSizeMode.Zoom;
             pic.Size = new Size(24, 24);
             pic.Location = new Point(15, 13);
+            pic.Cursor = Cursors.Hand;
+
 
             Label lbl = new Label();
             lbl.Text = text;
@@ -197,15 +262,21 @@ namespace CoreOffice.Win.Modules.Cashier
             lbl.Font = new Font("Segoe UI", 10);
             lbl.AutoSize = true;
             lbl.Location = new Point(50, 15);
+            lbl.Cursor = Cursors.Hand;
 
             panel.Controls.Add(pic);
-            panel.Controls.Add(lbl);
+            panel.Controls.Add(lbl);           
 
             panel.MouseEnter += (s, e) =>
                 panel.BackColor = Color.FromArgb(47, 128, 237);
 
             panel.MouseLeave += (s, e) =>
                 panel.BackColor = Color.FromArgb(27, 79, 156);
+
+            // Clicks
+            panel.Click += clickEvent;
+            pic.Click += clickEvent;
+            lbl.Click += clickEvent;
 
             return panel;
         }

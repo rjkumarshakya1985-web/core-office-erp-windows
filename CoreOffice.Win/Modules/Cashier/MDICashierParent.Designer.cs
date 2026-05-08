@@ -114,6 +114,7 @@
             // deliveryChallanToolStripMenuItem
             // 
             deliveryChallanToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { createDeliveryChallanToolStripMenuItem, toolStripMenuItem1, toolStripMenuItem2, toolStripSeparator1, returnDeliverChallanItemToolStripMenuItem, searchChallanReturnToolStripMenuItem, deliveryChallanReturnListToolStripMenuItem });
+            deliveryChallanToolStripMenuItem.Enabled = false;
             deliveryChallanToolStripMenuItem.Name = "deliveryChallanToolStripMenuItem";
             deliveryChallanToolStripMenuItem.Size = new Size(104, 20);
             deliveryChallanToolStripMenuItem.Text = "Delivery Challan";
@@ -166,6 +167,7 @@
             // invoiceToolStripMenuItem1
             // 
             invoiceToolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { deliveryChallanToInvoiceToolStripMenuItem, createInvoiceToolStripMenuItem1, invoiceListToolStripMenuItem, searchInvoiceToolStripMenuItem, toolStripSeparator2, createCreditNoteToolStripMenuItem, creditNoteListToolStripMenuItem, searchCreditNoteToolStripMenuItem });
+            invoiceToolStripMenuItem1.Enabled = false;
             invoiceToolStripMenuItem1.Name = "invoiceToolStripMenuItem1";
             invoiceToolStripMenuItem1.Size = new Size(57, 20);
             invoiceToolStripMenuItem1.Text = "Invoice";

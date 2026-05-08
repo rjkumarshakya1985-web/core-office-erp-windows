@@ -142,51 +142,51 @@ namespace CoreOffice.Win.Modules.Cashier
             flowLayoutPanel1.SetFlowBreak(row1, true);
 
 
-            // 🔷 INVOICE
-            var section2 = CreateSection("INVOICE");
-            flowLayoutPanel1.Controls.Add(section2);
-            flowLayoutPanel1.SetFlowBreak(section2, true); // 🔥 important
+            //// 🔷 INVOICE
+            //var section2 = CreateSection("INVOICE");
+            //flowLayoutPanel1.Controls.Add(section2);
+            //flowLayoutPanel1.SetFlowBreak(section2, true); // 🔥 important
            
 
-            var row2 = CreateRow();
+            //var row2 = CreateRow();
 
-            row2.Controls.Add(CreateCard("New Invoice", "Create invoice", Properties.Resources.add, OpenInvoice));
-            row2.Controls.Add(CreateCard("Search Invoice", "Find invoice", Properties.Resources.search, OpenSearchInvoice));
-            row2.Controls.Add(CreateCard("Invoice List", "View all", Properties.Resources.list, OpenInvoiceList));
+            //row2.Controls.Add(CreateCard("New Invoice", "Create invoice", Properties.Resources.add, OpenInvoice));
+            //row2.Controls.Add(CreateCard("Search Invoice", "Find invoice", Properties.Resources.search, OpenSearchInvoice));
+            //row2.Controls.Add(CreateCard("Invoice List", "View all", Properties.Resources.list, OpenInvoiceList));
 
-            flowLayoutPanel1.Controls.Add(row2);
-            flowLayoutPanel1.SetFlowBreak(row2, true);
+            //flowLayoutPanel1.Controls.Add(row2);
+            //flowLayoutPanel1.SetFlowBreak(row2, true);
            
 
-            // 🔷 Deliver Challan
-            var section3 = CreateSection("DELIVERY CHALLAN");
-            flowLayoutPanel1.Controls.Add(section3);
-            flowLayoutPanel1.SetFlowBreak(section3, true); // 🔥 important
+            //// 🔷 Deliver Challan
+            //var section3 = CreateSection("DELIVERY CHALLAN");
+            //flowLayoutPanel1.Controls.Add(section3);
+            //flowLayoutPanel1.SetFlowBreak(section3, true); // 🔥 important
 
-            var row3 = CreateRow();
+            //var row3 = CreateRow();
 
-            row3.Controls.Add(CreateCard("New Delivery", "Create Delivery Challan",Properties.Resources.add, OpenDeliveryChallan));
-            row3.Controls.Add(CreateCard("Search Delivery", "Find Delivery Challan",Properties.Resources.search, OpenSearchDeliveryChallan));
-            row3.Controls.Add(CreateCard("Delivery List", "View all", Properties.Resources.list, OpenDeliveryChallanList));
+            //row3.Controls.Add(CreateCard("New Delivery", "Create Delivery Challan",Properties.Resources.add, OpenDeliveryChallan));
+            //row3.Controls.Add(CreateCard("Search Delivery", "Find Delivery Challan",Properties.Resources.search, OpenSearchDeliveryChallan));
+            //row3.Controls.Add(CreateCard("Delivery List", "View all", Properties.Resources.list, OpenDeliveryChallanList));
             
-            flowLayoutPanel1.Controls.Add(row3);
-            flowLayoutPanel1.SetFlowBreak(row3, true);
+            //flowLayoutPanel1.Controls.Add(row3);
+            //flowLayoutPanel1.SetFlowBreak(row3, true);
 
 
 
-            // 🔷 Credit Note
-            var section4 = CreateSection("SALES RETURN");
-            flowLayoutPanel1.Controls.Add(section4);
-            flowLayoutPanel1.SetFlowBreak(section4, true); // 🔥 important
+            //// 🔷 Credit Note
+            //var section4 = CreateSection("SALES RETURN");
+            //flowLayoutPanel1.Controls.Add(section4);
+            //flowLayoutPanel1.SetFlowBreak(section4, true); // 🔥 important
 
-            var row4 = CreateRow();
+            //var row4 = CreateRow();
 
-            row4.Controls.Add(CreateCard("New Credit Note", "Create Credit Note",Properties.Resources.add, OpenSalesReturn));
-            row4.Controls.Add(CreateCard("Search Credit Note", "Find Credit Note",Properties.Resources.search, OpenSearchSalesReturn));
-            row4.Controls.Add(CreateCard("Credit Note List", "View all",Properties.Resources.list, OpenSalesReturnList));
+            //row4.Controls.Add(CreateCard("New Credit Note", "Create Credit Note",Properties.Resources.add, OpenSalesReturn));
+            //row4.Controls.Add(CreateCard("Search Credit Note", "Find Credit Note",Properties.Resources.search, OpenSearchSalesReturn));
+            //row4.Controls.Add(CreateCard("Credit Note List", "View all",Properties.Resources.list, OpenSalesReturnList));
 
-            flowLayoutPanel1.Controls.Add(row4);
-            flowLayoutPanel1.SetFlowBreak(row4, true);
+            //flowLayoutPanel1.Controls.Add(row4);
+            //flowLayoutPanel1.SetFlowBreak(row4, true);
            
 
             // 🔷 Tally Synch
@@ -197,9 +197,9 @@ namespace CoreOffice.Win.Modules.Cashier
             var row5 = CreateRow();
 
             row5.Controls.Add(CreateCard("Purchase Synch", "Synch Purchase",Properties.Resources.add, OpenTallySynchPurchase));
-            row5.Controls.Add(CreateCard("Purchase Return Synch", "Synch Purchase Return",Properties.Resources.search, OpenTallySynchPurchaseReturn));
-            row5.Controls.Add(CreateCard("Sale Synch", "Synch Sales Invoices", Properties.Resources.list, OpenTallySynchSales));
-            row5.Controls.Add(CreateCard("Sale Synch", "Synch Sales Invoices", Properties.Resources.list, OpenTallySynchSalesReturn));
+            //row5.Controls.Add(CreateCard("Purchase Return Synch", "Synch Purchase Return",Properties.Resources.search, OpenTallySynchPurchaseReturn));
+            //row5.Controls.Add(CreateCard("Sale Synch", "Synch Sales Invoices", Properties.Resources.list, OpenTallySynchSales));
+            //row5.Controls.Add(CreateCard("Sale Synch", "Synch Sales Invoices", Properties.Resources.list, OpenTallySynchSalesReturn));
 
             flowLayoutPanel1.Controls.Add(row5);
             flowLayoutPanel1.SetFlowBreak(row5, true);          
@@ -210,42 +210,42 @@ namespace CoreOffice.Win.Modules.Cashier
             var parent = (MDICashierParent)this.ParentForm;
             var frm = parent.GetService<FrmPackingSlip>();
 
-            parent.OpenFormInPanel(frm);
+            parent.OpenChild(frm);
         }
         private void OpenSearchPackingSlip()
         {
             var parent = (MDICashierParent)this.ParentForm;
             var frm = parent.GetService<PackingSlipViewForm>(); 
 
-            parent.OpenFormInPanel(frm);
+            parent.OpenChild(frm);
         }
         private void OpenListPackingSlip()
         {
             var parent = (MDICashierParent)this.ParentForm;
             var frm = parent.GetService<PendingPackingSlipForm>();
 
-            parent.OpenFormInPanel(frm);
+            parent.OpenChild(frm);
         }
         private void OpenInvoice()
         {
             var parent = (MDICashierParent)this.ParentForm;
             var frm = parent.GetService<InvoiceForm>();
 
-            parent.OpenFormInPanel(frm);
+            parent.OpenChild(frm);
         }
         private void OpenSearchInvoice()
         {
             var parent = (MDICashierParent)this.ParentForm;
             var frm = parent.GetService<InvoiceSearchForm>();
 
-            parent.OpenFormInPanel(frm);
+            parent.OpenChild(frm);
         }
         private void OpenInvoiceList()
         {
             var parent = (MDICashierParent)this.ParentForm;
             var frm = parent.GetService<InvoiceListForm>();
 
-            parent.OpenFormInPanel(frm);
+            parent.OpenChild(frm);
         }
 
         private void OpenDeliveryChallan()
@@ -253,21 +253,21 @@ namespace CoreOffice.Win.Modules.Cashier
             var parent = (MDICashierParent)this.ParentForm;
             var frm = parent.GetService<DeliveryNoteForm>();
 
-            parent.OpenFormInPanel(frm);
+            parent.OpenChild(frm);
         }
         private void OpenSearchDeliveryChallan()
         {
             var parent = (MDICashierParent)this.ParentForm;
             var frm = parent.GetService<DeliveryChallanEditViewForm>();
 
-            parent.OpenFormInPanel(frm);
+            parent.OpenChild(frm);
         }
         private void OpenDeliveryChallanList()
         {
             var parent = (MDICashierParent)this.ParentForm;
             var frm = parent.GetService<DeliveryChallanListForm>();
 
-            parent.OpenFormInPanel(frm);
+            parent.OpenChild(frm);
         }
         private void OpenSalesReturn()
         {
@@ -286,7 +286,7 @@ namespace CoreOffice.Win.Modules.Cashier
             var parent = (MDICashierParent)this.ParentForm;
             var frm = parent.GetService<TallySynchPurchase>();
 
-            parent.OpenFormInPanel(frm);
+            parent.OpenChild(frm);
         }
         private void OpenTallySynchPurchaseReturn()
         {
