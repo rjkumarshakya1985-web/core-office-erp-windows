@@ -34,11 +34,32 @@
             panel2 = new Panel();
             label1 = new Label();
             dataGrid = new DataGridView();
+            Id = new DataGridViewTextBoxColumn();
+            StockId = new DataGridViewTextBoxColumn();
+            Barcode = new DataGridViewTextBoxColumn();
+            Category = new DataGridViewTextBoxColumn();
+            Product = new DataGridViewTextBoxColumn();
+            SalePrice = new DataGridViewTextBoxColumn();
+            TotalQty = new DataGridViewTextBoxColumn();
+            ReturnQty = new DataGridViewTextBoxColumn();
+            Balance = new DataGridViewTextBoxColumn();
+            TaxableAmount = new DataGridViewTextBoxColumn();
+            Discount = new DataGridViewTextBoxColumn();
+            NetTaxable = new DataGridViewTextBoxColumn();
+            GstPer = new DataGridViewTextBoxColumn();
+            TotalAmount = new DataGridViewTextBoxColumn();
+            StockQty = new DataGridViewTextBoxColumn();
             panel3 = new Panel();
+            btnDeleteProduct = new Button();
+            btnUpdate = new Button();
             btnPrint = new Button();
             btnClose = new Button();
             btnCancel = new Button();
             panel4 = new Panel();
+            lblCustomerType = new Label();
+            label11 = new Label();
+            lblDiscountPercent = new Label();
+            label8 = new Label();
             lblStatus = new Label();
             label7 = new Label();
             lblCustomer = new Label();
@@ -54,20 +75,9 @@
             label16 = new Label();
             panel7 = new Panel();
             label3 = new Label();
-            Id = new DataGridViewTextBoxColumn();
-            StockId = new DataGridViewTextBoxColumn();
-            Barcode = new DataGridViewTextBoxColumn();
-            Category = new DataGridViewTextBoxColumn();
-            Product = new DataGridViewTextBoxColumn();
-            SalePrice = new DataGridViewTextBoxColumn();
-            TotalQty = new DataGridViewTextBoxColumn();
-            ReturnQty = new DataGridViewTextBoxColumn();
-            Balance = new DataGridViewTextBoxColumn();
-            TaxableAmount = new DataGridViewTextBoxColumn();
-            Discount = new DataGridViewTextBoxColumn();
-            NetTaxable = new DataGridViewTextBoxColumn();
-            GstPer = new DataGridViewTextBoxColumn();
-            TotalAmount = new DataGridViewTextBoxColumn();
+            panel8 = new Panel();
+            label9 = new Label();
+            txtBarcode = new TextBox();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGrid).BeginInit();
@@ -76,6 +86,7 @@
             panel5.SuspendLayout();
             panel6.SuspendLayout();
             panel7.SuspendLayout();
+            panel8.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
@@ -86,7 +97,7 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(852, 88);
+            panel1.Size = new Size(1001, 88);
             panel1.TabIndex = 4;
             // 
             // txtNumber
@@ -114,7 +125,7 @@
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(0, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(852, 43);
+            panel2.Size = new Size(1001, 43);
             panel2.TabIndex = 1;
             // 
             // label1
@@ -132,231 +143,14 @@
             dataGrid.AllowUserToAddRows = false;
             dataGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGrid.Columns.AddRange(new DataGridViewColumn[] { Id, StockId, Barcode, Category, Product, SalePrice, TotalQty, ReturnQty, Balance, TaxableAmount, Discount, NetTaxable, GstPer, TotalAmount });
+            dataGrid.Columns.AddRange(new DataGridViewColumn[] { Id, StockId, Barcode, Category, Product, SalePrice, TotalQty, ReturnQty, Balance, TaxableAmount, Discount, NetTaxable, GstPer, TotalAmount, StockQty });
             dataGrid.Dock = DockStyle.Top;
             dataGrid.Location = new Point(0, 88);
             dataGrid.Name = "dataGrid";
-            dataGrid.Size = new Size(852, 333);
+            dataGrid.Size = new Size(1001, 233);
             dataGrid.TabIndex = 6;
-            // 
-            // panel3
-            // 
-            panel3.BorderStyle = BorderStyle.FixedSingle;
-            panel3.Controls.Add(btnPrint);
-            panel3.Controls.Add(btnClose);
-            panel3.Controls.Add(btnCancel);
-            panel3.Dock = DockStyle.Bottom;
-            panel3.Location = new Point(0, 578);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(852, 45);
-            panel3.TabIndex = 7;
-            // 
-            // btnPrint
-            // 
-            btnPrint.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnPrint.Location = new Point(4, 3);
-            btnPrint.Name = "btnPrint";
-            btnPrint.Size = new Size(159, 37);
-            btnPrint.TabIndex = 4;
-            btnPrint.Text = "&Print";
-            btnPrint.UseVisualStyleBackColor = true;
-            // 
-            // btnClose
-            // 
-            btnClose.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnClose.Location = new Point(167, 3);
-            btnClose.Name = "btnClose";
-            btnClose.Size = new Size(159, 37);
-            btnClose.TabIndex = 3;
-            btnClose.Text = "&Close";
-            btnClose.UseVisualStyleBackColor = true;
-            btnClose.Click += btnClose_Click;
-            // 
-            // btnCancel
-            // 
-            btnCancel.BackColor = Color.Red;
-            btnCancel.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            btnCancel.ForeColor = Color.White;
-            btnCancel.Location = new Point(332, 3);
-            btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(159, 37);
-            btnCancel.TabIndex = 1;
-            btnCancel.Text = "&Cancel";
-            btnCancel.UseVisualStyleBackColor = false;
-            btnCancel.Click += btnCancel_Click;
-            // 
-            // panel4
-            // 
-            panel4.BackColor = Color.White;
-            panel4.BorderStyle = BorderStyle.FixedSingle;
-            panel4.Controls.Add(lblStatus);
-            panel4.Controls.Add(label7);
-            panel4.Controls.Add(lblCustomer);
-            panel4.Controls.Add(label6);
-            panel4.Controls.Add(lblDate);
-            panel4.Controls.Add(Date);
-            panel4.Controls.Add(panel5);
-            panel4.Dock = DockStyle.Left;
-            panel4.Location = new Point(0, 421);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(339, 157);
-            panel4.TabIndex = 8;
-            // 
-            // lblStatus
-            // 
-            lblStatus.AutoSize = true;
-            lblStatus.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
-            lblStatus.Location = new Point(107, 100);
-            lblStatus.Name = "lblStatus";
-            lblStatus.Size = new Size(57, 20);
-            lblStatus.TabIndex = 6;
-            lblStatus.Text = "............";
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
-            label7.Location = new Point(45, 100);
-            label7.Name = "label7";
-            label7.Size = new Size(61, 20);
-            label7.TabIndex = 5;
-            label7.Text = "Status :";
-            // 
-            // lblCustomer
-            // 
-            lblCustomer.AutoSize = true;
-            lblCustomer.Font = new Font("Segoe UI", 11.25F);
-            lblCustomer.Location = new Point(109, 73);
-            lblCustomer.Name = "lblCustomer";
-            lblCustomer.Size = new Size(45, 20);
-            lblCustomer.TabIndex = 4;
-            lblCustomer.Text = "............";
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI", 11.25F);
-            label6.Location = new Point(28, 73);
-            label6.Name = "label6";
-            label6.Size = new Size(79, 20);
-            label6.TabIndex = 3;
-            label6.Text = "Customer :";
-            // 
-            // lblDate
-            // 
-            lblDate.AutoSize = true;
-            lblDate.Font = new Font("Segoe UI", 11.25F);
-            lblDate.Location = new Point(109, 48);
-            lblDate.Name = "lblDate";
-            lblDate.Size = new Size(42, 20);
-            lblDate.TabIndex = 2;
-            lblDate.Text = "...........";
-            // 
-            // Date
-            // 
-            Date.AutoSize = true;
-            Date.Font = new Font("Segoe UI", 11.25F);
-            Date.Location = new Point(59, 48);
-            Date.Name = "Date";
-            Date.Size = new Size(48, 20);
-            Date.TabIndex = 1;
-            Date.Text = "Date :";
-            // 
-            // panel5
-            // 
-            panel5.BackColor = SystemColors.ActiveCaption;
-            panel5.Controls.Add(label2);
-            panel5.Dock = DockStyle.Top;
-            panel5.Location = new Point(0, 0);
-            panel5.Name = "panel5";
-            panel5.Size = new Size(337, 38);
-            panel5.TabIndex = 0;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(30, 8);
-            label2.Name = "label2";
-            label2.Size = new Size(186, 20);
-            label2.TabIndex = 0;
-            label2.Text = "Delivery Challan Summary ";
-            // 
-            // panel6
-            // 
-            panel6.BackColor = Color.White;
-            panel6.BorderStyle = BorderStyle.FixedSingle;
-            panel6.Controls.Add(lblGrandTotal);
-            panel6.Controls.Add(label14);
-            panel6.Controls.Add(lblTotalPcs);
-            panel6.Controls.Add(label16);
-            panel6.Controls.Add(panel7);
-            panel6.Dock = DockStyle.Right;
-            panel6.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            panel6.Location = new Point(618, 421);
-            panel6.Name = "panel6";
-            panel6.Size = new Size(234, 157);
-            panel6.TabIndex = 13;
-            // 
-            // lblGrandTotal
-            // 
-            lblGrandTotal.AutoSize = true;
-            lblGrandTotal.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblGrandTotal.Location = new Point(106, 71);
-            lblGrandTotal.Name = "lblGrandTotal";
-            lblGrandTotal.Size = new Size(29, 20);
-            lblGrandTotal.TabIndex = 12;
-            lblGrandTotal.Text = "NF";
-            // 
-            // label14
-            // 
-            label14.AutoSize = true;
-            label14.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label14.Location = new Point(8, 71);
-            label14.Name = "label14";
-            label14.Size = new Size(95, 20);
-            label14.TabIndex = 11;
-            label14.Text = "Grand Total:";
-            // 
-            // lblTotalPcs
-            // 
-            lblTotalPcs.AutoSize = true;
-            lblTotalPcs.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblTotalPcs.Location = new Point(110, 40);
-            lblTotalPcs.Name = "lblTotalPcs";
-            lblTotalPcs.Size = new Size(29, 20);
-            lblTotalPcs.TabIndex = 10;
-            lblTotalPcs.Text = "NF";
-            // 
-            // label16
-            // 
-            label16.AutoSize = true;
-            label16.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label16.Location = new Point(21, 40);
-            label16.Name = "label16";
-            label16.Size = new Size(79, 20);
-            label16.TabIndex = 9;
-            label16.Text = "Total Pcs :";
-            // 
-            // panel7
-            // 
-            panel7.BackColor = SystemColors.ActiveCaption;
-            panel7.BorderStyle = BorderStyle.FixedSingle;
-            panel7.Controls.Add(label3);
-            panel7.Dock = DockStyle.Top;
-            panel7.Location = new Point(0, 0);
-            panel7.Name = "panel7";
-            panel7.Size = new Size(232, 28);
-            panel7.TabIndex = 0;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(80, 5);
-            label3.Name = "label3";
-            label3.Size = new Size(82, 17);
-            label3.TabIndex = 2;
-            label3.Text = "Bill Summary";
+            dataGrid.RowEnter += dataGrid_RowEnter;
+            dataGrid.KeyDown += dataGrid_KeyDown;
             // 
             // Id
             // 
@@ -442,11 +236,332 @@
             TotalAmount.Name = "TotalAmount";
             TotalAmount.ReadOnly = true;
             // 
+            // StockQty
+            // 
+            StockQty.HeaderText = "StockQty";
+            StockQty.Name = "StockQty";
+            // 
+            // panel3
+            // 
+            panel3.BorderStyle = BorderStyle.FixedSingle;
+            panel3.Controls.Add(btnDeleteProduct);
+            panel3.Controls.Add(btnUpdate);
+            panel3.Controls.Add(btnPrint);
+            panel3.Controls.Add(btnClose);
+            panel3.Controls.Add(btnCancel);
+            panel3.Dock = DockStyle.Bottom;
+            panel3.Location = new Point(0, 578);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(1001, 45);
+            panel3.TabIndex = 7;
+            // 
+            // btnDeleteProduct
+            // 
+            btnDeleteProduct.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnDeleteProduct.Location = new Point(662, 3);
+            btnDeleteProduct.Name = "btnDeleteProduct";
+            btnDeleteProduct.Size = new Size(241, 37);
+            btnDeleteProduct.TabIndex = 6;
+            btnDeleteProduct.Text = "&Delete Product Row ";
+            btnDeleteProduct.UseVisualStyleBackColor = true;
+            btnDeleteProduct.Click += btnDeleteProduct_Click;
+            // 
+            // btnUpdate
+            // 
+            btnUpdate.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnUpdate.Location = new Point(497, 3);
+            btnUpdate.Name = "btnUpdate";
+            btnUpdate.Size = new Size(159, 37);
+            btnUpdate.TabIndex = 5;
+            btnUpdate.Text = "&Update";
+            btnUpdate.UseVisualStyleBackColor = true;
+            btnUpdate.Click += btnUpdate_Click;
+            // 
+            // btnPrint
+            // 
+            btnPrint.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnPrint.Location = new Point(4, 3);
+            btnPrint.Name = "btnPrint";
+            btnPrint.Size = new Size(159, 37);
+            btnPrint.TabIndex = 4;
+            btnPrint.Text = "&Print";
+            btnPrint.UseVisualStyleBackColor = true;
+            // 
+            // btnClose
+            // 
+            btnClose.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnClose.Location = new Point(167, 3);
+            btnClose.Name = "btnClose";
+            btnClose.Size = new Size(159, 37);
+            btnClose.TabIndex = 3;
+            btnClose.Text = "&Close";
+            btnClose.UseVisualStyleBackColor = true;
+            btnClose.Click += btnClose_Click;
+            // 
+            // btnCancel
+            // 
+            btnCancel.BackColor = Color.Red;
+            btnCancel.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            btnCancel.ForeColor = Color.White;
+            btnCancel.Location = new Point(332, 3);
+            btnCancel.Name = "btnCancel";
+            btnCancel.Size = new Size(159, 37);
+            btnCancel.TabIndex = 1;
+            btnCancel.Text = "&Cancel";
+            btnCancel.UseVisualStyleBackColor = false;
+            btnCancel.Click += btnCancel_Click;
+            // 
+            // panel4
+            // 
+            panel4.BackColor = Color.White;
+            panel4.BorderStyle = BorderStyle.FixedSingle;
+            panel4.Controls.Add(lblCustomerType);
+            panel4.Controls.Add(label11);
+            panel4.Controls.Add(lblDiscountPercent);
+            panel4.Controls.Add(label8);
+            panel4.Controls.Add(lblStatus);
+            panel4.Controls.Add(label7);
+            panel4.Controls.Add(lblCustomer);
+            panel4.Controls.Add(label6);
+            panel4.Controls.Add(lblDate);
+            panel4.Controls.Add(Date);
+            panel4.Controls.Add(panel5);
+            panel4.Dock = DockStyle.Left;
+            panel4.Location = new Point(0, 321);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(274, 257);
+            panel4.TabIndex = 8;
+            // 
+            // lblCustomerType
+            // 
+            lblCustomerType.AutoSize = true;
+            lblCustomerType.Font = new Font("Segoe UI", 11.25F);
+            lblCustomerType.Location = new Point(138, 102);
+            lblCustomerType.Name = "lblCustomerType";
+            lblCustomerType.Size = new Size(45, 20);
+            lblCustomerType.TabIndex = 10;
+            lblCustomerType.Text = "............";
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Font = new Font("Segoe UI", 11.25F);
+            label11.Location = new Point(0, 102);
+            label11.Name = "label11";
+            label11.Size = new Size(118, 20);
+            label11.TabIndex = 9;
+            label11.Text = "Customer  Type :";
+            // 
+            // lblDiscountPercent
+            // 
+            lblDiscountPercent.AutoSize = true;
+            lblDiscountPercent.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
+            lblDiscountPercent.Location = new Point(132, 172);
+            lblDiscountPercent.Name = "lblDiscountPercent";
+            lblDiscountPercent.Size = new Size(57, 20);
+            lblDiscountPercent.TabIndex = 8;
+            lblDiscountPercent.Text = "............";
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
+            label8.Location = new Point(17, 172);
+            label8.Name = "label8";
+            label8.Size = new Size(96, 20);
+            label8.TabIndex = 7;
+            label8.Text = "Discount % :";
+            // 
+            // lblStatus
+            // 
+            lblStatus.AutoSize = true;
+            lblStatus.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
+            lblStatus.Location = new Point(133, 141);
+            lblStatus.Name = "lblStatus";
+            lblStatus.Size = new Size(57, 20);
+            lblStatus.TabIndex = 6;
+            lblStatus.Text = "............";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
+            label7.Location = new Point(53, 141);
+            label7.Name = "label7";
+            label7.Size = new Size(61, 20);
+            label7.TabIndex = 5;
+            label7.Text = "Status :";
+            // 
+            // lblCustomer
+            // 
+            lblCustomer.AutoSize = true;
+            lblCustomer.Font = new Font("Segoe UI", 11.25F);
+            lblCustomer.Location = new Point(139, 73);
+            lblCustomer.Name = "lblCustomer";
+            lblCustomer.Size = new Size(45, 20);
+            lblCustomer.TabIndex = 4;
+            lblCustomer.Text = "............";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI", 11.25F);
+            label6.Location = new Point(39, 73);
+            label6.Name = "label6";
+            label6.Size = new Size(79, 20);
+            label6.TabIndex = 3;
+            label6.Text = "Customer :";
+            // 
+            // lblDate
+            // 
+            lblDate.AutoSize = true;
+            lblDate.Font = new Font("Segoe UI", 11.25F);
+            lblDate.Location = new Point(139, 48);
+            lblDate.Name = "lblDate";
+            lblDate.Size = new Size(42, 20);
+            lblDate.TabIndex = 2;
+            lblDate.Text = "...........";
+            // 
+            // Date
+            // 
+            Date.AutoSize = true;
+            Date.Font = new Font("Segoe UI", 11.25F);
+            Date.Location = new Point(70, 48);
+            Date.Name = "Date";
+            Date.Size = new Size(48, 20);
+            Date.TabIndex = 1;
+            Date.Text = "Date :";
+            // 
+            // panel5
+            // 
+            panel5.BackColor = SystemColors.ActiveCaption;
+            panel5.Controls.Add(label2);
+            panel5.Dock = DockStyle.Top;
+            panel5.Location = new Point(0, 0);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(272, 38);
+            panel5.TabIndex = 0;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Segoe UI", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.Location = new Point(30, 8);
+            label2.Name = "label2";
+            label2.Size = new Size(186, 20);
+            label2.TabIndex = 0;
+            label2.Text = "Delivery Challan Summary ";
+            // 
+            // panel6
+            // 
+            panel6.BackColor = Color.White;
+            panel6.BorderStyle = BorderStyle.FixedSingle;
+            panel6.Controls.Add(lblGrandTotal);
+            panel6.Controls.Add(label14);
+            panel6.Controls.Add(lblTotalPcs);
+            panel6.Controls.Add(label16);
+            panel6.Controls.Add(panel7);
+            panel6.Dock = DockStyle.Right;
+            panel6.Font = new Font("Segoe UI", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            panel6.Location = new Point(803, 321);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(198, 257);
+            panel6.TabIndex = 13;
+            // 
+            // lblGrandTotal
+            // 
+            lblGrandTotal.AutoSize = true;
+            lblGrandTotal.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblGrandTotal.Location = new Point(106, 71);
+            lblGrandTotal.Name = "lblGrandTotal";
+            lblGrandTotal.Size = new Size(29, 20);
+            lblGrandTotal.TabIndex = 12;
+            lblGrandTotal.Text = "NF";
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label14.Location = new Point(8, 71);
+            label14.Name = "label14";
+            label14.Size = new Size(95, 20);
+            label14.TabIndex = 11;
+            label14.Text = "Grand Total:";
+            // 
+            // lblTotalPcs
+            // 
+            lblTotalPcs.AutoSize = true;
+            lblTotalPcs.Font = new Font("Segoe UI Semibold", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTotalPcs.Location = new Point(110, 40);
+            lblTotalPcs.Name = "lblTotalPcs";
+            lblTotalPcs.Size = new Size(29, 20);
+            lblTotalPcs.TabIndex = 10;
+            lblTotalPcs.Text = "NF";
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label16.Location = new Point(21, 40);
+            label16.Name = "label16";
+            label16.Size = new Size(79, 20);
+            label16.TabIndex = 9;
+            label16.Text = "Total Pcs :";
+            // 
+            // panel7
+            // 
+            panel7.BackColor = SystemColors.ActiveCaption;
+            panel7.BorderStyle = BorderStyle.FixedSingle;
+            panel7.Controls.Add(label3);
+            panel7.Dock = DockStyle.Top;
+            panel7.Location = new Point(0, 0);
+            panel7.Name = "panel7";
+            panel7.Size = new Size(196, 28);
+            panel7.TabIndex = 0;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(80, 5);
+            label3.Name = "label3";
+            label3.Size = new Size(82, 17);
+            label3.TabIndex = 2;
+            label3.Text = "Bill Summary";
+            // 
+            // panel8
+            // 
+            panel8.Controls.Add(label9);
+            panel8.Controls.Add(txtBarcode);
+            panel8.Dock = DockStyle.Bottom;
+            panel8.Location = new Point(274, 534);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(529, 44);
+            panel8.TabIndex = 14;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(22, 16);
+            label9.Name = "label9";
+            label9.Size = new Size(167, 15);
+            label9.TabIndex = 1;
+            label9.Text = "New Product Barcode Scanner";
+            // 
+            // txtBarcode
+            // 
+            txtBarcode.Font = new Font("Segoe UI", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtBarcode.Location = new Point(199, 6);
+            txtBarcode.Name = "txtBarcode";
+            txtBarcode.Size = new Size(269, 33);
+            txtBarcode.TabIndex = 0;
+            txtBarcode.KeyDown += txtBarcode_KeyDown;
+            // 
             // DeliveryChallanEditViewForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(852, 623);
+            ClientSize = new Size(1001, 623);
+            Controls.Add(panel8);
             Controls.Add(panel6);
             Controls.Add(panel4);
             Controls.Add(panel3);
@@ -470,6 +585,8 @@
             panel6.PerformLayout();
             panel7.ResumeLayout(false);
             panel7.PerformLayout();
+            panel8.ResumeLayout(false);
+            panel8.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -501,6 +618,7 @@
         private Button btnPrint;
         private Label lblStatus;
         private Label label7;
+        private Button btnUpdate;
         private DataGridViewTextBoxColumn Id;
         private DataGridViewTextBoxColumn StockId;
         private DataGridViewTextBoxColumn Barcode;
@@ -515,5 +633,15 @@
         private DataGridViewTextBoxColumn NetTaxable;
         private DataGridViewTextBoxColumn GstPer;
         private DataGridViewTextBoxColumn TotalAmount;
+        private DataGridViewTextBoxColumn StockQty;
+        private Label label4;
+        private Label label8;
+        private Label lblDiscountPercent;
+        private Panel panel8;
+        private TextBox txtBarcode;
+        private Label label9;
+        private Label lblCustomerType;
+        private Label label11;
+        private Button btnDeleteProduct;
     }
 }

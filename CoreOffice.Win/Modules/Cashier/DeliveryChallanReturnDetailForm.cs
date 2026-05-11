@@ -11,7 +11,7 @@ namespace CoreOffice.Win.Modules.Cashier
         private int? DeliveryChallanId;
         private Guid? CustomerId;
         private readonly IDeliveryChallanService _deliveryChallanService;
-        private decimal DiscountPercent = 0; //  For future use, if you want to apply visitor discount on return
+        private decimal? DiscountPercent; //  For future use, if you want to apply visitor discount on return
         public DeliveryChallanReturnDetailForm(IDeliveryChallanService deliveryChallanService)
         {
             InitializeComponent();
@@ -144,7 +144,9 @@ namespace CoreOffice.Win.Modules.Cashier
                 DiscountPercent = detail.DiscountPercent;
                 lblTotalAmount.Text = Math.Round(detail.TotalAmount,0).ToString("0.00");
                 lblTotalPcs.Text = detail.TotalQuantity.ToString();
-                lblDiscount.Text = detail.DiscountPercent.ToString("0.##") + " %";
+                lblDiscount.Text = detail.DiscountPercent.HasValue
+                ? $"{detail.DiscountPercent:0.##} %"
+                : "0 %";
                 dataGridReturn.Focus();
             }
             catch (Exception ex)
@@ -301,7 +303,7 @@ namespace CoreOffice.Win.Modules.Cashier
                 taxable = Math.Round(taxable,0); // ✅ 2 decimal round
                 row.Cells["TaxableAmount"].Value = taxable;
 
-                var discount = Math.Round(taxable * DiscountPercent / 100);
+                var discount = Math.Round(taxable * (DiscountPercent ?? 0) / 100);
                 var netTaxable = Math.Round(taxable - discount);
                
                 row.Cells["Discount"].Value = discount.ToString("0.00");
