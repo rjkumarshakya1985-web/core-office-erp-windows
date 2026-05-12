@@ -1,4 +1,5 @@
-﻿using CoreOfficeERP.Domain.Responses.Agent;
+﻿using CoreOfficeERP.Common.Enums;
+using CoreOfficeERP.Domain.Responses.Agent;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -85,6 +86,7 @@ namespace CoreOfficeERP.Domain.Responses.Tally
         public bool IsGstRule { get; set; }
         public decimal StartRange { get; set; }
         public decimal EndRange { get; set; }
+        public List<GstRule> GstRules { get; set; }
 
     }
     public class StockitemResponse
@@ -99,6 +101,7 @@ namespace CoreOfficeERP.Domain.Responses.Tally
         public decimal Discount { get; set; }
         public decimal RetailPrice { get; set; }
         public string? HsnCode { get; set; }
+        public string? stockGroupName { get; set; }
         public decimal Gst { get; set; }
         public decimal DiscountAmount { get; set; }
         public decimal CGST { get; set; }
@@ -110,6 +113,24 @@ namespace CoreOfficeERP.Domain.Responses.Tally
         public bool IsGstRule { get; set; }
         public decimal StartRange { get; set; }
         public decimal EndRange { get; set; }
+        public List<GstRule> GstRules { get; set; }
+       
+        // Yes, No
+        public bool GstApplicable { get; set; }       
+        public GstNatureType GSTNature { get; set; }
+
+        public GstTaxabilityType GSTTaxability { get; set; }
+    }
+    public class GstRule
+    {
+        public int Id { get; set; }
+        public int StockGroupId { get; set; }
+        public string StockGroupName { get; set; }
+        public decimal GstValue { get; set; }
+        public int ApplyOrder { get; set; }
+        public decimal StartRange { get; set; }
+        public decimal EndRange { get; set; }
+        public bool IsDeleted { get; set; }
     }
     public class SaleVoucherPrint
     {

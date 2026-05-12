@@ -19,6 +19,7 @@
   <ItemGroup>
     <Reference Include="TallyBridgeDll">
       <HintPath>Tally.DLL\TallyBridgeDll.dll</HintPath>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
 

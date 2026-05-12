@@ -90,4 +90,23 @@ namespace CoreOfficeERP.Common.Enums
         StockItem = 4,
         Other = 5
     }
+    public enum GstNatureType
+    {
+        [Description("Goods")]
+        Goods = 1,
+
+        [Description("Services")]
+        Services = 2
+    }
+    public enum GstTaxabilityType
+    {
+        [Description("Taxable")]
+        Taxable = 1,
+
+        [Description("Exempt")]
+        Exempt = 2,
+
+        [Description("Nil Rated")]
+        NilRated = 3
+    }
 }
