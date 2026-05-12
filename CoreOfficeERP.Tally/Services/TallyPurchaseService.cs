@@ -432,7 +432,7 @@ namespace CoreOfficeERP.Tally.Services
                     qtyUnit = "Pcs", // or map if dynamic
                     rate = (decimal)stockItem.PurchasePrice,
                     rateUnit = "Pcs",
-                    discountPerc = 5,
+                    discountPerc = stockItem.Discount,
                     amount = -stockItem.DiscountAmount
                 };
 
@@ -448,8 +448,7 @@ namespace CoreOfficeERP.Tally.Services
                 // Accounting Allocation
                 item.arlAccountingAllocations.Add(new LedgerEntry
                 {
-                    ledgerName = "Purchase B/O",
-                    // ledgerName = config.Purchase.MainLedger, // or stockItem.tallyLedgerName if available
+                    ledgerName = config.Purchase.MainLedger,                    
                     ledgerAmount = item.amount
                 });
 
@@ -481,20 +480,20 @@ namespace CoreOfficeERP.Tally.Services
             // DISCOUNT
             // =========================
 
-            if (data.StockitemResponse.Sum(x => x.Discount > 0? (x.Quantity * x.PurchasePrice * x.Discount / 100): 0)>0)
-            {
-                var discountRate = data.StockitemResponse
-        .FirstOrDefault(x => x.Discount > 0)?.Discount ?? 0;
-                invoice.arlLedgerEntries.Add(new LedgerEntry
-                {
-                    ledgerName = "Discount on Purchase",
-                    appropriateFor = "GST",
-                    gstAppropriateTo = "Goods and Services",    
-                    ledEntryRate= -(decimal)discountRate,
-                    ledgerAmount = data.StockitemResponse.Sum(x => x.Discount > 0 ? (x.Quantity * x.PurchasePrice * x.Discount / 100) : 0),   // ✅ Positive (reduces purchase)
-                    isDeemedPositive = true
-                });
-            }
+        //    if (data.StockitemResponse.Sum(x => x.Discount > 0? (x.Quantity * x.PurchasePrice * x.Discount / 100): 0)>0)
+        //    {
+        //        var discountRate = data.StockitemResponse
+        //.FirstOrDefault(x => x.Discount > 0)?.Discount ?? 0;
+        //        invoice.arlLedgerEntries.Add(new LedgerEntry
+        //        {
+        //            ledgerName = "Discount on Purchase",
+        //            appropriateFor = "GST",
+        //            gstAppropriateTo = "Goods and Services",    
+        //            ledEntryRate= -(decimal)discountRate,
+        //            ledgerAmount = data.StockitemResponse.Sum(x => x.Discount > 0 ? (x.Quantity * x.PurchasePrice * x.Discount / 100) : 0),   // ✅ Positive (reduces purchase)
+        //            isDeemedPositive = true
+        //        });
+        //    }
 
 
             // =========================

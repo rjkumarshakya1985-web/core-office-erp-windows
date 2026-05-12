@@ -1,4 +1,6 @@
-﻿namespace CoreOffice.Win.Modules.Cashier
+﻿using CoreOffice.Win.Session;
+
+namespace CoreOffice.Win.Modules.Cashier
 {
     partial class MDICashierParent
     {
@@ -175,65 +177,65 @@
             // deliveryChallanToInvoiceToolStripMenuItem
             // 
             deliveryChallanToInvoiceToolStripMenuItem.Name = "deliveryChallanToInvoiceToolStripMenuItem";
-            deliveryChallanToInvoiceToolStripMenuItem.Size = new Size(216, 22);
+            deliveryChallanToInvoiceToolStripMenuItem.Size = new Size(215, 22);
             deliveryChallanToInvoiceToolStripMenuItem.Text = "&Delivery Challan To Invoice";
             deliveryChallanToInvoiceToolStripMenuItem.Click += deliveryChallanToInvoiceToolStripMenuItem_Click;
             // 
             // createInvoiceToolStripMenuItem1
             // 
             createInvoiceToolStripMenuItem1.Name = "createInvoiceToolStripMenuItem1";
-            createInvoiceToolStripMenuItem1.Size = new Size(216, 22);
+            createInvoiceToolStripMenuItem1.Size = new Size(215, 22);
             createInvoiceToolStripMenuItem1.Text = "Create &Invoice";
             createInvoiceToolStripMenuItem1.Click += createInvoiceToolStripMenuItem1_Click;
             // 
             // invoiceListToolStripMenuItem
             // 
             invoiceListToolStripMenuItem.Name = "invoiceListToolStripMenuItem";
-            invoiceListToolStripMenuItem.Size = new Size(216, 22);
+            invoiceListToolStripMenuItem.Size = new Size(215, 22);
             invoiceListToolStripMenuItem.Text = "Invoice List";
             invoiceListToolStripMenuItem.Click += invoiceListToolStripMenuItem_Click;
             // 
             // searchInvoiceToolStripMenuItem
             // 
             searchInvoiceToolStripMenuItem.Name = "searchInvoiceToolStripMenuItem";
-            searchInvoiceToolStripMenuItem.Size = new Size(216, 22);
+            searchInvoiceToolStripMenuItem.Size = new Size(215, 22);
             searchInvoiceToolStripMenuItem.Text = "Search Invoice ";
             searchInvoiceToolStripMenuItem.Click += searchInvoiceToolStripMenuItem_Click;
             // 
             // toolStripSeparator2
             // 
             toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(213, 6);
+            toolStripSeparator2.Size = new Size(212, 6);
             // 
             // createCreditNoteToolStripMenuItem
             // 
             createCreditNoteToolStripMenuItem.Name = "createCreditNoteToolStripMenuItem";
-            createCreditNoteToolStripMenuItem.Size = new Size(216, 22);
+            createCreditNoteToolStripMenuItem.Size = new Size(215, 22);
             createCreditNoteToolStripMenuItem.Text = "Create Credit Note";
             // 
             // creditNoteListToolStripMenuItem
             // 
             creditNoteListToolStripMenuItem.Name = "creditNoteListToolStripMenuItem";
-            creditNoteListToolStripMenuItem.Size = new Size(216, 22);
+            creditNoteListToolStripMenuItem.Size = new Size(215, 22);
             creditNoteListToolStripMenuItem.Text = "Credit Note List";
             // 
             // searchCreditNoteToolStripMenuItem
             // 
             searchCreditNoteToolStripMenuItem.Name = "searchCreditNoteToolStripMenuItem";
-            searchCreditNoteToolStripMenuItem.Size = new Size(216, 22);
+            searchCreditNoteToolStripMenuItem.Size = new Size(215, 22);
             searchCreditNoteToolStripMenuItem.Text = "Search Credit Note";
             // 
             // tallyToolStripMenuItem
             // 
             tallyToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { purchaseTallySnyncToolStripMenuItem });
             tallyToolStripMenuItem.Name = "tallyToolStripMenuItem";
-            tallyToolStripMenuItem.Size = new Size(43, 20);
+            tallyToolStripMenuItem.Size = new Size(42, 20);
             tallyToolStripMenuItem.Text = "Tally";
             // 
             // purchaseTallySnyncToolStripMenuItem
             // 
             purchaseTallySnyncToolStripMenuItem.Name = "purchaseTallySnyncToolStripMenuItem";
-            purchaseTallySnyncToolStripMenuItem.Size = new Size(177, 22);
+            purchaseTallySnyncToolStripMenuItem.Size = new Size(176, 22);
             purchaseTallySnyncToolStripMenuItem.Text = "Purchase Tally Sync";
             purchaseTallySnyncToolStripMenuItem.Click += purchaseTallySnyncToolStripMenuItem_Click;
             // 
@@ -281,22 +283,20 @@
             // 
             // button4
             // 
-            button4.FlatStyle = FlatStyle.Flat;
-            button4.Location = new Point(1100, 12);
+            button4.Location = new Point(0, 0);
             button4.Name = "button4";
-            button4.Size = new Size(75, 35);
-            button4.TabIndex = 2;
-            button4.Text = "Logout";
-            button4.UseVisualStyleBackColor = true;
+            button4.Size = new Size(75, 23);
+            button4.TabIndex = 4;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(1000, 18);
+            label4.Dock = DockStyle.Right;
+            label4.Location = new Point(628, 5);
             label4.Name = "label4";
             label4.Size = new Size(99, 15);
             label4.TabIndex = 1;
-            label4.Text = "Welcome, Admin";
+            label4.Text = $"Welcome, {UserSession.RoleEnum}";
             // 
             // label3
             // 
