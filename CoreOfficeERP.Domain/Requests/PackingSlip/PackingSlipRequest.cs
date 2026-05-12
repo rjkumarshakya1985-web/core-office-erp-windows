@@ -9,6 +9,7 @@
         public int? VisitorId { get; set; }
         public Guid? CustomerId { get; set; }
         public Guid? UserId { get; set; }
+        public decimal DiscountPercent { get; set; }
         public string? Remarks { get; set; }
 
         public required List<PackingSlipItemRequest> Items { get; set; }

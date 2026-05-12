@@ -1,4 +1,5 @@
 ﻿
+using CoreOfficeERP.Domain;
 using System.Text;
 using System.Text.Json;
 
@@ -25,8 +26,30 @@ namespace CoreOfficeERP.Infrastructure.Api
         public async Task<TResponse?> GetAsync<TResponse>(string endpoint)
         {
             var response = await _httpClient.GetAsync(endpoint);
-            response.EnsureSuccessStatusCode();
-            return await DeserializeResponse<TResponse>(response);
+
+            var json = await response.Content.ReadAsStringAsync();
+
+            if (!response.IsSuccessStatusCode)
+            {
+                string message = "Something went wrong";
+
+                try
+                {
+                    var error = JsonSerializer.Deserialize<ApiErrorResponse>(
+                        json,
+                        _jsonOptions);
+
+                    if (!string.IsNullOrWhiteSpace(error?.Message))
+                        message = error.Message;
+                }
+                catch
+                {
+                }
+
+                throw new Exception(message);
+            }
+
+            return JsonSerializer.Deserialize<TResponse>(json, _jsonOptions);
         }
 
         public async Task<TResponse?> GetByIdAsync<TResponse>(string endpoint, object id)

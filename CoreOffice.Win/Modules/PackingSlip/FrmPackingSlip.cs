@@ -7,7 +7,6 @@ using CoreOfficeERP.Common.Enums;
 using CoreOfficeERP.Domain.Requests.PackingSlip;
 using CoreOfficeERP.Domain.Responses;
 using CoreOfficeERP.Domain.Responses.PackingSlip;
-using CoreOfficeERP.Domain.Responses.SalesPersons;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Reporting.WinForms;
 
@@ -249,12 +248,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
                 int.TryParse(row.Cells["Quantity"].Value?.ToString(), out int qty);
                 decimal gstPercent = Convert.ToDecimal(row.Cells["GstValue"].Value);
 
-
-
-
-
                 decimal taxable = Math.Round(rate * qty, 2, MidpointRounding.AwayFromZero);
-
 
                 var discountPercent = VisitorDiscount ?? 0;
 
@@ -526,6 +520,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
                     VisitorId = VisitorId,
                     SalesPersonId = (Guid?)cmbSalesPerson.SelectedValue,
                     CustomerId = CustomerId,
+                    DiscountPercent = VisitorDiscount ?? 0,
                     Items = packingSlipItems
                 };
 

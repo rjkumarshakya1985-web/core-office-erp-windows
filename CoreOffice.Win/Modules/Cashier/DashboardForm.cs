@@ -146,7 +146,7 @@ namespace CoreOffice.Win.Modules.Cashier
             //var section2 = CreateSection("INVOICE");
             //flowLayoutPanel1.Controls.Add(section2);
             //flowLayoutPanel1.SetFlowBreak(section2, true); // 🔥 important
-           
+
 
             //var row2 = CreateRow();
 
@@ -156,21 +156,21 @@ namespace CoreOffice.Win.Modules.Cashier
 
             //flowLayoutPanel1.Controls.Add(row2);
             //flowLayoutPanel1.SetFlowBreak(row2, true);
-           
 
-            //// 🔷 Deliver Challan
-            //var section3 = CreateSection("DELIVERY CHALLAN");
-            //flowLayoutPanel1.Controls.Add(section3);
-            //flowLayoutPanel1.SetFlowBreak(section3, true); // 🔥 important
 
-            //var row3 = CreateRow();
+            // 🔷 Deliver Challan
+            var section3 = CreateSection("DELIVERY CHALLAN");
+            flowLayoutPanel1.Controls.Add(section3);
+            flowLayoutPanel1.SetFlowBreak(section3, true); // 🔥 important
 
-            //row3.Controls.Add(CreateCard("New Delivery", "Create Delivery Challan",Properties.Resources.add, OpenDeliveryChallan));
-            //row3.Controls.Add(CreateCard("Search Delivery", "Find Delivery Challan",Properties.Resources.search, OpenSearchDeliveryChallan));
-            //row3.Controls.Add(CreateCard("Delivery List", "View all", Properties.Resources.list, OpenDeliveryChallanList));
-            
-            //flowLayoutPanel1.Controls.Add(row3);
-            //flowLayoutPanel1.SetFlowBreak(row3, true);
+            var row3 = CreateRow();
+
+            row3.Controls.Add(CreateCard("New Delivery", "Create Delivery Challan", Properties.Resources.add, OpenDeliveryChallan));
+            row3.Controls.Add(CreateCard("Search Delivery", "Find Delivery Challan", Properties.Resources.search, OpenSearchDeliveryChallan));
+            row3.Controls.Add(CreateCard("Delivery List", "View all", Properties.Resources.list, OpenDeliveryChallanList));
+
+            flowLayoutPanel1.Controls.Add(row3);
+            flowLayoutPanel1.SetFlowBreak(row3, true);
 
 
 
@@ -187,7 +187,7 @@ namespace CoreOffice.Win.Modules.Cashier
 
             //flowLayoutPanel1.Controls.Add(row4);
             //flowLayoutPanel1.SetFlowBreak(row4, true);
-           
+
 
             // 🔷 Tally Synch
             var section5 = CreateSection("TALLY");
