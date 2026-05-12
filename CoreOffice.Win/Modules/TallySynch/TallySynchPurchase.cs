@@ -2,34 +2,25 @@
 using CoreOffice.Win.Session;
 using CoreOffice.Win.Shared;
 using CoreOfficeERP.Application.Interfaces;
-using CoreOfficeERP.Application.Services;
 using CoreOfficeERP.Common.Enums;
 using CoreOfficeERP.Domain.Requests.Tally;
-using CoreOfficeERP.Domain.Responses.PackingSlip;
 using CoreOfficeERP.Domain.Responses.Tally;
 using CoreOfficeERP.Tally.Interfaces;
-using CoreOfficeERP.Tally.Services;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.VisualBasic;
-using Tally;
 namespace CoreOffice.Win.Modules.TallySynch
 
 {
     public partial class TallySynchPurchase : Form
     {
-        private readonly ITallyPurchaseService _tallyPurchaseService;
+      
         private readonly ITallyProcessOrchestratorService _tallyProcessOrchestrator;
         private readonly ITallyTransactionService _tallyTransactionsService;
-        private readonly ITallyConfigService _tallyConfigService;
-        private readonly IServiceProvider _serviceProvider;
-        private TallyProcessType? ProcessType;
+        private readonly ITallyConfigService _tallyConfigService;        
         private readonly ITallyProcessService _tallyProcessService;
 
-        public TallySynchPurchase(ITallyPurchaseService tallyPurchaseService, IServiceProvider serviceProvider, ITallyTransactionService tallyTransactionsService, ITallyProcessOrchestratorService tallyProcessOrchestrator, ITallyProcessService tallyProcessService, ITallyConfigService tallyConfigService)
+        public TallySynchPurchase(IServiceProvider serviceProvider, ITallyTransactionService tallyTransactionsService, ITallyProcessOrchestratorService tallyProcessOrchestrator, ITallyProcessService tallyProcessService, ITallyConfigService tallyConfigService)
         {
-            InitializeComponent();
-            this._tallyPurchaseService = tallyPurchaseService;
-            this._serviceProvider = serviceProvider;
+            InitializeComponent();          
+          
             _tallyTransactionsService = tallyTransactionsService;
             _tallyProcessOrchestrator = tallyProcessOrchestrator;
             _tallyProcessService = tallyProcessService;
@@ -194,7 +185,7 @@ namespace CoreOffice.Win.Modules.TallySynch
 
                         if (bulkRequest.Any())
                         {
-                            await _tallyTransactionsService.TallyDataUpdate(bulkRequest);
+                            await _tallyTransactionsService.TallyDataUpdate(completedPurchase.SaleVoucherPrint.Id,bulkRequest);
                         }
                     }
                 }

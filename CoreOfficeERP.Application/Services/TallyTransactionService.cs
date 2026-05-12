@@ -24,10 +24,10 @@ namespace CoreOfficeERP.Application.Services
             return result?.Data;
 
         }
-        public async Task<int> TallyDataUpdate(List<TallyNameRequest> request)
+        public async Task<bool> TallyDataUpdate(object id,List<TallyNameRequest> request)
         {
             var result = await _apiRepository
-             .PutAsync<List<TallyNameRequest>, ApiResponse<int>>(ApiEndpoints.TallyDataUpdate, request);
+             .PutAsync<List<TallyNameRequest>, ApiResponse<bool>>(ApiEndpoints.TallyDataUpdate, id,request);
             return result!.Data;
 
         }
