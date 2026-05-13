@@ -85,6 +85,12 @@ namespace CoreOfficeERP.Application.Services
             return response!.Data;
         }
 
+        public async Task<int> UpdateDeliveryChallanAsnc(UpdateDeliveryChallanRequest request)
+        {
+            var response = await _apiRepository
+              .PutAsync<UpdateDeliveryChallanRequest, ApiResponse<int>>(ApiEndpoints.CreateDeliveryChallan, request);
 
+            return response!.Data;
+        }
     }
 }

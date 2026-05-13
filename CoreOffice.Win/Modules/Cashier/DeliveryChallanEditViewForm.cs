@@ -5,6 +5,7 @@ using CoreOffice.Win.Shared;
 using CoreOfficeERP.Application.Interfaces;
 using CoreOfficeERP.Common.Enums;
 using CoreOfficeERP.Common.Extensions;
+using CoreOfficeERP.Domain.Requests.DeliveryChallan;
 using CoreOfficeERP.Domain.Responses;
 namespace CoreOffice.Win.Modules.Cashier
 {
@@ -208,7 +209,7 @@ namespace CoreOffice.Win.Modules.Cashier
             Close();
         }
 
-        private void btnUpdate_Click(object sender, EventArgs e)
+        private async void btnUpdate_Click(object sender, EventArgs e)
         {
             if (DeliveryChallanId == null)
             {
@@ -222,6 +223,80 @@ namespace CoreOffice.Win.Modules.Cashier
                 MessageBox.Show("No items to update.",
                     "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
+            }
+
+            try
+            {
+                AppLoader.Show();
+
+
+
+                if (dataGrid.Rows.Count == 0)
+                {
+                    MessageBox.Show("Add items first");
+
+                    return;
+                }
+
+
+
+                var itemRequests = new List<UpdateDeliverChallanItemRequest>();
+
+                foreach (DataGridViewRow row in dataGrid.Rows)
+                {
+                    if (row.IsNewRow) continue;
+
+                    if (
+                        row.Cells["TotalQty"].Value == null ||
+                        row.Cells["TotalAmount"].Value == null)
+                        continue;
+
+                    itemRequests.Add(new UpdateDeliverChallanItemRequest
+                    {
+                        Id = row.Cells["Id"].Value != null
+                            ? Convert.ToInt32(row.Cells["Id"].Value)
+                            : (int?)null,
+                        StockId = Guid.Parse(row.Cells["StockId"].Value.ToString()),
+                        Qty = Convert.ToInt32(row.Cells["TotalQty"].Value),
+                        SaleRate = Convert.ToDecimal(row.Cells["SalePrice"].Value),
+                        GstPercent = Convert.ToDecimal(row.Cells["GstPer"].Value),
+                        DiscountPercent = Convert.ToDecimal(row.Cells["Discount"].Value)
+                    });
+                }
+
+                if (!itemRequests.Any())
+                {
+                    MessageBox.Show("No valid items found");
+                    return;
+                }
+
+                var request = new UpdateDeliveryChallanRequest
+                {
+                    Id = DeliveryChallanId ?? 0,
+
+                    DiscountPercent = DiscountPercent ?? 0,
+                    Items = itemRequests
+                };
+
+                if (DeliveryChallanId != null)
+                {
+                    await _deliveryChallanService.UpdateDeliveryChallanAsnc(request);
+                    if (DeliveryChallanId.HasValue)
+                    {
+                        /// Call Print Functionality here with DeliveryChallanId.Value
+                    }
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                AppLoader.Hide();
+
             }
         }
 
@@ -362,6 +437,8 @@ namespace CoreOffice.Win.Modules.Cashier
         }
 
 
+
+
         private void CalculatePackingSlip()
         {
             int totalPcs = 0;
@@ -480,16 +557,24 @@ namespace CoreOffice.Win.Modules.Cashier
             if (row == null)
                 return;
 
-            var availableQty = Convert.ToInt32(row.Cells["TotalQty"].Value);
+            var qty = Convert.ToInt32(row.Cells["TotalQty"].Value);
 
             var item = new CurrentStockResponse
             {
                 BarCode = _selectedBarcode,
-                AvailableQty = DeliveryChallanId == null
-                    ? availableQty
-                    : availableQty + _selectedQty
+                AvailableQty =
+                     qty + _selectedQty
             };
-            new AddUpdateProductQtyForm(item, true).ShowDialog();
+
+            var qtyForm = new AddUpdateProductQtyForm(item, true);
+
+            qtyForm.OnQtyUpdate = (qty) =>
+            {
+                row.Cells["TotalQty"].Value = qty;
+                CalculatePackingSlip();
+            };
+
+            qtyForm.ShowDialog();
             txtBarcode.Focus();
         }
 
@@ -501,7 +586,7 @@ namespace CoreOffice.Win.Modules.Cashier
             var row = dataGrid.Rows[e.RowIndex];
 
             _selectedBarcode = row.Cells["Barcode"].Value?.ToString();
-            _selectedQty = Convert.ToInt32(row.Cells["Balance"].Value ?? 0);
+            _selectedQty = Convert.ToInt32(row.Cells["TotalQty"].Value ?? 0);
         }
 
         public void AddSingleItemToGrid(CurrentStockResponse item)

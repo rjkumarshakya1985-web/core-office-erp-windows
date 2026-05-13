@@ -10,6 +10,7 @@ namespace CoreOfficeERP.Application.Interfaces
         Task<TableResult<DeliveryChallanListResponse>> GetTableData(TableDataRequest tableDataRequest,int finYearId);
 
         Task<int> CreateAsync(BillingRequest request);
+        Task<int> UpdateDeliveryChallanAsnc(UpdateDeliveryChallanRequest request);
 
         public Task<DeliveryChallanReturnDetailResponse?> GetDeliveryChallanForReturn(string number, int finYearId);
 

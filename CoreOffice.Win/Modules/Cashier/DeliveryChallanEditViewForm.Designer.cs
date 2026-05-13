@@ -329,14 +329,14 @@
             panel4.Dock = DockStyle.Left;
             panel4.Location = new Point(0, 321);
             panel4.Name = "panel4";
-            panel4.Size = new Size(274, 257);
+            panel4.Size = new Size(310, 257);
             panel4.TabIndex = 8;
             // 
             // lblCustomerType
             // 
             lblCustomerType.AutoSize = true;
             lblCustomerType.Font = new Font("Segoe UI", 11.25F);
-            lblCustomerType.Location = new Point(138, 102);
+            lblCustomerType.Location = new Point(122, 102);
             lblCustomerType.Name = "lblCustomerType";
             lblCustomerType.Size = new Size(45, 20);
             lblCustomerType.TabIndex = 10;
@@ -356,7 +356,7 @@
             // 
             lblDiscountPercent.AutoSize = true;
             lblDiscountPercent.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
-            lblDiscountPercent.Location = new Point(132, 172);
+            lblDiscountPercent.Location = new Point(116, 172);
             lblDiscountPercent.Name = "lblDiscountPercent";
             lblDiscountPercent.Size = new Size(57, 20);
             lblDiscountPercent.TabIndex = 8;
@@ -376,7 +376,7 @@
             // 
             lblStatus.AutoSize = true;
             lblStatus.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold);
-            lblStatus.Location = new Point(133, 141);
+            lblStatus.Location = new Point(117, 141);
             lblStatus.Name = "lblStatus";
             lblStatus.Size = new Size(57, 20);
             lblStatus.TabIndex = 6;
@@ -396,7 +396,7 @@
             // 
             lblCustomer.AutoSize = true;
             lblCustomer.Font = new Font("Segoe UI", 11.25F);
-            lblCustomer.Location = new Point(139, 73);
+            lblCustomer.Location = new Point(123, 73);
             lblCustomer.Name = "lblCustomer";
             lblCustomer.Size = new Size(45, 20);
             lblCustomer.TabIndex = 4;
@@ -416,7 +416,7 @@
             // 
             lblDate.AutoSize = true;
             lblDate.Font = new Font("Segoe UI", 11.25F);
-            lblDate.Location = new Point(139, 48);
+            lblDate.Location = new Point(123, 48);
             lblDate.Name = "lblDate";
             lblDate.Size = new Size(42, 20);
             lblDate.TabIndex = 2;
@@ -439,7 +439,7 @@
             panel5.Dock = DockStyle.Top;
             panel5.Location = new Point(0, 0);
             panel5.Name = "panel5";
-            panel5.Size = new Size(272, 38);
+            panel5.Size = new Size(308, 38);
             panel5.TabIndex = 0;
             // 
             // label2
@@ -533,9 +533,9 @@
             panel8.Controls.Add(label9);
             panel8.Controls.Add(txtBarcode);
             panel8.Dock = DockStyle.Bottom;
-            panel8.Location = new Point(274, 534);
+            panel8.Location = new Point(310, 534);
             panel8.Name = "panel8";
-            panel8.Size = new Size(529, 44);
+            panel8.Size = new Size(493, 44);
             panel8.TabIndex = 14;
             // 
             // label9

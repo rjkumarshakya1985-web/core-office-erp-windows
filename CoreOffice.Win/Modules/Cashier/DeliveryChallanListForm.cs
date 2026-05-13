@@ -17,5 +17,10 @@ namespace CoreOffice.Win.Modules.Cashier
             InitializeComponent();
             cmbPageSize.SelectedIndex = 0;
         }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
     }
 }
