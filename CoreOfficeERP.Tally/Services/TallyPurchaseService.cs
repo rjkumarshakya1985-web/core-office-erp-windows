@@ -1,4 +1,5 @@
 ﻿using CoreOfficeERP.Common.Extensions;
+using CoreOfficeERP.Common.Hepler;
 using CoreOfficeERP.Domain.Responses.Agent;
 using CoreOfficeERP.Domain.Responses.Tally;
 using CoreOfficeERP.Tally.Interfaces;
@@ -154,7 +155,7 @@ namespace CoreOfficeERP.Tally.Services
                 var gst = new StockGroupGstDetails
                 {
 
-                    applicableFrom = DateTime.ParseExact("22-Sep-2025", "dd-MMM-yyyy", CultureInfo.InvariantCulture),
+                    applicableFrom = DateTime.ParseExact("01-Jul-2017", "dd-MMM-yyyy", CultureInfo.InvariantCulture),
 
                     //The value for this must be a valid value as per the Tally dropdown, e.g. "Specify Details Here" or "As per Company/Stock Group"
                     sourceOfGstDetails = "Specify Details Here",
@@ -177,36 +178,31 @@ namespace CoreOfficeERP.Tally.Services
             {
                 var gstSlab = new StockGroupGstDetails
                 {
-                    applicableFrom = DateTime.ParseExact("22-Sep-2025", "dd-MMM-yyyy", CultureInfo.InvariantCulture),
+                    applicableFrom = DateTime.ParseExact("01-Jul-2017", "dd-MMM-yyyy", CultureInfo.InvariantCulture),
                     sourceOfGstDetails = "Specify Slab-Based Rates",
                     isSlabRateOnMrp = false
-                };
-                // ✅ First slab
-                var slab1 = new StockGroupGstSlabDetails
+                };               
+                foreach (var rule in group.GstRules)
                 {
-                    taxability = "Taxable",
-                    toItemRate = 2500,
-                    igstRate = 5,
-                    cgstRate = 2.5m,
-                    sgstRate = 2.5m,
-                    cessRate = 0
-                };
+                    var gstSlabDetails = new StockGroupGstSlabDetails
+                    {
+                        taxability = "Taxable",
 
-                gstSlab.arlGstSlabDetails.Add(slab1);
+                        // if EndRange = 0 then it is last slab
+                        toItemRate = rule.EndRange,
 
-                // ✅ Second slab
-                var slab2 = new StockGroupGstSlabDetails
-                {
-                    taxability = "Taxable",
-                    toItemRate = 0, // last slab
-                    igstRate = 18,
-                    cgstRate = 9,
-                    sgstRate = 9,
-                    cessRate = 0
-                };
+                        igstRate = rule.GstValue,
 
-                gstSlab.arlGstSlabDetails.Add(slab2);
+                        // divide GST equally
+                        cgstRate = rule.GstValue / 2,
 
+                        sgstRate = rule.GstValue / 2,
+
+                        cessRate = 0
+                    };
+
+                    gstSlab.arlGstSlabDetails.Add(gstSlabDetails);                 
+                    }
                 // Add to group
                 grp.arlGstDetails.Add(gstSlab);
                
@@ -227,6 +223,7 @@ namespace CoreOfficeERP.Tally.Services
         {          
 
             StockItemGstDetails gstDetails;
+            
             var si = new StockItem
             {
 
@@ -234,9 +231,8 @@ namespace CoreOfficeERP.Tally.Services
 
                 //This line is required only if the Stock Item is being altered or re-uploaded. 
                 //During initial Stock Item creation, this line is not required, but even if given, its not a problem
-                oldItemName = item.TallyLedgerName??item.ProductName,
-
-                itemName = item.ProductName,
+                oldItemName = item.TallyLedgerName??item.ProductName,            
+                itemName=item.ProductName,
 
                 //You can map SKU code either in item alias or in part no.
                 //Or, if you do not wish to maintain SKU code, you can leave both these fields blank
@@ -257,9 +253,9 @@ namespace CoreOfficeERP.Tally.Services
                 //You can leave this blank if you do not wish to maintain Stock Categories in Tally
                 //stockItem.stockCategoryName = "Stk Cat 1";
 
-                isGstApplicable = true,
-                //Valid values: "Goods", "Services"
-                gstTypeOfSupply = "Goods",
+                isGstApplicable = item.GstApplicable,
+                //Valid values: "Goods", "Services"        
+                gstTypeOfSupply = Helper.GetEnumDescription(item.GSTNature)
             };
             if (!item.IsGstRule)
             {
@@ -271,7 +267,7 @@ namespace CoreOfficeERP.Tally.Services
                     sourceOfGstDetails = "Specify Details Here",
 
                     //The value for this must be a valid value as per the Tally dropdown, e.g.. "Exempt", "Nil Rated", or "Taxable"
-                    taxability = "Taxable",
+                    taxability = Helper.GetEnumDescription(item.GSTTaxability),
                     isReverseChargeApplicable = false,
                     igstRate = item.Gst,
                     cgstRate = item.Gst/2,
@@ -284,38 +280,53 @@ namespace CoreOfficeERP.Tally.Services
             }
             else
             {
+                //gstDetails = new StockItemGstDetails
+                //{
+                //    applicableFrom = DateTime.ParseExact("01-Jul-2017", "dd-MMM-yyyy", CultureInfo.InvariantCulture),
+
+                //    //The value for this must be a valid value as per the Tally dropdown, e.g. "Specify Details Here" or "As per Company/Stock Group"
+                //    sourceOfGstDetails = "Specify Details Here",
+
+                //    //The value for this must be a valid value as per the Tally dropdown, e.g.. "Exempt", "Nil Rated", or "Taxable"
+                //    taxability = "Taxable",
+                //    isReverseChargeApplicable = false,
+                //    igstRate = 12,
+                //    cgstRate = 6,
+                //    sgstRate = 6,
+                //    cessRate = 0
+                //};
+                //The ArrayList arlGstDetails should be filled up with objects of type StockItemGstDetails
+                //It represents the Tax Rate History, and there should be 1 object for each date when the tax rate or other GST details were changed
+             //   si.arlGstDetails.Add(gstDetails);
 
                 // 2nd GST Details (Slab-based from 01-Jul-2017)          
                 gstDetails = new StockItemGstDetails
                 {
-                    applicableFrom = DateTime.ParseExact("22-Oct-2025", "dd-MMM-yyyy", CultureInfo.InvariantCulture),
+                    applicableFrom = DateTime.ParseExact("01-Jul-2017", "dd-MMM-yyyy", CultureInfo.InvariantCulture),
                     sourceOfGstDetails = "Specify Slab-Based Rates",
                     isSlabRateOnMrp = false
                 };
-                // --- 1st Slab (<= 2500 : 5%) ---
-                var gstSlabDetails = new StockItemGstSlabDetails
+                foreach (var rule in item.GstRules)
                 {
-                    taxability = "Taxable",
-                    toItemRate = 2500,
-                    igstRate = 5,
-                    cgstRate = 2.5m,
-                    sgstRate = 2.5m,
-                    cessRate = 0
-                };
-                gstDetails.arlGstSlabDetails.Add(gstSlabDetails);
+                    var gstSlabDetails = new StockItemGstSlabDetails
+                    {
+                        taxability = Helper.GetEnumDescription(item.GSTTaxability),
 
-                // --- 2nd Slab (> 2500 : 18%) ---
-                gstSlabDetails = new StockItemGstSlabDetails
-                {
-                    taxability = "Taxable",
-                    toItemRate = 0, // IMPORTANT: last slab must be 0
-                    igstRate = 18,
-                    cgstRate = 9,
-                    sgstRate = 9,
-                    cessRate = 0
-                };
+                        // if EndRange = 0 then it is last slab
+                        toItemRate = rule.EndRange,
 
-                gstDetails.arlGstSlabDetails.Add(gstSlabDetails);
+                        igstRate = rule.GstValue,
+
+                        // divide GST equally
+                        cgstRate = rule.GstValue / 2,
+
+                        sgstRate = rule.GstValue / 2,
+
+                        cessRate = 0
+                    };
+
+                    gstDetails.arlGstSlabDetails.Add(gstSlabDetails);
+                }              
 
                 si.arlGstDetails.Add(gstDetails);
                 
@@ -325,13 +336,14 @@ namespace CoreOfficeERP.Tally.Services
                 applicableFrom = DateTime.ParseExact("01-Aug-2017", "dd-MMM-yyyy", CultureInfo.InvariantCulture),
 
                 //The value for this must be a valid value as per the Tally dropdown, e.g. "Specify Details Here" or "As per Company/Stock Group"
-                sourceOfHsnDetails = "Specify Details Here",
+                sourceOfHsnDetails = "Specify Details Here",                
                 hsnCode = item.HsnCode,
-                hsnDescription = "SAREE"
+                hsnDescription = item.stockGroupName
             };
             si.arlHsnDetails.Add(hsn);            
             return _tb.DoTransferStockItem(si);
         }
+      
         public TallyResponse CreatePurchaseVoucher(TallyPurchaseResponse data, TallyConfigResponse config)
         {          
             DateTime dt1 = DateTime.ParseExact(data.SaleVoucherPrint.Date.ToString(), "dd-MMM-yy h:mm:ss tt", CultureInfo.InvariantCulture);          
@@ -348,23 +360,14 @@ namespace CoreOfficeERP.Tally.Services
                 voucherForeignKey = data.SaleVoucherPrint.VoucherForeignkey,
 
                 // If Tally API needs string:
-                // dtOfVoucher = DateTime.ParseExact(s, "dd/MM/yyyy", null),
-                dtOfVoucher = DateTime.ParseExact("01/03/2026", "dd/MM/yyyy", null),
-
-                // dtOfVoucher = DateTime.ParseExact(data.SaleVoucherPrint.Date.ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture),
-                // dtOfVoucher = data.SaleVoucherPrint.Date,
+                 dtOfVoucher = DateTime.ParseExact(s, "dd/MM/yyyy", null),             
 
                 voucherTypeName = config.Purchase.MainLedger,
                 typeOfVoucher = "Purchase",
 
                 voucherNo = data.SaleVoucherPrint.Id.ToString(),
                 reference = data.SaleVoucherPrint.SupplierBillNumber,
-                
-               
-               // referenceDate = DateTime.ParseExact(data.SaleVoucherPrint.Date.ToString(),"dd/MM/yyyy", CultureInfo.InvariantCulture),
-               // referenceDate = DateTime.ParseExact(parsedDate.ToString(), "dd/MM/yyyy", null),
-                //  referenceDate = DateTime.ParseExact(data.SaleVoucherPrint.Date.ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture),
-                   referenceDate = DateTime.ParseExact("01/03/2026", "dd/MM/yyyy", null),
+                referenceDate = DateTime.ParseExact(s, "dd/MM/yyyy", null),               
                 voucherIdentifier = data.SaleVoucherPrint.VoucherForeignkey,
 
                 //  receiptDocNo = "Receipt Doc11",
@@ -413,24 +416,6 @@ namespace CoreOfficeERP.Tally.Services
             };
 
             // =========================
-            // TRACKING DETAILS
-            // =========================
-            //    invoice.trackingDetails = new Voucher.TrackingDetails[]
-            //    {
-            //new Voucher.TrackingDetails
-            //{
-            //    trackingDocNo = "GRN1",
-            //    trackingDocDate = DateTime.Parse("28-Jan-2026")
-            //},
-            //new Voucher.TrackingDetails
-            //{
-            //    trackingDocNo = "GRN2",
-            //    trackingDocDate = DateTime.Parse("29-Jan-2026")
-            //}
-            //    };
-
-
-            // =========================
             // ITEM 1
             // =========================
 
@@ -445,7 +430,7 @@ namespace CoreOfficeERP.Tally.Services
                     actualQty = stockItem.Quantity,
                     billedQty = stockItem.Quantity,
                     qtyUnit = "Pcs", // or map if dynamic
-                    rate = stockItem.PurchasePrice,
+                    rate = (decimal)stockItem.PurchasePrice,
                     rateUnit = "Pcs",
                     discountPerc = stockItem.Discount,
                     amount = -stockItem.DiscountAmount
@@ -459,13 +444,11 @@ namespace CoreOfficeERP.Tally.Services
                     billedQty = item.billedQty,
                     amount = item.amount,
                     qtyUnit = item.qtyUnit
-                });               
-
+                });                
                 // Accounting Allocation
                 item.arlAccountingAllocations.Add(new LedgerEntry
                 {
-                    ledgerName = "Purchase B/O",
-                    // ledgerName = config.Purchase.MainLedger, // or stockItem.tallyLedgerName if available
+                    ledgerName = config.Purchase.MainLedger,                    
                     ledgerAmount = item.amount
                 });
 
@@ -497,17 +480,20 @@ namespace CoreOfficeERP.Tally.Services
             // DISCOUNT
             // =========================
 
-            if (data.StockitemResponse.Sum(x => x.Discount > 0? (x.Quantity * x.PurchasePrice * x.Discount / 100): 0)>0)
-            {
-                invoice.arlLedgerEntries.Add(new LedgerEntry
-                {
-                    ledgerName = "Discount on Purchase",
-                    appropriateFor = "GST",
-                    gstAppropriateTo = "Goods and Services",
-                    ledgerAmount = data.StockitemResponse.Sum(x => x.Discount > 0 ? (x.Quantity * x.PurchasePrice * x.Discount / 100) : 0),   // ✅ Positive (reduces purchase)
-                    isDeemedPositive = true
-                });
-            }
+        //    if (data.StockitemResponse.Sum(x => x.Discount > 0? (x.Quantity * x.PurchasePrice * x.Discount / 100): 0)>0)
+        //    {
+        //        var discountRate = data.StockitemResponse
+        //.FirstOrDefault(x => x.Discount > 0)?.Discount ?? 0;
+        //        invoice.arlLedgerEntries.Add(new LedgerEntry
+        //        {
+        //            ledgerName = "Discount on Purchase",
+        //            appropriateFor = "GST",
+        //            gstAppropriateTo = "Goods and Services",    
+        //            ledEntryRate= -(decimal)discountRate,
+        //            ledgerAmount = data.StockitemResponse.Sum(x => x.Discount > 0 ? (x.Quantity * x.PurchasePrice * x.Discount / 100) : 0),   // ✅ Positive (reduces purchase)
+        //            isDeemedPositive = true
+        //        });
+        //    }
 
 
             // =========================

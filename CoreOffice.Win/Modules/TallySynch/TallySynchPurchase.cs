@@ -2,33 +2,25 @@
 using CoreOffice.Win.Session;
 using CoreOffice.Win.Shared;
 using CoreOfficeERP.Application.Interfaces;
-using CoreOfficeERP.Application.Services;
 using CoreOfficeERP.Common.Enums;
 using CoreOfficeERP.Domain.Requests.Tally;
-using CoreOfficeERP.Domain.Responses.PackingSlip;
 using CoreOfficeERP.Domain.Responses.Tally;
 using CoreOfficeERP.Tally.Interfaces;
-using CoreOfficeERP.Tally.Services;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.VisualBasic;
 namespace CoreOffice.Win.Modules.TallySynch
 
 {
     public partial class TallySynchPurchase : Form
     {
-        private readonly ITallyPurchaseService _tallyPurchaseService;
+      
         private readonly ITallyProcessOrchestratorService _tallyProcessOrchestrator;
         private readonly ITallyTransactionService _tallyTransactionsService;
-        private readonly ITallyConfigService _tallyConfigService;
-        private readonly IServiceProvider _serviceProvider;
-        private TallyProcessType? ProcessType;
+        private readonly ITallyConfigService _tallyConfigService;        
         private readonly ITallyProcessService _tallyProcessService;
 
-        public TallySynchPurchase(ITallyPurchaseService tallyPurchaseService, IServiceProvider serviceProvider, ITallyTransactionService tallyTransactionsService, ITallyProcessOrchestratorService tallyProcessOrchestrator, ITallyProcessService tallyProcessService, ITallyConfigService tallyConfigService)
+        public TallySynchPurchase(IServiceProvider serviceProvider, ITallyTransactionService tallyTransactionsService, ITallyProcessOrchestratorService tallyProcessOrchestrator, ITallyProcessService tallyProcessService, ITallyConfigService tallyConfigService)
         {
-            InitializeComponent();
-            this._tallyPurchaseService = tallyPurchaseService;
-            this._serviceProvider = serviceProvider;
+            InitializeComponent();          
+          
             _tallyTransactionsService = tallyTransactionsService;
             _tallyProcessOrchestrator = tallyProcessOrchestrator;
             _tallyProcessService = tallyProcessService;
@@ -193,7 +185,7 @@ namespace CoreOffice.Win.Modules.TallySynch
 
                         if (bulkRequest.Any())
                         {
-                            await _tallyTransactionsService.TallyDataUpdate(bulkRequest);
+                            await _tallyTransactionsService.TallyDataUpdate(completedPurchase.SaleVoucherPrint.Id,bulkRequest);
                         }
                     }
                 }
@@ -206,7 +198,7 @@ namespace CoreOffice.Win.Modules.TallySynch
                 AppLoader.Hide();
             }
         }
-
+    
         private void btnClose_Click(object sender, EventArgs e)
         {
             ClearData();
@@ -227,43 +219,48 @@ namespace CoreOffice.Win.Modules.TallySynch
             e.Handled = true;
 
             int.TryParse(txtVoucher.Text.Trim(), out int id);
-
-            // 1. Get Purchase Data
-            var vouchers = await _tallyTransactionsService.GetTallyPurchase(id);
-
-            if (vouchers == null)
+            try
             {
-                MessageBox.Show("Sale Voucher not Found",
-                    "Not Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                // 1. Get Purchase Data
+                var vouchers = await _tallyTransactionsService.GetTallyPurchase(id);
 
+                if (vouchers == null)
+                {
+                    MessageBox.Show("Sale Voucher not Found",
+                        "Not Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    txtVoucher.Clear();
+                    return;
+                }
+                // 2. Get Tally Config (IMPORTANT)
+                int config = Convert.ToInt32(cmbCompanies.SelectedValue);
+                var tallyConfig = await _tallyConfigService.GetTallyConfig(config);
+
+
+                if (tallyConfig == null)
+                {
+                    MessageBox.Show("Tally Configuration not found");
+                    return;
+                }
                 txtVoucher.Clear();
-                return;
+
+                e.SuppressKeyPress = true;
+                // ✅ Store in memory
+                _currentPurchase = vouchers;
+                _tallyConfig = tallyConfig;
+                // ✅ Bind UI
+                BindHeader();
+                BindGrid();
+                txtVoucher.Clear();
+
+                // Optional: UI feedback
+                //  MessageBox.Show("Voucher Loaded Successfully. Click Process to send to Tally.");  
+                btnSynch.Enabled = true;
             }
-            // 2. Get Tally Config (IMPORTANT)
-            int config = 1;
-            var tallyConfig = await _tallyConfigService.GetTallyConfig(config);
-
-
-            if (tallyConfig == null)
+            catch (Exception ex)
             {
-                MessageBox.Show("Tally Configuration not found");
-                return;
+                MessageBox.Show("Error loading voucher: " + ex.Message);
             }
-            txtVoucher.Clear();
-
-            e.SuppressKeyPress = true;
-            // ✅ Store in memory
-            _currentPurchase = vouchers;
-            _tallyConfig = tallyConfig;
-            // ✅ Bind UI
-            BindHeader();
-            BindGrid();
-            txtVoucher.Clear();
-
-            // Optional: UI feedback
-            //  MessageBox.Show("Voucher Loaded Successfully. Click Process to send to Tally.");  
-            btnSynch.Enabled = true;
-
         }
         private void BindHeader()
         {

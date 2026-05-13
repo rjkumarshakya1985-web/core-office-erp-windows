@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreOfficeERP.Common", "Cor
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreOfficeERP.Tally", "CoreOfficeERP.Tally\CoreOfficeERP.Tally.csproj", "{80AE45B4-8997-4E0F-9496-7EF9EDBE7973}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SSBDAGRA1.0", "SSBDAGRA1.0\SSBDAGRA1.0.vdproj", "{29AF73CE-EF73-5D58-2F8E-9ACA9413EC7B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,8 @@ Global
 		{80AE45B4-8997-4E0F-9496-7EF9EDBE7973}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80AE45B4-8997-4E0F-9496-7EF9EDBE7973}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{80AE45B4-8997-4E0F-9496-7EF9EDBE7973}.Release|Any CPU.Build.0 = Release|Any CPU
+		{29AF73CE-EF73-5D58-2F8E-9ACA9413EC7B}.Debug|Any CPU.ActiveCfg = Debug
+		{29AF73CE-EF73-5D58-2F8E-9ACA9413EC7B}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
