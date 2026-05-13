@@ -1,4 +1,5 @@
-﻿using CoreOfficeERP.Domain.Responses;
+﻿using CoreOffice.Win.Modules.Cashier;
+using CoreOfficeERP.Domain.Responses;
 
 namespace CoreOffice.Win.Modules.PackingSlip
 {
@@ -7,6 +8,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
 
         public List<CurrentStockResponse> StockResponseList;
         public FrmPackingSlip frm;
+        public DeliveryChallanEditViewForm deliveryChallanEditViewForm;
         public FrmMultipleStockProduct()
         {
             InitializeComponent();
@@ -30,7 +32,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
 
         private void dataGrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-           
+
         }
 
         private void btnClick_Click(object sender, EventArgs e)
@@ -44,7 +46,14 @@ namespace CoreOffice.Win.Modules.PackingSlip
 
             if (item != null)
             {
-                frm.AddSingleItemToGrid(item);
+                if (frm != null)
+                {
+                    frm.AddSingleItemToGrid(item);
+                }
+                else
+                {
+                    deliveryChallanEditViewForm.AddSingleItemToGrid(item);
+                }
                 this.Close();
             }
         }
@@ -68,9 +77,45 @@ namespace CoreOffice.Win.Modules.PackingSlip
 
                     if (item != null)
                     {
-                        frm.AddSingleItemToGrid(item);
+                        if (frm != null)
+                        {
+                            frm.AddSingleItemToGrid(item);
+                        }
+                        else
+                        {
+                            deliveryChallanEditViewForm.AddSingleItemToGrid(item);
+                        }
                         this.Close();
+
                     }
+                }
+            }
+        }
+
+        private void dataGrid_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+                if (dataGrid.CurrentRow == null)
+                    return;
+
+                Guid selectedId = (Guid)dataGrid.CurrentRow.Cells["Id"].Value;
+
+                var item = StockResponseList.FirstOrDefault(x => x.Id == selectedId);
+
+                if (item != null)
+                {
+                    if (frm != null)
+                    {
+                        frm.AddSingleItemToGrid(item);
+                    }
+                    else
+                    {
+                        deliveryChallanEditViewForm.AddSingleItemToGrid(item);
+                    }
+                    this.Close();
                 }
             }
         }

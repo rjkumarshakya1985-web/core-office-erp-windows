@@ -1,4 +1,5 @@
-﻿using CoreOffice.Win.Modules.Shared;
+﻿using CoreOffice.Win.Modules.PackingSlip;
+using CoreOffice.Win.Modules.Shared;
 using CoreOffice.Win.Session;
 using CoreOffice.Win.Shared;
 using CoreOfficeERP.Application.Interfaces;
@@ -27,7 +28,9 @@ namespace CoreOffice.Win.Modules.Cashier
 
         private void DeliveryChallanEditViewForm_Load(object sender, EventArgs e)
         {
-
+            txtBarcode.Enabled = false;
+            btnUpdate.Visible = false;
+            btnDeleteProduct.Visible = false;
         }
 
         public async void callForm(string deliverChallanNumber)
@@ -103,6 +106,11 @@ namespace CoreOffice.Win.Modules.Cashier
                     : "0.00 %";
                 lblCustomerType.Text = detail.CustomerType == 1 ? "W" : "R";
                 CustomerType = (CustomerTypeEnum)detail.CustomerType;
+
+
+                txtBarcode.Enabled = detail.Status <= DeliveryChallanStatusEnum.Dispatched;
+                btnUpdate.Visible = detail.Status <= DeliveryChallanStatusEnum.Dispatched;
+                btnDeleteProduct.Visible = detail.Status <= DeliveryChallanStatusEnum.Dispatched;
 
                 foreach (var item in detail.Items)
                 {
@@ -263,16 +271,10 @@ namespace CoreOffice.Win.Modules.Cashier
             // Multiple stock popup
             if (stockItems.Count() > 1)
             {
-                //var frm = new FrmMultipleStockProduct();
-
-                //frm.StockResponseList = stockItems.ToList();
-
-                //frm.OnItemSelected = (item) =>
-                //{
-                //    OpenQtyForm(item);
-                //};
-
-                //frm.ShowDialog();
+                var frm = new FrmMultipleStockProduct();
+                frm.StockResponseList = stockItems.ToList();
+                frm.deliveryChallanEditViewForm = this;
+                frm.ShowDialog();
 
                 return;
             }
@@ -460,7 +462,35 @@ namespace CoreOffice.Win.Modules.Cashier
 
         private void dataGrid_KeyDown(object sender, KeyEventArgs e)
         {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+                OpenQtyPopup();
+            }
+        }
 
+        private void OpenQtyPopup()
+        {
+            if (string.IsNullOrEmpty(_selectedBarcode))
+                return;
+
+            var row = dataGrid.CurrentRow;
+
+            if (row == null)
+                return;
+
+            var availableQty = Convert.ToInt32(row.Cells["TotalQty"].Value);
+
+            var item = new CurrentStockResponse
+            {
+                BarCode = _selectedBarcode,
+                AvailableQty = DeliveryChallanId == null
+                    ? availableQty
+                    : availableQty + _selectedQty
+            };
+            new AddUpdateProductQtyForm(item, true).ShowDialog();
+            txtBarcode.Focus();
         }
 
         private void dataGrid_RowEnter(object sender, DataGridViewCellEventArgs e)
@@ -472,6 +502,11 @@ namespace CoreOffice.Win.Modules.Cashier
 
             _selectedBarcode = row.Cells["Barcode"].Value?.ToString();
             _selectedQty = Convert.ToInt32(row.Cells["Balance"].Value ?? 0);
+        }
+
+        public void AddSingleItemToGrid(CurrentStockResponse item)
+        {
+            OpenQtyForm(item);
         }
     }
 }

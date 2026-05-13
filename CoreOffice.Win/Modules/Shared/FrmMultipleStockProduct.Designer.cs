@@ -53,6 +53,7 @@
             dataGrid.TabIndex = 0;
             dataGrid.CellClick += dataGrid_CellClick;
             dataGrid.CellDoubleClick += dataGrid_CellDoubleClick;
+            dataGrid.KeyDown += dataGrid_KeyDown;
             // 
             // Id
             // 
