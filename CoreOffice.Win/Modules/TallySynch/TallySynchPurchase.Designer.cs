@@ -77,17 +77,44 @@
             label5 = new Label();
             label1 = new Label();
             panel2 = new Panel();
+            grpTotal = new GroupBox();
+            txtSBillNumber = new TextBox();
+            label28 = new Label();
             btnClose = new Button();
             btnClear = new Button();
             btnSynch = new Button();
             label3 = new Label();
             txtVoucher = new TextBox();
             dataGridInvoice = new DataGridView();
+            groupBox3 = new GroupBox();
+            label46 = new Label();
+            label47 = new Label();
+            label48 = new Label();
+            label49 = new Label();
+            label50 = new Label();
+            label51 = new Label();
+            label52 = new Label();
+            lblNetAmount = new Label();
+            lblTotalDiscountl = new Label();
+            lblNetAmountl = new Label();
+            lblPayableAmount = new Label();
+            lblTaxablel = new Label();
+            lblIGSTTotal = new Label();
+            lblTotalDiscount = new Label();
+            lblIGSTTotall = new Label();
+            lblSGSTTotal = new Label();
+            lblTaxable = new Label();
+            lblCGSTTotall = new Label();
+            lblCGSTTotal = new Label();
+            lblSGSTTotall = new Label();
+            lblPayableAmountl = new Label();
             panel1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox1.SuspendLayout();
             panel2.SuspendLayout();
+            grpTotal.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridInvoice).BeginInit();
+            groupBox3.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
@@ -615,16 +642,49 @@
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(64, 64, 64);
+            panel2.Controls.Add(grpTotal);
             panel2.Controls.Add(btnClose);
             panel2.Controls.Add(btnClear);
             panel2.Controls.Add(btnSynch);
             panel2.Controls.Add(label3);
             panel2.Controls.Add(txtVoucher);
             panel2.Dock = DockStyle.Bottom;
-            panel2.Location = new Point(0, 441);
+            panel2.Location = new Point(0, 357);
             panel2.Name = "panel2";
-            panel2.Size = new Size(977, 57);
+            panel2.Size = new Size(977, 141);
             panel2.TabIndex = 1;
+            // 
+            // grpTotal
+            // 
+            grpTotal.BackColor = Color.FromArgb(64, 64, 64);
+            grpTotal.Controls.Add(txtSBillNumber);
+            grpTotal.Controls.Add(label28);
+            grpTotal.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            grpTotal.ForeColor = Color.White;
+            grpTotal.Location = new Point(3, 3);
+            grpTotal.Name = "grpTotal";
+            grpTotal.Size = new Size(284, 138);
+            grpTotal.TabIndex = 35;
+            grpTotal.TabStop = false;
+            grpTotal.Text = "Bill information";
+            // 
+            // txtSBillNumber
+            // 
+            txtSBillNumber.Font = new Font("Segoe UI", 12F);
+            txtSBillNumber.Location = new Point(104, 21);
+            txtSBillNumber.Name = "txtSBillNumber";
+            txtSBillNumber.Size = new Size(174, 29);
+            txtSBillNumber.TabIndex = 36;
+            // 
+            // label28
+            // 
+            label28.AutoSize = true;
+            label28.Font = new Font("Segoe UI", 8F);
+            label28.Location = new Point(6, 27);
+            label28.Name = "label28";
+            label28.Size = new Size(95, 13);
+            label28.TabIndex = 19;
+            label28.Text = "Supplier's Bill No";
             // 
             // btnClose
             // 
@@ -632,9 +692,9 @@
             btnClose.FlatAppearance.BorderSize = 0;
             btnClose.FlatStyle = FlatStyle.Flat;
             btnClose.Font = new Font("Segoe UI", 10F);
-            btnClose.Location = new Point(768, 12);
+            btnClose.Location = new Point(642, 94);
             btnClose.Name = "btnClose";
-            btnClose.Size = new Size(145, 34);
+            btnClose.Size = new Size(323, 34);
             btnClose.TabIndex = 5;
             btnClose.Text = "Close";
             btnClose.UseVisualStyleBackColor = false;
@@ -646,9 +706,9 @@
             btnClear.FlatAppearance.BorderSize = 0;
             btnClear.FlatStyle = FlatStyle.Flat;
             btnClear.Font = new Font("Segoe UI", 10F);
-            btnClear.Location = new Point(617, 12);
+            btnClear.Location = new Point(805, 45);
             btnClear.Name = "btnClear";
-            btnClear.Size = new Size(145, 34);
+            btnClear.Size = new Size(160, 43);
             btnClear.TabIndex = 4;
             btnClear.Text = "Clear";
             btnClear.UseVisualStyleBackColor = false;
@@ -662,9 +722,9 @@
             btnSynch.FlatStyle = FlatStyle.Flat;
             btnSynch.Font = new Font("Segoe UI", 10F);
             btnSynch.ForeColor = Color.White;
-            btnSynch.Location = new Point(467, 12);
+            btnSynch.Location = new Point(642, 45);
             btnSynch.Name = "btnSynch";
-            btnSynch.Size = new Size(144, 34);
+            btnSynch.Size = new Size(160, 43);
             btnSynch.TabIndex = 3;
             btnSynch.Text = "Synch";
             btnSynch.UseVisualStyleBackColor = false;
@@ -676,7 +736,7 @@
             label3.BackColor = Color.Transparent;
             label3.Font = new Font("Segoe UI", 12F);
             label3.ForeColor = Color.White;
-            label3.Location = new Point(25, 21);
+            label3.Location = new Point(541, 14);
             label3.Name = "label3";
             label3.Size = new Size(95, 21);
             label3.TabIndex = 2;
@@ -685,7 +745,7 @@
             // txtVoucher
             // 
             txtVoucher.Font = new Font("Segoe UI", 15F);
-            txtVoucher.Location = new Point(126, 12);
+            txtVoucher.Location = new Point(642, 5);
             txtVoucher.Name = "txtVoucher";
             txtVoucher.Size = new Size(323, 34);
             txtVoucher.TabIndex = 0;
@@ -699,14 +759,258 @@
             dataGridInvoice.Dock = DockStyle.Fill;
             dataGridInvoice.Location = new Point(0, 221);
             dataGridInvoice.Name = "dataGridInvoice";
-            dataGridInvoice.Size = new Size(977, 220);
+            dataGridInvoice.Size = new Size(977, 136);
             dataGridInvoice.TabIndex = 6;
+            // 
+            // groupBox3
+            // 
+            groupBox3.BackColor = Color.FromArgb(64, 64, 64);
+            groupBox3.Controls.Add(label46);
+            groupBox3.Controls.Add(label47);
+            groupBox3.Controls.Add(label48);
+            groupBox3.Controls.Add(label49);
+            groupBox3.Controls.Add(label50);
+            groupBox3.Controls.Add(label51);
+            groupBox3.Controls.Add(label52);
+            groupBox3.Controls.Add(lblNetAmount);
+            groupBox3.Controls.Add(lblTotalDiscountl);
+            groupBox3.Controls.Add(lblNetAmountl);
+            groupBox3.Controls.Add(lblPayableAmount);
+            groupBox3.Controls.Add(lblTaxablel);
+            groupBox3.Controls.Add(lblIGSTTotal);
+            groupBox3.Controls.Add(lblTotalDiscount);
+            groupBox3.Controls.Add(lblIGSTTotall);
+            groupBox3.Controls.Add(lblSGSTTotal);
+            groupBox3.Controls.Add(lblTaxable);
+            groupBox3.Controls.Add(lblCGSTTotall);
+            groupBox3.Controls.Add(lblCGSTTotal);
+            groupBox3.Controls.Add(lblSGSTTotall);
+            groupBox3.Controls.Add(lblPayableAmountl);
+            groupBox3.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            groupBox3.ForeColor = Color.White;
+            groupBox3.Location = new Point(293, 360);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Size = new Size(242, 138);
+            groupBox3.TabIndex = 42;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "Bill Summary";
+            // 
+            // label46
+            // 
+            label46.AutoSize = true;
+            label46.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            label46.Location = new Point(86, 115);
+            label46.Name = "label46";
+            label46.Size = new Size(19, 21);
+            label46.TabIndex = 41;
+            label46.Text = "₹";
+            // 
+            // label47
+            // 
+            label47.AutoSize = true;
+            label47.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            label47.Location = new Point(86, 97);
+            label47.Name = "label47";
+            label47.Size = new Size(17, 19);
+            label47.TabIndex = 40;
+            label47.Text = "₹";
+            // 
+            // label48
+            // 
+            label48.AutoSize = true;
+            label48.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            label48.Location = new Point(86, 82);
+            label48.Name = "label48";
+            label48.Size = new Size(17, 19);
+            label48.TabIndex = 39;
+            label48.Text = "₹";
+            // 
+            // label49
+            // 
+            label49.AutoSize = true;
+            label49.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            label49.Location = new Point(86, 67);
+            label49.Name = "label49";
+            label49.Size = new Size(17, 19);
+            label49.TabIndex = 38;
+            label49.Text = "₹";
+            // 
+            // label50
+            // 
+            label50.AutoSize = true;
+            label50.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            label50.Location = new Point(86, 53);
+            label50.Name = "label50";
+            label50.Size = new Size(17, 19);
+            label50.TabIndex = 37;
+            label50.Text = "₹";
+            // 
+            // label51
+            // 
+            label51.AutoSize = true;
+            label51.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            label51.Location = new Point(86, 39);
+            label51.Name = "label51";
+            label51.Size = new Size(17, 19);
+            label51.TabIndex = 36;
+            label51.Text = "₹";
+            // 
+            // label52
+            // 
+            label52.AutoSize = true;
+            label52.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            label52.Location = new Point(86, 22);
+            label52.Name = "label52";
+            label52.Size = new Size(17, 19);
+            label52.TabIndex = 35;
+            label52.Text = "₹";
+            // 
+            // lblNetAmount
+            // 
+            lblNetAmount.AutoSize = true;
+            lblNetAmount.Font = new Font("Segoe UI", 8F);
+            lblNetAmount.Location = new Point(102, 25);
+            lblNetAmount.Name = "lblNetAmount";
+            lblNetAmount.Size = new Size(22, 13);
+            lblNetAmount.TabIndex = 34;
+            lblNetAmount.Text = "NA";
+            // 
+            // lblTotalDiscountl
+            // 
+            lblTotalDiscountl.AutoSize = true;
+            lblTotalDiscountl.Font = new Font("Segoe UI", 8F);
+            lblTotalDiscountl.Location = new Point(6, 40);
+            lblTotalDiscountl.Name = "lblTotalDiscountl";
+            lblTotalDiscountl.Size = new Size(56, 13);
+            lblTotalDiscountl.TabIndex = 15;
+            lblTotalDiscountl.Text = "Discount:";
+            // 
+            // lblNetAmountl
+            // 
+            lblNetAmountl.AutoSize = true;
+            lblNetAmountl.Font = new Font("Segoe UI", 8F);
+            lblNetAmountl.Location = new Point(6, 25);
+            lblNetAmountl.Name = "lblNetAmountl";
+            lblNetAmountl.Size = new Size(72, 13);
+            lblNetAmountl.TabIndex = 19;
+            lblNetAmountl.Text = "Net Amount:";
+            // 
+            // lblPayableAmount
+            // 
+            lblPayableAmount.AutoSize = true;
+            lblPayableAmount.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
+            lblPayableAmount.Location = new Point(101, 115);
+            lblPayableAmount.Name = "lblPayableAmount";
+            lblPayableAmount.Size = new Size(34, 21);
+            lblPayableAmount.TabIndex = 31;
+            lblPayableAmount.Text = "NA";
+            // 
+            // lblTaxablel
+            // 
+            lblTaxablel.AutoSize = true;
+            lblTaxablel.Font = new Font("Segoe UI", 8F);
+            lblTaxablel.Location = new Point(6, 55);
+            lblTaxablel.Name = "lblTaxablel";
+            lblTaxablel.Size = new Size(47, 13);
+            lblTaxablel.TabIndex = 15;
+            lblTaxablel.Text = "Taxable:";
+            // 
+            // lblIGSTTotal
+            // 
+            lblIGSTTotal.AutoSize = true;
+            lblIGSTTotal.Font = new Font("Segoe UI", 8F);
+            lblIGSTTotal.Location = new Point(102, 100);
+            lblIGSTTotal.Name = "lblIGSTTotal";
+            lblIGSTTotal.Size = new Size(22, 13);
+            lblIGSTTotal.TabIndex = 29;
+            lblIGSTTotal.Text = "NA";
+            // 
+            // lblTotalDiscount
+            // 
+            lblTotalDiscount.AutoSize = true;
+            lblTotalDiscount.Font = new Font("Segoe UI", 8F);
+            lblTotalDiscount.Location = new Point(102, 41);
+            lblTotalDiscount.Name = "lblTotalDiscount";
+            lblTotalDiscount.Size = new Size(22, 13);
+            lblTotalDiscount.TabIndex = 25;
+            lblTotalDiscount.Text = "NA";
+            // 
+            // lblIGSTTotall
+            // 
+            lblIGSTTotall.AutoSize = true;
+            lblIGSTTotall.Font = new Font("Segoe UI", 8F);
+            lblIGSTTotall.Location = new Point(6, 100);
+            lblIGSTTotall.Name = "lblIGSTTotall";
+            lblIGSTTotall.Size = new Size(32, 13);
+            lblIGSTTotall.TabIndex = 18;
+            lblIGSTTotall.Text = "IGST:";
+            // 
+            // lblSGSTTotal
+            // 
+            lblSGSTTotal.AutoSize = true;
+            lblSGSTTotal.Font = new Font("Segoe UI", 8F);
+            lblSGSTTotal.Location = new Point(102, 85);
+            lblSGSTTotal.Name = "lblSGSTTotal";
+            lblSGSTTotal.Size = new Size(22, 13);
+            lblSGSTTotal.TabIndex = 28;
+            lblSGSTTotal.Text = "NA";
+            // 
+            // lblTaxable
+            // 
+            lblTaxable.AutoSize = true;
+            lblTaxable.Font = new Font("Segoe UI", 8F);
+            lblTaxable.Location = new Point(102, 55);
+            lblTaxable.Name = "lblTaxable";
+            lblTaxable.Size = new Size(22, 13);
+            lblTaxable.TabIndex = 26;
+            lblTaxable.Text = "NA";
+            // 
+            // lblCGSTTotall
+            // 
+            lblCGSTTotall.AutoSize = true;
+            lblCGSTTotall.Font = new Font("Segoe UI", 8F);
+            lblCGSTTotall.Location = new Point(6, 70);
+            lblCGSTTotall.Name = "lblCGSTTotall";
+            lblCGSTTotall.Size = new Size(36, 13);
+            lblCGSTTotall.TabIndex = 16;
+            lblCGSTTotall.Text = "CGST:";
+            // 
+            // lblCGSTTotal
+            // 
+            lblCGSTTotal.AutoSize = true;
+            lblCGSTTotal.Font = new Font("Segoe UI", 8F);
+            lblCGSTTotal.Location = new Point(102, 70);
+            lblCGSTTotal.Name = "lblCGSTTotal";
+            lblCGSTTotal.Size = new Size(22, 13);
+            lblCGSTTotal.TabIndex = 27;
+            lblCGSTTotal.Text = "NA";
+            // 
+            // lblSGSTTotall
+            // 
+            lblSGSTTotall.AutoSize = true;
+            lblSGSTTotall.Font = new Font("Segoe UI", 8F);
+            lblSGSTTotall.Location = new Point(6, 85);
+            lblSGSTTotall.Name = "lblSGSTTotall";
+            lblSGSTTotall.Size = new Size(35, 13);
+            lblSGSTTotall.TabIndex = 17;
+            lblSGSTTotall.Text = "SGST:";
+            // 
+            // lblPayableAmountl
+            // 
+            lblPayableAmountl.AutoSize = true;
+            lblPayableAmountl.Font = new Font("Segoe UI", 8F);
+            lblPayableAmountl.Location = new Point(6, 117);
+            lblPayableAmountl.Name = "lblPayableAmountl";
+            lblPayableAmountl.Size = new Size(69, 13);
+            lblPayableAmountl.TabIndex = 11;
+            lblPayableAmountl.Text = "Grand Total:";
             // 
             // TallySynchPurchase
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(977, 498);
+            Controls.Add(groupBox3);
             Controls.Add(dataGridInvoice);
             Controls.Add(panel2);
             Controls.Add(panel1);
@@ -723,7 +1027,11 @@
             groupBox1.PerformLayout();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
+            grpTotal.ResumeLayout(false);
+            grpTotal.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridInvoice).EndInit();
+            groupBox3.ResumeLayout(false);
+            groupBox3.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -784,5 +1092,30 @@
         private ComboBox cmbFiananceYear;
         private Label label24;
         private Button btnClose;
+        private GroupBox grpTotal;
+        private Label label28;
+        private GroupBox groupBox3;
+        private Label label46;
+        private Label label47;
+        private Label label48;
+        private Label label49;
+        private Label label50;
+        private Label label51;
+        private Label label52;
+        private Label lblNetAmount;
+        private Label lblTotalDiscountl;
+        private Label lblNetAmountl;
+        private Label lblPayableAmount;
+        private Label lblTaxablel;
+        private Label lblIGSTTotal;
+        private Label lblTotalDiscount;
+        private Label lblIGSTTotall;
+        private Label lblSGSTTotal;
+        private Label lblTaxable;
+        private Label lblCGSTTotall;
+        private Label lblCGSTTotal;
+        private Label lblSGSTTotall;
+        private Label lblPayableAmountl;
+        private TextBox txtSBillNumber;
     }
 }

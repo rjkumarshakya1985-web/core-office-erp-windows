@@ -343,11 +343,11 @@ namespace CoreOfficeERP.Tally.Services
             si.arlHsnDetails.Add(hsn);            
             return _tb.DoTransferStockItem(si);
         }
-      
-        public TallyResponse CreatePurchaseVoucher(TallyPurchaseResponse data, TallyConfigResponse config)
-        {          
-            DateTime dt1 = DateTime.ParseExact(data.SaleVoucherPrint.Date.ToString(), "dd-MMM-yy h:mm:ss tt", CultureInfo.InvariantCulture);          
-            string s = dt1.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);          
+
+        public TallyResponse CreatePurchaseVoucher(TallyPurchaseResponse data, TallyConfigResponse config, string sbillnumber)
+        {
+            DateTime dt1 = DateTime.ParseExact(data.SaleVoucherPrint.Date.ToString(), "dd-MMM-yy h:mm:ss tt", CultureInfo.InvariantCulture);
+            string s = dt1.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
 
             var invoice = new PurchaseVoucher
             {
@@ -360,14 +360,14 @@ namespace CoreOfficeERP.Tally.Services
                 voucherForeignKey = data.SaleVoucherPrint.VoucherForeignkey,
 
                 // If Tally API needs string:
-                 dtOfVoucher = DateTime.ParseExact(s, "dd/MM/yyyy", null),             
+                dtOfVoucher = DateTime.ParseExact(s, "dd/MM/yyyy", null),
 
                 voucherTypeName = config.Purchase.MainLedger,
                 typeOfVoucher = "Purchase",
 
                 voucherNo = data.SaleVoucherPrint.Id.ToString(),
-                reference = data.SaleVoucherPrint.SupplierBillNumber,
-                referenceDate = DateTime.ParseExact(s, "dd/MM/yyyy", null),               
+                reference = sbillnumber,
+                referenceDate = DateTime.ParseExact(s, "dd/MM/yyyy", null),
                 voucherIdentifier = data.SaleVoucherPrint.VoucherForeignkey,
 
                 //  receiptDocNo = "Receipt Doc11",
@@ -407,7 +407,7 @@ namespace CoreOfficeERP.Tally.Services
                 },
                 consigneeState = config.Company.StateName,
                 consigneeCountry = "India",
-                consigneePincode =config.Company.PINCode,
+                consigneePincode = config.Company.PINCode,
                 consigneeGstin = config.Company.GSTIN,
 
                 narration = "",
@@ -421,7 +421,7 @@ namespace CoreOfficeERP.Tally.Services
 
             foreach (var stockItem in data.StockitemResponse)
             {
-              
+
 
                 var item = new InventoryEntry
                 {
@@ -444,26 +444,63 @@ namespace CoreOfficeERP.Tally.Services
                     billedQty = item.billedQty,
                     amount = item.amount,
                     qtyUnit = item.qtyUnit
-                });                
+                });
                 // Accounting Allocation
                 item.arlAccountingAllocations.Add(new LedgerEntry
                 {
-                    ledgerName = config.Purchase.MainLedger,                    
+                    ledgerName = config.Purchase.MainLedger,
                     ledgerAmount = item.amount
                 });
 
                 // Add to invoice
                 invoice.arlInvEntries.Add(item);
             }
-           
+            var totalItemAmount = data.StockitemResponse.Sum(x => x.Total);
+            var totalIGST = data.StockitemResponse.Sum(x => x.IGST);
+            var totalCGST = data.StockitemResponse.Sum(x => x.CGST);
+            var totalSGST = data.StockitemResponse.Sum(x => x.SGST);
+
+            var totalDiscount = data.StockitemResponse.Sum(x => x.Discount > 0
+                ? (x.Quantity * x.PurchasePrice * x.Discount / 100)
+                : 0);
+            // =========================
+            // ACTUAL TOTAL
+            // =========================
+            var payableAmount = data.StockitemResponse.Sum(x => x.PayableAmount);
+            decimal calculatedTotal = totalItemAmount
+                      + totalIGST
+                      + totalCGST
+                      + totalSGST
+                      - totalDiscount;
+            // =========================
+            // FINAL ROUNDED AMOUNT
+            // Example:
+            // 100.49 => 100
+            // 100.50 => 101
+            // =========================
+            decimal roundedPayableAmount = Math.Round(
+                calculatedTotal,
+                0,
+                MidpointRounding.AwayFromZero
+            );
+            // =========================
+            // ROUND OFF DIFFERENCE
+            // =========================
+            decimal roundOff = Math.Round(
+                roundedPayableAmount - calculatedTotal,
+                2,
+                MidpointRounding.AwayFromZero
+            );
+
+
             // =========================
             // PARTY LEDGER
             // =========================
             var partyLedger = new LedgerEntry
             {
-               
+
                 ledgerName = data.SaleVoucherPrint.CompanyName,
-                ledgerAmount = data.StockitemResponse.Sum(x => x.PayableAmount),
+                ledgerAmount = roundedPayableAmount,
                 isDeemedPositive = false
             };
 
@@ -472,6 +509,7 @@ namespace CoreOfficeERP.Tally.Services
                 billType = "New Ref",
                 billName = invoice.reference,
                 billAmount = partyLedger.ledgerAmount
+               
             });
 
             invoice.arlLedgerEntries.Add(partyLedger);
@@ -480,26 +518,26 @@ namespace CoreOfficeERP.Tally.Services
             // DISCOUNT
             // =========================
 
-        //    if (data.StockitemResponse.Sum(x => x.Discount > 0? (x.Quantity * x.PurchasePrice * x.Discount / 100): 0)>0)
-        //    {
-        //        var discountRate = data.StockitemResponse
-        //.FirstOrDefault(x => x.Discount > 0)?.Discount ?? 0;
-        //        invoice.arlLedgerEntries.Add(new LedgerEntry
-        //        {
-        //            ledgerName = "Discount on Purchase",
-        //            appropriateFor = "GST",
-        //            gstAppropriateTo = "Goods and Services",    
-        //            ledEntryRate= -(decimal)discountRate,
-        //            ledgerAmount = data.StockitemResponse.Sum(x => x.Discount > 0 ? (x.Quantity * x.PurchasePrice * x.Discount / 100) : 0),   // ✅ Positive (reduces purchase)
-        //            isDeemedPositive = true
-        //        });
-        //    }
+            //    if (data.StockitemResponse.Sum(x => x.Discount > 0? (x.Quantity * x.PurchasePrice * x.Discount / 100): 0)>0)
+            //    {
+            //        var discountRate = data.StockitemResponse
+            //.FirstOrDefault(x => x.Discount > 0)?.Discount ?? 0;
+            //        invoice.arlLedgerEntries.Add(new LedgerEntry
+            //        {
+            //            ledgerName = "Discount on Purchase",
+            //            appropriateFor = "GST",
+            //            gstAppropriateTo = "Goods and Services",    
+            //            ledEntryRate= -(decimal)discountRate,
+            //            ledgerAmount = data.StockitemResponse.Sum(x => x.Discount > 0 ? (x.Quantity * x.PurchasePrice * x.Discount / 100) : 0),   // ✅ Positive (reduces purchase)
+            //            isDeemedPositive = true
+            //        });
+            //    }
 
 
             // =========================
             // IGST
             // =========================
-            if (data.StockitemResponse.Sum(x => x.IGST)> 0)
+            if (data.StockitemResponse.Sum(x => x.IGST) > 0)
             {
                 invoice.arlLedgerEntries.Add(new LedgerEntry
                 {
@@ -532,33 +570,38 @@ namespace CoreOfficeERP.Tally.Services
                     isDeemedPositive = true
                 });
             }
-            
-            var totalItemAmount = data.StockitemResponse.Sum(x => x.Total);
-            var totalIGST = data.StockitemResponse.Sum(x => x.IGST);
-            var totalCGST = data.StockitemResponse.Sum(x => x.CGST);
-            var totalSGST = data.StockitemResponse.Sum(x => x.SGST);
-
-            var totalDiscount = data.StockitemResponse.Sum(x => x.Discount > 0
-                ? (x.Quantity * x.PurchasePrice * x.Discount / 100)
-                : 0);
-
-            var payableAmount = data.StockitemResponse.Sum(x => x.PayableAmount);
-            var calculatedTotal = totalItemAmount
-                      + totalIGST
-                      + totalCGST
-                      + totalSGST
-                      - totalDiscount;
-            var roundOff = payableAmount - calculatedTotal;
             // =========================
-            // ROUND OFF
-            // =========================
+            // ROUND OFF LEDGER
+            // =========================           
             if (roundOff != 0)
             {
+                decimal ledgerAmount;
+                bool isDeemedPositive;
+
+                if (roundOff < 0)
+                {
+                    // Example:
+                    // 5297.37 -> 5297
+                    // Need (-)0.37 display
+
+                    ledgerAmount = Math.Abs(roundOff); // +0.37
+                    isDeemedPositive = true;
+                }
+                else
+                {
+                    // Example:
+                    // 89920.95 -> 89921
+                    // Need +0.05 display
+
+                    ledgerAmount = -roundOff; // +0.05
+                    isDeemedPositive = true;
+                }
+
                 invoice.arlLedgerEntries.Add(new LedgerEntry
                 {
                     ledgerName = "Round Off",
-                    ledgerAmount = roundOff,
-                    isDeemedPositive = roundOff > 0
+                    ledgerAmount = ledgerAmount,
+                    isDeemedPositive = isDeemedPositive
                 });
             }           
             // =========================

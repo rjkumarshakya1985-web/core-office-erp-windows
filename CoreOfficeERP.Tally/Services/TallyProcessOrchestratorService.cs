@@ -16,7 +16,7 @@ namespace CoreOfficeERP.Tally.Services
             _tally = tally;
         }
 
-        public async Task<List<TallyProcessRequest>> ExecutePurchase(TallyPurchaseResponse data,TallyConfigResponse config,int finid)
+        public async Task<List<TallyProcessRequest>> ExecutePurchase(TallyPurchaseResponse data,TallyConfigResponse config,int finid, string sbillnumber)
         {
             var logs = new List<TallyProcessRequest>();
             int step = 1;
@@ -54,7 +54,7 @@ namespace CoreOfficeERP.Tally.Services
                         return logs;
                 }
                 if (!ExecuteStep("Purchase Entry", step++,data,
-                () => _tally.CreatePurchaseVoucher(data, config), logs, data, config, finid))
+                () => _tally.CreatePurchaseVoucher(data, config,sbillnumber), logs, data, config, finid))
                     return logs;              
             }
             catch (Exception ex)

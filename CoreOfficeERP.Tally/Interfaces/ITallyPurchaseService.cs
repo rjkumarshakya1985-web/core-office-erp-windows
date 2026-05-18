@@ -11,7 +11,7 @@ namespace CoreOfficeERP.Tally.Interfaces
         TallyResponse CreateStockCategory(StockCategoryResponse category, TallyConfigResponse config);
         TallyResponse CreateStockGroup(StockGroupResponse group, TallyConfigResponse config);
         TallyResponse CreateStockItem(StockitemResponse item,TallyConfigResponse config, TallyPurchaseResponse data);
-        TallyResponse CreatePurchaseVoucher(TallyPurchaseResponse data, TallyConfigResponse config);
+        TallyResponse CreatePurchaseVoucher(TallyPurchaseResponse data, TallyConfigResponse config,string sbillnumber);
 
     }
 }
