@@ -1,9 +1,11 @@
-﻿using CoreOffice.Win.Modules.Shared;
+﻿using CoreOffice.Win.Modules.PackingSlip;
+using CoreOffice.Win.Modules.Shared;
 using CoreOffice.Win.Session;
 using CoreOffice.Win.Shared;
 using CoreOfficeERP.Application.Interfaces;
 using CoreOfficeERP.Common.Enums;
 using CoreOfficeERP.Common.Extensions;
+using CoreOfficeERP.Domain.Requests.DeliveryChallan;
 using CoreOfficeERP.Domain.Responses;
 namespace CoreOffice.Win.Modules.Cashier
 {
@@ -27,7 +29,9 @@ namespace CoreOffice.Win.Modules.Cashier
 
         private void DeliveryChallanEditViewForm_Load(object sender, EventArgs e)
         {
-
+            txtBarcode.Enabled = false;
+            btnUpdate.Visible = false;
+            btnDeleteProduct.Visible = false;
         }
 
         public async void callForm(string deliverChallanNumber)
@@ -103,6 +107,11 @@ namespace CoreOffice.Win.Modules.Cashier
                     : "0.00 %";
                 lblCustomerType.Text = detail.CustomerType == 1 ? "W" : "R";
                 CustomerType = (CustomerTypeEnum)detail.CustomerType;
+
+
+                txtBarcode.Enabled = detail.Status <= DeliveryChallanStatusEnum.Dispatched;
+                btnUpdate.Visible = detail.Status <= DeliveryChallanStatusEnum.Dispatched;
+                btnDeleteProduct.Visible = detail.Status <= DeliveryChallanStatusEnum.Dispatched;
 
                 foreach (var item in detail.Items)
                 {
@@ -200,7 +209,7 @@ namespace CoreOffice.Win.Modules.Cashier
             Close();
         }
 
-        private void btnUpdate_Click(object sender, EventArgs e)
+        private async void btnUpdate_Click(object sender, EventArgs e)
         {
             if (DeliveryChallanId == null)
             {
@@ -214,6 +223,80 @@ namespace CoreOffice.Win.Modules.Cashier
                 MessageBox.Show("No items to update.",
                     "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
+            }
+
+            try
+            {
+                AppLoader.Show();
+
+
+
+                if (dataGrid.Rows.Count == 0)
+                {
+                    MessageBox.Show("Add items first");
+
+                    return;
+                }
+
+
+
+                var itemRequests = new List<UpdateDeliverChallanItemRequest>();
+
+                foreach (DataGridViewRow row in dataGrid.Rows)
+                {
+                    if (row.IsNewRow) continue;
+
+                    if (
+                        row.Cells["TotalQty"].Value == null ||
+                        row.Cells["TotalAmount"].Value == null)
+                        continue;
+
+                    itemRequests.Add(new UpdateDeliverChallanItemRequest
+                    {
+                        Id = row.Cells["Id"].Value != null
+                            ? Convert.ToInt32(row.Cells["Id"].Value)
+                            : (int?)null,
+                        StockId = Guid.Parse(row.Cells["StockId"].Value.ToString()),
+                        Qty = Convert.ToInt32(row.Cells["TotalQty"].Value),
+                        SaleRate = Convert.ToDecimal(row.Cells["SalePrice"].Value),
+                        GstPercent = Convert.ToDecimal(row.Cells["GstPer"].Value),
+                        DiscountPercent = Convert.ToDecimal(row.Cells["Discount"].Value)
+                    });
+                }
+
+                if (!itemRequests.Any())
+                {
+                    MessageBox.Show("No valid items found");
+                    return;
+                }
+
+                var request = new UpdateDeliveryChallanRequest
+                {
+                    Id = DeliveryChallanId ?? 0,
+
+                    DiscountPercent = DiscountPercent ?? 0,
+                    Items = itemRequests
+                };
+
+                if (DeliveryChallanId != null)
+                {
+                    await _deliveryChallanService.UpdateDeliveryChallanAsnc(request);
+                    if (DeliveryChallanId.HasValue)
+                    {
+                        /// Call Print Functionality here with DeliveryChallanId.Value
+                    }
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                AppLoader.Hide();
+
             }
         }
 
@@ -263,16 +346,10 @@ namespace CoreOffice.Win.Modules.Cashier
             // Multiple stock popup
             if (stockItems.Count() > 1)
             {
-                //var frm = new FrmMultipleStockProduct();
-
-                //frm.StockResponseList = stockItems.ToList();
-
-                //frm.OnItemSelected = (item) =>
-                //{
-                //    OpenQtyForm(item);
-                //};
-
-                //frm.ShowDialog();
+                var frm = new FrmMultipleStockProduct();
+                frm.StockResponseList = stockItems.ToList();
+                frm.deliveryChallanEditViewForm = this;
+                frm.ShowDialog();
 
                 return;
             }
@@ -358,6 +435,8 @@ namespace CoreOffice.Win.Modules.Cashier
 
             CalculatePackingSlip();
         }
+
+
 
 
         private void CalculatePackingSlip()
@@ -460,7 +539,43 @@ namespace CoreOffice.Win.Modules.Cashier
 
         private void dataGrid_KeyDown(object sender, KeyEventArgs e)
         {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.Handled = true;
+                e.SuppressKeyPress = true;
+                OpenQtyPopup();
+            }
+        }
 
+        private void OpenQtyPopup()
+        {
+            if (string.IsNullOrEmpty(_selectedBarcode))
+                return;
+
+            var row = dataGrid.CurrentRow;
+
+            if (row == null)
+                return;
+
+            var qty = Convert.ToInt32(row.Cells["TotalQty"].Value);
+
+            var item = new CurrentStockResponse
+            {
+                BarCode = _selectedBarcode,
+                AvailableQty =
+                     qty + _selectedQty
+            };
+
+            var qtyForm = new AddUpdateProductQtyForm(item, true);
+
+            qtyForm.OnQtyUpdate = (qty) =>
+            {
+                row.Cells["TotalQty"].Value = qty;
+                CalculatePackingSlip();
+            };
+
+            qtyForm.ShowDialog();
+            txtBarcode.Focus();
         }
 
         private void dataGrid_RowEnter(object sender, DataGridViewCellEventArgs e)
@@ -471,7 +586,12 @@ namespace CoreOffice.Win.Modules.Cashier
             var row = dataGrid.Rows[e.RowIndex];
 
             _selectedBarcode = row.Cells["Barcode"].Value?.ToString();
-            _selectedQty = Convert.ToInt32(row.Cells["Balance"].Value ?? 0);
+            _selectedQty = Convert.ToInt32(row.Cells["TotalQty"].Value ?? 0);
+        }
+
+        public void AddSingleItemToGrid(CurrentStockResponse item)
+        {
+            OpenQtyForm(item);
         }
     }
 }

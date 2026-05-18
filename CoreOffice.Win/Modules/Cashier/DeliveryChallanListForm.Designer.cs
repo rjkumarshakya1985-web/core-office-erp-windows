@@ -29,20 +29,21 @@
         private void InitializeComponent()
         {
             panel4 = new Panel();
-            label1 = new Label();
             lblTotalInvoice = new Label();
+            label1 = new Label();
             panel5 = new Panel();
-            label4 = new Label();
             lblTotalTallySynced = new Label();
+            label4 = new Label();
             panel6 = new Panel();
-            label6 = new Label();
             lblTotalCancel = new Label();
+            label6 = new Label();
             panel9 = new Panel();
-            label3 = new Label();
             lblTotalPendinginvoice = new Label();
+            label3 = new Label();
             panel1 = new Panel();
             panel2 = new Panel();
             panel3 = new Panel();
+            btnClose = new Button();
             btnClear = new Button();
             btnSearch = new Button();
             comboBox1 = new ComboBox();
@@ -88,15 +89,6 @@
             panel4.Size = new Size(200, 62);
             panel4.TabIndex = 0;
             // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(4, 4);
-            label1.Name = "label1";
-            label1.Size = new Size(93, 15);
-            label1.TabIndex = 0;
-            label1.Text = "TOTAL INVOICES";
-            // 
             // lblTotalInvoice
             // 
             lblTotalInvoice.AutoSize = true;
@@ -106,6 +98,15 @@
             lblTotalInvoice.Size = new Size(25, 30);
             lblTotalInvoice.TabIndex = 1;
             lblTotalInvoice.Text = "0";
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(4, 4);
+            label1.Name = "label1";
+            label1.Size = new Size(93, 15);
+            label1.TabIndex = 0;
+            label1.Text = "TOTAL INVOICES";
             // 
             // panel5
             // 
@@ -119,15 +120,6 @@
             panel5.Size = new Size(200, 62);
             panel5.TabIndex = 1;
             // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Location = new Point(4, 5);
-            label4.Name = "label4";
-            label4.Size = new Size(139, 15);
-            label4.TabIndex = 2;
-            label4.Text = "TALLY SYNCED INVOICES";
-            // 
             // lblTotalTallySynced
             // 
             lblTotalTallySynced.AutoSize = true;
@@ -137,6 +129,15 @@
             lblTotalTallySynced.Size = new Size(25, 30);
             lblTotalTallySynced.TabIndex = 3;
             lblTotalTallySynced.Text = "0";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(4, 5);
+            label4.Name = "label4";
+            label4.Size = new Size(139, 15);
+            label4.TabIndex = 2;
+            label4.Text = "TALLY SYNCED INVOICES";
             // 
             // panel6
             // 
@@ -150,15 +151,6 @@
             panel6.Size = new Size(200, 62);
             panel6.TabIndex = 2;
             // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Location = new Point(3, 6);
-            label6.Name = "label6";
-            label6.Size = new Size(106, 15);
-            label6.TabIndex = 2;
-            label6.Text = "CANCEL INVOICES";
-            // 
             // lblTotalCancel
             // 
             lblTotalCancel.AutoSize = true;
@@ -168,6 +160,15 @@
             lblTotalCancel.Size = new Size(25, 30);
             lblTotalCancel.TabIndex = 3;
             lblTotalCancel.Text = "0";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(3, 6);
+            label6.Name = "label6";
+            label6.Size = new Size(106, 15);
+            label6.TabIndex = 2;
+            label6.Text = "CANCEL INVOICES";
             // 
             // panel9
             // 
@@ -181,15 +182,6 @@
             panel9.Size = new Size(200, 62);
             panel9.TabIndex = 3;
             // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.Location = new Point(1, 4);
-            label3.Name = "label3";
-            label3.Size = new Size(192, 15);
-            label3.TabIndex = 2;
-            label3.Text = "PENDING TALLY SYNCED INVOICES";
-            // 
             // lblTotalPendinginvoice
             // 
             lblTotalPendinginvoice.AutoSize = true;
@@ -199,6 +191,15 @@
             lblTotalPendinginvoice.Size = new Size(25, 30);
             lblTotalPendinginvoice.TabIndex = 3;
             lblTotalPendinginvoice.Text = "0";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(1, 4);
+            label3.Name = "label3";
+            label3.Size = new Size(192, 15);
+            label3.TabIndex = 2;
+            label3.Text = "PENDING TALLY SYNCED INVOICES";
             // 
             // panel1
             // 
@@ -210,7 +211,7 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1020, 79);
+            panel1.Size = new Size(1151, 79);
             panel1.TabIndex = 1;
             // 
             // panel2
@@ -224,13 +225,14 @@
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(0, 79);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1020, 73);
+            panel2.Size = new Size(1151, 73);
             panel2.TabIndex = 7;
             // 
             // panel3
             // 
             panel3.BackColor = Color.White;
             panel3.BorderStyle = BorderStyle.FixedSingle;
+            panel3.Controls.Add(btnClose);
             panel3.Controls.Add(btnClear);
             panel3.Controls.Add(btnSearch);
             panel3.Controls.Add(comboBox1);
@@ -242,8 +244,18 @@
             panel3.Dock = DockStyle.Top;
             panel3.Location = new Point(0, 0);
             panel3.Name = "panel3";
-            panel3.Size = new Size(1020, 36);
+            panel3.Size = new Size(1151, 36);
             panel3.TabIndex = 5;
+            // 
+            // btnClose
+            // 
+            btnClose.Location = new Point(1019, 4);
+            btnClose.Name = "btnClose";
+            btnClose.Size = new Size(104, 27);
+            btnClose.TabIndex = 8;
+            btnClose.Text = "&Close";
+            btnClose.UseVisualStyleBackColor = true;
+            btnClose.Click += btnClose_Click;
             // 
             // btnClear
             // 
@@ -376,7 +388,7 @@
             dataGrid.Dock = DockStyle.Fill;
             dataGrid.Location = new Point(0, 152);
             dataGrid.Name = "dataGrid";
-            dataGrid.Size = new Size(1020, 356);
+            dataGrid.Size = new Size(1151, 356);
             dataGrid.TabIndex = 8;
             // 
             // Id
@@ -438,7 +450,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1020, 508);
+            ClientSize = new Size(1151, 508);
             Controls.Add(dataGrid);
             Controls.Add(panel2);
             Controls.Add(panel1);
@@ -500,5 +512,6 @@
         private DataGridViewTextBoxColumn Status;
         private DataGridViewTextBoxColumn ReturnQty;
         private DataGridViewTextBoxColumn BalanceQty;
+        private Button btnClose;
     }
 }
