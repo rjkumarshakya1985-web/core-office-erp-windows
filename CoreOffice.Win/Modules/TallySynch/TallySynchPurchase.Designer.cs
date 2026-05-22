@@ -642,6 +642,7 @@
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(64, 64, 64);
+            panel2.Controls.Add(groupBox3);
             panel2.Controls.Add(grpTotal);
             panel2.Controls.Add(btnClose);
             panel2.Controls.Add(btnClear);
@@ -649,9 +650,9 @@
             panel2.Controls.Add(label3);
             panel2.Controls.Add(txtVoucher);
             panel2.Dock = DockStyle.Bottom;
-            panel2.Location = new Point(0, 357);
+            panel2.Location = new Point(0, 353);
             panel2.Name = "panel2";
-            panel2.Size = new Size(977, 141);
+            panel2.Size = new Size(977, 145);
             panel2.TabIndex = 1;
             // 
             // grpTotal
@@ -736,7 +737,7 @@
             label3.BackColor = Color.Transparent;
             label3.Font = new Font("Segoe UI", 12F);
             label3.ForeColor = Color.White;
-            label3.Location = new Point(541, 14);
+            label3.Location = new Point(642, 18);
             label3.Name = "label3";
             label3.Size = new Size(95, 21);
             label3.TabIndex = 2;
@@ -745,9 +746,9 @@
             // txtVoucher
             // 
             txtVoucher.Font = new Font("Segoe UI", 15F);
-            txtVoucher.Location = new Point(642, 5);
+            txtVoucher.Location = new Point(743, 5);
             txtVoucher.Name = "txtVoucher";
-            txtVoucher.Size = new Size(323, 34);
+            txtVoucher.Size = new Size(222, 34);
             txtVoucher.TabIndex = 0;
             txtVoucher.KeyDown += txtVoucher_KeyDown;
             // 
@@ -759,7 +760,7 @@
             dataGridInvoice.Dock = DockStyle.Fill;
             dataGridInvoice.Location = new Point(0, 221);
             dataGridInvoice.Name = "dataGridInvoice";
-            dataGridInvoice.Size = new Size(977, 136);
+            dataGridInvoice.Size = new Size(977, 132);
             dataGridInvoice.TabIndex = 6;
             // 
             // groupBox3
@@ -788,9 +789,9 @@
             groupBox3.Controls.Add(lblPayableAmountl);
             groupBox3.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             groupBox3.ForeColor = Color.White;
-            groupBox3.Location = new Point(293, 360);
+            groupBox3.Location = new Point(293, 3);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(242, 138);
+            groupBox3.Size = new Size(307, 138);
             groupBox3.TabIndex = 42;
             groupBox3.TabStop = false;
             groupBox3.Text = "Bill Summary";
@@ -1010,7 +1011,6 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(977, 498);
-            Controls.Add(groupBox3);
             Controls.Add(dataGridInvoice);
             Controls.Add(panel2);
             Controls.Add(panel1);

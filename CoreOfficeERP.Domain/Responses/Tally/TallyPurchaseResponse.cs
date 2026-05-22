@@ -120,6 +120,7 @@ namespace CoreOfficeERP.Domain.Responses.Tally
         public GstNatureType GSTNature { get; set; }
 
         public GstTaxabilityType GSTTaxability { get; set; }
+        public string? supplierCode { get; set; }
     }
     public class GstRule
     {
@@ -148,7 +149,12 @@ namespace CoreOfficeERP.Domain.Responses.Tally
         public string? GstIn { get; set; }    
         public decimal Discount { get; set; }
         public DateTime Date { get; set; }   
-       
-       
+        public int ParcelStatus { get; set; }
+        public string? lrNumber { get; set; }
+        public string? lrDate { get; set; }
+        public string? remarks { get; set; }
+
+
+
     }
 }

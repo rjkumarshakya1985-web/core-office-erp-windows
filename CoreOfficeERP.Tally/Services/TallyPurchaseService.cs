@@ -65,7 +65,8 @@ namespace CoreOfficeERP.Tally.Services
                 //Parent Group of the Vendor Master
                 //This group must already exist in Tally
                 parentGroupName = supplier.AgentObj.Name,
-
+                notes = Convert.ToString(supplier.PaymentDiscount)+"%",
+                description= supplier.Remarks,
                 address = new string[2]
                 {
                  supplier.Address,
@@ -230,8 +231,8 @@ namespace CoreOfficeERP.Tally.Services
 
                 //This line is required only if the Stock Item is being altered or re-uploaded. 
                 //During initial Stock Item creation, this line is not required, but even if given, its not a problem
-                oldItemName = item.TallyLedgerName ?? item.ProductName,
-                itemName = item.ProductName,
+                oldItemName = item.TallyLedgerName+" "+item.supplierCode ?? item.ProductName+" " + item.supplierCode,
+                itemName = item.ProductName+" " + item.supplierCode,
 
                 //You can map SKU code either in item alias or in part no.
                 //Or, if you do not wish to maintain SKU code, you can leave both these fields blank
@@ -375,7 +376,7 @@ namespace CoreOfficeERP.Tally.Services
                 //   despatchedThrough = "Desp Thru11",
                 //   destination = "Some Destination",
                 //   carrierName = "Carrier Name 123",
-                //   billOfLadingNo = "RR1",
+                //   billOfLadingNo = data.SaleVoucherPrint.lrNumber??"",
                 //   billOfLadingDt = DateTime.Parse("30-Jan-2026"),
                 //   vehicleNo = "Veh123",
 
@@ -424,7 +425,7 @@ namespace CoreOfficeERP.Tally.Services
 
                 var item = new InventoryEntry
                 {
-                    itemName = stockItem.ProductName,
+                    itemName = stockItem.ProductName+" "+stockItem.supplierCode,
                     isDeemedPositive = true,
                     actualQty = stockItem.Quantity,
                     billedQty = stockItem.Quantity,
@@ -508,6 +509,7 @@ namespace CoreOfficeERP.Tally.Services
                 billType = "New Ref",
                 billName = invoice.reference,
                 billAmount = partyLedger.ledgerAmount
+                
                
             });
 

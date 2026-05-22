@@ -250,6 +250,15 @@ namespace CoreOffice.Win.Modules.TallySynch
                     txtVoucher.Clear();
                     return;
                 }
+                if (vouchers.SaleVoucherPrint.ParcelStatus == 11)
+                { 
+                DialogResult result=MessageBox.Show("This voucher is already Synched. Do you want to load it again?","Confirm",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+                    if (result == DialogResult.No)
+                    {
+                        txtVoucher.Clear();
+                        return;
+                    }
+                }
                 // 2. Get Tally Config (IMPORTANT)
                 int config = Convert.ToInt32(cmbCompanies.SelectedValue);
                 var tallyConfig = await _tallyConfigService.GetTallyConfig(config);
