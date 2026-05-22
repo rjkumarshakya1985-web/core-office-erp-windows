@@ -3,6 +3,7 @@ using CoreOfficeERP.Domain.Responses.Agent;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -153,7 +154,7 @@ namespace CoreOfficeERP.Domain.Responses.Tally
         public string? lrNumber { get; set; }
         public string? lrDate { get; set; }
         public string? remarks { get; set; }
-
+        public DateTime? dueDate { get; set; }
 
 
     }

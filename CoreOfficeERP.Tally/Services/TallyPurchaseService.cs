@@ -251,7 +251,7 @@ namespace CoreOfficeERP.Tally.Services
 
                 //The stock category should already exist in Tally
                 //You can leave this blank if you do not wish to maintain Stock Categories in Tally
-                //stockItem.stockCategoryName = "Stk Cat 1";
+                stockCategoryName = item.stockGroupName,
 
                 isGstApplicable = item.GstApplicable,
                 //Valid values: "Goods", "Services"        
@@ -346,7 +346,8 @@ namespace CoreOfficeERP.Tally.Services
 
         public TallyResponse CreatePurchaseVoucher(TallyPurchaseResponse data, TallyConfigResponse config, string sbillnumber)
         {
-            DateTime dt1 = DateTime.ParseExact(data.SaleVoucherPrint.Date.ToString(), "dd-MMM-yy h:mm:ss tt", CultureInfo.InvariantCulture);
+            // DateTime dt1 = DateTime.ParseExact(data.SaleVoucherPrint.Date.ToString(), "dd-MMM-yy h:mm:ss tt", CultureInfo.InvariantCulture);
+            DateTime dt1 = DateTime.ParseExact(DateTime.Now.ToString(), "dd-MMM-yy h:mm:ss tt", CultureInfo.InvariantCulture);
             string s = dt1.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
 
             var invoice = new PurchaseVoucher
@@ -508,9 +509,10 @@ namespace CoreOfficeERP.Tally.Services
             {
                 billType = "New Ref",
                 billName = invoice.reference,
-                billAmount = partyLedger.ledgerAmount
-                
-               
+                billAmount = partyLedger.ledgerAmount,
+                billDueDate = data.SaleVoucherPrint.dueDate ?? DateTime.Now.AddDays(30)
+
+
             });
 
             invoice.arlLedgerEntries.Add(partyLedger);
