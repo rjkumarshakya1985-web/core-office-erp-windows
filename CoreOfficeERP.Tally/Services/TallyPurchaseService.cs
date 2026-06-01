@@ -4,6 +4,7 @@ using CoreOfficeERP.Domain.Responses.Agent;
 using CoreOfficeERP.Domain.Responses.Tally;
 using CoreOfficeERP.Tally.Interfaces;
 using System.Globalization;
+using System.IO;
 using Tally;
 
 
@@ -99,9 +100,12 @@ namespace CoreOfficeERP.Tally.Services
 
                 //You can decide whether to maintain bill-wise details or not
                 maintainBillWiseDetails = true,
-                defaultCreditPeriod = $"{supplier.CreditDays ?? 15} days"
+                defaultCreditPeriod = $"{supplier.CreditDays ?? 15} days"  
 
             };
+            // Add custom fields AFTER object creation
+            ledger.customFields.Add("Notes",supplier.PaymentDiscount+"%"??"");
+
 
             return _tb.DoTransferLedger(ledger);
         }
@@ -138,9 +142,9 @@ namespace CoreOfficeERP.Tally.Services
 
                 //This line is required only if the stock group is being altered or re-uploaded. 
                 //During initial stock group creation, this line is not required.
-                oldGroupName = group.TallyLedgerName ?? group.Name,
+                oldGroupName = group.TallyLedgerName+" " + group.supplierCode ?? group.Name+" " + group.supplierCode,
 
-                groupName = group.Name,
+                groupName = group.Name+" " + group.supplierCode,
 
                 //Alias of the stock group, if you wish to maintain; else you need not pass it
                 groupAlias = "",
@@ -223,7 +227,7 @@ namespace CoreOfficeERP.Tally.Services
         {
 
             StockItemGstDetails gstDetails;
-
+           // StockItemStandardRateDetails stdRateDetails;
             var si = new StockItem
             {
 
@@ -247,7 +251,7 @@ namespace CoreOfficeERP.Tally.Services
 
                 //The stock group should already exist in Tally
                 //You can leave this blank, if you do not wish to maintain Stock Groups in Tally
-                stockGroupName = data.SaleVoucherPrint.CompanyName,
+                stockGroupName = data.SaleVoucherPrint.CompanyName+" "+item.supplierCode,
 
                 //The stock category should already exist in Tally
                 //You can leave this blank if you do not wish to maintain Stock Categories in Tally
@@ -280,21 +284,7 @@ namespace CoreOfficeERP.Tally.Services
             }
             else
             {
-                //gstDetails = new StockItemGstDetails
-                //{
-                //    applicableFrom = DateTime.ParseExact("01-Jul-2017", "dd-MMM-yyyy", CultureInfo.InvariantCulture),
-
-                //    //The value for this must be a valid value as per the Tally dropdown, e.g. "Specify Details Here" or "As per Company/Stock Group"
-                //    sourceOfGstDetails = "Specify Details Here",
-
-                //    //The value for this must be a valid value as per the Tally dropdown, e.g.. "Exempt", "Nil Rated", or "Taxable"
-                //    taxability = "Taxable",
-                //    isReverseChargeApplicable = false,
-                //    igstRate = 12,
-                //    cgstRate = 6,
-                //    sgstRate = 6,
-                //    cessRate = 0
-                //};
+               
                 //The ArrayList arlGstDetails should be filled up with objects of type StockItemGstDetails
                 //It represents the Tax Rate History, and there should be 1 object for each date when the tax rate or other GST details were changed
                 //   si.arlGstDetails.Add(gstDetails);
@@ -330,7 +320,7 @@ namespace CoreOfficeERP.Tally.Services
 
                 si.arlGstDetails.Add(gstDetails);
 
-            }
+            }            
             var hsn = new StockItemHsnDetails
             {
                 applicableFrom = DateTime.ParseExact("01-Aug-2017", "dd-MMM-yyyy", CultureInfo.InvariantCulture),
@@ -341,13 +331,50 @@ namespace CoreOfficeERP.Tally.Services
                 hsnDescription = item.stockGroupName
             };
             si.arlHsnDetails.Add(hsn);
+
+            // ===============================
+            // STANDARD COST PRICE DETAILS
+            // ===============================      
+
+            // Cost Price From 01-Apr-2025
+            foreach (var price in item.PriceHistories.OrderBy(x => x.Date))
+            {
+                var stdRateDetails = new StockItemStandardRateDetails
+                {
+                    applicableFrom =price.Date,
+                    stdRate = price.PurchaseRate,
+                    stdRateUnit = "Pcs"
+                };
+
+                si.arlStandardCostPriceDetails.Add(stdRateDetails);
+            }
+
+
+
+            // ===============================
+            // STANDARD SELL PRICE DETAILS
+            // ===============================
+
+            // Sell Price From 01-Apr-2025
+            foreach (var price in item.PriceHistories.OrderBy(x => x.Date))
+            {
+                var stdRateDetails = new StockItemStandardRateDetails
+                {
+                    applicableFrom =price.Date,
+                    stdRate = price.WholesaleRate,
+                    stdRateUnit = "Pcs"
+                };
+
+                si.arlStandardSellPriceDetails.Add(stdRateDetails);
+            }          
+
             return _tb.DoTransferStockItem(si);
         }
 
-        public TallyResponse CreatePurchaseVoucher(TallyPurchaseResponse data, TallyConfigResponse config, string sbillnumber)
+        public TallyResponse CreatePurchaseVoucher(TallyPurchaseResponse data, TallyConfigResponse config, string sbillnumber, DateTime date)
         {
             // DateTime dt1 = DateTime.ParseExact(data.SaleVoucherPrint.Date.ToString(), "dd-MMM-yy h:mm:ss tt", CultureInfo.InvariantCulture);
-            DateTime dt1 = DateTime.ParseExact(DateTime.Now.ToString(), "dd-MMM-yy h:mm:ss tt", CultureInfo.InvariantCulture);
+            DateTime dt1 = DateTime.ParseExact(date.ToString(), "dd-MMM-yy h:mm:ss tt", CultureInfo.InvariantCulture);
             string s = dt1.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
 
             var invoice = new PurchaseVoucher
@@ -504,18 +531,22 @@ namespace CoreOfficeERP.Tally.Services
                 ledgerAmount = roundedPayableAmount,
                 isDeemedPositive = false
             };
-
-            partyLedger.arlBillAllocations.Add(new BillAllocation
+            var billAlloc = new BillAllocation
             {
                 billType = "New Ref",
                 billName = invoice.reference,
                 billAmount = partyLedger.ledgerAmount,
                 billDueDate = data.SaleVoucherPrint.dueDate ?? DateTime.Now.AddDays(30)
+            };
 
-
-            });
-
+            // Add custom field separately
+            billAlloc.customFields.Add(
+                "Supp Ref Date",
+                data.SaleVoucherPrint.Date
+            );
+            partyLedger.arlBillAllocations.Add(billAlloc);           
             invoice.arlLedgerEntries.Add(partyLedger);
+
 
             // =========================
             // DISCOUNT

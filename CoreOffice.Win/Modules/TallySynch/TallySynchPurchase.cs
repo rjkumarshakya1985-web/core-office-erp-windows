@@ -156,7 +156,7 @@ namespace CoreOffice.Win.Modules.TallySynch
             {
                 // ✅ Call orchestrator (NO Task.Run)
                 logs = await _tallyProcessOrchestrator
-                    .ExecutePurchase(_currentPurchase, _tallyConfig, Convert.ToInt32(cmbFiananceYear.SelectedValue.ToString()),txtSBillNumber.Text.Trim());
+                    .ExecutePurchase(_currentPurchase, _tallyConfig, Convert.ToInt32(cmbFiananceYear.SelectedValue.ToString()),txtSBillNumber.Text.Trim(),dtDate.Value);
                 // ✅ Determine success
                 isSuccess = logs != null && logs.Any() && logs.All(x => x.IsSuccess);
                 if (isSuccess)

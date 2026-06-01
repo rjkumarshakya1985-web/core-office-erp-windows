@@ -77,15 +77,6 @@
             label5 = new Label();
             label1 = new Label();
             panel2 = new Panel();
-            grpTotal = new GroupBox();
-            txtSBillNumber = new TextBox();
-            label28 = new Label();
-            btnClose = new Button();
-            btnClear = new Button();
-            btnSynch = new Button();
-            label3 = new Label();
-            txtVoucher = new TextBox();
-            dataGridInvoice = new DataGridView();
             groupBox3 = new GroupBox();
             label46 = new Label();
             label47 = new Label();
@@ -108,13 +99,24 @@
             lblCGSTTotal = new Label();
             lblSGSTTotall = new Label();
             lblPayableAmountl = new Label();
+            grpTotal = new GroupBox();
+            label25 = new Label();
+            dtDate = new DateTimePicker();
+            txtSBillNumber = new TextBox();
+            label28 = new Label();
+            btnClose = new Button();
+            btnClear = new Button();
+            btnSynch = new Button();
+            label3 = new Label();
+            txtVoucher = new TextBox();
+            dataGridInvoice = new DataGridView();
             panel1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox1.SuspendLayout();
             panel2.SuspendLayout();
+            groupBox3.SuspendLayout();
             grpTotal.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridInvoice).BeginInit();
-            groupBox3.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
@@ -655,114 +657,6 @@
             panel2.Size = new Size(977, 145);
             panel2.TabIndex = 1;
             // 
-            // grpTotal
-            // 
-            grpTotal.BackColor = Color.FromArgb(64, 64, 64);
-            grpTotal.Controls.Add(txtSBillNumber);
-            grpTotal.Controls.Add(label28);
-            grpTotal.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
-            grpTotal.ForeColor = Color.White;
-            grpTotal.Location = new Point(3, 3);
-            grpTotal.Name = "grpTotal";
-            grpTotal.Size = new Size(284, 138);
-            grpTotal.TabIndex = 35;
-            grpTotal.TabStop = false;
-            grpTotal.Text = "Bill information";
-            // 
-            // txtSBillNumber
-            // 
-            txtSBillNumber.Font = new Font("Segoe UI", 12F);
-            txtSBillNumber.Location = new Point(104, 21);
-            txtSBillNumber.Name = "txtSBillNumber";
-            txtSBillNumber.Size = new Size(174, 29);
-            txtSBillNumber.TabIndex = 36;
-            // 
-            // label28
-            // 
-            label28.AutoSize = true;
-            label28.Font = new Font("Segoe UI", 8F);
-            label28.Location = new Point(6, 27);
-            label28.Name = "label28";
-            label28.Size = new Size(95, 13);
-            label28.TabIndex = 19;
-            label28.Text = "Supplier's Bill No";
-            // 
-            // btnClose
-            // 
-            btnClose.BackColor = Color.LightSalmon;
-            btnClose.FlatAppearance.BorderSize = 0;
-            btnClose.FlatStyle = FlatStyle.Flat;
-            btnClose.Font = new Font("Segoe UI", 10F);
-            btnClose.Location = new Point(642, 94);
-            btnClose.Name = "btnClose";
-            btnClose.Size = new Size(323, 34);
-            btnClose.TabIndex = 5;
-            btnClose.Text = "Close";
-            btnClose.UseVisualStyleBackColor = false;
-            btnClose.Click += btnClose_Click_1;
-            // 
-            // btnClear
-            // 
-            btnClear.BackColor = Color.White;
-            btnClear.FlatAppearance.BorderSize = 0;
-            btnClear.FlatStyle = FlatStyle.Flat;
-            btnClear.Font = new Font("Segoe UI", 10F);
-            btnClear.Location = new Point(805, 45);
-            btnClear.Name = "btnClear";
-            btnClear.Size = new Size(160, 43);
-            btnClear.TabIndex = 4;
-            btnClear.Text = "Clear";
-            btnClear.UseVisualStyleBackColor = false;
-            btnClear.Click += btnClose_Click;
-            // 
-            // btnSynch
-            // 
-            btnSynch.BackColor = Color.Green;
-            btnSynch.FlatAppearance.BorderColor = Color.White;
-            btnSynch.FlatAppearance.BorderSize = 0;
-            btnSynch.FlatStyle = FlatStyle.Flat;
-            btnSynch.Font = new Font("Segoe UI", 10F);
-            btnSynch.ForeColor = Color.White;
-            btnSynch.Location = new Point(642, 45);
-            btnSynch.Name = "btnSynch";
-            btnSynch.Size = new Size(160, 43);
-            btnSynch.TabIndex = 3;
-            btnSynch.Text = "Synch";
-            btnSynch.UseVisualStyleBackColor = false;
-            btnSynch.Click += btnSynch_Click;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.BackColor = Color.Transparent;
-            label3.Font = new Font("Segoe UI", 12F);
-            label3.ForeColor = Color.White;
-            label3.Location = new Point(642, 18);
-            label3.Name = "label3";
-            label3.Size = new Size(95, 21);
-            label3.TabIndex = 2;
-            label3.Text = "Voucher No.";
-            // 
-            // txtVoucher
-            // 
-            txtVoucher.Font = new Font("Segoe UI", 15F);
-            txtVoucher.Location = new Point(743, 5);
-            txtVoucher.Name = "txtVoucher";
-            txtVoucher.Size = new Size(222, 34);
-            txtVoucher.TabIndex = 0;
-            txtVoucher.KeyDown += txtVoucher_KeyDown;
-            // 
-            // dataGridInvoice
-            // 
-            dataGridInvoice.AllowUserToAddRows = false;
-            dataGridInvoice.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridInvoice.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridInvoice.Dock = DockStyle.Fill;
-            dataGridInvoice.Location = new Point(0, 221);
-            dataGridInvoice.Name = "dataGridInvoice";
-            dataGridInvoice.Size = new Size(977, 132);
-            dataGridInvoice.TabIndex = 6;
-            // 
             // groupBox3
             // 
             groupBox3.BackColor = Color.FromArgb(64, 64, 64);
@@ -1006,6 +900,134 @@
             lblPayableAmountl.TabIndex = 11;
             lblPayableAmountl.Text = "Grand Total:";
             // 
+            // grpTotal
+            // 
+            grpTotal.BackColor = Color.FromArgb(64, 64, 64);
+            grpTotal.Controls.Add(label25);
+            grpTotal.Controls.Add(dtDate);
+            grpTotal.Controls.Add(txtSBillNumber);
+            grpTotal.Controls.Add(label28);
+            grpTotal.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            grpTotal.ForeColor = Color.White;
+            grpTotal.Location = new Point(3, 3);
+            grpTotal.Name = "grpTotal";
+            grpTotal.Size = new Size(284, 138);
+            grpTotal.TabIndex = 35;
+            grpTotal.TabStop = false;
+            grpTotal.Text = "Bill information";
+            // 
+            // label25
+            // 
+            label25.AutoSize = true;
+            label25.Font = new Font("Segoe UI", 8F);
+            label25.Location = new Point(33, 34);
+            label25.Name = "label25";
+            label25.Size = new Size(31, 13);
+            label25.TabIndex = 38;
+            label25.Text = "Date";
+            // 
+            // dtDate
+            // 
+            dtDate.Font = new Font("Segoe UI Semibold", 8F, FontStyle.Bold);
+            dtDate.Location = new Point(69, 25);
+            dtDate.Name = "dtDate";
+            dtDate.Size = new Size(209, 22);
+            dtDate.TabIndex = 37;
+            // 
+            // txtSBillNumber
+            // 
+            txtSBillNumber.Font = new Font("Segoe UI", 12F);
+            txtSBillNumber.Location = new Point(70, 54);
+            txtSBillNumber.Name = "txtSBillNumber";
+            txtSBillNumber.Size = new Size(208, 29);
+            txtSBillNumber.TabIndex = 36;
+            // 
+            // label28
+            // 
+            label28.AutoSize = true;
+            label28.Font = new Font("Segoe UI", 8F);
+            label28.Location = new Point(18, 70);
+            label28.Name = "label28";
+            label28.Size = new Size(46, 13);
+            label28.TabIndex = 19;
+            label28.Text = "Challan";
+            // 
+            // btnClose
+            // 
+            btnClose.BackColor = Color.LightSalmon;
+            btnClose.FlatAppearance.BorderSize = 0;
+            btnClose.FlatStyle = FlatStyle.Flat;
+            btnClose.Font = new Font("Segoe UI", 10F);
+            btnClose.Location = new Point(642, 94);
+            btnClose.Name = "btnClose";
+            btnClose.Size = new Size(323, 34);
+            btnClose.TabIndex = 5;
+            btnClose.Text = "Close";
+            btnClose.UseVisualStyleBackColor = false;
+            btnClose.Click += btnClose_Click_1;
+            // 
+            // btnClear
+            // 
+            btnClear.BackColor = Color.White;
+            btnClear.FlatAppearance.BorderSize = 0;
+            btnClear.FlatStyle = FlatStyle.Flat;
+            btnClear.Font = new Font("Segoe UI", 10F);
+            btnClear.Location = new Point(805, 45);
+            btnClear.Name = "btnClear";
+            btnClear.Size = new Size(160, 43);
+            btnClear.TabIndex = 4;
+            btnClear.Text = "Clear";
+            btnClear.UseVisualStyleBackColor = false;
+            btnClear.Click += btnClose_Click;
+            // 
+            // btnSynch
+            // 
+            btnSynch.BackColor = Color.Green;
+            btnSynch.FlatAppearance.BorderColor = Color.White;
+            btnSynch.FlatAppearance.BorderSize = 0;
+            btnSynch.FlatStyle = FlatStyle.Flat;
+            btnSynch.Font = new Font("Segoe UI", 10F);
+            btnSynch.ForeColor = Color.White;
+            btnSynch.Location = new Point(642, 45);
+            btnSynch.Name = "btnSynch";
+            btnSynch.Size = new Size(160, 43);
+            btnSynch.TabIndex = 3;
+            btnSynch.Text = "Synch";
+            btnSynch.UseVisualStyleBackColor = false;
+            btnSynch.Click += btnSynch_Click;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.BackColor = Color.Transparent;
+            label3.Font = new Font("Segoe UI", 12F);
+            label3.ForeColor = Color.White;
+            label3.Location = new Point(642, 18);
+            label3.Name = "label3";
+            label3.Size = new Size(95, 21);
+            label3.TabIndex = 2;
+            label3.Text = "Voucher No.";
+            // 
+            // txtVoucher
+            // 
+            txtVoucher.Font = new Font("Segoe UI", 15F);
+            txtVoucher.Location = new Point(743, 5);
+            txtVoucher.Name = "txtVoucher";
+            txtVoucher.Size = new Size(222, 34);
+            txtVoucher.TabIndex = 0;
+            txtVoucher.KeyDown += txtVoucher_KeyDown;
+            // 
+            // dataGridInvoice
+            // 
+            dataGridInvoice.AllowUserToAddRows = false;
+            dataGridInvoice.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridInvoice.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridInvoice.Dock = DockStyle.Fill;
+            dataGridInvoice.Location = new Point(0, 221);
+            dataGridInvoice.Name = "dataGridInvoice";
+            dataGridInvoice.Size = new Size(977, 132);
+            dataGridInvoice.TabIndex = 6;
+            // 
             // TallySynchPurchase
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1027,11 +1049,11 @@
             groupBox1.PerformLayout();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
+            groupBox3.ResumeLayout(false);
+            groupBox3.PerformLayout();
             grpTotal.ResumeLayout(false);
             grpTotal.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridInvoice).EndInit();
-            groupBox3.ResumeLayout(false);
-            groupBox3.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -1117,5 +1139,7 @@
         private Label lblSGSTTotall;
         private Label lblPayableAmountl;
         private TextBox txtSBillNumber;
+        private Label label25;
+        private DateTimePicker dtDate;
     }
 }

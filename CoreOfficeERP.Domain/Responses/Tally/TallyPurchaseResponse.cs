@@ -74,6 +74,7 @@ namespace CoreOfficeERP.Domain.Responses.Tally
         public string? TallyLedgerName { get; set; }
         public int GstValue { get; set; }
         public string? Description { get; set; }
+        public string? supplierCode { get; set; }
 
     }
     public class StockGroupResponse
@@ -88,6 +89,7 @@ namespace CoreOfficeERP.Domain.Responses.Tally
         public decimal StartRange { get; set; }
         public decimal EndRange { get; set; }
         public List<GstRule> GstRules { get; set; }
+        public string? supplierCode { get; set; }
 
     }
     public class StockitemResponse
@@ -122,6 +124,7 @@ namespace CoreOfficeERP.Domain.Responses.Tally
 
         public GstTaxabilityType GSTTaxability { get; set; }
         public string? supplierCode { get; set; }
+        public List<SupplierProductRateHistoryDTO> PriceHistories { get; set; }
     }
     public class GstRule
     {
@@ -157,5 +160,13 @@ namespace CoreOfficeERP.Domain.Responses.Tally
         public DateTime? dueDate { get; set; }
 
 
+    }
+    public class SupplierProductRateHistoryDTO
+    {
+        public DateTime Date { get; set; }
+        public Guid SupplierProductId { get; set; }
+        public decimal PurchaseRate { get; set; }
+        public decimal WholesaleRate { get; set; }
+        public decimal RetailRate { get; set; }
     }
 }
