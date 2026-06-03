@@ -353,6 +353,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
 
         public void AddSingleItemToGrid(CurrentStockResponse item)
         {
+            txtBarcodeScanner.Text = string.Empty;
             new FrmProductQty(this, item).ShowDialog();
         }
 

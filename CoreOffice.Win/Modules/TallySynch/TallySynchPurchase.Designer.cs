@@ -77,15 +77,24 @@
             label5 = new Label();
             label1 = new Label();
             panel2 = new Panel();
+            groupBox4 = new GroupBox();
+            txtVoucher = new TextBox();
+            label3 = new Label();
+            btnClose = new Button();
+            btnClear = new Button();
+            btnSynch = new Button();
             groupBox3 = new GroupBox();
+            label27 = new Label();
+            lblRoundOff = new Label();
+            label26 = new Label();
             label46 = new Label();
             label47 = new Label();
             label48 = new Label();
+            lblNetAmount = new Label();
             label49 = new Label();
             label50 = new Label();
             label51 = new Label();
             label52 = new Label();
-            lblNetAmount = new Label();
             lblTotalDiscountl = new Label();
             lblNetAmountl = new Label();
             lblPayableAmount = new Label();
@@ -104,16 +113,12 @@
             dtDate = new DateTimePicker();
             txtSBillNumber = new TextBox();
             label28 = new Label();
-            btnClose = new Button();
-            btnClear = new Button();
-            btnSynch = new Button();
-            label3 = new Label();
-            txtVoucher = new TextBox();
             dataGridInvoice = new DataGridView();
             panel1.SuspendLayout();
             groupBox2.SuspendLayout();
             groupBox1.SuspendLayout();
             panel2.SuspendLayout();
+            groupBox4.SuspendLayout();
             groupBox3.SuspendLayout();
             grpTotal.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridInvoice).BeginInit();
@@ -132,14 +137,14 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(977, 221);
+            panel1.Size = new Size(892, 221);
             panel1.TabIndex = 0;
             // 
             // label24
             // 
             label24.AutoSize = true;
             label24.Font = new Font("Segoe UI", 8F);
-            label24.Location = new Point(669, 18);
+            label24.Location = new Point(547, 17);
             label24.Name = "label24";
             label24.Size = new Size(24, 13);
             label24.TabIndex = 27;
@@ -148,7 +153,7 @@
             // cmbFiananceYear
             // 
             cmbFiananceYear.FormattingEnabled = true;
-            cmbFiananceYear.Location = new Point(699, 12);
+            cmbFiananceYear.Location = new Point(577, 11);
             cmbFiananceYear.Name = "cmbFiananceYear";
             cmbFiananceYear.Size = new Size(212, 23);
             cmbFiananceYear.TabIndex = 26;
@@ -168,7 +173,7 @@
             cmbCompanies.FormattingEnabled = true;
             cmbCompanies.Location = new Point(265, 11);
             cmbCompanies.Name = "cmbCompanies";
-            cmbCompanies.Size = new Size(364, 23);
+            cmbCompanies.Size = new Size(267, 23);
             cmbCompanies.TabIndex = 16;
             // 
             // groupBox2
@@ -196,7 +201,7 @@
             groupBox2.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             groupBox2.Location = new Point(538, 40);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(439, 178);
+            groupBox2.Size = new Size(354, 178);
             groupBox2.TabIndex = 15;
             groupBox2.TabStop = false;
             groupBox2.Text = "Business information";
@@ -644,30 +649,112 @@
             // panel2
             // 
             panel2.BackColor = Color.FromArgb(64, 64, 64);
+            panel2.Controls.Add(groupBox4);
             panel2.Controls.Add(groupBox3);
             panel2.Controls.Add(grpTotal);
-            panel2.Controls.Add(btnClose);
-            panel2.Controls.Add(btnClear);
-            panel2.Controls.Add(btnSynch);
-            panel2.Controls.Add(label3);
-            panel2.Controls.Add(txtVoucher);
             panel2.Dock = DockStyle.Bottom;
-            panel2.Location = new Point(0, 353);
+            panel2.Location = new Point(0, 336);
             panel2.Name = "panel2";
-            panel2.Size = new Size(977, 145);
+            panel2.Size = new Size(892, 162);
             panel2.TabIndex = 1;
+            // 
+            // groupBox4
+            // 
+            groupBox4.BackColor = Color.FromArgb(64, 64, 64);
+            groupBox4.Controls.Add(txtVoucher);
+            groupBox4.Controls.Add(label3);
+            groupBox4.Controls.Add(btnClose);
+            groupBox4.Controls.Add(btnClear);
+            groupBox4.Controls.Add(btnSynch);
+            groupBox4.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
+            groupBox4.ForeColor = Color.White;
+            groupBox4.Location = new Point(544, 6);
+            groupBox4.Name = "groupBox4";
+            groupBox4.Size = new Size(342, 153);
+            groupBox4.TabIndex = 45;
+            groupBox4.TabStop = false;
+            groupBox4.Text = "Scan Voucher";
+            // 
+            // txtVoucher
+            // 
+            txtVoucher.Font = new Font("Segoe UI", 15F);
+            txtVoucher.Location = new Point(107, 22);
+            txtVoucher.Name = "txtVoucher";
+            txtVoucher.Size = new Size(222, 34);
+            txtVoucher.TabIndex = 0;
+            txtVoucher.KeyDown += txtVoucher_KeyDown;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.BackColor = Color.Transparent;
+            label3.Font = new Font("Segoe UI", 12F);
+            label3.ForeColor = Color.White;
+            label3.Location = new Point(6, 31);
+            label3.Name = "label3";
+            label3.Size = new Size(95, 21);
+            label3.TabIndex = 2;
+            label3.Text = "Voucher No.";
+            // 
+            // btnClose
+            // 
+            btnClose.BackColor = Color.LightSalmon;
+            btnClose.FlatAppearance.BorderSize = 0;
+            btnClose.FlatStyle = FlatStyle.Flat;
+            btnClose.Font = new Font("Segoe UI", 10F);
+            btnClose.Location = new Point(6, 110);
+            btnClose.Name = "btnClose";
+            btnClose.Size = new Size(323, 34);
+            btnClose.TabIndex = 3;
+            btnClose.Text = "Close";
+            btnClose.UseVisualStyleBackColor = false;
+            btnClose.Click += btnClose_Click_1;
+            // 
+            // btnClear
+            // 
+            btnClear.BackColor = Color.White;
+            btnClear.FlatAppearance.BorderSize = 0;
+            btnClear.FlatStyle = FlatStyle.Flat;
+            btnClear.Font = new Font("Segoe UI", 10F);
+            btnClear.ForeColor = Color.Black;
+            btnClear.Location = new Point(169, 61);
+            btnClear.Name = "btnClear";
+            btnClear.Size = new Size(160, 43);
+            btnClear.TabIndex = 2;
+            btnClear.Text = "Clear";
+            btnClear.UseVisualStyleBackColor = false;
+            btnClear.Click += btnClose_Click;
+            // 
+            // btnSynch
+            // 
+            btnSynch.BackColor = Color.Green;
+            btnSynch.FlatAppearance.BorderColor = Color.White;
+            btnSynch.FlatAppearance.BorderSize = 0;
+            btnSynch.FlatStyle = FlatStyle.Flat;
+            btnSynch.Font = new Font("Segoe UI", 10F);
+            btnSynch.ForeColor = Color.White;
+            btnSynch.Location = new Point(6, 61);
+            btnSynch.Name = "btnSynch";
+            btnSynch.Size = new Size(160, 43);
+            btnSynch.TabIndex = 1;
+            btnSynch.Text = "Synch";
+            btnSynch.UseVisualStyleBackColor = false;
+            btnSynch.Click += btnSynch_Click;
             // 
             // groupBox3
             // 
             groupBox3.BackColor = Color.FromArgb(64, 64, 64);
+            groupBox3.Controls.Add(label27);
+            groupBox3.Controls.Add(lblRoundOff);
+            groupBox3.Controls.Add(label26);
             groupBox3.Controls.Add(label46);
             groupBox3.Controls.Add(label47);
             groupBox3.Controls.Add(label48);
+            groupBox3.Controls.Add(lblNetAmount);
             groupBox3.Controls.Add(label49);
             groupBox3.Controls.Add(label50);
             groupBox3.Controls.Add(label51);
             groupBox3.Controls.Add(label52);
-            groupBox3.Controls.Add(lblNetAmount);
             groupBox3.Controls.Add(lblTotalDiscountl);
             groupBox3.Controls.Add(lblNetAmountl);
             groupBox3.Controls.Add(lblPayableAmount);
@@ -683,18 +770,48 @@
             groupBox3.Controls.Add(lblPayableAmountl);
             groupBox3.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             groupBox3.ForeColor = Color.White;
-            groupBox3.Location = new Point(293, 3);
+            groupBox3.Location = new Point(249, 6);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(307, 138);
+            groupBox3.Size = new Size(283, 153);
             groupBox3.TabIndex = 42;
             groupBox3.TabStop = false;
             groupBox3.Text = "Bill Summary";
+            // 
+            // label27
+            // 
+            label27.AutoSize = true;
+            label27.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            label27.Location = new Point(86, 112);
+            label27.Name = "label27";
+            label27.Size = new Size(17, 19);
+            label27.TabIndex = 44;
+            label27.Text = "₹";
+            // 
+            // lblRoundOff
+            // 
+            lblRoundOff.AutoSize = true;
+            lblRoundOff.Font = new Font("Segoe UI", 8F);
+            lblRoundOff.Location = new Point(102, 115);
+            lblRoundOff.Name = "lblRoundOff";
+            lblRoundOff.Size = new Size(22, 13);
+            lblRoundOff.TabIndex = 43;
+            lblRoundOff.Text = "NA";
+            // 
+            // label26
+            // 
+            label26.AutoSize = true;
+            label26.Font = new Font("Segoe UI", 8F);
+            label26.Location = new Point(6, 115);
+            label26.Name = "label26";
+            label26.Size = new Size(60, 13);
+            label26.TabIndex = 42;
+            label26.Text = "Roundoff:";
             // 
             // label46
             // 
             label46.AutoSize = true;
             label46.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label46.Location = new Point(86, 115);
+            label46.Location = new Point(86, 129);
             label46.Name = "label46";
             label46.Size = new Size(19, 21);
             label46.TabIndex = 41;
@@ -719,6 +836,16 @@
             label48.Size = new Size(17, 19);
             label48.TabIndex = 39;
             label48.Text = "₹";
+            // 
+            // lblNetAmount
+            // 
+            lblNetAmount.AutoSize = true;
+            lblNetAmount.Font = new Font("Segoe UI", 8F);
+            lblNetAmount.Location = new Point(102, 25);
+            lblNetAmount.Name = "lblNetAmount";
+            lblNetAmount.Size = new Size(22, 13);
+            lblNetAmount.TabIndex = 34;
+            lblNetAmount.Text = "NA";
             // 
             // label49
             // 
@@ -760,16 +887,6 @@
             label52.TabIndex = 35;
             label52.Text = "₹";
             // 
-            // lblNetAmount
-            // 
-            lblNetAmount.AutoSize = true;
-            lblNetAmount.Font = new Font("Segoe UI", 8F);
-            lblNetAmount.Location = new Point(102, 25);
-            lblNetAmount.Name = "lblNetAmount";
-            lblNetAmount.Size = new Size(22, 13);
-            lblNetAmount.TabIndex = 34;
-            lblNetAmount.Text = "NA";
-            // 
             // lblTotalDiscountl
             // 
             lblTotalDiscountl.AutoSize = true;
@@ -794,7 +911,7 @@
             // 
             lblPayableAmount.AutoSize = true;
             lblPayableAmount.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            lblPayableAmount.Location = new Point(101, 115);
+            lblPayableAmount.Location = new Point(101, 129);
             lblPayableAmount.Name = "lblPayableAmount";
             lblPayableAmount.Size = new Size(34, 21);
             lblPayableAmount.TabIndex = 31;
@@ -894,7 +1011,7 @@
             // 
             lblPayableAmountl.AutoSize = true;
             lblPayableAmountl.Font = new Font("Segoe UI", 8F);
-            lblPayableAmountl.Location = new Point(6, 117);
+            lblPayableAmountl.Location = new Point(6, 131);
             lblPayableAmountl.Name = "lblPayableAmountl";
             lblPayableAmountl.Size = new Size(69, 13);
             lblPayableAmountl.TabIndex = 11;
@@ -911,7 +1028,7 @@
             grpTotal.ForeColor = Color.White;
             grpTotal.Location = new Point(3, 3);
             grpTotal.Name = "grpTotal";
-            grpTotal.Size = new Size(284, 138);
+            grpTotal.Size = new Size(240, 156);
             grpTotal.TabIndex = 35;
             grpTotal.TabStop = false;
             grpTotal.Text = "Bill information";
@@ -929,93 +1046,31 @@
             // dtDate
             // 
             dtDate.Font = new Font("Segoe UI Semibold", 8F, FontStyle.Bold);
+            dtDate.Format = DateTimePickerFormat.Short;
             dtDate.Location = new Point(69, 25);
+            dtDate.Margin = new Padding(8, 3, 3, 3);
             dtDate.Name = "dtDate";
-            dtDate.Size = new Size(209, 22);
-            dtDate.TabIndex = 37;
+            dtDate.RightToLeft = RightToLeft.No;
+            dtDate.Size = new Size(165, 22);
+            dtDate.TabIndex = 0;
             // 
             // txtSBillNumber
             // 
             txtSBillNumber.Font = new Font("Segoe UI", 12F);
             txtSBillNumber.Location = new Point(70, 54);
             txtSBillNumber.Name = "txtSBillNumber";
-            txtSBillNumber.Size = new Size(208, 29);
-            txtSBillNumber.TabIndex = 36;
+            txtSBillNumber.Size = new Size(164, 29);
+            txtSBillNumber.TabIndex = 1;
             // 
             // label28
             // 
             label28.AutoSize = true;
             label28.Font = new Font("Segoe UI", 8F);
-            label28.Location = new Point(18, 70);
+            label28.Location = new Point(9, 67);
             label28.Name = "label28";
-            label28.Size = new Size(46, 13);
+            label28.Size = new Size(55, 13);
             label28.TabIndex = 19;
-            label28.Text = "Challan";
-            // 
-            // btnClose
-            // 
-            btnClose.BackColor = Color.LightSalmon;
-            btnClose.FlatAppearance.BorderSize = 0;
-            btnClose.FlatStyle = FlatStyle.Flat;
-            btnClose.Font = new Font("Segoe UI", 10F);
-            btnClose.Location = new Point(642, 94);
-            btnClose.Name = "btnClose";
-            btnClose.Size = new Size(323, 34);
-            btnClose.TabIndex = 5;
-            btnClose.Text = "Close";
-            btnClose.UseVisualStyleBackColor = false;
-            btnClose.Click += btnClose_Click_1;
-            // 
-            // btnClear
-            // 
-            btnClear.BackColor = Color.White;
-            btnClear.FlatAppearance.BorderSize = 0;
-            btnClear.FlatStyle = FlatStyle.Flat;
-            btnClear.Font = new Font("Segoe UI", 10F);
-            btnClear.Location = new Point(805, 45);
-            btnClear.Name = "btnClear";
-            btnClear.Size = new Size(160, 43);
-            btnClear.TabIndex = 4;
-            btnClear.Text = "Clear";
-            btnClear.UseVisualStyleBackColor = false;
-            btnClear.Click += btnClose_Click;
-            // 
-            // btnSynch
-            // 
-            btnSynch.BackColor = Color.Green;
-            btnSynch.FlatAppearance.BorderColor = Color.White;
-            btnSynch.FlatAppearance.BorderSize = 0;
-            btnSynch.FlatStyle = FlatStyle.Flat;
-            btnSynch.Font = new Font("Segoe UI", 10F);
-            btnSynch.ForeColor = Color.White;
-            btnSynch.Location = new Point(642, 45);
-            btnSynch.Name = "btnSynch";
-            btnSynch.Size = new Size(160, 43);
-            btnSynch.TabIndex = 3;
-            btnSynch.Text = "Synch";
-            btnSynch.UseVisualStyleBackColor = false;
-            btnSynch.Click += btnSynch_Click;
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.BackColor = Color.Transparent;
-            label3.Font = new Font("Segoe UI", 12F);
-            label3.ForeColor = Color.White;
-            label3.Location = new Point(642, 18);
-            label3.Name = "label3";
-            label3.Size = new Size(95, 21);
-            label3.TabIndex = 2;
-            label3.Text = "Voucher No.";
-            // 
-            // txtVoucher
-            // 
-            txtVoucher.Font = new Font("Segoe UI", 15F);
-            txtVoucher.Location = new Point(743, 5);
-            txtVoucher.Name = "txtVoucher";
-            txtVoucher.Size = new Size(222, 34);
-            txtVoucher.TabIndex = 0;
-            txtVoucher.KeyDown += txtVoucher_KeyDown;
+            label28.Text = "S. Invoice";
             // 
             // dataGridInvoice
             // 
@@ -1025,14 +1080,14 @@
             dataGridInvoice.Dock = DockStyle.Fill;
             dataGridInvoice.Location = new Point(0, 221);
             dataGridInvoice.Name = "dataGridInvoice";
-            dataGridInvoice.Size = new Size(977, 132);
+            dataGridInvoice.Size = new Size(892, 115);
             dataGridInvoice.TabIndex = 6;
             // 
             // TallySynchPurchase
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(977, 498);
+            ClientSize = new Size(892, 498);
             Controls.Add(dataGridInvoice);
             Controls.Add(panel2);
             Controls.Add(panel1);
@@ -1048,7 +1103,8 @@
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             panel2.ResumeLayout(false);
-            panel2.PerformLayout();
+            groupBox4.ResumeLayout(false);
+            groupBox4.PerformLayout();
             groupBox3.ResumeLayout(false);
             groupBox3.PerformLayout();
             grpTotal.ResumeLayout(false);
@@ -1064,7 +1120,6 @@
         private Label label2;
         private Panel panel2;
         private TextBox txtVoucher;
-        private Label label3;
         private Button btnSynch;
         private Button btnClear;
         private Label label4;
@@ -1141,5 +1196,10 @@
         private TextBox txtSBillNumber;
         private Label label25;
         private DateTimePicker dtDate;
+        private Label label26;
+        private Label label27;
+        private Label lblRoundOff;
+        private GroupBox groupBox4;
+        private Label label3;
     }
 }
