@@ -345,17 +345,28 @@ namespace CoreOffice.Win.Modules.TallySynch
 
             lblNetAmount.Text = items.Sum(x => x.Total).ToString("0.00");
 
-            lblTotalDiscount.Text = items.Sum(x => x.DiscountAmount).ToString("0.00");
+            lblTotalDiscount.Text = items.Sum(x => x.Total - x.DiscountAmount).ToString("0.00");
 
-            lblTaxable.Text = items.Sum(x => x.Total - x.DiscountAmount).ToString("0.00");
+            lblTaxable.Text = items.Sum(x => x.DiscountAmount).ToString("0.00");
 
             lblCGSTTotal.Text = items.Sum(x => x.CGST).ToString("0.00");
 
             lblSGSTTotal.Text = items.Sum(x => x.SGST).ToString("0.00");
 
             lblIGSTTotal.Text = items.Sum(x => x.IGST).ToString("0.00");
+           
+            decimal payableAmount = items.Sum(x => x.PayableAmount);
+            // Round to nearest rupee (0.50 and above rounds up)
+            decimal roundedPayable = Math.Round(payableAmount, 0, MidpointRounding.AwayFromZero);
 
-            lblPayableAmount.Text = items.Sum(x => x.PayableAmount).ToString("0.00");
+            // Difference between original and rounded amount
+            decimal roundOff = roundedPayable - payableAmount;
+
+            lblPayableAmount.Text = roundedPayable.ToString("0.00");
+
+            lblRoundOff.Text = roundOff.ToString("0.00");           
+
+            
         }
         private void MapLedgerNames(TallyPurchaseResponse data)
         {

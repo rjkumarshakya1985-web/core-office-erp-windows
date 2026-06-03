@@ -373,10 +373,10 @@ namespace CoreOfficeERP.Tally.Services
 
         public TallyResponse CreatePurchaseVoucher(TallyPurchaseResponse data, TallyConfigResponse config, string sbillnumber, DateTime date)
         {
-            // DateTime dt1 = DateTime.ParseExact(data.SaleVoucherPrint.Date.ToString(), "dd-MMM-yy h:mm:ss tt", CultureInfo.InvariantCulture);
+            DateTime dt2 = DateTime.ParseExact(data.SaleVoucherPrint.Date.ToString(), "dd-MMM-yy h:mm:ss tt", CultureInfo.InvariantCulture);
             DateTime dt1 = DateTime.ParseExact(date.ToString(), "dd-MMM-yy h:mm:ss tt", CultureInfo.InvariantCulture);
             string s = dt1.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
-
+            string refdate = dt2.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
             var invoice = new PurchaseVoucher
             {
                 tallyCompanyName = config.Company.Name,
@@ -395,7 +395,7 @@ namespace CoreOfficeERP.Tally.Services
 
                 voucherNo = data.SaleVoucherPrint.Id.ToString(),
                 reference = sbillnumber,
-                referenceDate = DateTime.ParseExact(s, "dd/MM/yyyy", null),
+                referenceDate = DateTime.ParseExact(refdate, "dd/MM/yyyy", null),
                 voucherIdentifier = data.SaleVoucherPrint.VoucherForeignkey,
 
                 //  receiptDocNo = "Receipt Doc11",
