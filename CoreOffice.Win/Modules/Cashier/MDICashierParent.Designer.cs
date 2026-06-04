@@ -234,7 +234,7 @@ namespace CoreOffice.Win.Modules.Cashier
             // purchaseTallySnyncToolStripMenuItem
             // 
             purchaseTallySnyncToolStripMenuItem.Name = "purchaseTallySnyncToolStripMenuItem";
-            purchaseTallySnyncToolStripMenuItem.Size = new Size(180, 22);
+            purchaseTallySnyncToolStripMenuItem.Size = new Size(177, 22);
             purchaseTallySnyncToolStripMenuItem.Text = "Purchase Tally Sync";
             purchaseTallySnyncToolStripMenuItem.Click += purchaseTallySnyncToolStripMenuItem_Click;
             // 
