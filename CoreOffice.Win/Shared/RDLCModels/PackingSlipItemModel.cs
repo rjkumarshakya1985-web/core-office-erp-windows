@@ -28,5 +28,7 @@ namespace CoreOffice.Win.Shared.RDLCModels
         public string UserName { get; set; }
         public string Department { get; set; }
         public string SubDepartment { get; set; }
+        public string Remarks { get; set; }
+        public byte[] BarcodeImage { get; set; }   // Add this
     }
 }

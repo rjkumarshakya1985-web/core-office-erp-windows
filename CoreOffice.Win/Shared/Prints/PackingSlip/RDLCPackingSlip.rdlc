@@ -2,149 +2,20 @@
 <Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2008/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
   <Body>
     <ReportItems>
-      <Textbox Name="Textbox11">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>Name:</Value>
-                <Style>
-                  <FontFamily>Verdana</FontFamily>
-                  <FontSize>8pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox11</rd:DefaultName>
-        <Top>0.14111cm</Top>
-        <Height>0.6cm</Height>
-        <Width>1.28292cm</Width>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="Textbox12">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>Mobile:</Value>
-                <Style>
-                  <FontFamily>Verdana</FontFamily>
-                  <FontSize>8pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>Textbox11</rd:DefaultName>
-        <Top>0.9175cm</Top>
-        <Height>0.6cm</Height>
-        <Width>1.26373cm</Width>
-        <ZIndex>1</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="VisitorName">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=First(Fields!VisitorName.Value, "DataSetPackingSlip")</Value>
-                <Style>
-                  <FontFamily>Verdana</FontFamily>
-                  <FontSize>8pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>VisitorName</rd:DefaultName>
-        <Top>0.04167in</Top>
-        <Left>0.44977in</Left>
-        <Height>0.25in</Height>
-        <Width>1.82709in</Width>
-        <ZIndex>2</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
-      <Textbox Name="VisitorMobile">
-        <CanGrow>true</CanGrow>
-        <KeepTogether>true</KeepTogether>
-        <Paragraphs>
-          <Paragraph>
-            <TextRuns>
-              <TextRun>
-                <Value>=First(Fields!VisitorMobile.Value, "DataSetPackingSlip")</Value>
-                <Style>
-                  <FontFamily>Verdana</FontFamily>
-                  <FontSize>8pt</FontSize>
-                </Style>
-              </TextRun>
-            </TextRuns>
-            <Style />
-          </Paragraph>
-        </Paragraphs>
-        <rd:DefaultName>VisitorMobile</rd:DefaultName>
-        <Top>0.36122in</Top>
-        <Left>0.47754in</Left>
-        <Height>0.25in</Height>
-        <Width>1.79932in</Width>
-        <ZIndex>3</ZIndex>
-        <Style>
-          <Border>
-            <Style>None</Style>
-          </Border>
-          <PaddingLeft>2pt</PaddingLeft>
-          <PaddingRight>2pt</PaddingRight>
-          <PaddingTop>2pt</PaddingTop>
-          <PaddingBottom>2pt</PaddingBottom>
-        </Style>
-      </Textbox>
       <Tablix Name="Tablix1">
         <TablixBody>
           <TablixColumns>
             <TablixColumn>
-              <Width>0.92029in</Width>
+              <Width>0.93208in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.46482in</Width>
+              <Width>0.47661in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.67151in</Width>
+              <Width>0.6833in</Width>
             </TablixColumn>
             <TablixColumn>
-              <Width>0.48405in</Width>
+              <Width>0.49584in</Width>
             </TablixColumn>
           </TablixColumns>
           <TablixRows>
@@ -163,6 +34,7 @@
                               <Value>Product Name</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -196,6 +68,7 @@
                               <Value>Qty</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -229,6 +102,7 @@
                               <Value>Sale Rate</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -262,6 +136,7 @@
                               <Value>Amount</Value>
                               <Style>
                                 <FontSize>8pt</FontSize>
+                                <FontWeight>Bold</FontWeight>
                               </Style>
                             </TextRun>
                           </TextRuns>
@@ -576,15 +451,25 @@
           </TablixMembers>
         </TablixRowHierarchy>
         <DataSetName>DataSetPackingSlip</DataSetName>
-        <Top>0.68066in</Top>
-        <Left>0.06968in</Left>
+        <Top>0.05566in</Top>
         <Height>0.75in</Height>
-        <Width>2.54067in</Width>
-        <ZIndex>4</ZIndex>
+        <Width>2.58781in</Width>
         <Style>
           <Border>
-            <Style>None</Style>
+            <Style>Dashed</Style>
           </Border>
+          <TopBorder>
+            <Style>Dashed</Style>
+          </TopBorder>
+          <BottomBorder>
+            <Style>Dashed</Style>
+          </BottomBorder>
+          <LeftBorder>
+            <Style>Dashed</Style>
+          </LeftBorder>
+          <RightBorder>
+            <Style>Dashed</Style>
+          </RightBorder>
           <FontFamily>Verdana</FontFamily>
           <FontSize>8pt</FontSize>
           <FontWeight>Normal</FontWeight>
@@ -608,11 +493,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Salesman</rd:DefaultName>
-        <Top>1.72233in</Top>
+        <Top>1.09733in</Top>
         <Left>1.10679in</Left>
         <Height>0.25in</Height>
         <Width>1.48858in</Width>
-        <ZIndex>5</ZIndex>
+        <ZIndex>1</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -641,11 +526,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>UserName</rd:DefaultName>
-        <Top>1.45844in</Top>
-        <Left>1.10679in</Left>
+        <Top>0.83344in</Top>
+        <Left>1.45479in</Left>
         <Height>0.25in</Height>
-        <Width>1.48858in</Width>
-        <ZIndex>6</ZIndex>
+        <Width>1.14058in</Width>
+        <ZIndex>2</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -667,6 +552,7 @@
                 <Style>
                   <FontFamily>Verdana</FontFamily>
                   <FontSize>8pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -674,11 +560,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox11</rd:DefaultName>
-        <Top>3.70443cm</Top>
+        <Top>2.11693cm</Top>
         <Left>0.13894cm</Left>
         <Height>0.6cm</Height>
-        <Width>3.00271cm</Width>
-        <ZIndex>7</ZIndex>
+        <Width>3.55623cm</Width>
+        <ZIndex>3</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -700,6 +586,7 @@
                 <Style>
                   <FontFamily>Verdana</FontFamily>
                   <FontSize>8pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
                 </Style>
               </TextRun>
             </TextRuns>
@@ -707,11 +594,11 @@
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox11</rd:DefaultName>
-        <Top>4.44554cm</Top>
+        <Top>2.85804cm</Top>
         <Left>0.13894cm</Left>
         <Height>0.6cm</Height>
         <Width>3.00271cm</Width>
-        <ZIndex>8</ZIndex>
+        <ZIndex>4</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -742,15 +629,84 @@ Thank You! Visit Again
                 </Style>
               </TextRun>
             </TextRuns>
-            <Style />
+            <Style>
+              <TextAlign>Center</TextAlign>
+            </Style>
           </Paragraph>
         </Paragraphs>
         <rd:DefaultName>Textbox1</rd:DefaultName>
-        <Top>2.00011in</Top>
-        <Left>0.07723in</Left>
-        <Height>0.64079in</Height>
-        <Width>2.51814in</Width>
-        <ZIndex>9</ZIndex>
+        <Top>1.61143in</Top>
+        <Left>0.02168in</Left>
+        <Height>0.68572in</Height>
+        <Width>2.58867in</Width>
+        <ZIndex>5</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Remarks">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>=First(Fields!Remarks.Value, "DataSetPackingSlip")</Value>
+                <Style>
+                  <FontFamily>verdana</FontFamily>
+                  <FontSize>8pt</FontSize>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Remarks</rd:DefaultName>
+        <Top>1.43088in</Top>
+        <Left>0.73958in</Left>
+        <Height>0.25in</Height>
+        <Width>1.85579in</Width>
+        <ZIndex>6</ZIndex>
+        <Style>
+          <Border>
+            <Style>None</Style>
+          </Border>
+          <PaddingLeft>2pt</PaddingLeft>
+          <PaddingRight>2pt</PaddingRight>
+          <PaddingTop>2pt</PaddingTop>
+          <PaddingBottom>2pt</PaddingBottom>
+        </Style>
+      </Textbox>
+      <Textbox Name="Textbox3">
+        <CanGrow>true</CanGrow>
+        <KeepTogether>true</KeepTogether>
+        <Paragraphs>
+          <Paragraph>
+            <TextRuns>
+              <TextRun>
+                <Value>Remarks:</Value>
+                <Style>
+                  <FontFamily>verdana</FontFamily>
+                  <FontSize>8pt</FontSize>
+                  <FontWeight>Bold</FontWeight>
+                </Style>
+              </TextRun>
+            </TextRuns>
+            <Style />
+          </Paragraph>
+        </Paragraphs>
+        <rd:DefaultName>Textbox3</rd:DefaultName>
+        <Top>1.43088in</Top>
+        <Left>0.0547in</Left>
+        <Height>0.25in</Height>
+        <Width>0.64322in</Width>
+        <ZIndex>7</ZIndex>
         <Style>
           <Border>
             <Style>None</Style>
@@ -762,13 +718,29 @@ Thank You! Visit Again
         </Style>
       </Textbox>
     </ReportItems>
-    <Height>2.7034in</Height>
-    <Style />
+    <Height>2.29715in</Height>
+    <Style>
+      <Border>
+        <Style>None</Style>
+      </Border>
+      <TopBorder>
+        <Style>None</Style>
+      </TopBorder>
+      <BottomBorder>
+        <Style>None</Style>
+      </BottomBorder>
+      <LeftBorder>
+        <Style>None</Style>
+      </LeftBorder>
+      <RightBorder>
+        <Style>None</Style>
+      </RightBorder>
+    </Style>
   </Body>
-  <Width>2.78125in</Width>
+  <Width>2.66682in</Width>
   <Page>
     <PageHeader>
-      <Height>2.875in</Height>
+      <Height>3.91359in</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <ReportItems>
         <Textbox Name="Textbox5">
@@ -792,9 +764,9 @@ Thank You! Visit Again
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox5</rd:DefaultName>
-          <Left>0.32809cm</Left>
+          <Left>0.01702cm</Left>
           <Height>0.6cm</Height>
-          <Width>5.45514cm</Width>
+          <Width>6.57522cm</Width>
           <Style>
             <Border />
             <VerticalAlign>Middle</VerticalAlign>
@@ -809,7 +781,7 @@ Thank You! Visit Again
           <Value>ssbdlogonew</Value>
           <Sizing>FitProportional</Sizing>
           <Top>0.31597in</Top>
-          <Left>0.50007in</Left>
+          <Left>0.62507in</Left>
           <Height>0.75347in</Height>
           <Width>1.23772in</Width>
           <ZIndex>1</ZIndex>
@@ -837,10 +809,10 @@ Thank You! Visit Again
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Phone</rd:DefaultName>
-          <Top>2.18056in</Top>
-          <Left>0.44977in</Left>
+          <Top>2.55556in</Top>
+          <Left>0.47231in</Left>
           <Height>0.25in</Height>
-          <Width>1.82709in</Width>
+          <Width>2.13804in</Width>
           <ZIndex>2</ZIndex>
           <Style>
             <Border>
@@ -874,7 +846,7 @@ Thank You! Visit Again
           <rd:DefaultName>Address</rd:DefaultName>
           <Top>1.33333in</Top>
           <Height>0.25in</Height>
-          <Width>2.28781in</Width>
+          <Width>2.59537in</Width>
           <ZIndex>3</ZIndex>
           <Style>
             <Border>
@@ -900,13 +872,15 @@ Thank You! Visit Again
                   </Style>
                 </TextRun>
               </TextRuns>
-              <Style />
+              <Style>
+                <TextAlign>Right</TextAlign>
+              </Style>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>StateCode</rd:DefaultName>
-          <Top>1.625in</Top>
+          <Top>1.5in</Top>
           <Height>0.25in</Height>
-          <Width>0.53125in</Width>
+          <Width>1.07901in</Width>
           <ZIndex>4</ZIndex>
           <Style>
             <Border>
@@ -936,10 +910,10 @@ Thank You! Visit Again
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Email</rd:DefaultName>
-          <Top>2.514in</Top>
-          <Left>0.44977in</Left>
+          <Top>2.76747in</Top>
+          <Left>0.46775in</Left>
           <Height>0.25in</Height>
-          <Width>1.82709in</Width>
+          <Width>2.13804in</Width>
           <ZIndex>5</ZIndex>
           <Style>
             <Border>
@@ -958,6 +932,14 @@ Thank You! Visit Again
             <Paragraph>
               <TextRuns>
                 <TextRun>
+                  <Value>GSTIN:</Value>
+                  <Style>
+                    <FontFamily>Verdana</FontFamily>
+                    <FontSize>8pt</FontSize>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+                <TextRun>
                   <Value>=First(Fields!GstIn.Value, "DataSetCompany")</Value>
                   <Style>
                     <FontFamily>Verdana</FontFamily>
@@ -965,14 +947,16 @@ Thank You! Visit Again
                   </Style>
                 </TextRun>
               </TextRuns>
-              <Style />
+              <Style>
+                <TextAlign>Center</TextAlign>
+              </Style>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>GstIn</rd:DefaultName>
-          <Top>1.93056in</Top>
-          <Left>0.44977in</Left>
+          <Top>1.69444in</Top>
+          <Left>0.0547in</Left>
           <Height>0.25in</Height>
-          <Width>1.80456in</Width>
+          <Width>2.53311in</Width>
           <ZIndex>6</ZIndex>
           <Style>
             <Border>
@@ -998,47 +982,17 @@ Thank You! Visit Again
                   </Style>
                 </TextRun>
               </TextRuns>
-              <Style />
+              <Style>
+                <TextAlign>Left</TextAlign>
+              </Style>
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>State</rd:DefaultName>
-          <Top>1.625in</Top>
-          <Left>0.44977in</Left>
+          <Top>1.5in</Top>
+          <Left>1.11312in</Left>
           <Height>0.25in</Height>
-          <Width>1.80456in</Width>
+          <Width>1.47469in</Width>
           <ZIndex>7</ZIndex>
-          <Style>
-            <Border>
-              <Style>None</Style>
-            </Border>
-            <PaddingLeft>2pt</PaddingLeft>
-            <PaddingRight>2pt</PaddingRight>
-            <PaddingTop>2pt</PaddingTop>
-            <PaddingBottom>2pt</PaddingBottom>
-          </Style>
-        </Textbox>
-        <Textbox Name="Textbox15">
-          <CanGrow>true</CanGrow>
-          <KeepTogether>true</KeepTogether>
-          <Paragraphs>
-            <Paragraph>
-              <TextRuns>
-                <TextRun>
-                  <Value>GSTIN:</Value>
-                  <Style>
-                    <FontFamily>Verdana</FontFamily>
-                    <FontSize>8pt</FontSize>
-                  </Style>
-                </TextRun>
-              </TextRuns>
-              <Style />
-            </Paragraph>
-          </Paragraphs>
-          <rd:DefaultName>Textbox11</rd:DefaultName>
-          <Top>4.93862cm</Top>
-          <Height>0.6cm</Height>
-          <Width>1.28292cm</Width>
-          <ZIndex>8</ZIndex>
           <Style>
             <Border>
               <Style>None</Style>
@@ -1060,6 +1014,7 @@ Thank You! Visit Again
                   <Style>
                     <FontFamily>Verdana</FontFamily>
                     <FontSize>8pt</FontSize>
+                    <FontWeight>Bold</FontWeight>
                   </Style>
                 </TextRun>
               </TextRuns>
@@ -1067,10 +1022,10 @@ Thank You! Visit Again
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox11</rd:DefaultName>
-          <Top>5.67973cm</Top>
+          <Top>6.38128cm</Top>
           <Height>0.6cm</Height>
-          <Width>1.28292cm</Width>
-          <ZIndex>9</ZIndex>
+          <Width>1.77271cm</Width>
+          <ZIndex>8</ZIndex>
           <Style>
             <Border>
               <Style>None</Style>
@@ -1092,6 +1047,7 @@ Thank You! Visit Again
                   <Style>
                     <FontFamily>Verdana</FontFamily>
                     <FontSize>8pt</FontSize>
+                    <FontWeight>Bold</FontWeight>
                   </Style>
                 </TextRun>
               </TextRuns>
@@ -1099,10 +1055,10 @@ Thank You! Visit Again
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox11</rd:DefaultName>
-          <Top>6.38557cm</Top>
+          <Top>6.99312cm</Top>
           <Height>0.6cm</Height>
           <Width>1.28292cm</Width>
-          <ZIndex>10</ZIndex>
+          <ZIndex>9</ZIndex>
           <Style>
             <Border>
               <Style>None</Style>
@@ -1136,8 +1092,8 @@ Thank You! Visit Again
           <rd:DefaultName>Name</rd:DefaultName>
           <Top>1.06944in</Top>
           <Height>0.25in</Height>
-          <Width>2.28025in</Width>
-          <ZIndex>11</ZIndex>
+          <Width>2.58781in</Width>
+          <ZIndex>10</ZIndex>
           <Style>
             <Border>
               <Style>None</Style>
@@ -1149,6 +1105,291 @@ Thank You! Visit Again
             <PaddingBottom>2pt</PaddingBottom>
           </Style>
         </Textbox>
+        <Line Name="Line2">
+          <Top>1.98889in</Top>
+          <Height>0in</Height>
+          <Width>2.61035in</Width>
+          <ZIndex>11</ZIndex>
+          <Style>
+            <Border>
+              <Style>Dashed</Style>
+            </Border>
+          </Style>
+        </Line>
+        <Textbox Name="Textbox11">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>Name:</Value>
+                  <Style>
+                    <FontFamily>Verdana</FontFamily>
+                    <FontSize>8pt</FontSize>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox11</rd:DefaultName>
+          <Top>5.76945cm</Top>
+          <Height>0.6cm</Height>
+          <Width>1.28292cm</Width>
+          <ZIndex>12</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="VisitorName">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>=First(Fields!VisitorName.Value, "DataSetPackingSlip")</Value>
+                  <Style>
+                    <FontFamily>Verdana</FontFamily>
+                    <FontSize>8pt</FontSize>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>VisitorName</rd:DefaultName>
+          <Top>2.27789in</Top>
+          <Left>0.44977in</Left>
+          <Height>0.25in</Height>
+          <Width>2.13804in</Width>
+          <ZIndex>13</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="Textbox12">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>Phone:</Value>
+                  <Style>
+                    <FontFamily>Verdana</FontFamily>
+                    <FontSize>8pt</FontSize>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox11</rd:DefaultName>
+          <Top>7.60495cm</Top>
+          <Height>0.6cm</Height>
+          <Width>1.77271cm</Width>
+          <ZIndex>14</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="VisitorMobile">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>=First(Fields!VisitorMobile.Value, "DataSetPackingSlip")</Value>
+                  <Style>
+                    <FontFamily>Verdana</FontFamily>
+                    <FontSize>8pt</FontSize>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>VisitorMobile</rd:DefaultName>
+          <Top>7.60495cm</Top>
+          <Left>0.47231in</Left>
+          <Height>0.25in</Height>
+          <Width>2.1155in</Width>
+          <ZIndex>15</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="SlipNumber">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>=First(Fields!SlipNumber.Value, "DataSetPackingSlip")</Value>
+                  <Style>
+                    <FontSize>8pt</FontSize>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style>
+                <TextAlign>Center</TextAlign>
+              </Style>
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>SlipNumber</rd:DefaultName>
+          <Top>3.66359in</Top>
+          <Left>0.00756in</Left>
+          <Height>0.25in</Height>
+          <Width>2.58781in</Width>
+          <ZIndex>16</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Image Name="BarcodeImage">
+          <Source>Database</Source>
+          <Value>=First(Fields!BarcodeImage.Value, "DataSetPackingSlip")</Value>
+          <MIMEType>image/png</MIMEType>
+          <Sizing>Fit</Sizing>
+          <Top>3.29425in</Top>
+          <Left>0.0547in</Left>
+          <Height>0.35475in</Height>
+          <Width>2.55109in</Width>
+          <ZIndex>17</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+          </Style>
+        </Image>
+        <Textbox Name="Textbox19">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>Date:</Value>
+                  <Style>
+                    <FontFamily>Verdana</FontFamily>
+                    <FontSize>8pt</FontSize>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style />
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox11</rd:DefaultName>
+          <Top>5.15761cm</Top>
+          <Height>0.6cm</Height>
+          <Width>1.28292cm</Width>
+          <ZIndex>18</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="Date">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>=First(Fields!Date.Value, "DataSetPackingSlip")</Value>
+                  <Style>
+                    <FontFamily>verdana</FontFamily>
+                    <FontSize>8pt</FontSize>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style>
+                <TextAlign>Left</TextAlign>
+              </Style>
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Date</rd:DefaultName>
+          <Top>2.04445in</Top>
+          <Left>0.47231in</Left>
+          <Height>0.22233in</Height>
+          <Width>2.1155in</Width>
+          <ZIndex>19</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Line Name="Line4">
+          <Top>3.25647in</Top>
+          <Left>0.01702cm</Left>
+          <Height>0in</Height>
+          <Width>2.61035in</Width>
+          <ZIndex>20</ZIndex>
+          <Style>
+            <Border>
+              <Style>Dashed</Style>
+            </Border>
+          </Style>
+        </Line>
+        <Line Name="Line5">
+          <Top>3.87054in</Top>
+          <Height>0in</Height>
+          <Width>2.61035in</Width>
+          <ZIndex>21</ZIndex>
+          <Style>
+            <Border>
+              <Style>Dashed</Style>
+            </Border>
+          </Style>
+        </Line>
       </ReportItems>
       <Style>
         <Border>
@@ -1268,6 +1509,14 @@ Thank You! Visit Again
         <Field Name="UserName">
           <DataField>UserName</DataField>
           <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Remarks">
+          <DataField>Remarks</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="BarcodeImage">
+          <DataField>BarcodeImage</DataField>
+          <rd:TypeName>System.Byte[]</rd:TypeName>
         </Field>
       </Fields>
       <rd:DataSetInfo>

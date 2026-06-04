@@ -538,9 +538,9 @@ namespace CoreOffice.Win.Modules.PackingSlip
                 {
                     await _packingSlipService.UpdateAsync(PackingSlipId, request);
                     if (PackingSlipId.HasValue)
-                    {
-                        Clear();
+                    {                       
                         await _printService.PrintPackingSlipAsync(PackingSlipId.Value);
+                        Clear();
                     }
                 }
 

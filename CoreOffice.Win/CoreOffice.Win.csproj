@@ -34,6 +34,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Reference Include="BarcodeLib">
+      <HintPath>..\BarcodeLib.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="TallyBridgeDll">
       <HintPath>..\CoreOfficeERP.Tally\Tally.DLL\TallyBridgeDll.dll</HintPath>
       <Private>True</Private>
@@ -78,10 +82,15 @@
     <None Update="DataSets\DataSetDeliveryChallan.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>DataSetDeliveryChallan.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Datasets\DataSetInvoice.xsd">
       <Generator>MSDataSetGenerator</Generator>
       <LastGenOutput>DataSetInvoice.Designer.cs</LastGenOutput>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="DataSets\DataSetPackingSlip.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Shared\Prints\DeliveryChallan\RDLCDeliverChallan.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -2,6 +2,7 @@
 using CoreOffice.Win.Shared.RDLCModels;
 using CoreOfficeERP.Application.Interfaces;
 using Microsoft.Reporting.WinForms;
+using System.Data;
 
 namespace CoreOffice.Win.Shared.Prints
 {
@@ -25,8 +26,10 @@ namespace CoreOffice.Win.Shared.Prints
                     return false;
                 }
                 var items = PackingSlipMapper.ToItems(packingSlip);
-
-
+                foreach (var item in items)
+                {
+                    item.BarcodeImage = GenerateBarcode(item.SlipNumber);
+                }
                 LocalReport report = new LocalReport();
                 report.ReportPath = Path.Combine(
                     AppDomain.CurrentDomain.BaseDirectory,
@@ -98,6 +101,25 @@ namespace CoreOffice.Win.Shared.Prints
             }
         }
 
+        public static byte[] GenerateBarcode(string barcodeText)
+        {
+            BarcodeLib.Barcode barcode = new BarcodeLib.Barcode();
 
+            using (Image img = barcode.Encode(
+                BarcodeLib.TYPE.CODE128,
+                barcodeText,
+                Color.Black,
+                Color.White,
+                250,
+                40))
+            {
+                using (MemoryStream ms = new MemoryStream())
+                {
+                
+                    img.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                    return ms.ToArray();
+                }
+            }
+        }     
     }
 }

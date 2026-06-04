@@ -234,7 +234,7 @@ namespace CoreOffice.Win.Modules.Cashier
             // purchaseTallySnyncToolStripMenuItem
             // 
             purchaseTallySnyncToolStripMenuItem.Name = "purchaseTallySnyncToolStripMenuItem";
-            purchaseTallySnyncToolStripMenuItem.Size = new Size(177, 22);
+            purchaseTallySnyncToolStripMenuItem.Size = new Size(180, 22);
             purchaseTallySnyncToolStripMenuItem.Text = "Purchase Tally Sync";
             purchaseTallySnyncToolStripMenuItem.Click += purchaseTallySnyncToolStripMenuItem_Click;
             // 
@@ -283,9 +283,9 @@ namespace CoreOffice.Win.Modules.Cashier
             // 
             label4.AutoSize = true;
             label4.Dock = DockStyle.Right;
-            label4.Location = new Point(628, 5);
+            label4.Location = new Point(664, 5);
             label4.Name = "label4";
-            label4.Size = new Size(99, 15);
+            label4.Size = new Size(63, 15);
             label4.TabIndex = 1;
             label4.Text = "Welcome, "+UserSession.RoleEnum+"";
             // 
