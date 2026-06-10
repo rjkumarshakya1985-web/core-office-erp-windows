@@ -2,22 +2,43 @@
 using CoreOffice.Win.Shared.RDLCModels;
 using CoreOfficeERP.Application.Interfaces;
 using Microsoft.Reporting.WinForms;
-using System.Data;
+using Newtonsoft.Json;
 
 namespace CoreOffice.Win.Shared.Prints
 {
     public class PrintService
     {
         private readonly IPrintDataService _printDataService;
+        private readonly PrinterConfiguration _printerConfig;
         public PrintService(IPrintDataService printDataService)
         {
             _printDataService = printDataService;
+            _printerConfig = LoadPrinterConfig(); 
+        }
+        private PrinterConfiguration LoadPrinterConfig()
+        {
+            string filePath = Path.Combine(
+                AppDomain.CurrentDomain.BaseDirectory,
+                "PrinterSettings.json");
+
+            if (!File.Exists(filePath))
+            {
+                throw new Exception("PrinterSettings.json not found.");
+            }
+
+            string json = File.ReadAllText(filePath);
+            var config = JsonConvert.DeserializeObject<PrinterConfiguration>(json);
+
+            if (config == null)
+                throw new Exception("Invalid PrinterSettings.json.");
+            return config;
+           
         }
 
         public async Task<bool> PrintPackingSlipAsync(int packingSlipId)
         {
             try
-            {
+            {               
                 var packingSlip = await _printDataService.GetPackingSlipPrint(packingSlipId);
 
                 if (packingSlip == null)
@@ -49,48 +70,19 @@ namespace CoreOffice.Win.Shared.Prints
                 State = "Uttar Pradesh",
                 StateCode = "07"
             }
-                   };
-            //    var items = new List<PackingSlipItemModel>
-            //      {
-            //          new PackingSlipItemModel
-            //{
-            //              SlipNumber="0008",
-            //              Date=DateTime.Now,
-            //                VisitorName="Shiv Sahay Bhagwan Das Pvt Ltd Agra",
-            //                VisitorType="Customer",
-            //                VisitorMobile="8299344397",
-            //                TotalPcs=10,
-            //                GrandTotal=1000,
-            //                StockGroup="Group A",
-            //                BarCode="1234567890123",
-            //                    Qty=10,
-            //                    GstValue=5,
-            //                    SaleRate=100,
-            //                    TaxableAmount=950,
-            //                    Amount=1000,
-            //                        Salesman="John Doe",
-            //                        UserName="admin",
-            //                        Department="Sales",
-            //                        SubDepartment="Retail",
-            //    ProductName = "B-222, Yamuna River, Agra",
-               
-            //}
-            //       };
-
-
+                   }; 
                 report.DataSources.Clear();
                 report.DataSources.Add(new ReportDataSource("DataSetPackingSlip", items));
                 report.DataSources.Add(new ReportDataSource("DataSetCompany", companyData));
 
-                report.Refresh();
-
+                report.Refresh();               
                
-                report.PrintToPrinter(
-                    printerName: "ESYPOS ETP5311(250N)", 
-                    pageWidth: "3.15in",
-                    pageHeight: "11in",
-                    copies: 1
-                );
+              report.PrintToPrinter(
+              printerName: _printerConfig.ReceiptPrinter.PrinterName,
+              pageWidth: _printerConfig.ReceiptPrinter.PageWidth,
+              pageHeight: _printerConfig.ReceiptPrinter.PageHeight,
+              copies: _printerConfig.ReceiptPrinter.Copies
+              );
 
                 return true;
             }

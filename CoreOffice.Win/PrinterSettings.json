@@ -1,0 +1,14 @@
+{
+  "ReceiptPrinter": {
+    "PrinterName": "ESYPOS ETP5311(250N)",
+    "PageWidth": "3.15in",
+    "PageHeight": "11in",
+    "Copies": 1
+  },
+  "A4Printer": {
+    "PrinterName": "HP LaserJet M1136",
+    "PageWidth": "8.27in",
+    "PageHeight": "11.69in",
+    "Copies": 1
+  }
+}

@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.12" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageReference Include="ReportViewerCore.WinForms" Version="15.1.33" />
   </ItemGroup>
 
@@ -91,6 +92,9 @@
     </None>
     <None Update="DataSets\DataSetPackingSlip.xsd">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="PrinterSettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Shared\Prints\DeliveryChallan\RDLCDeliverChallan.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
