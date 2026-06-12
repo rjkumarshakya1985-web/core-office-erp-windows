@@ -1,4 +1,4 @@
-﻿using CoreOfficeERP.Domain.Responses.Company;
+﻿using System.Text.Json.Serialization;
 
 namespace CoreOfficeERP.Domain.Responses.Print
 {
@@ -19,7 +19,28 @@ namespace CoreOfficeERP.Domain.Responses.Print
         public CompanyDetailResponse CompanyDetail { get; set; }
         public List<PackingSlipPrintItemResponse> Items { get; set; } = new List<PackingSlipPrintItemResponse>();
     }
+    public class CompanyDetailResponse
+    {
+        public int Id { get; set; }
 
+        [JsonPropertyName("companyName")]
+        public string Name { get; set; }
+
+        [JsonPropertyName("address1")]
+        public string Address { get; set; }
+
+        [JsonPropertyName("address2")]
+        public string? Address2 { get; set; }
+
+        [JsonPropertyName("gstIn")]
+        public string GstIn { get; set; }
+
+        // Added fallback properties to match your print requirements safely
+        public string Email { get; set; } = string.Empty;
+        public string Phone { get; set; } = string.Empty;
+        public string State { get; set; } = string.Empty;
+        public string StateCode { get; set; } = string.Empty;
+    }
     public class PackingSlipPrintItemResponse
     {
         public int Id { get; set; }

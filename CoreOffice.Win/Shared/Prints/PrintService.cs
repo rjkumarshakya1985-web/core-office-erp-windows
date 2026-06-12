@@ -62,13 +62,19 @@ namespace CoreOffice.Win.Shared.Prints
                   {
                       new PackingSlipCompanyModel
             {
-                Address = "B-222, Yamuna River, Agra",
-                Phone = "8299344397",
-                Name = "Shiv Sahay Bhagwan Das Pvt Ltd Agra",
-                GstIn = "07ADFPY6443H1Z1",
-                Email = "ssbdagra@gmail.com",
+
+                Address = "6/20,Yamuna Kinara Road, Belanganj, Agra",
+                Phone = "7817803383",
+                Name = "Shiv Sahai Bhagwan Das Sarees Pvt Ltd",
+                GstIn = "09AARCS1924P1ZJ",
+                Email = "ssbd432@gmail.com",
                 State = "Uttar Pradesh",
-                StateCode = "07"
+                StateCode = "07",
+                PINCode = "282002",
+                SalesPhone = "7817803384",
+                Mobile = "9997644193",
+                CIN = "U51101UP2012PTC049504",
+                MSMECode = "UP-01-0072013"
             }
                    }; 
                 report.DataSources.Clear();

@@ -6,6 +6,8 @@ using CoreOfficeERP.Common.Enums;
 using CoreOfficeERP.Domain.Requests.Tally;
 using CoreOfficeERP.Domain.Responses.Tally;
 using CoreOfficeERP.Tally.Interfaces;
+using Tally;
+using TallyBridge;
 namespace CoreOffice.Win.Modules.TallySynch
 
 {
@@ -16,7 +18,9 @@ namespace CoreOffice.Win.Modules.TallySynch
         private readonly ITallyTransactionService _tallyTransactionsService;
         private readonly ITallyConfigService _tallyConfigService;        
         private readonly ITallyProcessService _tallyProcessService;
+        private TallyBridgeDll _tb;
 
+       
         public TallySynchPurchase(IServiceProvider serviceProvider, ITallyTransactionService tallyTransactionsService, ITallyProcessOrchestratorService tallyProcessOrchestrator, ITallyProcessService tallyProcessService, ITallyConfigService tallyConfigService)
         {
             InitializeComponent();          
@@ -135,13 +139,12 @@ namespace CoreOffice.Win.Modules.TallySynch
 
         private async void btnSynch_Click(object sender, EventArgs e)
         {
-
             if (_currentPurchase == null || _tallyConfig == null)
             {
                 MessageBox.Show("No voucher loaded. Please enter voucher first.");
                 return;
             }
-            if (txtSBillNumber.Text=="" || txtSBillNumber.Text==string.Empty)
+            if (txtSBillNumber.Text == "" || txtSBillNumber.Text == string.Empty)
             {
                 MessageBox.Show("Please enter Supplier's Bill Number");
                 this.txtSBillNumber.Focus();
@@ -156,7 +159,7 @@ namespace CoreOffice.Win.Modules.TallySynch
             {
                 // ✅ Call orchestrator (NO Task.Run)
                 logs = await _tallyProcessOrchestrator
-                    .ExecutePurchase(_currentPurchase, _tallyConfig, Convert.ToInt32(cmbFiananceYear.SelectedValue.ToString()),txtSBillNumber.Text.Trim(),dtDate.Value);
+                    .ExecutePurchase(_currentPurchase, _tallyConfig, Convert.ToInt32(cmbFiananceYear.SelectedValue.ToString()), txtSBillNumber.Text.Trim(), dtDate.Value);
                 // ✅ Determine success
                 isSuccess = logs != null && logs.Any() && logs.All(x => x.IsSuccess);
                 if (isSuccess)
@@ -203,7 +206,7 @@ namespace CoreOffice.Win.Modules.TallySynch
 
                         if (bulkRequest.Any())
                         {
-                            await _tallyTransactionsService.TallyDataUpdate(completedPurchase.SaleVoucherPrint.Id,bulkRequest);
+                            await _tallyTransactionsService.TallyDataUpdate(completedPurchase.SaleVoucherPrint.Id, bulkRequest);
                         }
                     }
                 }

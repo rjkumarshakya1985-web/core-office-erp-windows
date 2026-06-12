@@ -453,7 +453,7 @@
         <DataSetName>DataSetPackingSlip</DataSetName>
         <Top>0.05566in</Top>
         <Height>0.75in</Height>
-        <Width>2.58781in</Width>
+        <Width>2.58783in</Width>
         <Style>
           <Border>
             <Style>Dashed</Style>
@@ -737,10 +737,10 @@ Thank You! Visit Again
       </RightBorder>
     </Style>
   </Body>
-  <Width>2.66682in</Width>
+  <Width>2.61705in</Width>
   <Page>
     <PageHeader>
-      <Height>3.91359in</Height>
+      <Height>4.65317in</Height>
       <PrintOnFirstPage>true</PrintOnFirstPage>
       <ReportItems>
         <Textbox Name="Textbox5">
@@ -809,7 +809,7 @@ Thank You! Visit Again
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Phone</rd:DefaultName>
-          <Top>2.55556in</Top>
+          <Top>3.18056in</Top>
           <Left>0.47231in</Left>
           <Height>0.25in</Height>
           <Width>2.13804in</Width>
@@ -910,7 +910,7 @@ Thank You! Visit Again
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Email</rd:DefaultName>
-          <Top>2.76747in</Top>
+          <Top>3.39247in</Top>
           <Left>0.46775in</Left>
           <Height>0.25in</Height>
           <Width>2.13804in</Width>
@@ -953,10 +953,9 @@ Thank You! Visit Again
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>GstIn</rd:DefaultName>
-          <Top>1.69444in</Top>
-          <Left>0.0547in</Left>
+          <Top>1.91326in</Top>
           <Height>0.25in</Height>
-          <Width>2.53311in</Width>
+          <Width>2.57829in</Width>
           <ZIndex>6</ZIndex>
           <Style>
             <Border>
@@ -1022,7 +1021,7 @@ Thank You! Visit Again
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox11</rd:DefaultName>
-          <Top>6.38128cm</Top>
+          <Top>7.96878cm</Top>
           <Height>0.6cm</Height>
           <Width>1.77271cm</Width>
           <ZIndex>8</ZIndex>
@@ -1055,7 +1054,7 @@ Thank You! Visit Again
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox11</rd:DefaultName>
-          <Top>6.99312cm</Top>
+          <Top>8.58062cm</Top>
           <Height>0.6cm</Height>
           <Width>1.28292cm</Width>
           <ZIndex>9</ZIndex>
@@ -1106,7 +1105,7 @@ Thank You! Visit Again
           </Style>
         </Textbox>
         <Line Name="Line2">
-          <Top>1.98889in</Top>
+          <Top>2.61389in</Top>
           <Height>0in</Height>
           <Width>2.61035in</Width>
           <ZIndex>11</ZIndex>
@@ -1135,7 +1134,7 @@ Thank You! Visit Again
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox11</rd:DefaultName>
-          <Top>5.76945cm</Top>
+          <Top>7.35695cm</Top>
           <Height>0.6cm</Height>
           <Width>1.28292cm</Width>
           <ZIndex>12</ZIndex>
@@ -1167,8 +1166,8 @@ Thank You! Visit Again
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>VisitorName</rd:DefaultName>
-          <Top>2.27789in</Top>
-          <Left>0.44977in</Left>
+          <Top>2.90289in</Top>
+          <Left>0.46192in</Left>
           <Height>0.25in</Height>
           <Width>2.13804in</Width>
           <ZIndex>13</ZIndex>
@@ -1201,7 +1200,7 @@ Thank You! Visit Again
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox11</rd:DefaultName>
-          <Top>7.60495cm</Top>
+          <Top>9.19245cm</Top>
           <Height>0.6cm</Height>
           <Width>1.77271cm</Width>
           <ZIndex>14</ZIndex>
@@ -1233,7 +1232,7 @@ Thank You! Visit Again
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>VisitorMobile</rd:DefaultName>
-          <Top>7.60495cm</Top>
+          <Top>9.19245cm</Top>
           <Left>0.47231in</Left>
           <Height>0.25in</Height>
           <Width>2.1155in</Width>
@@ -1268,7 +1267,7 @@ Thank You! Visit Again
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>SlipNumber</rd:DefaultName>
-          <Top>3.66359in</Top>
+          <Top>4.28859in</Top>
           <Left>0.00756in</Left>
           <Height>0.25in</Height>
           <Width>2.58781in</Width>
@@ -1288,10 +1287,10 @@ Thank You! Visit Again
           <Value>=First(Fields!BarcodeImage.Value, "DataSetPackingSlip")</Value>
           <MIMEType>image/png</MIMEType>
           <Sizing>Fit</Sizing>
-          <Top>3.29425in</Top>
+          <Top>3.91925in</Top>
           <Left>0.0547in</Left>
           <Height>0.35475in</Height>
-          <Width>2.55109in</Width>
+          <Width>2.51143in</Width>
           <ZIndex>17</ZIndex>
           <Style>
             <Border>
@@ -1318,7 +1317,7 @@ Thank You! Visit Again
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Textbox11</rd:DefaultName>
-          <Top>5.15761cm</Top>
+          <Top>6.74511cm</Top>
           <Height>0.6cm</Height>
           <Width>1.28292cm</Width>
           <ZIndex>18</ZIndex>
@@ -1352,7 +1351,7 @@ Thank You! Visit Again
             </Paragraph>
           </Paragraphs>
           <rd:DefaultName>Date</rd:DefaultName>
-          <Top>2.04445in</Top>
+          <Top>2.66945in</Top>
           <Left>0.47231in</Left>
           <Height>0.22233in</Height>
           <Width>2.1155in</Width>
@@ -1368,7 +1367,7 @@ Thank You! Visit Again
           </Style>
         </Textbox>
         <Line Name="Line4">
-          <Top>3.25647in</Top>
+          <Top>3.88147in</Top>
           <Left>0.01702cm</Left>
           <Height>0in</Height>
           <Width>2.61035in</Width>
@@ -1380,7 +1379,7 @@ Thank You! Visit Again
           </Style>
         </Line>
         <Line Name="Line5">
-          <Top>3.87054in</Top>
+          <Top>4.62054in</Top>
           <Height>0in</Height>
           <Width>2.61035in</Width>
           <ZIndex>21</ZIndex>
@@ -1390,6 +1389,127 @@ Thank You! Visit Again
             </Border>
           </Style>
         </Line>
+        <Textbox Name="Textbox4">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>Pin Code: </Value>
+                  <Style>
+                    <FontFamily>verdana</FontFamily>
+                    <FontSize>8pt</FontSize>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+                <TextRun>
+                  <Value>=First(Fields!PINCode.Value, "DataSetCompany")</Value>
+                  <Style />
+                </TextRun>
+              </TextRuns>
+              <Style>
+                <TextAlign>Center</TextAlign>
+              </Style>
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox4</rd:DefaultName>
+          <Top>1.68056in</Top>
+          <Height>0.25in</Height>
+          <Width>2.56613in</Width>
+          <ZIndex>22</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="GstIn3">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>MSME:</Value>
+                  <Style>
+                    <FontFamily>Verdana</FontFamily>
+                    <FontSize>8pt</FontSize>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+                <TextRun>
+                  <Value>=First(Fields!MSMECode.Value, "DataSetCompany")</Value>
+                  <Style />
+                </TextRun>
+              </TextRuns>
+              <Style>
+                <TextAlign>Center</TextAlign>
+              </Style>
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>GstIn</rd:DefaultName>
+          <Top>2.37867in</Top>
+          <Height>0.25in</Height>
+          <Width>2.56613in</Width>
+          <ZIndex>23</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
+        <Textbox Name="Textbox10">
+          <CanGrow>true</CanGrow>
+          <KeepTogether>true</KeepTogether>
+          <Paragraphs>
+            <Paragraph>
+              <TextRuns>
+                <TextRun>
+                  <Value>CIN:</Value>
+                  <Style>
+                    <FontFamily>VERdana</FontFamily>
+                    <FontSize>8pt</FontSize>
+                    <FontWeight>Bold</FontWeight>
+                  </Style>
+                </TextRun>
+                <TextRun>
+                  <Value>=First(Fields!CIN.Value, "DataSetCompany")</Value>
+                  <Style>
+                    <FontFamily>VERdana</FontFamily>
+                    <FontSize>8pt</FontSize>
+                  </Style>
+                </TextRun>
+              </TextRuns>
+              <Style>
+                <TextAlign>Center</TextAlign>
+              </Style>
+            </Paragraph>
+          </Paragraphs>
+          <rd:DefaultName>Textbox10</rd:DefaultName>
+          <Top>2.12867in</Top>
+          <Left>0.0547in</Left>
+          <Height>0.25in</Height>
+          <Width>2.51143in</Width>
+          <ZIndex>24</ZIndex>
+          <Style>
+            <Border>
+              <Style>None</Style>
+            </Border>
+            <PaddingLeft>2pt</PaddingLeft>
+            <PaddingRight>2pt</PaddingRight>
+            <PaddingTop>2pt</PaddingTop>
+            <PaddingBottom>2pt</PaddingBottom>
+          </Style>
+        </Textbox>
       </ReportItems>
       <Style>
         <Border>
@@ -1560,6 +1680,26 @@ Thank You! Visit Again
         </Field>
         <Field Name="Email">
           <DataField>Email</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PINCode">
+          <DataField>PINCode</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="SalesPhone">
+          <DataField>SalesPhone</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="Mobile">
+          <DataField>Mobile</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="CIN">
+          <DataField>CIN</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="MSMECode">
+          <DataField>MSMECode</DataField>
           <rd:TypeName>System.String</rd:TypeName>
         </Field>
       </Fields>

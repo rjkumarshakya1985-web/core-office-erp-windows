@@ -30,5 +30,6 @@ namespace CoreOffice.Win.Shared.RDLCModels
         public string SubDepartment { get; set; }
         public string Remarks { get; set; }
         public byte[] BarcodeImage { get; set; }   // Add this
+
     }
 }

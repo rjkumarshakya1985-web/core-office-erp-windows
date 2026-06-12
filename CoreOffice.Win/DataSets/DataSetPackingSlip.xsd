@@ -39,7 +39,7 @@
               <xs:element name="Salesman" msprop:Generator_ColumnPropNameInTable="SalesmanColumn" msprop:Generator_ColumnPropNameInRow="Salesman" msprop:Generator_UserColumnName="Salesman" msprop:Generator_ColumnVarNameInTable="columnSalesman" type="xs:string" minOccurs="0" />
               <xs:element name="UserName" msprop:Generator_ColumnPropNameInTable="UserNameColumn" msprop:Generator_ColumnPropNameInRow="UserName" msprop:Generator_UserColumnName="UserName" msprop:Generator_ColumnVarNameInTable="columnUserName" type="xs:string" minOccurs="0" />
               <xs:element name="Remarks" msprop:Generator_ColumnPropNameInTable="RemarksColumn" msprop:Generator_ColumnPropNameInRow="Remarks" msprop:Generator_UserColumnName="Remarks" msprop:Generator_ColumnVarNameInTable="columnRemarks" type="xs:string" minOccurs="0" />
-              <xs:element name="BarcodeImage" msprop:Generator_ColumnPropNameInTable="BarcodeImageColumn" msprop:Generator_ColumnPropNameInRow="BarcodeImage" msprop:Generator_UserColumnName="BarcodeImage" msprop:Generator_ColumnVarNameInTable="columnBarcodeImage"    type="xs:base64Binary" minOccurs="0" />
+              <xs:element name="BarcodeImage" msprop:Generator_ColumnPropNameInTable="BarcodeImageColumn" msprop:Generator_ColumnPropNameInRow="BarcodeImage" msprop:Generator_UserColumnName="BarcodeImage" msprop:Generator_ColumnVarNameInTable="columnBarcodeImage" type="xs:base64Binary" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -53,6 +53,11 @@
               <xs:element name="State" msprop:Generator_ColumnPropNameInTable="StateColumn" msprop:Generator_ColumnPropNameInRow="State" msprop:Generator_UserColumnName="State" msprop:Generator_ColumnVarNameInTable="columnState" type="xs:string" minOccurs="0" />
               <xs:element name="StateCode" msprop:Generator_ColumnPropNameInTable="StateCodeColumn" msprop:Generator_ColumnPropNameInRow="StateCode" msprop:Generator_UserColumnName="StateCode" msprop:Generator_ColumnVarNameInTable="columnStateCode" type="xs:string" minOccurs="0" />
               <xs:element name="Email" msprop:Generator_ColumnPropNameInTable="EmailColumn" msprop:Generator_ColumnPropNameInRow="Email" msprop:Generator_UserColumnName="Email" msprop:Generator_ColumnVarNameInTable="columnEmail" type="xs:string" minOccurs="0" />
+              <xs:element name="PINCode" msprop:Generator_ColumnPropNameInRow="PINCode" msprop:Generator_ColumnPropNameInTable="PINCodeColumn" msprop:Generator_ColumnVarNameInTable="columnPINCode" msprop:Generator_UserColumnName="PINCode" type="xs:string" minOccurs="0" />
+              <xs:element name="SalesPhone" msprop:Generator_ColumnPropNameInRow="SalesPhone" msprop:Generator_ColumnPropNameInTable="SalesPhoneColumn" msprop:Generator_ColumnVarNameInTable="columnSalesPhone" msprop:Generator_UserColumnName="SalesPhone" type="xs:string" minOccurs="0" />
+              <xs:element name="Mobile" msprop:Generator_ColumnPropNameInRow="Mobile" msprop:Generator_ColumnPropNameInTable="MobileColumn" msprop:Generator_ColumnVarNameInTable="columnMobile" msprop:Generator_UserColumnName="Mobile" type="xs:string" minOccurs="0" />
+              <xs:element name="CIN" msprop:Generator_ColumnPropNameInRow="CIN" msprop:Generator_ColumnPropNameInTable="CINColumn" msprop:Generator_ColumnVarNameInTable="columnCIN" msprop:Generator_UserColumnName="CIN" type="xs:string" minOccurs="0" />
+              <xs:element name="MSMECode" msprop:Generator_ColumnPropNameInRow="MSMECode" msprop:Generator_ColumnPropNameInTable="MSMECodeColumn" msprop:Generator_ColumnVarNameInTable="columnMSMECode" msprop:Generator_UserColumnName="MSMECode" type="xs:string" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

@@ -482,12 +482,12 @@ namespace CoreOfficeERP.Tally.Services
 
                 // Add to invoice
                 invoice.arlInvEntries.Add(item);
-            }
+            }            
             var totalItemAmount = data.StockitemResponse.Sum(x => x.Total);
             var totalIGST = data.StockitemResponse.Sum(x => x.IGST);
             var totalCGST = data.StockitemResponse.Sum(x => x.CGST);
             var totalSGST = data.StockitemResponse.Sum(x => x.SGST);
-
+            
             var totalDiscount = data.StockitemResponse.Sum(x => x.Discount > 0
                 ? (x.Quantity * x.PurchasePrice * x.Discount / 100)
                 : 0);
