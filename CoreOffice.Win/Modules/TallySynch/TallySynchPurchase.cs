@@ -201,12 +201,12 @@ namespace CoreOffice.Win.Modules.TallySynch
                     // ✅ ONLY update if success
                     if (isSuccess && completedPurchase != null)
                     {
-                        //    var updateResult = await _tallyTransactionsService.TallyDataUpdate(completedPurchase?.SaleVoucherPrint?.Id, completedPurchase);
-                        var bulkRequest = BuildTallyNameRequests(completedPurchase);
-
+                         var bulkRequest = BuildTallyNameRequests(completedPurchase);
+                         var parcelStatus = completedPurchase.SaleVoucherPrint.ParcelStatus;                        
                         if (bulkRequest.Any())
                         {
-                            await _tallyTransactionsService.TallyDataUpdate(completedPurchase.SaleVoucherPrint.Id, bulkRequest);
+                            bool isStockTransfer = parcelStatus == 5 ? true : false;
+                            await _tallyTransactionsService.TallyDataUpdate(completedPurchase.SaleVoucherPrint.Id, bulkRequest,isStockTransfer);
                         }
                     }
                 }

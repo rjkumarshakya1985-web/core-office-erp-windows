@@ -27,8 +27,7 @@ namespace CoreOfficeERP.Infrastructure.Api
         {
             var response = await _httpClient.GetAsync(endpoint);
 
-            var json = await response.Content.ReadAsStringAsync();
-
+            var json = await response.Content.ReadAsStringAsync();            
             if (!response.IsSuccessStatusCode)
             {
                 string message = "Something went wrong";

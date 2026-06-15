@@ -1,5 +1,6 @@
 ﻿using CoreOfficeERP.Common.Enums;
 using CoreOfficeERP.Domain.Responses.Agent;
+using CoreOfficeERP.Domain.Responses.Departments;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -90,6 +91,7 @@ namespace CoreOfficeERP.Domain.Responses.Tally
         public decimal EndRange { get; set; }
         public List<GstRule> GstRules { get; set; }
         public string? supplierCode { get; set; }
+        public DepartmentResponse? DepartmentObj { get; set; }
 
     }
     public class StockitemResponse
@@ -97,6 +99,7 @@ namespace CoreOfficeERP.Domain.Responses.Tally
         public Guid Id { get; set; }
         public string? ProductName { get; set; }
         public string? TallyLedgerName { get; set; }
+        public string? Barcode { get; set; }
 
         public int Quantity { get; set; }
         public decimal PurchasePrice { get; set; }
@@ -152,6 +155,7 @@ namespace CoreOfficeERP.Domain.Responses.Tally
         public string? SupplierBillNumber { get; set; }
         public string? GstIn { get; set; }    
         public decimal Discount { get; set; }
+        public decimal AdditionalCharges { get; set; }
         public DateTime Date { get; set; }   
         public int ParcelStatus { get; set; }
         public string? lrNumber { get; set; }

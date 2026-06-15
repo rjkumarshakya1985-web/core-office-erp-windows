@@ -151,7 +151,8 @@ namespace CoreOfficeERP.Tally.Services
 
                 //Parent Group of this Stock Group
                 //This group must already exist in Tally
-                // parentGroupName = "Sarees",
+                parentGroupName = group.DepartmentObj.Name?.Length >= 2 ? group.DepartmentObj.Name.Substring(0, 2) : group.DepartmentObj.Name,
+              //  parentGroupName = group.DepartmentObj.Name,
                 isAddable = true,
             };
             if (!group.IsGstRule)
@@ -169,8 +170,8 @@ namespace CoreOfficeERP.Tally.Services
                     isReverseChargeApplicable = false,
 
                     igstRate = group.GstValue,
-                    cgstRate = group.GstValue / 2,
-                    sgstRate = group.GstValue / 2
+                    cgstRate = group.GstValue / 2m,
+                    sgstRate = group.GstValue / 2m
 
                 };
 
@@ -198,9 +199,9 @@ namespace CoreOfficeERP.Tally.Services
                         igstRate = rule.GstValue,
 
                         // divide GST equally
-                        cgstRate = rule.GstValue / 2,
+                        cgstRate = rule.GstValue / 2m,
 
-                        sgstRate = rule.GstValue / 2,
+                        sgstRate = rule.GstValue / 2m,
 
                         cessRate = 0
                     };
@@ -240,7 +241,7 @@ namespace CoreOfficeERP.Tally.Services
 
                 //You can map SKU code either in item alias or in part no.
                 //Or, if you do not wish to maintain SKU code, you can leave both these fields blank
-                // itemAlias = "A00001",
+                itemAlias = item.Barcode,
                 // partNo = "P00001",
 
                 //The unit master should already exist in Tally.
@@ -274,8 +275,8 @@ namespace CoreOfficeERP.Tally.Services
                     taxability = Helper.GetEnumDescription(item.GSTTaxability),
                     isReverseChargeApplicable = false,
                     igstRate = item.Gst,
-                    cgstRate = item.Gst / 2,
-                    sgstRate = item.Gst / 2,
+                    cgstRate = item.Gst / 2m,
+                    sgstRate = item.Gst / 2m,
                     cessRate = 0
                 };
                 //The ArrayList arlGstDetails should be filled up with objects of type StockItemGstDetails
@@ -308,9 +309,9 @@ namespace CoreOfficeERP.Tally.Services
                         igstRate = rule.GstValue,
 
                         // divide GST equally
-                        cgstRate = rule.GstValue / 2,
+                        cgstRate = rule.GstValue / 2m,
 
-                        sgstRate = rule.GstValue / 2,
+                        sgstRate = rule.GstValue / 2m,
 
                         cessRate = 0
                     };
@@ -389,8 +390,10 @@ namespace CoreOfficeERP.Tally.Services
 
                 // If Tally API needs string:
                 dtOfVoucher = DateTime.ParseExact(s, "dd/MM/yyyy", null),
-
-                voucherTypeName = config.Purchase.MainLedger,
+                voucherTypeName = data.SupplierResponse.Department.Length >= 2 &&
+                 data.SupplierResponse.Department.Substring(0, 2) == "HO"
+                    ? "Purchase H/o"
+                    : "Purchase B/o",               
                 typeOfVoucher = "Purchase",
 
                 voucherNo = data.SaleVoucherPrint.Id.ToString(),
@@ -412,7 +415,6 @@ namespace CoreOfficeERP.Tally.Services
                 //   otherReference = "Misc. Ref",
 
                 partyLedgerName = data.SaleVoucherPrint.CompanyName,
-
                 supplierName = data.SaleVoucherPrint.CompanyName,
                 supplierMailingName = data.SaleVoucherPrint.CompanyName,
                 supplierAddress = new string[]
@@ -425,7 +427,6 @@ namespace CoreOfficeERP.Tally.Services
                 supplierGstin = data.SupplierResponse.GstIn,
                 supplierGstRegType = data.SupplierResponse.RegType.ToTallyString(),
                 placeOfSupply = config.Company.StateName,
-
                 consigneeName = config.Company.Name,
                 consigneeMailingName = config.Company.Name,
                 consigneeAddress = new string[]
@@ -437,7 +438,6 @@ namespace CoreOfficeERP.Tally.Services
                 consigneeCountry = "India",
                 consigneePincode = config.Company.PINCode,
                 consigneeGstin = config.Company.GSTIN,
-
                 narration = "",
                 isInvoice = true,
                 isOptional = false
@@ -473,21 +473,21 @@ namespace CoreOfficeERP.Tally.Services
                     amount = item.amount,
                     qtyUnit = item.qtyUnit
                 });
-                // Accounting Allocation
-                item.arlAccountingAllocations.Add(new LedgerEntry
-                {
-                    ledgerName = config.Purchase.MainLedger,
-                    ledgerAmount = item.amount
-                });
+                // Accounting Allocation              
+            item.arlAccountingAllocations.Add(new LedgerEntry
+            {
+                 ledgerName=config.Purchase.MainLedger,                
+                ledgerAmount = item.amount
+            });
 
-                // Add to invoice
-                invoice.arlInvEntries.Add(item);
+            // Add to invoice
+            invoice.arlInvEntries.Add(item);
             }            
             var totalItemAmount = data.StockitemResponse.Sum(x => x.Total);
             var totalIGST = data.StockitemResponse.Sum(x => x.IGST);
             var totalCGST = data.StockitemResponse.Sum(x => x.CGST);
             var totalSGST = data.StockitemResponse.Sum(x => x.SGST);
-            
+            var additionalCharges = data.SaleVoucherPrint.AdditionalCharges;
             var totalDiscount = data.StockitemResponse.Sum(x => x.Discount > 0
                 ? (x.Quantity * x.PurchasePrice * x.Discount / 100)
                 : 0);
@@ -499,6 +499,7 @@ namespace CoreOfficeERP.Tally.Services
                       + totalIGST
                       + totalCGST
                       + totalSGST
+                      + additionalCharges
                       - totalDiscount;
             // =========================
             // FINAL ROUNDED AMOUNT
@@ -602,6 +603,41 @@ namespace CoreOfficeERP.Tally.Services
                     ledgerName = config.Purchase.SGST, // Must match Tally
                     ledgerAmount = -data.StockitemResponse.Sum(x => x.SGST), // ✅ Negative (credit side)
                     isDeemedPositive = true
+                });
+            }
+            // =========================
+            // AdditionalCharges LEDGER
+            // =========================
+            if (additionalCharges != 0)
+            {
+
+                decimal ledgerAmount;
+                bool isDeemedPositive;
+
+                if (additionalCharges < 0)
+                {
+                    // Example:
+                    // 5297.37 -> 5297
+                    // Need (-)0.37 display
+
+                    ledgerAmount = Math.Abs(additionalCharges); // +0.37
+                    isDeemedPositive = true;
+                }
+                else
+                {
+                    // Example:
+                    // 89920.95 -> 89921
+                    // Need +0.05 display
+
+                    ledgerAmount = -additionalCharges; // +0.05
+                    isDeemedPositive = true;
+                }
+
+                invoice.arlLedgerEntries.Add(new LedgerEntry
+                {
+                    ledgerName = "Additional Charges",
+                    ledgerAmount = ledgerAmount,
+                    isDeemedPositive = isDeemedPositive
                 });
             }
             // =========================
