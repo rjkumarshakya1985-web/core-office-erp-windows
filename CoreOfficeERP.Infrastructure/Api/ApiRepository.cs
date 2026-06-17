@@ -78,6 +78,15 @@ namespace CoreOfficeERP.Infrastructure.Api
 
             return await DeserializeResponse<TResponse>(response);
         }
+        public async Task<TResponse?> PutAsync<TRequest, TResponse>(string endpoint, object id, TRequest data, bool isStockTransfer)
+        {
+            var content = CreateJsonContent(data);
+            var url = $"{endpoint}/{id}?isStockTransfer={isStockTransfer.ToString().ToLower()}";
+            var response = await _httpClient.PutAsync(url, content);
+            response.EnsureSuccessStatusCode();
+
+            return await DeserializeResponse<TResponse>(response);
+        }
         public async Task<TResponse?> PutAsync<TRequest, TResponse>(string endpoint, TRequest data)
         {
             var content = CreateJsonContent(data);
