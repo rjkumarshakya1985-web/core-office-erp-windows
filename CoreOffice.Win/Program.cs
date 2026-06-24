@@ -38,6 +38,8 @@ namespace CoreOffice.Win
 
             services.AddTransient<PrintService>();
             services.AddTransient<FrmPackingSlip>();
+            services.AddTransient<CustomerSearchForm>();
+            services.AddTransient<CustomerAddForm>();
            
             services.AddTransient<MDIPackingSlip>();
             services.AddTransient<MDICashierParent>();

@@ -6,6 +6,7 @@ using CoreOfficeERP.Application.Interfaces;
 using CoreOfficeERP.Common.Enums;
 using CoreOfficeERP.Domain.Requests.PackingSlip;
 using CoreOfficeERP.Domain.Responses;
+using CoreOfficeERP.Domain.Responses.Customers;
 using CoreOfficeERP.Domain.Responses.PackingSlip;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Reporting.WinForms;
@@ -135,6 +136,12 @@ namespace CoreOffice.Win.Modules.PackingSlip
             childForm.Show();
         }
 
+        private void btnCustomer_Click(object sender, EventArgs e)
+        {
+            var childForm = ActivatorUtilities.CreateInstance<CustomerSearchForm>(_serviceProvider, this);
+            childForm.ShowDialog();
+        }
+
         public void SetVisitorInfo(VisitorResponse? response)
         {
             if (response == null)
@@ -162,6 +169,25 @@ namespace CoreOffice.Win.Modules.PackingSlip
                 ? response.CustomerResponse.Discount : 0
                    ;
 
+        }
+
+        public void SetCustomerInfo(CustomerResponse? response)
+        {
+            if (response == null)
+                return;
+
+            VisitorId = null;
+            CustomerId = response.Id;
+            lblPhone.Text = response.Mobile;
+            lblCompanyName.Text = response.Name;
+
+            VisitorType = response.CustomerType.HasValue
+                ? (CustomerTypeEnum)response.CustomerType.Value
+                : CustomerTypeEnum.Retail;
+
+            lblVisitorType.Text = VisitorType == CustomerTypeEnum.WholeSale ? "W" : "R";
+            VisitorDiscount = response.Discount ?? 0;
+            lblDiscount.Text = VisitorDiscount > 0 ? VisitorDiscount + " %" : "0 %";
         }
 
         public void Clear()

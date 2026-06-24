@@ -1,8 +1,7 @@
-﻿using CoreOfficeERP.Application.Interfaces;
+using CoreOfficeERP.Application.Interfaces;
 using CoreOfficeERP.Common;
 using CoreOfficeERP.Domain;
 using CoreOfficeERP.Domain.Requests.Customers;
-using CoreOfficeERP.Domain.Requests.PackingSlip;
 using CoreOfficeERP.Domain.Responses;
 using CoreOfficeERP.Domain.Responses.Customers;
 using CoreOfficeERP.Infrastructure.Api;
@@ -18,30 +17,42 @@ namespace CoreOfficeERP.Application.Services
         {
             _apiRepository = apiRepository;
         }
+
         public async Task<VisitorResponse> CreateAsync(CustomerRequest request, int visitorId)
         {
             var url = $"{ApiEndpoints.CreateSupplier}/{visitorId}";
             var response = await _apiRepository
-                .PostAsync<CustomerRequest,VisitorResponse>(url, request);
+                .PostAsync<CustomerRequest, VisitorResponse>(url, request);
 
             return response;
         }
-        public async Task<IEnumerable<BillingCustomerResponse>?> GetBillingCustomerResponsesAsync()
+
+        public async Task<VisitorResponse?> GetCustomerByMobile(string mobile)
         {
-            return await _apiRepository
-                .GetAsync<List<BillingCustomerResponse>>("customer/billing-customers");
+            var result = await _apiRepository
+                .GetByIdAsync<ApiResponse<VisitorResponse?>>(
+                    ApiEndpoints.GetCustomerByMobile,
+                    mobile);
+
+            return result?.Data;
         }
-        public async Task<List<BillingCustomerResponse>> GetCachedCustomersAsync()
+
+        public async Task<List<CustomerResponse>> GetBillingCustomersAsync()
         {
-            if (!CustomerCache.IsLoaded)
-            {
-                var customers = await GetBillingCustomerResponsesAsync();
+            var result = await _apiRepository
+                .GetAsync<ApiResponse<List<CustomerResponse>>>(ApiEndpoints.GetBillingCustomers);
 
-                if (customers != null)
-                    CustomerCache.Load(customers);
-            }
+            return result?.Data ?? new List<CustomerResponse>();
+        }
 
-            return CustomerCache.Customers;
+        public async Task<CustomerResponse?> CreateCustomerAsync(CustomerRequest request)
+        {
+            var result = await _apiRepository
+                .PostAsync<CustomerRequest, ApiResponse<CustomerResponse>>(
+                    ApiEndpoints.CreateCustomer,
+                    request);
+
+            return result?.Data;
         }
     }
 }
