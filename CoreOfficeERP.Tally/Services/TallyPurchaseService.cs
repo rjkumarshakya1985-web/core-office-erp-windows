@@ -4,6 +4,7 @@ using CoreOfficeERP.Domain.Responses.Agent;
 using CoreOfficeERP.Domain.Responses.Tally;
 using CoreOfficeERP.Tally.Interfaces;
 using System.Globalization;
+using System.IO;
 using Tally;
 
 
@@ -65,7 +66,8 @@ namespace CoreOfficeERP.Tally.Services
                 //Parent Group of the Vendor Master
                 //This group must already exist in Tally
                 parentGroupName = supplier.AgentObj.Name,
-
+                notes = Convert.ToString(supplier.PaymentDiscount)+"%",
+                description= supplier.Remarks,
                 address = new string[2]
                 {
                  supplier.Address,
@@ -98,9 +100,12 @@ namespace CoreOfficeERP.Tally.Services
 
                 //You can decide whether to maintain bill-wise details or not
                 maintainBillWiseDetails = true,
-                defaultCreditPeriod = $"{supplier.CreditDays ?? 15} days"
+                defaultCreditPeriod = $"{supplier.CreditDays ?? 15} days"  
 
             };
+            // Add custom fields AFTER object creation
+            ledger.customFields.Add("Notes",supplier.PaymentDiscount+"%"??"");
+
 
             return _tb.DoTransferLedger(ledger);
         }
@@ -137,16 +142,17 @@ namespace CoreOfficeERP.Tally.Services
 
                 //This line is required only if the stock group is being altered or re-uploaded. 
                 //During initial stock group creation, this line is not required.
-                oldGroupName = group.TallyLedgerName ?? group.Name,
+                oldGroupName = group.TallyLedgerName+" " + group.supplierCode ?? group.Name+" " + group.supplierCode,
 
-                groupName = group.Name,
+                groupName = group.Name+" " + group.supplierCode,
 
                 //Alias of the stock group, if you wish to maintain; else you need not pass it
                 groupAlias = "",
 
                 //Parent Group of this Stock Group
                 //This group must already exist in Tally
-                // parentGroupName = "Sarees",
+                parentGroupName = group.DepartmentObj.Name?.Length >= 2 ? group.DepartmentObj.Name.Substring(0, 2) : group.DepartmentObj.Name,
+              //  parentGroupName = group.DepartmentObj.Name,
                 isAddable = true,
             };
             if (!group.IsGstRule)
@@ -164,8 +170,8 @@ namespace CoreOfficeERP.Tally.Services
                     isReverseChargeApplicable = false,
 
                     igstRate = group.GstValue,
-                    cgstRate = group.GstValue / 2,
-                    sgstRate = group.GstValue / 2
+                    cgstRate = group.GstValue / 2m,
+                    sgstRate = group.GstValue / 2m
 
                 };
 
@@ -193,9 +199,9 @@ namespace CoreOfficeERP.Tally.Services
                         igstRate = rule.GstValue,
 
                         // divide GST equally
-                        cgstRate = rule.GstValue / 2,
+                        cgstRate = rule.GstValue / 2m,
 
-                        sgstRate = rule.GstValue / 2,
+                        sgstRate = rule.GstValue / 2m,
 
                         cessRate = 0
                     };
@@ -222,7 +228,7 @@ namespace CoreOfficeERP.Tally.Services
         {
 
             StockItemGstDetails gstDetails;
-
+           // StockItemStandardRateDetails stdRateDetails;
             var si = new StockItem
             {
 
@@ -230,12 +236,12 @@ namespace CoreOfficeERP.Tally.Services
 
                 //This line is required only if the Stock Item is being altered or re-uploaded. 
                 //During initial Stock Item creation, this line is not required, but even if given, its not a problem
-                oldItemName = item.TallyLedgerName ?? item.ProductName,
-                itemName = item.ProductName,
+                oldItemName = item.TallyLedgerName+" "+item.supplierCode ?? item.ProductName+" " + item.supplierCode,
+                itemName = item.ProductName+" " + item.supplierCode,
 
                 //You can map SKU code either in item alias or in part no.
                 //Or, if you do not wish to maintain SKU code, you can leave both these fields blank
-                // itemAlias = "A00001",
+                itemAlias = item.Barcode,
                 // partNo = "P00001",
 
                 //The unit master should already exist in Tally.
@@ -246,11 +252,11 @@ namespace CoreOfficeERP.Tally.Services
 
                 //The stock group should already exist in Tally
                 //You can leave this blank, if you do not wish to maintain Stock Groups in Tally
-                stockGroupName = data.SaleVoucherPrint.CompanyName,
+                stockGroupName = data.SaleVoucherPrint.CompanyName+" "+item.supplierCode,
 
                 //The stock category should already exist in Tally
                 //You can leave this blank if you do not wish to maintain Stock Categories in Tally
-                //stockItem.stockCategoryName = "Stk Cat 1";
+                stockCategoryName = item.stockGroupName,
 
                 isGstApplicable = item.GstApplicable,
                 //Valid values: "Goods", "Services"        
@@ -269,8 +275,8 @@ namespace CoreOfficeERP.Tally.Services
                     taxability = Helper.GetEnumDescription(item.GSTTaxability),
                     isReverseChargeApplicable = false,
                     igstRate = item.Gst,
-                    cgstRate = item.Gst / 2,
-                    sgstRate = item.Gst / 2,
+                    cgstRate = item.Gst / 2m,
+                    sgstRate = item.Gst / 2m,
                     cessRate = 0
                 };
                 //The ArrayList arlGstDetails should be filled up with objects of type StockItemGstDetails
@@ -279,21 +285,7 @@ namespace CoreOfficeERP.Tally.Services
             }
             else
             {
-                //gstDetails = new StockItemGstDetails
-                //{
-                //    applicableFrom = DateTime.ParseExact("01-Jul-2017", "dd-MMM-yyyy", CultureInfo.InvariantCulture),
-
-                //    //The value for this must be a valid value as per the Tally dropdown, e.g. "Specify Details Here" or "As per Company/Stock Group"
-                //    sourceOfGstDetails = "Specify Details Here",
-
-                //    //The value for this must be a valid value as per the Tally dropdown, e.g.. "Exempt", "Nil Rated", or "Taxable"
-                //    taxability = "Taxable",
-                //    isReverseChargeApplicable = false,
-                //    igstRate = 12,
-                //    cgstRate = 6,
-                //    sgstRate = 6,
-                //    cessRate = 0
-                //};
+               
                 //The ArrayList arlGstDetails should be filled up with objects of type StockItemGstDetails
                 //It represents the Tax Rate History, and there should be 1 object for each date when the tax rate or other GST details were changed
                 //   si.arlGstDetails.Add(gstDetails);
@@ -317,9 +309,9 @@ namespace CoreOfficeERP.Tally.Services
                         igstRate = rule.GstValue,
 
                         // divide GST equally
-                        cgstRate = rule.GstValue / 2,
+                        cgstRate = rule.GstValue / 2m,
 
-                        sgstRate = rule.GstValue / 2,
+                        sgstRate = rule.GstValue / 2m,
 
                         cessRate = 0
                     };
@@ -329,7 +321,7 @@ namespace CoreOfficeERP.Tally.Services
 
                 si.arlGstDetails.Add(gstDetails);
 
-            }
+            }            
             var hsn = new StockItemHsnDetails
             {
                 applicableFrom = DateTime.ParseExact("01-Aug-2017", "dd-MMM-yyyy", CultureInfo.InvariantCulture),
@@ -340,14 +332,52 @@ namespace CoreOfficeERP.Tally.Services
                 hsnDescription = item.stockGroupName
             };
             si.arlHsnDetails.Add(hsn);
+
+            // ===============================
+            // STANDARD COST PRICE DETAILS
+            // ===============================      
+
+            // Cost Price From 01-Apr-2025
+            foreach (var price in item.PriceHistories.OrderBy(x => x.Date))
+            {
+                var stdRateDetails = new StockItemStandardRateDetails
+                {
+                    applicableFrom =price.Date,
+                    stdRate = price.PurchaseRate,
+                    stdRateUnit = "Pcs"
+                };
+
+                si.arlStandardCostPriceDetails.Add(stdRateDetails);
+            }
+
+
+
+            // ===============================
+            // STANDARD SELL PRICE DETAILS
+            // ===============================
+
+            // Sell Price From 01-Apr-2025
+            foreach (var price in item.PriceHistories.OrderBy(x => x.Date))
+            {
+                var stdRateDetails = new StockItemStandardRateDetails
+                {
+                    applicableFrom =price.Date,
+                    stdRate = price.WholesaleRate,
+                    stdRateUnit = "Pcs"
+                };
+
+                si.arlStandardSellPriceDetails.Add(stdRateDetails);
+            }          
+
             return _tb.DoTransferStockItem(si);
         }
 
-        public TallyResponse CreatePurchaseVoucher(TallyPurchaseResponse data, TallyConfigResponse config)
+        public TallyResponse CreatePurchaseVoucher(TallyPurchaseResponse data, TallyConfigResponse config, string sbillnumber, DateTime date)
         {
-            DateTime dt1 = DateTime.ParseExact(data.SaleVoucherPrint.Date.ToString(), "dd-MMM-yy h:mm:ss tt", CultureInfo.InvariantCulture);
+            DateTime dt2 = DateTime.ParseExact(data.SaleVoucherPrint.Date.ToString(), "dd-MMM-yy h:mm:ss tt", CultureInfo.InvariantCulture);
+            DateTime dt1 = DateTime.ParseExact(date.ToString(), "dd-MMM-yy h:mm:ss tt", CultureInfo.InvariantCulture);
             string s = dt1.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
-
+            string refdate = dt2.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture);
             var invoice = new PurchaseVoucher
             {
                 tallyCompanyName = config.Company.Name,
@@ -360,13 +390,15 @@ namespace CoreOfficeERP.Tally.Services
 
                 // If Tally API needs string:
                 dtOfVoucher = DateTime.ParseExact(s, "dd/MM/yyyy", null),
-
-                voucherTypeName = config.Purchase.MainLedger,
+                voucherTypeName = data.SupplierResponse.Department.Length >= 2 &&
+                 data.SupplierResponse.Department.Substring(0, 2) == "HO"
+                    ? "Purchase H/o"
+                    : "Purchase B/o",               
                 typeOfVoucher = "Purchase",
 
                 voucherNo = data.SaleVoucherPrint.Id.ToString(),
-                reference = data.SaleVoucherPrint.SupplierBillNumber,
-                referenceDate = DateTime.ParseExact(s, "dd/MM/yyyy", null),
+                reference = sbillnumber,
+                referenceDate = DateTime.ParseExact(refdate, "dd/MM/yyyy", null),
                 voucherIdentifier = data.SaleVoucherPrint.VoucherForeignkey,
 
                 //  receiptDocNo = "Receipt Doc11",
@@ -375,7 +407,7 @@ namespace CoreOfficeERP.Tally.Services
                 //   despatchedThrough = "Desp Thru11",
                 //   destination = "Some Destination",
                 //   carrierName = "Carrier Name 123",
-                //   billOfLadingNo = "RR1",
+                //   billOfLadingNo = data.SaleVoucherPrint.lrNumber??"",
                 //   billOfLadingDt = DateTime.Parse("30-Jan-2026"),
                 //   vehicleNo = "Veh123",
 
@@ -383,7 +415,6 @@ namespace CoreOfficeERP.Tally.Services
                 //   otherReference = "Misc. Ref",
 
                 partyLedgerName = data.SaleVoucherPrint.CompanyName,
-
                 supplierName = data.SaleVoucherPrint.CompanyName,
                 supplierMailingName = data.SaleVoucherPrint.CompanyName,
                 supplierAddress = new string[]
@@ -396,7 +427,6 @@ namespace CoreOfficeERP.Tally.Services
                 supplierGstin = data.SupplierResponse.GstIn,
                 supplierGstRegType = data.SupplierResponse.RegType.ToTallyString(),
                 placeOfSupply = config.Company.StateName,
-
                 consigneeName = config.Company.Name,
                 consigneeMailingName = config.Company.Name,
                 consigneeAddress = new string[]
@@ -408,7 +438,6 @@ namespace CoreOfficeERP.Tally.Services
                 consigneeCountry = "India",
                 consigneePincode = config.Company.PINCode,
                 consigneeGstin = config.Company.GSTIN,
-
                 narration = "",
                 isInvoice = true,
                 isOptional = false
@@ -424,7 +453,7 @@ namespace CoreOfficeERP.Tally.Services
 
                 var item = new InventoryEntry
                 {
-                    itemName = stockItem.ProductName,
+                    itemName = stockItem.ProductName+" "+stockItem.supplierCode,
                     isDeemedPositive = true,
                     actualQty = stockItem.Quantity,
                     billedQty = stockItem.Quantity,
@@ -444,16 +473,54 @@ namespace CoreOfficeERP.Tally.Services
                     amount = item.amount,
                     qtyUnit = item.qtyUnit
                 });
-                // Accounting Allocation
-                item.arlAccountingAllocations.Add(new LedgerEntry
-                {
-                    ledgerName = config.Purchase.MainLedger,
-                    ledgerAmount = item.amount
-                });
+                // Accounting Allocation              
+            item.arlAccountingAllocations.Add(new LedgerEntry
+            {
+                 ledgerName=config.Purchase.MainLedger,                
+                ledgerAmount = item.amount
+            });
 
-                // Add to invoice
-                invoice.arlInvEntries.Add(item);
-            }
+            // Add to invoice
+            invoice.arlInvEntries.Add(item);
+            }            
+            var totalItemAmount = data.StockitemResponse.Sum(x => x.Total);
+            var totalIGST = data.StockitemResponse.Sum(x => x.IGST);
+            var totalCGST = data.StockitemResponse.Sum(x => x.CGST);
+            var totalSGST = data.StockitemResponse.Sum(x => x.SGST);
+            var additionalCharges = data.SaleVoucherPrint.AdditionalCharges;
+            var totalDiscount = data.StockitemResponse.Sum(x => x.Discount > 0
+                ? (x.Quantity * x.PurchasePrice * x.Discount / 100)
+                : 0);
+            // =========================
+            // ACTUAL TOTAL
+            // =========================
+            var payableAmount = data.StockitemResponse.Sum(x => x.PayableAmount);
+            decimal calculatedTotal = totalItemAmount
+                      + totalIGST
+                      + totalCGST
+                      + totalSGST
+                      + additionalCharges
+                      - totalDiscount;
+            // =========================
+            // FINAL ROUNDED AMOUNT
+            // Example:
+            // 100.49 => 100
+            // 100.50 => 101
+            // =========================
+            decimal roundedPayableAmount = Math.Round(
+                calculatedTotal,
+                0,
+                MidpointRounding.AwayFromZero
+            );
+            // =========================
+            // ROUND OFF DIFFERENCE
+            // =========================
+            decimal roundOff = Math.Round(
+                roundedPayableAmount - calculatedTotal,
+                2,
+                MidpointRounding.AwayFromZero
+            );
+
 
             // =========================
             // PARTY LEDGER
@@ -462,18 +529,25 @@ namespace CoreOfficeERP.Tally.Services
             {
 
                 ledgerName = data.SaleVoucherPrint.CompanyName,
-                ledgerAmount = data.StockitemResponse.Sum(x => x.PayableAmount),
+                ledgerAmount = roundedPayableAmount,
                 isDeemedPositive = false
             };
-
-            partyLedger.arlBillAllocations.Add(new BillAllocation
+            var billAlloc = new BillAllocation
             {
                 billType = "New Ref",
                 billName = invoice.reference,
-                billAmount = partyLedger.ledgerAmount
-            });
+                billAmount = partyLedger.ledgerAmount,
+                billDueDate = data.SaleVoucherPrint.dueDate ?? DateTime.Now.AddDays(30)
+            };
 
+            // Add custom field separately
+            billAlloc.customFields.Add(
+                "Supp Ref Date",
+                data.SaleVoucherPrint.Date
+            );
+            partyLedger.arlBillAllocations.Add(billAlloc);           
             invoice.arlLedgerEntries.Add(partyLedger);
+
 
             // =========================
             // DISCOUNT
@@ -531,33 +605,73 @@ namespace CoreOfficeERP.Tally.Services
                     isDeemedPositive = true
                 });
             }
-
-            var totalItemAmount = data.StockitemResponse.Sum(x => x.Total);
-            var totalIGST = data.StockitemResponse.Sum(x => x.IGST);
-            var totalCGST = data.StockitemResponse.Sum(x => x.CGST);
-            var totalSGST = data.StockitemResponse.Sum(x => x.SGST);
-
-            var totalDiscount = data.StockitemResponse.Sum(x => x.Discount > 0
-                ? (x.Quantity * x.PurchasePrice * x.Discount / 100)
-                : 0);
-
-            var payableAmount = data.StockitemResponse.Sum(x => x.PayableAmount);
-            var calculatedTotal = totalItemAmount
-                      + totalIGST
-                      + totalCGST
-                      + totalSGST
-                      - totalDiscount;
-            var roundOff = payableAmount - calculatedTotal;
             // =========================
-            // ROUND OFF
+            // AdditionalCharges LEDGER
             // =========================
+            if (additionalCharges != 0)
+            {
+
+                decimal ledgerAmount;
+                bool isDeemedPositive;
+
+                if (additionalCharges < 0)
+                {
+                    // Example:
+                    // 5297.37 -> 5297
+                    // Need (-)0.37 display
+
+                    ledgerAmount = Math.Abs(additionalCharges); // +0.37
+                    isDeemedPositive = true;
+                }
+                else
+                {
+                    // Example:
+                    // 89920.95 -> 89921
+                    // Need +0.05 display
+
+                    ledgerAmount = -additionalCharges; // +0.05
+                    isDeemedPositive = true;
+                }
+
+                invoice.arlLedgerEntries.Add(new LedgerEntry
+                {
+                    ledgerName = "Additional Charges",
+                    ledgerAmount = ledgerAmount,
+                    isDeemedPositive = isDeemedPositive
+                });
+            }
+            // =========================
+            // ROUND OFF LEDGER
+            // =========================           
             if (roundOff != 0)
             {
+                decimal ledgerAmount;
+                bool isDeemedPositive;
+
+                if (roundOff < 0)
+                {
+                    // Example:
+                    // 5297.37 -> 5297
+                    // Need (-)0.37 display
+
+                    ledgerAmount = Math.Abs(roundOff); // +0.37
+                    isDeemedPositive = true;
+                }
+                else
+                {
+                    // Example:
+                    // 89920.95 -> 89921
+                    // Need +0.05 display
+
+                    ledgerAmount = -roundOff; // +0.05
+                    isDeemedPositive = true;
+                }
+
                 invoice.arlLedgerEntries.Add(new LedgerEntry
                 {
                     ledgerName = "Round Off",
-                    ledgerAmount = roundOff,
-                    isDeemedPositive = roundOff > 0
+                    ledgerAmount = ledgerAmount,
+                    isDeemedPositive = isDeemedPositive
                 });
             }
             // =========================

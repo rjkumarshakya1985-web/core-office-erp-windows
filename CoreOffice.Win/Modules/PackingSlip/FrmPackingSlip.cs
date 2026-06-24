@@ -379,6 +379,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
 
         public void AddSingleItemToGrid(CurrentStockResponse item)
         {
+            txtBarcodeScanner.Text = string.Empty;
             new FrmProductQty(this, item).ShowDialog();
         }
 
@@ -563,9 +564,9 @@ namespace CoreOffice.Win.Modules.PackingSlip
                 {
                     await _packingSlipService.UpdateAsync(PackingSlipId, request);
                     if (PackingSlipId.HasValue)
-                    {
-                        Clear();
+                    {                       
                         await _printService.PrintPackingSlipAsync(PackingSlipId.Value);
+                        Clear();
                     }
                 }
 

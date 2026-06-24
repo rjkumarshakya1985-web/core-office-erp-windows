@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle13 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle14 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle15 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
             pnlHeader = new Panel();
             label6 = new Label();
             label1 = new Label();
@@ -109,7 +109,7 @@
             pnlHeader.Dock = DockStyle.Top;
             pnlHeader.Location = new Point(0, 0);
             pnlHeader.Name = "pnlHeader";
-            pnlHeader.Size = new Size(1174, 53);
+            pnlHeader.Size = new Size(1059, 53);
             pnlHeader.TabIndex = 2;
             // 
             // label6
@@ -117,7 +117,7 @@
             label6.AutoSize = true;
             label6.Font = new Font("Segoe UI", 11.25F);
             label6.ForeColor = Color.White;
-            label6.Location = new Point(749, 12);
+            label6.Location = new Point(567, 12);
             label6.Name = "label6";
             label6.Size = new Size(134, 20);
             label6.TabIndex = 1;
@@ -138,7 +138,7 @@
             // 
             cmbSalesPerson.Font = new Font("Segoe UI", 11.25F);
             cmbSalesPerson.FormattingEnabled = true;
-            cmbSalesPerson.Location = new Point(903, 8);
+            cmbSalesPerson.Location = new Point(721, 8);
             cmbSalesPerson.Name = "cmbSalesPerson";
             cmbSalesPerson.Size = new Size(240, 28);
             cmbSalesPerson.TabIndex = 0;
@@ -151,16 +151,16 @@
             panel4.Dock = DockStyle.Bottom;
             panel4.Location = new Point(0, 330);
             panel4.Name = "panel4";
-            panel4.Size = new Size(1174, 125);
+            panel4.Size = new Size(1059, 125);
             panel4.TabIndex = 5;
             // 
             // panel9
             // 
             panel9.Controls.Add(groupBox3);
             panel9.Dock = DockStyle.Fill;
-            panel9.Location = new Point(394, 0);
+            panel9.Location = new Point(329, 0);
             panel9.Name = "panel9";
-            panel9.Size = new Size(418, 125);
+            panel9.Size = new Size(394, 125);
             panel9.TabIndex = 9;
             // 
             // groupBox3
@@ -175,7 +175,7 @@
             groupBox3.Margin = new Padding(10, 5, 5, 5);
             groupBox3.Name = "groupBox3";
             groupBox3.Padding = new Padding(10, 5, 5, 5);
-            groupBox3.Size = new Size(412, 125);
+            groupBox3.Size = new Size(448, 125);
             groupBox3.TabIndex = 8;
             groupBox3.TabStop = false;
             groupBox3.Text = "Notes";
@@ -187,7 +187,7 @@
             textBox1.Multiline = true;
             textBox1.Name = "textBox1";
             textBox1.PlaceholderText = "Enter notes (optional)....";
-            textBox1.Size = new Size(380, 95);
+            textBox1.Size = new Size(353, 95);
             textBox1.TabIndex = 0;
             // 
             // groupBox1
@@ -205,11 +205,11 @@
             groupBox1.Dock = DockStyle.Right;
             groupBox1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox1.ForeColor = Color.FromArgb(40, 90, 200);
-            groupBox1.Location = new Point(812, 0);
+            groupBox1.Location = new Point(723, 0);
             groupBox1.Margin = new Padding(10, 5, 5, 5);
             groupBox1.Name = "groupBox1";
             groupBox1.Padding = new Padding(10, 5, 5, 5);
-            groupBox1.Size = new Size(362, 125);
+            groupBox1.Size = new Size(336, 125);
             groupBox1.TabIndex = 8;
             groupBox1.TabStop = false;
             groupBox1.Text = "Packing Slip Summary";
@@ -329,7 +329,7 @@
             groupBox2.Margin = new Padding(10, 5, 5, 5);
             groupBox2.Name = "groupBox2";
             groupBox2.Padding = new Padding(10, 5, 5, 5);
-            groupBox2.Size = new Size(394, 125);
+            groupBox2.Size = new Size(329, 125);
             groupBox2.TabIndex = 7;
             groupBox2.TabStop = false;
             groupBox2.Text = "Visitor Information";
@@ -421,7 +421,7 @@
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(0, 53);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1174, 537);
+            panel2.Size = new Size(1059, 537);
             panel2.TabIndex = 3;
             // 
             // dataGridPackingSlip
@@ -430,39 +430,39 @@
             dataGridPackingSlip.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridPackingSlip.BackgroundColor = Color.White;
             dataGridPackingSlip.BorderStyle = BorderStyle.None;
-            dataGridViewCellStyle13.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle13.BackColor = Color.FromArgb(25, 55, 109);
-            dataGridViewCellStyle13.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            dataGridViewCellStyle13.ForeColor = Color.White;
-            dataGridViewCellStyle13.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle13.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle13.WrapMode = DataGridViewTriState.True;
-            dataGridPackingSlip.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle7.BackColor = Color.FromArgb(25, 55, 109);
+            dataGridViewCellStyle7.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            dataGridViewCellStyle7.ForeColor = Color.White;
+            dataGridViewCellStyle7.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
+            dataGridPackingSlip.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             dataGridPackingSlip.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridPackingSlip.Columns.AddRange(new DataGridViewColumn[] { Id, Barcode, Product, Quantity, Rate, Taxable, Discount, NetTaxable, GstValue, Amount, AvailableQty });
-            dataGridViewCellStyle14.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle14.BackColor = SystemColors.Window;
-            dataGridViewCellStyle14.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle14.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle14.SelectionBackColor = Color.FromArgb(220, 230, 250);
-            dataGridViewCellStyle14.SelectionForeColor = Color.Black;
-            dataGridViewCellStyle14.WrapMode = DataGridViewTriState.False;
-            dataGridPackingSlip.DefaultCellStyle = dataGridViewCellStyle14;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = SystemColors.Window;
+            dataGridViewCellStyle8.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle8.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle8.SelectionBackColor = Color.FromArgb(220, 230, 250);
+            dataGridViewCellStyle8.SelectionForeColor = Color.Black;
+            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.False;
+            dataGridPackingSlip.DefaultCellStyle = dataGridViewCellStyle8;
             dataGridPackingSlip.Dock = DockStyle.Top;
             dataGridPackingSlip.EnableHeadersVisualStyles = false;
             dataGridPackingSlip.GridColor = Color.Gainsboro;
             dataGridPackingSlip.Location = new Point(0, 0);
             dataGridPackingSlip.Name = "dataGridPackingSlip";
-            dataGridViewCellStyle15.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle15.BackColor = SystemColors.Control;
-            dataGridViewCellStyle15.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle15.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle15.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle15.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle15.WrapMode = DataGridViewTriState.True;
-            dataGridPackingSlip.RowHeadersDefaultCellStyle = dataGridViewCellStyle15;
+            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = SystemColors.Control;
+            dataGridViewCellStyle9.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle9.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
+            dataGridPackingSlip.RowHeadersDefaultCellStyle = dataGridViewCellStyle9;
             dataGridPackingSlip.RowTemplate.Height = 40;
-            dataGridPackingSlip.Size = new Size(1174, 269);
+            dataGridPackingSlip.Size = new Size(1059, 269);
             dataGridPackingSlip.TabIndex = 2;
             dataGridPackingSlip.CellDoubleClick += dataGridPackingSlip_CellDoubleClick;
             dataGridPackingSlip.RowEnter += dataGridPackingSlip_RowEnter;
@@ -479,6 +479,7 @@
             Barcode.HeaderText = "Barcode";
             Barcode.Name = "Barcode";
             Barcode.ReadOnly = true;
+            Barcode.Visible = false;
             // 
             // Product
             // 
@@ -502,6 +503,7 @@
             Taxable.HeaderText = "Taxable";
             Taxable.Name = "Taxable";
             Taxable.ReadOnly = true;
+            Taxable.Visible = false;
             // 
             // Discount
             // 
@@ -546,7 +548,7 @@
             panel10.Dock = DockStyle.Bottom;
             panel10.Location = new Point(0, 63);
             panel10.Name = "panel10";
-            panel10.Size = new Size(1174, 72);
+            panel10.Size = new Size(1059, 72);
             panel10.TabIndex = 10;
             // 
             // btnPendingPackingSlips
@@ -687,7 +689,7 @@
             pnlBarcode.Dock = DockStyle.Top;
             pnlBarcode.Location = new Point(0, 0);
             pnlBarcode.Name = "pnlBarcode";
-            pnlBarcode.Size = new Size(1174, 66);
+            pnlBarcode.Size = new Size(1059, 66);
             pnlBarcode.TabIndex = 3;
             // 
             // btnEnter
@@ -728,14 +730,14 @@
             panel3.Dock = DockStyle.Bottom;
             panel3.Location = new Point(0, 455);
             panel3.Name = "panel3";
-            panel3.Size = new Size(1174, 135);
+            panel3.Size = new Size(1059, 135);
             panel3.TabIndex = 4;
             // 
             // FrmPackingSlip
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1174, 590);
+            ClientSize = new Size(1059, 590);
             Controls.Add(panel4);
             Controls.Add(panel3);
             Controls.Add(panel2);
@@ -791,17 +793,6 @@
         private DataGridView dataGridPackingSlip;
         private Label lblDiscount;
         private Label label7;
-        private DataGridViewTextBoxColumn Id;
-        private DataGridViewTextBoxColumn Barcode;
-        private DataGridViewTextBoxColumn Product;
-        private DataGridViewTextBoxColumn Quantity;
-        private DataGridViewTextBoxColumn Rate;
-        private DataGridViewTextBoxColumn Taxable;
-        private DataGridViewTextBoxColumn Discount;
-        private DataGridViewTextBoxColumn NetTaxable;
-        private DataGridViewTextBoxColumn GstValue;
-        private DataGridViewTextBoxColumn Amount;
-        private DataGridViewTextBoxColumn AvailableQty;
         private Label label2;
         private Label label8;
         private GroupBox groupBox3;
@@ -823,5 +814,16 @@
         private Label label5;
         private Panel panel3;
         private Button btnEnter;
+        private DataGridViewTextBoxColumn Id;
+        private DataGridViewTextBoxColumn Barcode;
+        private DataGridViewTextBoxColumn Product;
+        private DataGridViewTextBoxColumn Quantity;
+        private DataGridViewTextBoxColumn Rate;
+        private DataGridViewTextBoxColumn Taxable;
+        private DataGridViewTextBoxColumn Discount;
+        private DataGridViewTextBoxColumn NetTaxable;
+        private DataGridViewTextBoxColumn GstValue;
+        private DataGridViewTextBoxColumn Amount;
+        private DataGridViewTextBoxColumn AvailableQty;
     }
 }

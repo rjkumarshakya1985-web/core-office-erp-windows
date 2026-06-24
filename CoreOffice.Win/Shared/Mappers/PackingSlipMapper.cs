@@ -21,6 +21,7 @@ namespace CoreOffice.Win.Shared.Mappers
                 Qty = x.Quantity,
 
                 SaleRate = x.Rate,
+                Amount=x.Quantity*x.Rate,
                 TaxableAmount = x.TaxableAmount,
 
                 Salesman = data.VisitorName,
@@ -30,5 +31,6 @@ namespace CoreOffice.Win.Shared.Mappers
 
             }).ToList();
         }
+       
     }
 }

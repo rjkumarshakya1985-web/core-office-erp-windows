@@ -421,7 +421,7 @@ namespace CoreOffice.Win.Modules.Cashier
         private void menuicon_Click(object sender, EventArgs e)
         {
             if (panelSidebar.Width == 220)
-                    panelSidebar.Width = 60;
+                    panelSidebar.Width = 30;
                 else
                     panelSidebar.Width = 220;
             

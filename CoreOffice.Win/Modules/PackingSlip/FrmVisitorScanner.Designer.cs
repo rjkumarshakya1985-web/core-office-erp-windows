@@ -86,6 +86,7 @@
             Controls.Add(groupBox1);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "FrmVisitorScanner";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Visitor Scanner";
             Load += FrmVisitorScanner_Load;
             groupBox1.ResumeLayout(false);

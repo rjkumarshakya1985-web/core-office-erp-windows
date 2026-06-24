@@ -1,8 +1,10 @@
 ﻿using CoreOfficeERP.Common.Enums;
 using CoreOfficeERP.Domain.Responses.Agent;
+using CoreOfficeERP.Domain.Responses.Departments;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
@@ -73,6 +75,7 @@ namespace CoreOfficeERP.Domain.Responses.Tally
         public string? TallyLedgerName { get; set; }
         public int GstValue { get; set; }
         public string? Description { get; set; }
+        public string? supplierCode { get; set; }
 
     }
     public class StockGroupResponse
@@ -87,6 +90,8 @@ namespace CoreOfficeERP.Domain.Responses.Tally
         public decimal StartRange { get; set; }
         public decimal EndRange { get; set; }
         public List<GstRule> GstRules { get; set; }
+        public string? supplierCode { get; set; }
+        public DepartmentResponse? DepartmentObj { get; set; }
 
     }
     public class StockitemResponse
@@ -94,6 +99,7 @@ namespace CoreOfficeERP.Domain.Responses.Tally
         public Guid Id { get; set; }
         public string? ProductName { get; set; }
         public string? TallyLedgerName { get; set; }
+        public string? Barcode { get; set; }
 
         public int Quantity { get; set; }
         public decimal PurchasePrice { get; set; }
@@ -120,6 +126,8 @@ namespace CoreOfficeERP.Domain.Responses.Tally
         public GstNatureType GSTNature { get; set; }
 
         public GstTaxabilityType GSTTaxability { get; set; }
+        public string? supplierCode { get; set; }
+        public List<SupplierProductRateHistoryDTO> PriceHistories { get; set; }
     }
     public class GstRule
     {
@@ -147,8 +155,22 @@ namespace CoreOfficeERP.Domain.Responses.Tally
         public string? SupplierBillNumber { get; set; }
         public string? GstIn { get; set; }    
         public decimal Discount { get; set; }
+        public decimal AdditionalCharges { get; set; }
         public DateTime Date { get; set; }   
-       
-       
+        public int ParcelStatus { get; set; }
+        public string? lrNumber { get; set; }
+        public string? lrDate { get; set; }
+        public string? remarks { get; set; }
+        public DateTime? dueDate { get; set; }
+
+
+    }
+    public class SupplierProductRateHistoryDTO
+    {
+        public DateTime Date { get; set; }
+        public Guid SupplierProductId { get; set; }
+        public decimal PurchaseRate { get; set; }
+        public decimal WholesaleRate { get; set; }
+        public decimal RetailRate { get; set; }
     }
 }

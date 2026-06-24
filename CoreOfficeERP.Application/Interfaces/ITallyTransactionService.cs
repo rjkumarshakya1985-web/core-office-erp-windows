@@ -6,6 +6,6 @@ namespace CoreOfficeERP.Application.Interfaces
     public interface ITallyTransactionService
     {
         Task<TallyPurchaseResponse> GetTallyPurchase(int id);
-        Task<bool> TallyDataUpdate(object id, List<TallyNameRequest> request);
+        Task<bool> TallyDataUpdate(object id, List<TallyNameRequest> request,bool isStockTransfer);
     }
 }

@@ -48,7 +48,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
             {
                 if (frm != null)
                 {
-                    frm.AddSingleItemToGrid(item);
+                    frm.AddSingleItemToGrid(item);                    
                 }
                 else
                 {

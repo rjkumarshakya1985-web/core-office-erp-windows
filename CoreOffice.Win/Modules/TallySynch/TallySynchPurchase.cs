@@ -6,6 +6,8 @@ using CoreOfficeERP.Common.Enums;
 using CoreOfficeERP.Domain.Requests.Tally;
 using CoreOfficeERP.Domain.Responses.Tally;
 using CoreOfficeERP.Tally.Interfaces;
+using Tally;
+using TallyBridge;
 namespace CoreOffice.Win.Modules.TallySynch
 
 {
@@ -16,7 +18,9 @@ namespace CoreOffice.Win.Modules.TallySynch
         private readonly ITallyTransactionService _tallyTransactionsService;
         private readonly ITallyConfigService _tallyConfigService;        
         private readonly ITallyProcessService _tallyProcessService;
+        private TallyBridgeDll _tb;
 
+       
         public TallySynchPurchase(IServiceProvider serviceProvider, ITallyTransactionService tallyTransactionsService, ITallyProcessOrchestratorService tallyProcessOrchestrator, ITallyProcessService tallyProcessService, ITallyConfigService tallyConfigService)
         {
             InitializeComponent();          
@@ -32,6 +36,7 @@ namespace CoreOffice.Win.Modules.TallySynch
         private void ClearData()
         {
             txtVoucher.Text = string.Empty;
+            this.txtVoucher.Focus();
             dataGridInvoice.DataSource = null;
             dataGridInvoice.Refresh();
             lblSupplier.Text = "NA";
@@ -54,6 +59,16 @@ namespace CoreOffice.Win.Modules.TallySynch
             lblCreditLimit.Text = "NA";
             lblGSTTreatment.Text = "NA";
             lblDiscount.Text = "NA";
+            txtSBillNumber.Text=string.Empty;
+            //Clear Summary
+            lblNetAmount.Text = "0.00";
+            lblTotalDiscount.Text = "0.00";
+            lblTaxable.Text = "0.00";
+            lblCGSTTotal.Text = "0.00";
+            lblSGSTTotal.Text = "0.00";
+            lblIGSTTotal.Text = "0.00";
+            lblPayableAmount.Text = "0.00";
+
 
         }
 
@@ -117,16 +132,22 @@ namespace CoreOffice.Win.Modules.TallySynch
                 {
                     MessageBox.Show("Error loading financial year: " + ex.Message);
                 }
+                this.txtVoucher.Focus();
                 AppLoader.Hide();
             }
         }
 
         private async void btnSynch_Click(object sender, EventArgs e)
         {
-
             if (_currentPurchase == null || _tallyConfig == null)
             {
                 MessageBox.Show("No voucher loaded. Please enter voucher first.");
+                return;
+            }
+            if (txtSBillNumber.Text == "" || txtSBillNumber.Text == string.Empty)
+            {
+                MessageBox.Show("Please enter Supplier's Bill Number");
+                this.txtSBillNumber.Focus();
                 return;
             }
             btnSynch.Enabled = false;
@@ -138,7 +159,7 @@ namespace CoreOffice.Win.Modules.TallySynch
             {
                 // ✅ Call orchestrator (NO Task.Run)
                 logs = await _tallyProcessOrchestrator
-                    .ExecutePurchase(_currentPurchase, _tallyConfig, 1);
+                    .ExecutePurchase(_currentPurchase, _tallyConfig, Convert.ToInt32(cmbFiananceYear.SelectedValue.ToString()), txtSBillNumber.Text.Trim(), dtDate.Value);
                 // ✅ Determine success
                 isSuccess = logs != null && logs.Any() && logs.All(x => x.IsSuccess);
                 if (isSuccess)
@@ -180,12 +201,12 @@ namespace CoreOffice.Win.Modules.TallySynch
                     // ✅ ONLY update if success
                     if (isSuccess && completedPurchase != null)
                     {
-                        //    var updateResult = await _tallyTransactionsService.TallyDataUpdate(completedPurchase?.SaleVoucherPrint?.Id, completedPurchase);
-                        var bulkRequest = BuildTallyNameRequests(completedPurchase);
-
+                         var bulkRequest = BuildTallyNameRequests(completedPurchase);
+                         var parcelStatus = completedPurchase.SaleVoucherPrint.ParcelStatus;                        
                         if (bulkRequest.Any())
                         {
-                            await _tallyTransactionsService.TallyDataUpdate(completedPurchase.SaleVoucherPrint.Id,bulkRequest);
+                            bool isStockTransfer = parcelStatus == 5 ? true : false;
+                            await _tallyTransactionsService.TallyDataUpdate(completedPurchase.SaleVoucherPrint.Id, bulkRequest,isStockTransfer);
                         }
                     }
                 }
@@ -232,6 +253,15 @@ namespace CoreOffice.Win.Modules.TallySynch
                     txtVoucher.Clear();
                     return;
                 }
+                if (vouchers.SaleVoucherPrint.ParcelStatus == 11)
+                { 
+                DialogResult result=MessageBox.Show("This voucher is already Synched. Do you want to load it again?","Confirm",MessageBoxButtons.YesNo,MessageBoxIcon.Question);
+                    if (result == DialogResult.No)
+                    {
+                        txtVoucher.Clear();
+                        return;
+                    }
+                }
                 // 2. Get Tally Config (IMPORTANT)
                 int config = Convert.ToInt32(cmbCompanies.SelectedValue);
                 var tallyConfig = await _tallyConfigService.GetTallyConfig(config);
@@ -251,6 +281,7 @@ namespace CoreOffice.Win.Modules.TallySynch
                 // ✅ Bind UI
                 BindHeader();
                 BindGrid();
+                BindSummary();
                 txtVoucher.Clear();
 
                 // Optional: UI feedback
@@ -274,7 +305,7 @@ namespace CoreOffice.Win.Modules.TallySynch
             lblPIN.Text = _currentPurchase.SupplierResponse.Pincode;
             lblMobile.Text = _currentPurchase.SupplierResponse.Mobile;
             lblEmail.Text = _currentPurchase.SupplierResponse.Email;
-
+            txtSBillNumber.Text=_currentPurchase.SaleVoucherPrint.SupplierBillNumber;
 
             //Binding Agent Data
             lblAgentName.Text = _currentPurchase.SupplierResponse.AgentObj.Name;
@@ -299,11 +330,46 @@ namespace CoreOffice.Win.Modules.TallySynch
                 Quantity = x.Quantity,
                 Rate = x.PurchasePrice,
                 GST = x.Gst,
-                Amount = x.Total
+                Amount = x.Total,
+                Discount=x.Discount,
+                Taxable=x.DiscountAmount,
+                CGST=x.CGST,
+                SGST=x.SGST,
+                IGST=x.IGST,
+                PAYBLE=x.PayableAmount
             }).ToList();
 
             dataGridInvoice.DataSource = data;
 
+        }
+        private void BindSummary()
+        {
+            var items = _currentPurchase.StockitemResponse;
+
+            lblNetAmount.Text = items.Sum(x => x.Total).ToString("0.00");
+
+            lblTotalDiscount.Text = items.Sum(x => x.Total - x.DiscountAmount).ToString("0.00");
+
+            lblTaxable.Text = items.Sum(x => x.DiscountAmount).ToString("0.00");
+
+            lblCGSTTotal.Text = items.Sum(x => x.CGST).ToString("0.00");
+
+            lblSGSTTotal.Text = items.Sum(x => x.SGST).ToString("0.00");
+
+            lblIGSTTotal.Text = items.Sum(x => x.IGST).ToString("0.00");
+           
+            decimal payableAmount = items.Sum(x => x.PayableAmount);
+            // Round to nearest rupee (0.50 and above rounds up)
+            decimal roundedPayable = Math.Round(payableAmount, 0, MidpointRounding.AwayFromZero);
+
+            // Difference between original and rounded amount
+            decimal roundOff = roundedPayable - payableAmount;
+
+            lblPayableAmount.Text = roundedPayable.ToString("0.00");
+
+            lblRoundOff.Text = roundOff.ToString("0.00");           
+
+            
         }
         private void MapLedgerNames(TallyPurchaseResponse data)
         {

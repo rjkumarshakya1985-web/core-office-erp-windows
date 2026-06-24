@@ -16,6 +16,12 @@ namespace CoreOffice.Win.Shared.RDLCModels
             public string Address { get; set; }
             public string State { get; set; }
             public string StateCode { get; set; }
+            public string PINCode { get; set; }
+            public string SalesPhone { get; set; }
+            public string Mobile { get; set; }
+            public string CIN { get; set; }
+            public string MSMECode { get; set; }
+
 
     }
 }

@@ -27,8 +27,7 @@ namespace CoreOfficeERP.Infrastructure.Api
         {
             var response = await _httpClient.GetAsync(endpoint);
 
-            var json = await response.Content.ReadAsStringAsync();
-
+            var json = await response.Content.ReadAsStringAsync();            
             if (!response.IsSuccessStatusCode)
             {
                 string message = "Something went wrong";
@@ -75,6 +74,15 @@ namespace CoreOfficeERP.Infrastructure.Api
             var content = CreateJsonContent(data);
 
             var response = await _httpClient.PutAsync($"{endpoint}/{id}", content);
+            response.EnsureSuccessStatusCode();
+
+            return await DeserializeResponse<TResponse>(response);
+        }
+        public async Task<TResponse?> PutAsync<TRequest, TResponse>(string endpoint, object id, TRequest data, bool isStockTransfer)
+        {
+            var content = CreateJsonContent(data);
+            var url = $"{endpoint}/{id}?isStockTransfer={isStockTransfer.ToString().ToLower()}";
+            var response = await _httpClient.PutAsync(url, content);
             response.EnsureSuccessStatusCode();
 
             return await DeserializeResponse<TResponse>(response);
