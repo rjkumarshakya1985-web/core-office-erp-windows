@@ -109,7 +109,7 @@
             pnlHeader.Dock = DockStyle.Top;
             pnlHeader.Location = new Point(0, 0);
             pnlHeader.Name = "pnlHeader";
-            pnlHeader.Size = new Size(1059, 53);
+            pnlHeader.Size = new Size(1128, 53);
             pnlHeader.TabIndex = 2;
             // 
             // label6
@@ -151,7 +151,7 @@
             panel4.Dock = DockStyle.Bottom;
             panel4.Location = new Point(0, 330);
             panel4.Name = "panel4";
-            panel4.Size = new Size(1059, 125);
+            panel4.Size = new Size(1128, 125);
             panel4.TabIndex = 5;
             // 
             // panel9
@@ -160,7 +160,7 @@
             panel9.Dock = DockStyle.Fill;
             panel9.Location = new Point(329, 0);
             panel9.Name = "panel9";
-            panel9.Size = new Size(394, 125);
+            panel9.Size = new Size(463, 125);
             panel9.TabIndex = 9;
             // 
             // groupBox3
@@ -205,7 +205,7 @@
             groupBox1.Dock = DockStyle.Right;
             groupBox1.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox1.ForeColor = Color.FromArgb(40, 90, 200);
-            groupBox1.Location = new Point(723, 0);
+            groupBox1.Location = new Point(792, 0);
             groupBox1.Margin = new Padding(10, 5, 5, 5);
             groupBox1.Name = "groupBox1";
             groupBox1.Padding = new Padding(10, 5, 5, 5);
@@ -421,7 +421,7 @@
             panel2.Dock = DockStyle.Fill;
             panel2.Location = new Point(0, 53);
             panel2.Name = "panel2";
-            panel2.Size = new Size(1059, 537);
+            panel2.Size = new Size(1128, 537);
             panel2.TabIndex = 3;
             // 
             // dataGridPackingSlip
@@ -462,7 +462,7 @@
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
             dataGridPackingSlip.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dataGridPackingSlip.RowTemplate.Height = 40;
-            dataGridPackingSlip.Size = new Size(1059, 269);
+            dataGridPackingSlip.Size = new Size(1128, 269);
             dataGridPackingSlip.TabIndex = 2;
             dataGridPackingSlip.CellDoubleClick += dataGridPackingSlip_CellDoubleClick;
             dataGridPackingSlip.RowEnter += dataGridPackingSlip_RowEnter;
@@ -548,7 +548,7 @@
             panel10.Dock = DockStyle.Bottom;
             panel10.Location = new Point(0, 63);
             panel10.Name = "panel10";
-            panel10.Size = new Size(1059, 72);
+            panel10.Size = new Size(1128, 72);
             panel10.TabIndex = 10;
             // 
             // btnPendingPackingSlips
@@ -558,7 +558,7 @@
             btnPendingPackingSlips.FlatStyle = FlatStyle.Flat;
             btnPendingPackingSlips.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnPendingPackingSlips.ForeColor = Color.White;
-            btnPendingPackingSlips.Location = new Point(982, 9);
+            btnPendingPackingSlips.Location = new Point(938, 9);
             btnPendingPackingSlips.Name = "btnPendingPackingSlips";
             btnPendingPackingSlips.Size = new Size(179, 50);
             btnPendingPackingSlips.TabIndex = 12;
@@ -573,7 +573,7 @@
             btnClear.FlatStyle = FlatStyle.Flat;
             btnClear.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnClear.ForeColor = Color.White;
-            btnClear.Location = new Point(351, 9);
+            btnClear.Location = new Point(300, 9);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(109, 50);
             btnClear.TabIndex = 11;
@@ -588,7 +588,7 @@
             btnClose.FlatStyle = FlatStyle.Flat;
             btnClose.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnClose.ForeColor = Color.White;
-            btnClose.Location = new Point(466, 9);
+            btnClose.Location = new Point(416, 9);
             btnClose.Name = "btnClose";
             btnClose.Size = new Size(109, 50);
             btnClose.TabIndex = 10;
@@ -602,7 +602,7 @@
             btnSave.FlatStyle = FlatStyle.Flat;
             btnSave.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnSave.ForeColor = Color.White;
-            btnSave.Location = new Point(236, 10);
+            btnSave.Location = new Point(183, 11);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(109, 50);
             btnSave.TabIndex = 3;
@@ -617,7 +617,7 @@
             btnDelete.FlatStyle = FlatStyle.Flat;
             btnDelete.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnDelete.ForeColor = Color.White;
-            btnDelete.Location = new Point(696, 9);
+            btnDelete.Location = new Point(650, 9);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(109, 50);
             btnDelete.TabIndex = 9;
@@ -632,7 +632,7 @@
             btnVisitor.ImageAlign = ContentAlignment.MiddleLeft;
             btnVisitor.Location = new Point(6, 10);
             btnVisitor.Name = "btnVisitor";
-            btnVisitor.Size = new Size(109, 50);
+            btnVisitor.Size = new Size(75, 50);
             btnVisitor.TabIndex = 4;
             btnVisitor.Text = "Visitor";
             btnVisitor.UseVisualStyleBackColor = true;
@@ -642,9 +642,9 @@
             // 
             btnCustomer.FlatStyle = FlatStyle.Flat;
             btnCustomer.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            btnCustomer.Location = new Point(121, 10);
+            btnCustomer.Location = new Point(92, 10);
             btnCustomer.Name = "btnCustomer";
-            btnCustomer.Size = new Size(109, 50);
+            btnCustomer.Size = new Size(83, 50);
             btnCustomer.TabIndex = 13;
             btnCustomer.Text = "Customer";
             btnCustomer.UseVisualStyleBackColor = true;
@@ -656,7 +656,7 @@
             btnUpdate.FlatAppearance.BorderSize = 0;
             btnUpdate.FlatStyle = FlatStyle.Flat;
             btnUpdate.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            btnUpdate.Location = new Point(581, 10);
+            btnUpdate.Location = new Point(534, 10);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(109, 50);
             btnUpdate.TabIndex = 8;
@@ -671,7 +671,7 @@
             btnRemoved.FlatStyle = FlatStyle.Flat;
             btnRemoved.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnRemoved.ForeColor = Color.White;
-            btnRemoved.Location = new Point(811, 10);
+            btnRemoved.Location = new Point(767, 10);
             btnRemoved.Name = "btnRemoved";
             btnRemoved.Size = new Size(165, 50);
             btnRemoved.TabIndex = 7;
@@ -689,7 +689,7 @@
             pnlBarcode.Dock = DockStyle.Top;
             pnlBarcode.Location = new Point(0, 0);
             pnlBarcode.Name = "pnlBarcode";
-            pnlBarcode.Size = new Size(1059, 66);
+            pnlBarcode.Size = new Size(1128, 66);
             pnlBarcode.TabIndex = 3;
             // 
             // btnEnter
@@ -730,14 +730,14 @@
             panel3.Dock = DockStyle.Bottom;
             panel3.Location = new Point(0, 455);
             panel3.Name = "panel3";
-            panel3.Size = new Size(1059, 135);
+            panel3.Size = new Size(1128, 135);
             panel3.TabIndex = 4;
             // 
             // FrmPackingSlip
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1059, 590);
+            ClientSize = new Size(1128, 590);
             Controls.Add(panel4);
             Controls.Add(panel3);
             Controls.Add(panel2);

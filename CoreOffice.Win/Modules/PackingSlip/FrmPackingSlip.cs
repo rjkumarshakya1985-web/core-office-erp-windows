@@ -596,11 +596,20 @@ namespace CoreOffice.Win.Modules.PackingSlip
             Clear();
 
             // Set PackingSlipId (Edit mode)
-            PackingSlipId = response.Id;
 
-            // Visitor Info
-            SetVisitorInfo(
-               response.Visitor);
+            if (response.Visitor != null)
+            {
+                // Visitor Info
+                SetVisitorInfo(
+                   response.Visitor);
+
+            }
+            else
+            {
+                SetCustomerInfo(response.CustomerResponse);
+            }
+                PackingSlipId = response.Id;
+
 
             if (response.SalesPersonId != null)
                 cmbSalesPerson.SelectedValue = response.SalesPersonId.Value;

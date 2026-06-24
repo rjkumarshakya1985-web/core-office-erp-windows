@@ -1,4 +1,6 @@
-﻿namespace CoreOfficeERP.Domain.Responses.PackingSlip
+﻿using CoreOfficeERP.Domain.Responses.Customers;
+
+namespace CoreOfficeERP.Domain.Responses.PackingSlip
 {
     public class PackingSlipResponse
     {
@@ -25,6 +27,8 @@
         public decimal TotalAmount { get; set; }
 
         public VisitorResponse? Visitor { get; set; }
+
+        public CustomerResponse? CustomerResponse { get; set; }
         public List<PackingSlipItemResponse> Items { get; set; } = new();
     }
 }
