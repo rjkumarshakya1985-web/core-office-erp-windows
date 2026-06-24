@@ -68,6 +68,7 @@ namespace CoreOffice.Win.Modules.TallySynch
             lblSGSTTotal.Text = "0.00";
             lblIGSTTotal.Text = "0.00";
             lblPayableAmount.Text = "0.00";
+            lblAdditionalCharges.Text= "0.00";
 
 
         }
@@ -345,6 +346,7 @@ namespace CoreOffice.Win.Modules.TallySynch
         private void BindSummary()
         {
             var items = _currentPurchase.StockitemResponse;
+            decimal additionalCharges = _currentPurchase.SaleVoucherPrint.AdditionalCharges??0;
 
             lblNetAmount.Text = items.Sum(x => x.Total).ToString("0.00");
 
@@ -357,8 +359,10 @@ namespace CoreOffice.Win.Modules.TallySynch
             lblSGSTTotal.Text = items.Sum(x => x.SGST).ToString("0.00");
 
             lblIGSTTotal.Text = items.Sum(x => x.IGST).ToString("0.00");
-           
-            decimal payableAmount = items.Sum(x => x.PayableAmount);
+
+            lblAdditionalCharges.Text = additionalCharges.ToString("0.00");
+
+            decimal payableAmount = items.Sum(x => x.PayableAmount) + additionalCharges;
             // Round to nearest rupee (0.50 and above rounds up)
             decimal roundedPayable = Math.Round(payableAmount, 0, MidpointRounding.AwayFromZero);
 
@@ -367,9 +371,10 @@ namespace CoreOffice.Win.Modules.TallySynch
 
             lblPayableAmount.Text = roundedPayable.ToString("0.00");
 
-            lblRoundOff.Text = roundOff.ToString("0.00");           
+            lblRoundOff.Text = roundOff.ToString("0.00");    
+           
 
-            
+
         }
         private void MapLedgerNames(TallyPurchaseResponse data)
         {

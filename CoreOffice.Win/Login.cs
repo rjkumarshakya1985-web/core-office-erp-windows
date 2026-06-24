@@ -16,15 +16,17 @@ namespace CoreOffice.Win
         private readonly ITokenProvider _tokenProvider;
         private readonly IMasterService _masterService;
         private readonly IServiceProvider _serviceProvider;
+        private readonly ICustomerService _customerService;
 
         //  Constructor injection
-        public Login(IServiceProvider serviceProvider,IAuthService authService, IMasterService masterService, ITokenProvider tokenProvider)
+        public Login(IServiceProvider serviceProvider,IAuthService authService, IMasterService masterService, ITokenProvider tokenProvider, ICustomerService customerService)
         {
             InitializeComponent();
             _authService = authService;
             _masterService = masterService;
             _tokenProvider = tokenProvider;
             _serviceProvider = serviceProvider;
+            _customerService = customerService;
         }     
         private void btnMinimise_Click(object sender, EventArgs e)
         {
@@ -76,7 +78,8 @@ namespace CoreOffice.Win
                     // Set token
                     _tokenProvider.SetToken(response.Token);
                      UserSession.RoleEnum = (RoleEnum)Enum.Parse(typeof(RoleEnum), response.RoleName);
-
+                    // Load customer cache only once
+                    await _customerService.GetCachedCustomersAsync();
                     if (response.RoleName == RoleEnum.PackingSlipOperator.ToString())
                     {
                         var dashboard = _serviceProvider.GetRequiredService<MDIPackingSlip>();

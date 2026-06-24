@@ -196,7 +196,7 @@
             Type.AutoSize = true;
             Type.Location = new Point(7, 26);
             Type.Name = "Type";
-            Type.Size = new Size(86, 15);
+            Type.Size = new Size(87, 15);
             Type.TabIndex = 39;
             Type.Text = "Customer Type";
             // 
@@ -361,7 +361,7 @@
             label9.AutoSize = true;
             label9.Location = new Point(315, 129);
             label9.Name = "label9";
-            label9.Size = new Size(97, 15);
+            label9.Size = new Size(98, 15);
             label9.TabIndex = 14;
             label9.Text = "Registration Type";
             // 
@@ -393,7 +393,7 @@
             label7.AutoSize = true;
             label7.Location = new Point(656, 102);
             label7.Name = "label7";
-            label7.Size = new Size(39, 15);
+            label7.Size = new Size(40, 15);
             label7.TabIndex = 10;
             label7.Text = "GSTIN";
             // 
@@ -494,9 +494,9 @@
             btnCreate.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             btnCreate.Location = new Point(155, 4);
             btnCreate.Name = "btnCreate";
-            btnCreate.Size = new Size(137, 40);
+            btnCreate.Size = new Size(192, 40);
             btnCreate.TabIndex = 1;
-            btnCreate.Text = "&Create Supplier";
+            btnCreate.Text = "&Create Customer";
             btnCreate.UseVisualStyleBackColor = true;
             btnCreate.Click += btnCreate_Click;
             // 

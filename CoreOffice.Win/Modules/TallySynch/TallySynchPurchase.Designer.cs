@@ -84,6 +84,9 @@
             btnClear = new Button();
             btnSynch = new Button();
             groupBox3 = new GroupBox();
+            label29 = new Label();
+            lblAdditionalCharges = new Label();
+            label31 = new Label();
             label27 = new Label();
             lblRoundOff = new Label();
             label26 = new Label();
@@ -653,9 +656,9 @@
             panel2.Controls.Add(groupBox3);
             panel2.Controls.Add(grpTotal);
             panel2.Dock = DockStyle.Bottom;
-            panel2.Location = new Point(0, 336);
+            panel2.Location = new Point(0, 320);
             panel2.Name = "panel2";
-            panel2.Size = new Size(892, 162);
+            panel2.Size = new Size(892, 178);
             panel2.TabIndex = 1;
             // 
             // groupBox4
@@ -668,9 +671,9 @@
             groupBox4.Controls.Add(btnSynch);
             groupBox4.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             groupBox4.ForeColor = Color.White;
-            groupBox4.Location = new Point(544, 6);
+            groupBox4.Location = new Point(538, 0);
             groupBox4.Name = "groupBox4";
-            groupBox4.Size = new Size(342, 153);
+            groupBox4.Size = new Size(348, 175);
             groupBox4.TabIndex = 45;
             groupBox4.TabStop = false;
             groupBox4.Text = "Scan Voucher";
@@ -744,6 +747,9 @@
             // groupBox3
             // 
             groupBox3.BackColor = Color.FromArgb(64, 64, 64);
+            groupBox3.Controls.Add(label29);
+            groupBox3.Controls.Add(lblAdditionalCharges);
+            groupBox3.Controls.Add(label31);
             groupBox3.Controls.Add(label27);
             groupBox3.Controls.Add(lblRoundOff);
             groupBox3.Controls.Add(label26);
@@ -770,18 +776,48 @@
             groupBox3.Controls.Add(lblPayableAmountl);
             groupBox3.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold);
             groupBox3.ForeColor = Color.White;
-            groupBox3.Location = new Point(249, 6);
+            groupBox3.Location = new Point(249, 0);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(283, 153);
+            groupBox3.Size = new Size(283, 175);
             groupBox3.TabIndex = 42;
             groupBox3.TabStop = false;
             groupBox3.Text = "Bill Summary";
+            // 
+            // label29
+            // 
+            label29.AutoSize = true;
+            label29.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            label29.Location = new Point(88, 129);
+            label29.Name = "label29";
+            label29.Size = new Size(17, 19);
+            label29.TabIndex = 47;
+            label29.Text = "₹";
+            // 
+            // lblAdditionalCharges
+            // 
+            lblAdditionalCharges.AutoSize = true;
+            lblAdditionalCharges.Font = new Font("Segoe UI", 8F);
+            lblAdditionalCharges.Location = new Point(101, 132);
+            lblAdditionalCharges.Name = "lblAdditionalCharges";
+            lblAdditionalCharges.Size = new Size(22, 13);
+            lblAdditionalCharges.TabIndex = 46;
+            lblAdditionalCharges.Text = "NA";
+            // 
+            // label31
+            // 
+            label31.AutoSize = true;
+            label31.Font = new Font("Segoe UI", 8F);
+            label31.Location = new Point(6, 132);
+            label31.Name = "label31";
+            label31.Size = new Size(63, 13);
+            label31.TabIndex = 45;
+            label31.Text = "Add. Chgs:";
             // 
             // label27
             // 
             label27.AutoSize = true;
             label27.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            label27.Location = new Point(86, 112);
+            label27.Location = new Point(88, 112);
             label27.Name = "label27";
             label27.Size = new Size(17, 19);
             label27.TabIndex = 44;
@@ -791,7 +827,7 @@
             // 
             lblRoundOff.AutoSize = true;
             lblRoundOff.Font = new Font("Segoe UI", 8F);
-            lblRoundOff.Location = new Point(102, 115);
+            lblRoundOff.Location = new Point(101, 115);
             lblRoundOff.Name = "lblRoundOff";
             lblRoundOff.Size = new Size(22, 13);
             lblRoundOff.TabIndex = 43;
@@ -811,7 +847,7 @@
             // 
             label46.AutoSize = true;
             label46.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            label46.Location = new Point(86, 129);
+            label46.Location = new Point(86, 148);
             label46.Name = "label46";
             label46.Size = new Size(19, 21);
             label46.TabIndex = 41;
@@ -821,7 +857,7 @@
             // 
             label47.AutoSize = true;
             label47.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            label47.Location = new Point(86, 97);
+            label47.Location = new Point(88, 97);
             label47.Name = "label47";
             label47.Size = new Size(17, 19);
             label47.TabIndex = 40;
@@ -831,7 +867,7 @@
             // 
             label48.AutoSize = true;
             label48.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            label48.Location = new Point(86, 82);
+            label48.Location = new Point(88, 82);
             label48.Name = "label48";
             label48.Size = new Size(17, 19);
             label48.TabIndex = 39;
@@ -841,7 +877,7 @@
             // 
             lblNetAmount.AutoSize = true;
             lblNetAmount.Font = new Font("Segoe UI", 8F);
-            lblNetAmount.Location = new Point(102, 25);
+            lblNetAmount.Location = new Point(101, 25);
             lblNetAmount.Name = "lblNetAmount";
             lblNetAmount.Size = new Size(22, 13);
             lblNetAmount.TabIndex = 34;
@@ -851,7 +887,7 @@
             // 
             label49.AutoSize = true;
             label49.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            label49.Location = new Point(86, 67);
+            label49.Location = new Point(88, 67);
             label49.Name = "label49";
             label49.Size = new Size(17, 19);
             label49.TabIndex = 38;
@@ -861,7 +897,7 @@
             // 
             label50.AutoSize = true;
             label50.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            label50.Location = new Point(86, 53);
+            label50.Location = new Point(88, 53);
             label50.Name = "label50";
             label50.Size = new Size(17, 19);
             label50.TabIndex = 37;
@@ -871,7 +907,7 @@
             // 
             label51.AutoSize = true;
             label51.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            label51.Location = new Point(86, 39);
+            label51.Location = new Point(88, 39);
             label51.Name = "label51";
             label51.Size = new Size(17, 19);
             label51.TabIndex = 36;
@@ -881,7 +917,7 @@
             // 
             label52.AutoSize = true;
             label52.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            label52.Location = new Point(86, 22);
+            label52.Location = new Point(88, 22);
             label52.Name = "label52";
             label52.Size = new Size(17, 19);
             label52.TabIndex = 35;
@@ -911,7 +947,7 @@
             // 
             lblPayableAmount.AutoSize = true;
             lblPayableAmount.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
-            lblPayableAmount.Location = new Point(101, 129);
+            lblPayableAmount.Location = new Point(101, 148);
             lblPayableAmount.Name = "lblPayableAmount";
             lblPayableAmount.Size = new Size(34, 21);
             lblPayableAmount.TabIndex = 31;
@@ -931,7 +967,7 @@
             // 
             lblIGSTTotal.AutoSize = true;
             lblIGSTTotal.Font = new Font("Segoe UI", 8F);
-            lblIGSTTotal.Location = new Point(102, 100);
+            lblIGSTTotal.Location = new Point(101, 100);
             lblIGSTTotal.Name = "lblIGSTTotal";
             lblIGSTTotal.Size = new Size(22, 13);
             lblIGSTTotal.TabIndex = 29;
@@ -941,7 +977,7 @@
             // 
             lblTotalDiscount.AutoSize = true;
             lblTotalDiscount.Font = new Font("Segoe UI", 8F);
-            lblTotalDiscount.Location = new Point(102, 41);
+            lblTotalDiscount.Location = new Point(101, 41);
             lblTotalDiscount.Name = "lblTotalDiscount";
             lblTotalDiscount.Size = new Size(22, 13);
             lblTotalDiscount.TabIndex = 25;
@@ -961,7 +997,7 @@
             // 
             lblSGSTTotal.AutoSize = true;
             lblSGSTTotal.Font = new Font("Segoe UI", 8F);
-            lblSGSTTotal.Location = new Point(102, 85);
+            lblSGSTTotal.Location = new Point(101, 85);
             lblSGSTTotal.Name = "lblSGSTTotal";
             lblSGSTTotal.Size = new Size(22, 13);
             lblSGSTTotal.TabIndex = 28;
@@ -971,7 +1007,7 @@
             // 
             lblTaxable.AutoSize = true;
             lblTaxable.Font = new Font("Segoe UI", 8F);
-            lblTaxable.Location = new Point(102, 55);
+            lblTaxable.Location = new Point(101, 55);
             lblTaxable.Name = "lblTaxable";
             lblTaxable.Size = new Size(22, 13);
             lblTaxable.TabIndex = 26;
@@ -991,7 +1027,7 @@
             // 
             lblCGSTTotal.AutoSize = true;
             lblCGSTTotal.Font = new Font("Segoe UI", 8F);
-            lblCGSTTotal.Location = new Point(102, 70);
+            lblCGSTTotal.Location = new Point(101, 70);
             lblCGSTTotal.Name = "lblCGSTTotal";
             lblCGSTTotal.Size = new Size(22, 13);
             lblCGSTTotal.TabIndex = 27;
@@ -1011,7 +1047,7 @@
             // 
             lblPayableAmountl.AutoSize = true;
             lblPayableAmountl.Font = new Font("Segoe UI", 8F);
-            lblPayableAmountl.Location = new Point(6, 131);
+            lblPayableAmountl.Location = new Point(6, 150);
             lblPayableAmountl.Name = "lblPayableAmountl";
             lblPayableAmountl.Size = new Size(69, 13);
             lblPayableAmountl.TabIndex = 11;
@@ -1028,7 +1064,7 @@
             grpTotal.ForeColor = Color.White;
             grpTotal.Location = new Point(3, 3);
             grpTotal.Name = "grpTotal";
-            grpTotal.Size = new Size(240, 156);
+            grpTotal.Size = new Size(240, 172);
             grpTotal.TabIndex = 35;
             grpTotal.TabStop = false;
             grpTotal.Text = "Bill information";
@@ -1080,7 +1116,7 @@
             dataGridInvoice.Dock = DockStyle.Fill;
             dataGridInvoice.Location = new Point(0, 221);
             dataGridInvoice.Name = "dataGridInvoice";
-            dataGridInvoice.Size = new Size(892, 115);
+            dataGridInvoice.Size = new Size(892, 99);
             dataGridInvoice.TabIndex = 6;
             // 
             // TallySynchPurchase
@@ -1201,5 +1237,8 @@
         private Label lblRoundOff;
         private GroupBox groupBox4;
         private Label label3;
+        private Label label29;
+        private Label lblAdditionalCharges;
+        private Label label31;
     }
 }

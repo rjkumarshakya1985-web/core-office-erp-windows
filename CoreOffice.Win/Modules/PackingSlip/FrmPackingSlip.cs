@@ -472,8 +472,6 @@ namespace CoreOffice.Win.Modules.PackingSlip
             {
                 AppLoader.Show();
 
-
-
                 if (dataGridPackingSlip.Rows.Count == 0)
                 {
                     MessageBox.Show("Add items first");

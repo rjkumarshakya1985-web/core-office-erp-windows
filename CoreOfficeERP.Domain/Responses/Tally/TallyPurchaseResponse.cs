@@ -155,7 +155,7 @@ namespace CoreOfficeERP.Domain.Responses.Tally
         public string? SupplierBillNumber { get; set; }
         public string? GstIn { get; set; }    
         public decimal Discount { get; set; }
-        public decimal AdditionalCharges { get; set; }
+        public decimal? AdditionalCharges { get; set; }
         public DateTime Date { get; set; }   
         public int ParcelStatus { get; set; }
         public string? lrNumber { get; set; }

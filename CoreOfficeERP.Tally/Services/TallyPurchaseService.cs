@@ -487,7 +487,7 @@ namespace CoreOfficeERP.Tally.Services
             var totalIGST = data.StockitemResponse.Sum(x => x.IGST);
             var totalCGST = data.StockitemResponse.Sum(x => x.CGST);
             var totalSGST = data.StockitemResponse.Sum(x => x.SGST);
-            var additionalCharges = data.SaleVoucherPrint.AdditionalCharges;
+            var additionalCharges = data.SaleVoucherPrint.AdditionalCharges??0;
             var totalDiscount = data.StockitemResponse.Sum(x => x.Discount > 0
                 ? (x.Quantity * x.PurchasePrice * x.Discount / 100)
                 : 0);
@@ -567,7 +567,41 @@ namespace CoreOfficeERP.Tally.Services
             //            isDeemedPositive = true
             //        });
             //    }
+            // =========================
+            // AdditionalCharges LEDGER
+            // =========================
+            if (additionalCharges != 0)
+            {
 
+                decimal ledgerAmount;
+                bool isDeemedPositive;
+
+                if (additionalCharges < 0)
+                {
+                    // Example:
+                    // 5297.37 -> 5297
+                    // Need (-)0.37 display
+
+                    ledgerAmount = Math.Abs(additionalCharges); // +0.37
+                    isDeemedPositive = true;
+                }
+                else
+                {
+                    // Example:
+                    // 89920.95 -> 89921
+                    // Need +0.05 display
+
+                    ledgerAmount = -additionalCharges; // +0.05
+                    isDeemedPositive = true;
+                }
+
+                invoice.arlLedgerEntries.Add(new LedgerEntry
+                {
+                    ledgerName = "Additional Charges",
+                    ledgerAmount = ledgerAmount,
+                    isDeemedPositive = isDeemedPositive
+                });
+            }
 
             // =========================
             // IGST
@@ -605,41 +639,7 @@ namespace CoreOfficeERP.Tally.Services
                     isDeemedPositive = true
                 });
             }
-            // =========================
-            // AdditionalCharges LEDGER
-            // =========================
-            if (additionalCharges != 0)
-            {
-
-                decimal ledgerAmount;
-                bool isDeemedPositive;
-
-                if (additionalCharges < 0)
-                {
-                    // Example:
-                    // 5297.37 -> 5297
-                    // Need (-)0.37 display
-
-                    ledgerAmount = Math.Abs(additionalCharges); // +0.37
-                    isDeemedPositive = true;
-                }
-                else
-                {
-                    // Example:
-                    // 89920.95 -> 89921
-                    // Need +0.05 display
-
-                    ledgerAmount = -additionalCharges; // +0.05
-                    isDeemedPositive = true;
-                }
-
-                invoice.arlLedgerEntries.Add(new LedgerEntry
-                {
-                    ledgerName = "Additional Charges",
-                    ledgerAmount = ledgerAmount,
-                    isDeemedPositive = isDeemedPositive
-                });
-            }
+            
             // =========================
             // ROUND OFF LEDGER
             // =========================           
