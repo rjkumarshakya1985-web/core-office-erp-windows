@@ -25,6 +25,7 @@ namespace CoreOfficeERP.Domain.Requests.Customers
         public string? Mobile { get; set; }
         public string? Email { get; set; }
         public string? ContactPerson { get; set; }
+        public decimal? Discount { get; set; }
         public decimal? OpeningBalance { get; set; }
         public int? CreditDays { get; set; }
         public decimal? CreditLimit { get; set; }

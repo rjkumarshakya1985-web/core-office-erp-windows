@@ -26,7 +26,10 @@
         /// Sales Person
         public const string GetAllActiveSalesPersons = "saleperson/active";
 
+        public const string CreateCustomer = "customer";
         public const string CreateSupplier = "customer/mobile/create-supplier";
+        public const string GetCustomerByMobile = "customer/mobile";
+        public const string GetBillingCustomers = "customer/billing-customers";
 
         // Invoices
         public const string GetDeliveryChallanForInvoice = "deliveryChallanToInvoice/delivery-challan/for-invoice";

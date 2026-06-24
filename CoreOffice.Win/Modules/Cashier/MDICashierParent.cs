@@ -214,8 +214,8 @@ namespace CoreOffice.Win.Modules.Cashier
                 UserSession.FinanceYearId = 0;
 
                 // Open login form
-                Login login = new Login(null,null,null,null);
-                login.Show();
+                //Login login = new Login(null,null,null,null);
+                //login.Show();
 
                 // Hide or close current form
                 this.Hide();

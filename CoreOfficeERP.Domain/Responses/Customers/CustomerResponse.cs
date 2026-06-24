@@ -8,5 +8,6 @@ namespace CoreOfficeERP.Domain.Responses.Customers
         public required string Name { get; set; }
         public required string Mobile { get; set; }
         public decimal? Discount { get; set; }
+        public int? CustomerType { get; set; }
     }
 }

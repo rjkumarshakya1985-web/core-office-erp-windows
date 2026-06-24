@@ -78,6 +78,7 @@
             btnSave = new Button();
             btnDelete = new Button();
             btnVisitor = new Button();
+            btnCustomer = new Button();
             btnUpdate = new Button();
             btnRemoved = new Button();
             pnlBarcode = new Panel();
@@ -539,6 +540,7 @@
             panel10.Controls.Add(btnSave);
             panel10.Controls.Add(btnDelete);
             panel10.Controls.Add(btnVisitor);
+            panel10.Controls.Add(btnCustomer);
             panel10.Controls.Add(btnUpdate);
             panel10.Controls.Add(btnRemoved);
             panel10.Dock = DockStyle.Bottom;
@@ -554,7 +556,7 @@
             btnPendingPackingSlips.FlatStyle = FlatStyle.Flat;
             btnPendingPackingSlips.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnPendingPackingSlips.ForeColor = Color.White;
-            btnPendingPackingSlips.Location = new Point(867, 9);
+            btnPendingPackingSlips.Location = new Point(982, 9);
             btnPendingPackingSlips.Name = "btnPendingPackingSlips";
             btnPendingPackingSlips.Size = new Size(179, 50);
             btnPendingPackingSlips.TabIndex = 12;
@@ -569,7 +571,7 @@
             btnClear.FlatStyle = FlatStyle.Flat;
             btnClear.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnClear.ForeColor = Color.White;
-            btnClear.Location = new Point(236, 9);
+            btnClear.Location = new Point(351, 9);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(109, 50);
             btnClear.TabIndex = 11;
@@ -584,7 +586,7 @@
             btnClose.FlatStyle = FlatStyle.Flat;
             btnClose.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnClose.ForeColor = Color.White;
-            btnClose.Location = new Point(351, 9);
+            btnClose.Location = new Point(466, 9);
             btnClose.Name = "btnClose";
             btnClose.Size = new Size(109, 50);
             btnClose.TabIndex = 10;
@@ -598,7 +600,7 @@
             btnSave.FlatStyle = FlatStyle.Flat;
             btnSave.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnSave.ForeColor = Color.White;
-            btnSave.Location = new Point(121, 10);
+            btnSave.Location = new Point(236, 10);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(109, 50);
             btnSave.TabIndex = 3;
@@ -613,7 +615,7 @@
             btnDelete.FlatStyle = FlatStyle.Flat;
             btnDelete.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnDelete.ForeColor = Color.White;
-            btnDelete.Location = new Point(581, 9);
+            btnDelete.Location = new Point(696, 9);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(109, 50);
             btnDelete.TabIndex = 9;
@@ -634,13 +636,25 @@
             btnVisitor.UseVisualStyleBackColor = true;
             btnVisitor.Click += btnVisitor_Click;
             // 
+            // btnCustomer
+            // 
+            btnCustomer.FlatStyle = FlatStyle.Flat;
+            btnCustomer.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
+            btnCustomer.Location = new Point(121, 10);
+            btnCustomer.Name = "btnCustomer";
+            btnCustomer.Size = new Size(109, 50);
+            btnCustomer.TabIndex = 13;
+            btnCustomer.Text = "Customer";
+            btnCustomer.UseVisualStyleBackColor = true;
+            btnCustomer.Click += btnCustomer_Click;
+            // 
             // btnUpdate
             // 
             btnUpdate.BackColor = Color.FromArgb(245, 158, 11);
             btnUpdate.FlatAppearance.BorderSize = 0;
             btnUpdate.FlatStyle = FlatStyle.Flat;
             btnUpdate.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
-            btnUpdate.Location = new Point(466, 10);
+            btnUpdate.Location = new Point(581, 10);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(109, 50);
             btnUpdate.TabIndex = 8;
@@ -655,7 +669,7 @@
             btnRemoved.FlatStyle = FlatStyle.Flat;
             btnRemoved.Font = new Font("Segoe UI", 9F, FontStyle.Bold);
             btnRemoved.ForeColor = Color.White;
-            btnRemoved.Location = new Point(696, 10);
+            btnRemoved.Location = new Point(811, 10);
             btnRemoved.Name = "btnRemoved";
             btnRemoved.Size = new Size(165, 50);
             btnRemoved.TabIndex = 7;
@@ -799,6 +813,7 @@
         private Button btnSave;
         private Button btnDelete;
         private Button btnVisitor;
+        private Button btnCustomer;
         private Button btnUpdate;
         private Button btnRemoved;
         private Panel pnlBarcode;
