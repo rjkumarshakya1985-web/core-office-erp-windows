@@ -17,7 +17,6 @@ namespace CoreOffice.Win
         private readonly IMasterService _masterService;
         private readonly ICustomerService _customerService;
         private readonly IServiceProvider _serviceProvider;
-        private readonly ICustomerService _customerService;
 
         //  Constructor injection
         public Login(
@@ -33,7 +32,6 @@ namespace CoreOffice.Win
             _customerService = customerService;
             _tokenProvider = tokenProvider;
             _serviceProvider = serviceProvider;
-            _customerService = customerService;
         }     
         private void btnMinimise_Click(object sender, EventArgs e)
         {
@@ -86,8 +84,7 @@ namespace CoreOffice.Win
                     _tokenProvider.SetToken(response.Token);
                     await LoadBillingCustomers();
                      UserSession.RoleEnum = (RoleEnum)Enum.Parse(typeof(RoleEnum), response.RoleName);
-                    // Load customer cache only once
-                    await _customerService.GetCachedCustomersAsync();
+                    
                     if (response.RoleName == RoleEnum.PackingSlipOperator.ToString())
                     {
                         var dashboard = _serviceProvider.GetRequiredService<MDIPackingSlip>();

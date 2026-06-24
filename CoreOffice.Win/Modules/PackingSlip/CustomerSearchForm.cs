@@ -9,11 +9,16 @@ namespace CoreOffice.Win.Modules.PackingSlip
     {
         private readonly FrmPackingSlip _frmPackingSlip;
         private readonly IServiceProvider _serviceProvider;
-        private readonly ICustomerService _customerService;
-        private readonly ComboBox cmbCustomer = new();
-        private readonly Button btnSelect = new();
-        private readonly Button btnAdd = new();
-        private readonly Button btnClose = new();
+        private readonly ICustomerService _customerService;       
+        private Panel pnlTop;
+        private Label label1;
+        private Panel panel3;
+        private TextBox txtSearch;
+        private Label label3;
+        private DataGridView gridCustomers;
+        private DataGridViewTextBoxColumn CustomerName;
+        private DataGridViewTextBoxColumn Mobile;
+        private DataGridViewTextBoxColumn GSTIN;
         private List<CustomerResponse> _customers = new();
 
         public CustomerSearchForm(
@@ -25,57 +30,9 @@ namespace CoreOffice.Win.Modules.PackingSlip
             _serviceProvider = serviceProvider;
             _customerService = customerService;
 
-            InitializeForm();
-        }
-
-        private void InitializeForm()
-        {
-            Text = "Customer Search";
-            FormBorderStyle = FormBorderStyle.FixedToolWindow;
-            StartPosition = FormStartPosition.CenterParent;
-            ClientSize = new Size(560, 135);
-            MaximizeBox = false;
-
-            var groupBox = new GroupBox
-            {
-                Text = "Search customer by name or phone number",
-                Dock = DockStyle.Top,
-                Height = 78
-            };
-
-            cmbCustomer.Font = new Font("Segoe UI", 12F);
-            cmbCustomer.Location = new Point(16, 28);
-            cmbCustomer.Size = new Size(525, 29);
-            cmbCustomer.AutoCompleteMode = AutoCompleteMode.SuggestAppend;
-            cmbCustomer.AutoCompleteSource = AutoCompleteSource.CustomSource;
-            cmbCustomer.KeyDown += cmbCustomer_KeyDown;
-            groupBox.Controls.Add(cmbCustomer);
-
-            btnSelect.Text = "Select";
-            btnSelect.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnSelect.Location = new Point(16, 88);
-            btnSelect.Size = new Size(110, 34);
-            btnSelect.Click += btnSelect_Click;
-
-            btnAdd.Text = "Add Customer";
-            btnAdd.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnAdd.Location = new Point(132, 88);
-            btnAdd.Size = new Size(135, 34);
-            btnAdd.Click += btnAdd_Click;
-
-            btnClose.Text = "Close";
-            btnClose.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnClose.Location = new Point(273, 88);
-            btnClose.Size = new Size(110, 34);
-            btnClose.Click += (_, _) => Close();
-
-            Controls.Add(groupBox);
-            Controls.Add(btnSelect);
-            Controls.Add(btnAdd);
-            Controls.Add(btnClose);
-
-            Load += CustomerSearchForm_Load;
-        }
+            // InitializeForm();
+            InitializeComponent();   // IMPORTANT
+        }       
 
         private async void CustomerSearchForm_Load(object? sender, EventArgs e)
         {
@@ -83,96 +40,217 @@ namespace CoreOffice.Win.Modules.PackingSlip
             {
                 AppCache.BillingCustomers = await _customerService.GetBillingCustomersAsync();
             }
+            _customers = AppCache.BillingCustomers ?? new List<CustomerResponse>();         
+            BindCustomers(_customers);
 
-            BindCustomers();
-            cmbCustomer.Focus();
+            txtSearch.Focus();
+        }
+        private void BindCustomers(List<CustomerResponse>? customers = null)
+        {
+            gridCustomers.AutoGenerateColumns = false;            
+            gridCustomers.DataSource = null;
+            gridCustomers.DataSource = customers ?? _customers;
+           
+        }  
+        private void InitializeComponent()
+        {
+            pnlTop = new Panel();
+            label1 = new Label();
+            panel3 = new Panel();
+            txtSearch = new TextBox();
+            label3 = new Label();
+            gridCustomers = new DataGridView();
+            CustomerName = new DataGridViewTextBoxColumn();
+            Mobile = new DataGridViewTextBoxColumn();
+            GSTIN = new DataGridViewTextBoxColumn();
+            pnlTop.SuspendLayout();
+            panel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)gridCustomers).BeginInit();
+            SuspendLayout();
+            // 
+            // pnlTop
+            // 
+            pnlTop.BackColor = Color.FromArgb(18, 45, 90);
+            pnlTop.Controls.Add(label1);
+            pnlTop.Dock = DockStyle.Top;
+            pnlTop.Location = new Point(0, 0);
+            pnlTop.Name = "pnlTop";
+            pnlTop.Size = new Size(842, 45);
+            pnlTop.TabIndex = 1;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold);
+            label1.ForeColor = Color.White;
+            label1.Location = new Point(3, 9);
+            label1.Name = "label1";
+            label1.Size = new Size(156, 25);
+            label1.TabIndex = 0;
+            label1.Text = "CUSTOMER LIST";
+            // 
+            // panel3
+            // 
+            panel3.Controls.Add(txtSearch);
+            panel3.Controls.Add(label3);
+            panel3.Dock = DockStyle.Top;
+            panel3.Location = new Point(0, 45);
+            panel3.Name = "panel3";
+            panel3.Size = new Size(842, 48);
+            panel3.TabIndex = 7;
+            // 
+            // txtSearch
+            // 
+            txtSearch.Font = new Font("Segoe UI", 15.75F);
+            txtSearch.Location = new Point(138, 6);
+            txtSearch.Name = "txtSearch";
+            txtSearch.Size = new Size(701, 35);
+            txtSearch.TabIndex = 0;
+            txtSearch.TextChanged += txtSearch_TextChanged;
+            txtSearch.KeyDown += txtSearch_KeyDown;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 15F);
+            label3.Location = new Point(6, 10);
+            label3.Name = "label3";
+            label3.Size = new Size(132, 28);
+            label3.TabIndex = 4;
+            label3.Text = "Search Here....";
+            // 
+            // gridCustomers
+            // 
+            gridCustomers.AllowUserToAddRows = false;
+            gridCustomers.AllowUserToDeleteRows = false;
+            gridCustomers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            gridCustomers.Columns.AddRange(new DataGridViewColumn[] { CustomerName, Mobile, GSTIN });
+            gridCustomers.Dock = DockStyle.Fill;
+            gridCustomers.Location = new Point(0, 93);
+            gridCustomers.MultiSelect = false;
+            gridCustomers.Name = "gridCustomers";
+            gridCustomers.ReadOnly = true;
+            gridCustomers.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            gridCustomers.Size = new Size(842, 415);
+            gridCustomers.TabIndex = 8;
+            gridCustomers.KeyDown += gridCustomers_KeyDown;
+            // 
+            // CustomerName
+            // 
+            CustomerName.DataPropertyName = "Name";
+            CustomerName.HeaderText = "Name";
+            CustomerName.Name = "CustomerName";
+            CustomerName.ReadOnly = true;
+            CustomerName.Width = 250;
+            // 
+            // Mobile
+            // 
+            Mobile.DataPropertyName = "Mobile";
+            Mobile.HeaderText = "Mobile";
+            Mobile.Name = "Mobile";
+            Mobile.ReadOnly = true;
+            Mobile.Width = 150;
+            // 
+            // GSTIN
+            // 
+            GSTIN.DataPropertyName = "GSTIN";
+            GSTIN.HeaderText = "GSTIN";
+            GSTIN.Name = "GSTIN";
+            GSTIN.ReadOnly = true;
+            GSTIN.Width = 300;
+            // 
+            // CustomerSearchForm
+            // 
+            ClientSize = new Size(842, 508);
+            Controls.Add(gridCustomers);
+            Controls.Add(panel3);
+            Controls.Add(pnlTop);
+            Name = "CustomerSearchForm";
+            StartPosition = FormStartPosition.CenterScreen;
+            Load += CustomerSearchForm_Load;
+            pnlTop.ResumeLayout(false);
+            pnlTop.PerformLayout();
+            panel3.ResumeLayout(false);
+            panel3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)gridCustomers).EndInit();
+            ResumeLayout(false);
+
         }
 
-        private void BindCustomers()
+
+        private void SelectCurrentCustomer()
         {
-            _customers = AppCache.BillingCustomers ?? new List<CustomerResponse>();
-
-            var source = new AutoCompleteStringCollection();
-            source.AddRange(_customers.Select(GetDisplayText).ToArray());
-            source.AddRange(_customers.Select(x => x.Name).Where(x => !string.IsNullOrWhiteSpace(x)).ToArray());
-            source.AddRange(_customers.Select(x => x.Mobile).Where(x => !string.IsNullOrWhiteSpace(x)).ToArray());
-
-            cmbCustomer.AutoCompleteCustomSource = source;
-            cmbCustomer.Items.Clear();
-            cmbCustomer.Items.AddRange(_customers.Select(GetDisplayText).ToArray());
-        }
-
-        private void SelectCustomer()
-        {
-            var text = cmbCustomer.Text.Trim();
-            if (string.IsNullOrWhiteSpace(text))
+            if (gridCustomers.SelectedRows.Count == 0)
                 return;
 
-            var customer = FindCustomer(text);
+            var customer = gridCustomers.SelectedRows[0].DataBoundItem as CustomerResponse;
+
             if (customer == null)
-            {
-                var confirm = MessageBox.Show(
-                    "Customer not found. Do you want to add new customer?",
-                    "Customer",
-                    MessageBoxButtons.YesNo,
-                    MessageBoxIcon.Question);
-
-                if (confirm == DialogResult.Yes)
-                {
-                    OpenAddCustomerForm(text);
-                }
-
                 return;
-            }
 
             _frmPackingSlip.SetCustomerInfo(customer);
             Close();
         }
 
-        private CustomerResponse? FindCustomer(string text)
+        private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-            return _customers.FirstOrDefault(x =>
-                string.Equals(GetDisplayText(x), text, StringComparison.OrdinalIgnoreCase) ||
-                string.Equals(x.Name, text, StringComparison.OrdinalIgnoreCase) ||
-                string.Equals(x.Mobile, text, StringComparison.OrdinalIgnoreCase));
-        }
-
-        private void OpenAddCustomerForm(string searchText = "")
-        {
-            var form = ActivatorUtilities.CreateInstance<CustomerAddForm>(_serviceProvider);
-            form.SetInitialSearchText(searchText);
-            form.OnCustomerCreated = customer =>
+            string search = txtSearch.Text.Trim().ToLower();
+            if (string.IsNullOrWhiteSpace(search))
             {
-                _frmPackingSlip.SetCustomerInfo(customer);
-                Close();
-            };
-            form.ShowDialog(this);
-            BindCustomers();
-        }
-
-        private static string GetDisplayText(CustomerResponse customer)
-        {
-            return $"{customer.Name} - {customer.Mobile}";
-        }
-
-        private void btnSelect_Click(object? sender, EventArgs e)
-        {
-            SelectCustomer();
-        }
-
-        private void btnAdd_Click(object? sender, EventArgs e)
-        {
-            OpenAddCustomerForm(cmbCustomer.Text.Trim());
-        }
-
-        private void cmbCustomer_KeyDown(object? sender, KeyEventArgs e)
-        {
-            if (e.KeyCode != Keys.Enter)
+                // Show all customers when textbox is empty
+                BindCustomers(_customers);
                 return;
+            }
+            var filteredCustomers = _customers
+             .Where(x =>
+            (!string.IsNullOrWhiteSpace(x.Name) &&
+             x.Name.Contains(search, StringComparison.OrdinalIgnoreCase))
+            ||
+            (!string.IsNullOrWhiteSpace(x.Mobile) &&
+             x.Mobile.Contains(search, StringComparison.OrdinalIgnoreCase))
+            ||
+            (!string.IsNullOrWhiteSpace(x.GSTIN) &&
+             x.GSTIN.Contains(search, StringComparison.OrdinalIgnoreCase))
+        )
+        .ToList();
 
-            e.Handled = true;
-            e.SuppressKeyPress = true;
-            SelectCustomer();
+            BindCustomers(filteredCustomers);
+        }
+
+        private void gridCustomers_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true; // Prevents beep sound
+                SelectCurrentCustomer();
+            }
+        }
+
+        private void txtSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Down)
+            {
+                if (gridCustomers.Rows.Count > 0)
+                {
+                    gridCustomers.Focus();
+                    gridCustomers.ClearSelection();
+                    gridCustomers.Rows[0].Selected = true;
+                    gridCustomers.CurrentCell = gridCustomers.Rows[0].Cells[0];
+                }
+            }
+            if (e.KeyCode == Keys.Enter)
+            {
+                e.SuppressKeyPress = true;
+
+                if (gridCustomers.Rows.Count > 0)
+                {
+                    gridCustomers.ClearSelection();
+                    gridCustomers.Rows[0].Selected = true;
+                    gridCustomers.CurrentCell = gridCustomers.Rows[0].Cells[0];
+
+                    SelectCurrentCustomer();
+                }
+            }
         }
     }
 }

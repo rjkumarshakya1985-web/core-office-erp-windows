@@ -5,7 +5,6 @@ using CoreOfficeERP.Domain.Requests.Customers;
 using CoreOfficeERP.Domain.Responses;
 using CoreOfficeERP.Domain.Responses.Customers;
 using CoreOfficeERP.Infrastructure.Api;
-using CoreOfficeERP.Application.Cache;
 
 namespace CoreOfficeERP.Application.Services
 {
