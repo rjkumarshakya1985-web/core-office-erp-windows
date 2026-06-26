@@ -1,6 +1,7 @@
 ﻿using CoreOffice.Win.Shared;
 using CoreOfficeERP.Application.Interfaces;
 using CoreOfficeERP.Domain.Responses;
+using CoreOfficeERP.Domain.Responses.Customers;
 using CoreOfficeERP.Domain.Responses.PackingSlip;
 
 namespace CoreOffice.Win.Modules.Shared
@@ -85,9 +86,16 @@ namespace CoreOffice.Win.Modules.Shared
 
 
             // Visitor Info
-            SetVisitorInfo(
-               response.Visitor);
-
+            if (response.Visitor != null)
+            {
+                SetVisitorInfo(
+                   response.Visitor);
+            }
+            else
+            {
+                SetCustomerInfo(response.CustomerResponse);
+            }
+           
 
             // Load Items into Grid
             foreach (var item in response.Items)
@@ -116,6 +124,26 @@ namespace CoreOffice.Win.Modules.Shared
 
 
         public void SetVisitorInfo(VisitorResponse? response)
+        {
+            if (response == null)
+            {
+
+                lblPhone.Text = "......";
+                lblCompanyName.Text = "......";
+                lblVisitorType.Text = "......";
+
+            }
+            else
+            {
+
+                lblPhone.Text = response.Mobile;
+                lblCompanyName.Text = response.Name;
+                lblVisitorType.Text = response.CustomerType == 1 ? "W" : "R";
+
+            }
+        }
+
+        public void SetCustomerInfo(CustomerResponse? response)
         {
             if (response == null)
             {
