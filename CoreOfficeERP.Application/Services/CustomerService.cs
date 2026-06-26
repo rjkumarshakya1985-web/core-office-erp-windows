@@ -46,12 +46,12 @@ namespace CoreOfficeERP.Application.Services
 
         public async Task<CustomerResponse?> CreateCustomerAsync(CustomerRequest request)
         {
-            var result = await _apiRepository
+            var response = await _apiRepository
                 .PostAsync<CustomerRequest, ApiResponse<CustomerResponse>>(
                     ApiEndpoints.CreateCustomer,
                     request);
 
-            return result?.Data;
+            return response?.Data;
         }
     }
 }

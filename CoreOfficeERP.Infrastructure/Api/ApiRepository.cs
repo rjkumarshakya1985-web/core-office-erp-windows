@@ -64,7 +64,9 @@ namespace CoreOfficeERP.Infrastructure.Api
             var content = CreateJsonContent(data);
 
             var response = await _httpClient.PostAsync(endpoint, content);
-            response.EnsureSuccessStatusCode();
+
+            if (!response.IsSuccessStatusCode)
+                throw new Exception(await GetErrorMessageAsync(response));
 
             return await DeserializeResponse<TResponse>(response);
         }
@@ -117,6 +119,23 @@ namespace CoreOfficeERP.Infrastructure.Api
         {
             var json = await response.Content.ReadAsStringAsync();
             return JsonSerializer.Deserialize<TResult>(json, _jsonOptions);
+        }
+
+        private async Task<string> GetErrorMessageAsync(HttpResponseMessage response)
+        {
+            var json = await response.Content.ReadAsStringAsync();
+
+            try
+            {
+                var error = JsonSerializer.Deserialize<ApiErrorResponse>(json, _jsonOptions);
+                if (!string.IsNullOrWhiteSpace(error?.Message))
+                    return error.Message;
+            }
+            catch
+            {
+            }
+
+            return "Something went wrong";
         }
     }
 }

@@ -3,284 +3,196 @@ using CoreOfficeERP.Application.Interfaces;
 using CoreOfficeERP.Common.Enums;
 using CoreOfficeERP.Common.Hepler;
 using CoreOfficeERP.Domain.Requests.Customers;
-using CoreOfficeERP.Domain.Responses.Customers;
+using CoreOfficeERP.Domain.Responses.MasterData;
 
-namespace CoreOffice.Win.Modules.PackingSlip
+namespace CoreOffice.Win.Modules.PackingSlip;
+
+public partial class CustomerAddForm : Form
 {
-    public class CustomerAddForm : Form
+    private readonly ICustomerService _customerService;
+    private readonly IMasterService _masterService;
+    public CustomerAddForm(ICustomerService customerService, IMasterService masterService)
     {
-        private readonly ICustomerService _customerService;
-        private readonly IMasterService _masterService;
-        private readonly ComboBox cmbCustomerType = new();
-        private readonly ComboBox cmbRegistrationType = new();
-        private readonly ComboBox cmbState = new();
-        private readonly ComboBox cmbCity = new();
-        private readonly TextBox txtName = new();
-        private readonly TextBox txtMobile = new();
-        private readonly TextBox txtPhone = new();
-        private readonly TextBox txtPinCode = new();
-        private readonly TextBox txtDiscount = new();
-        private readonly TextBox txtCreditDays = new();
-        private readonly TextBox txtCreditLimit = new();
-        private readonly TextBox txtBillingAddress = new();
-        private readonly TextBox txtShippingAddress = new();
-        private readonly Button btnSave = new();
-        private readonly Button btnClose = new();
-        private bool _loading;
+        InitializeComponent();
+        _customerService = customerService ?? throw new ArgumentNullException(nameof(customerService));
+        _masterService = masterService ?? throw new ArgumentNullException(nameof(masterService));
+    }
 
-        public Action<CustomerResponse>? OnCustomerCreated;
+    private async void CustomerAddForm_Load(object? sender, EventArgs e)
+    {
+        BindCustomerType();
+        BindRegistrationType();
+        txtOpeningBalance.Text = "0";
+        txtCreditDays.Text = "0";
+        txtCreditLimits.Text = "0";
+        txtDiscount.Text = "0";
 
-        public CustomerAddForm(ICustomerService customerService, IMasterService masterService)
+        try
         {
-            _customerService = customerService;
-            _masterService = masterService;
-
-            InitializeForm();
-        }
-
-        public void SetInitialSearchText(string searchText)
-        {
-            if (string.IsNullOrWhiteSpace(searchText))
-                return;
-
-            if (searchText.All(char.IsDigit))
-            {
-                txtMobile.Text = searchText;
-                txtPhone.Text = searchText;
-            }
-            else
-            {
-                txtName.Text = searchText;
-            }
-        }
-
-        private void InitializeForm()
-        {
-            Text = "Add Customer";
-            FormBorderStyle = FormBorderStyle.FixedToolWindow;
-            StartPosition = FormStartPosition.CenterParent;
-            ClientSize = new Size(760, 420);
-            MaximizeBox = false;
-
-            AddLabel("Customer Type", 16, 24);
-            AddLabel("Name", 16, 64);
-            AddLabel("Mobile", 390, 64);
-            AddLabel("Phone", 16, 104);
-            AddLabel("Registration", 390, 104);
-            AddLabel("State", 16, 144);
-            AddLabel("City", 390, 144);
-            AddLabel("Pin Code", 16, 184);
-            AddLabel("Discount %", 390, 184);
-            AddLabel("Credit Days", 16, 224);
-            AddLabel("Credit Limit", 390, 224);
-            AddLabel("Billing Address", 16, 264);
-            AddLabel("Shipping Address", 390, 264);
-
-            AddControl(cmbCustomerType, 125, 20, 220);
-            AddControl(txtName, 125, 60, 220);
-            AddControl(txtMobile, 500, 60, 220);
-            AddControl(txtPhone, 125, 100, 220);
-            AddControl(cmbRegistrationType, 500, 100, 220);
-            AddControl(cmbState, 125, 140, 220);
-            AddControl(cmbCity, 500, 140, 220);
-            AddControl(txtPinCode, 125, 180, 220);
-            AddControl(txtDiscount, 500, 180, 220);
-            AddControl(txtCreditDays, 125, 220, 220);
-            AddControl(txtCreditLimit, 500, 220, 220);
-
-            txtBillingAddress.Multiline = true;
-            txtShippingAddress.Multiline = true;
-            AddControl(txtBillingAddress, 125, 260, 220, 70);
-            AddControl(txtShippingAddress, 500, 260, 220, 70);
-
-            btnSave.Text = "Save";
-            btnSave.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnSave.Location = new Point(125, 350);
-            btnSave.Size = new Size(110, 38);
-            btnSave.Click += btnSave_Click;
-
-            btnClose.Text = "Close";
-            btnClose.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            btnClose.Location = new Point(241, 350);
-            btnClose.Size = new Size(110, 38);
-            btnClose.Click += (_, _) => Close();
-
-            Controls.Add(btnSave);
-            Controls.Add(btnClose);
-            Load += CustomerAddForm_Load;
-            cmbState.SelectedValueChanged += cmbState_SelectedValueChanged;
-        }
-
-        private async void CustomerAddForm_Load(object? sender, EventArgs e)
-        {
-            _loading = true;
-            BindCustomerType();
-            BindRegistrationType();
-            await LoadStates();
-            txtCreditDays.Text = "0";
-            txtCreditLimit.Text = "0";
-            txtDiscount.Text = "0";
-            _loading = false;
-
-            if (cmbState.SelectedValue is int stateId)
-                await LoadCities(stateId);
-        }
-
-        private void BindCustomerType()
-        {
-            cmbCustomerType.DataSource = Enum.GetValues(typeof(CustomerTypeEnum))
-                .Cast<CustomerTypeEnum>()
-                .Select(e => new
-                {
-                    Value = (int)e,
-                    Text = Helper.GetEnumDescription(e)
-                }).ToList();
-
-            cmbCustomerType.DisplayMember = "Text";
-            cmbCustomerType.ValueMember = "Value";
-        }
-
-        private void BindRegistrationType()
-        {
-            cmbRegistrationType.DataSource = Enum.GetValues(typeof(RegistrationTypeEnum))
-                .Cast<RegistrationTypeEnum>()
-                .Select(e => new
-                {
-                    Value = (int)e,
-                    Text = Helper.GetEnumDescription(e)
-                }).ToList();
-
-            cmbRegistrationType.DisplayMember = "Text";
-            cmbRegistrationType.ValueMember = "Value";
-        }
-
-        private async Task LoadStates()
-        {
-            var states = await _masterService.GetStates();
-            cmbState.DataSource = states.ToList();
+            var states = (await _masterService.GetStates())?.ToList() ?? new List<StateResponse>();
+            cmbState.DataSource = states;
             cmbState.DisplayMember = "Name";
             cmbState.ValueMember = "Id";
-        }
 
-        private async Task LoadCities(int stateId)
-        {
-            var cities = await _masterService.GetCityByState(stateId);
-            cmbCity.DataSource = cities.ToList();
-            cmbCity.DisplayMember = "Name";
-            cmbCity.ValueMember = "Id";
+            if (states.Count > 0)
+            {
+                cmbState.SelectedIndex = 0;
+                await LoadCitiesAsync(states[0].Id);
+            }
         }
-
-        private async void cmbState_SelectedValueChanged(object? sender, EventArgs e)
+        catch (Exception ex)
         {
-            if (_loading)
+            ShowError(ex.Message);
+        }
+    }
+
+    private void BindCustomerType()
+    {
+        cmbCustomerType.DataSource = Enum.GetValues<CustomerTypeEnum>()
+            .Select(value => new { Value = (int)value, Text = Helper.GetEnumDescription(value) }).ToList();
+        cmbCustomerType.DisplayMember = "Text";
+        cmbCustomerType.ValueMember = "Value";
+    }
+
+    private void BindRegistrationType()
+    {
+        cmbRegistrationType.DataSource = Enum.GetValues<RegistrationTypeEnum>()
+            .Select(value => new { Value = (int)value, Text = Helper.GetEnumDescription(value) }).ToList();
+        cmbRegistrationType.DisplayMember = "Text";
+        cmbRegistrationType.ValueMember = "Value";
+    }
+
+    private void txtName_TextChanged(object? sender, EventArgs e)
+    {
+        var customerName = txtName.Text.Trim();
+        txtPrintName.Text = customerName;
+        txtAlias.Text = customerName;
+        txtLedgerName.Text = customerName;
+    }
+
+    private void txtBillingAddress_TextChanged(object? sender, EventArgs e)
+    {
+        txtShippingAddress.Text = txtBillingAddress.Text;
+    }
+
+    private async void cmbState_SelectedIndexChanged(object? sender, EventArgs e)
+    {
+        if (cmbState.SelectedValue is not int stateId)
+            return;
+
+        try
+        {
+            await LoadCitiesAsync(stateId);
+        }
+        catch (Exception ex)
+        {
+            ShowError(ex.Message);
+        }
+    }
+
+    private async Task LoadCitiesAsync(int stateId)
+    {
+        cmbCity.DataSource = (await _masterService.GetCityByState(stateId))?.ToList() ?? new List<CityResponse>();
+        cmbCity.DisplayMember = "Name";
+        cmbCity.ValueMember = "Id";
+    }
+
+    private async void btnSave_Click(object? sender, EventArgs e)
+    {
+        if (!ValidateCustomer())
+            return;
+
+        if (HasDuplicateCustomer())
+            return;
+
+        try
+        {
+            btnSave.Enabled = false;
+            var customer = await _customerService.CreateCustomerAsync(new CustomerRequest
+            {
+                Name = txtName.Text.Trim(), PrintName = txtPrintName.Text.Trim(), Alias = txtAlias.Text.Trim(), LedgerName = txtLedgerName.Text.Trim(),
+                GroupName = txtGroupName.Text.Trim(), GstIn = txtGSTIN.Text.Trim(), Pan = txtPan.Text.Trim(), RegType = (int)cmbRegistrationType.SelectedValue,
+                Email = txtEmail.Text.Trim(), Phone = txtPhone.Text.Trim(), Mobile = txtMobile.Text.Trim(), BillingAddress = txtBillingAddress.Text.Trim(),
+                ShippingAddress = txtShippingAddress.Text.Trim(), CityId = (int)cmbCity.SelectedValue, PinCode = txtPinCode.Text.Trim(),
+                ContactPerson = txtContactPerson.Text.Trim(), OpeningBalance = decimal.Parse(txtOpeningBalance.Text), CreditDays = int.Parse(txtCreditDays.Text),
+                CreditLimit = decimal.Parse(txtCreditLimits.Text), Discount = decimal.Parse(txtDiscount.Text), CustomerType = (int)cmbCustomerType.SelectedValue, Remarks = txtRemarks.Text.Trim()
+            });
+
+            if (customer is null)
+            {
+                ShowError("Customer could not be saved.");
                 return;
-
-            if (cmbState.SelectedValue is int stateId)
-                await LoadCities(stateId);
-        }
-
-        private async void btnSave_Click(object? sender, EventArgs e)
-        {
-            try
-            {
-                if (!ValidateForm())
-                    return;
-
-                AppLoader.Show();
-
-                var request = BindRequest();
-                var customer = await _customerService.CreateCustomerAsync(request);
-
-                if (customer == null)
-                {
-                    MessageBox.Show("Customer not created.");
-                    return;
-                }
-
-                AppCache.BillingCustomers.RemoveAll(x => x.Id == customer.Id);
-                AppCache.BillingCustomers.Add(customer);
-                OnCustomerCreated?.Invoke(customer);
-                Close();
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                AppLoader.Hide();
-            }
+
+            AppCache.BillingCustomers.Add(customer);
+            DialogResult = DialogResult.OK;
+            Close();
         }
-
-        private CustomerRequest BindRequest()
+        catch (Exception ex)
         {
-            var name = txtName.Text.Trim();
-            var mobile = txtMobile.Text.Trim();
-
-            return new CustomerRequest
-            {
-                Name = name,
-                PrintName = name,
-                LedgerName = name,
-                Alias = name,
-                GroupName = name,
-                RegType = Convert.ToInt32(cmbRegistrationType.SelectedValue),
-                CityId = Convert.ToInt32(cmbCity.SelectedValue),
-                PinCode = txtPinCode.Text.Trim(),
-                Phone = txtPhone.Text.Trim(),
-                Mobile = mobile,
-                BillingAddress = txtBillingAddress.Text.Trim(),
-                ShippingAddress = txtShippingAddress.Text.Trim(),
-                CreditDays = int.TryParse(txtCreditDays.Text, out var days) ? days : 0,
-                CreditLimit = decimal.TryParse(txtCreditLimit.Text, out var limit) ? limit : 0,
-                CustomerType = Convert.ToInt32(cmbCustomerType.SelectedValue),
-                Discount = decimal.TryParse(txtDiscount.Text, out var discount) ? discount : 0
-            };
+            ShowError(ex.Message);
         }
-
-        private bool ValidateForm()
+        finally
         {
-            if (string.IsNullOrWhiteSpace(txtName.Text))
-                return ShowValidation("Name is required", txtName);
+            btnSave.Enabled = true;
+        }
+    }
 
-            if (string.IsNullOrWhiteSpace(txtMobile.Text))
-                return ShowValidation("Mobile is required", txtMobile);
+    private bool ValidateCustomer()
+    {
+        if (string.IsNullOrWhiteSpace(txtName.Text)) return ShowValidationError("Customer name is required.", txtName);
+        if (string.IsNullOrWhiteSpace(txtPrintName.Text)) return ShowValidationError("Print name is required.", txtPrintName);
+        if (string.IsNullOrWhiteSpace(txtAlias.Text)) return ShowValidationError("Alias is required.", txtAlias);
+        if (string.IsNullOrWhiteSpace(txtLedgerName.Text)) return ShowValidationError("Ledger name is required.", txtLedgerName);
+        if (string.IsNullOrWhiteSpace(txtGroupName.Text)) return ShowValidationError("Group name is required.", txtGroupName);
+        if (string.IsNullOrWhiteSpace(txtGSTIN.Text)) return ShowValidationError("GSTIN is required.", txtGSTIN);
+        if (string.IsNullOrWhiteSpace(txtPan.Text)) return ShowValidationError("PAN is required.", txtPan);
+        if (string.IsNullOrWhiteSpace(txtMobile.Text)) return ShowValidationError("Mobile number is required.", txtMobile);
+        if (string.IsNullOrWhiteSpace(txtBillingAddress.Text)) return ShowValidationError("Billing address is required.", txtBillingAddress);
+        if (string.IsNullOrWhiteSpace(txtShippingAddress.Text)) return ShowValidationError("Shipping address is required.", txtShippingAddress);
+        if (cmbCity.SelectedValue is not int) return ShowValidationError("Please select a city.", cmbCity);
+        if (string.IsNullOrWhiteSpace(txtPinCode.Text)) return ShowValidationError("Pin code is required.", txtPinCode);
+        if (string.IsNullOrWhiteSpace(txtContactPerson.Text)) return ShowValidationError("Contact person is required.", txtContactPerson);
+        if (!decimal.TryParse(txtOpeningBalance.Text, out _)) return ShowValidationError("Opening balance must be numeric.", txtOpeningBalance);
+        if (!int.TryParse(txtCreditDays.Text, out _)) return ShowValidationError("Credit days must be numeric.", txtCreditDays);
+        if (!decimal.TryParse(txtCreditLimits.Text, out _)) return ShowValidationError("Credit limit must be numeric.", txtCreditLimits);
+        if (!decimal.TryParse(txtDiscount.Text, out _)) return ShowValidationError("Discount must be numeric.", txtDiscount);
+        return true;
+    }
 
-            if (cmbState.SelectedIndex < 0)
-                return ShowValidation("State is required", cmbState);
+    private bool HasDuplicateCustomer()
+    {
+        var customerName = txtName.Text.Trim();
+        var gstIn = txtGSTIN.Text.Trim();
 
-            if (cmbCity.SelectedIndex < 0)
-                return ShowValidation("City is required", cmbCity);
-
-            if (string.IsNullOrWhiteSpace(txtPinCode.Text))
-                return ShowValidation("Pin code is required", txtPinCode);
-
+        if (AppCache.BillingCustomers.Any(customer =>
+            string.Equals(customer.Name, customerName, StringComparison.OrdinalIgnoreCase)))
+        {
+            ShowValidationError("A customer with this name already exists.", txtName);
             return true;
         }
 
-        private bool ShowValidation(string message, Control control)
+        if (!string.IsNullOrWhiteSpace(gstIn) && AppCache.BillingCustomers.Any(customer =>
+            string.Equals(customer.GSTIN, gstIn, StringComparison.OrdinalIgnoreCase)))
         {
-            MessageBox.Show(message, "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            control.Focus();
-            return false;
+            ShowValidationError("A customer with this GSTIN already exists.", txtGSTIN);
+            return true;
         }
 
-        private void AddLabel(string text, int x, int y)
-        {
-            Controls.Add(new Label
-            {
-                Text = text,
-                Location = new Point(x, y + 4),
-                Size = new Size(105, 22)
-            });
-        }
+        return false;
+    }
 
-        private void AddControl(Control control, int x, int y, int width, int height = 28)
-        {
-            control.Location = new Point(x, y);
-            control.Size = new Size(width, height);
-            control.Font = new Font("Segoe UI", 10F);
-            Controls.Add(control);
-        }
+    private static bool ShowValidationError(string message, Control control)
+    {
+        MessageBox.Show(message, "Customer", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        control.Focus();
+        return false;
+    }
+
+    private static void ShowError(string message) => MessageBox.Show(message, "Customer", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+    private void cmbCity_SelectedIndexChanged(object sender, EventArgs e)
+    {
+
     }
 }
