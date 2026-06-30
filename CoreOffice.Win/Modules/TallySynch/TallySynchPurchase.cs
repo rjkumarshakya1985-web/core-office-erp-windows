@@ -11,7 +11,7 @@ using TallyBridge;
 namespace CoreOffice.Win.Modules.TallySynch
 
 {
-    public partial class TallySynchPurchase : Form
+    public partial class TallySynchPurchase : BaseForm
     {
       
         private readonly ITallyProcessOrchestratorService _tallyProcessOrchestrator;

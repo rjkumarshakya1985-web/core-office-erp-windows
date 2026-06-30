@@ -11,9 +11,9 @@ namespace CoreOffice.Win.Shared.Mappers
             {
                 Id = data.Id,
                 SlipNumber = data.PackingSlipNo,
-                Date = data.Date,
-                VisitorName = data.VisitorName,
-                VisitorMobile = data.VisitorMobile,
+                Date = data.Date,                
+                VisitorName = data.Visitor?.Name ?? data.CustomerResponse?.Name,
+                VisitorMobile = data.Visitor?.Mobile ?? data.CustomerResponse?.Mobile,
                 TotalPcs = data.TotalQuantity,
                 GrandTotal = data.TotalAmount,
                 ProductName = x.ProductName,
@@ -24,10 +24,10 @@ namespace CoreOffice.Win.Shared.Mappers
                 Amount=x.Quantity*x.Rate,
                 TaxableAmount = x.TaxableAmount,
 
-                Salesman = data.VisitorName,
-                UserName = data.VisitorName,
-                Department = data.VisitorName,
-                SubDepartment = data.VisitorName
+                Salesman = data.SalesManName??"NA",
+                UserName = "Saurabh",
+                Department = data.Department??"NA",
+                SubDepartment = data.Department??"NA",
 
             }).ToList();
         }

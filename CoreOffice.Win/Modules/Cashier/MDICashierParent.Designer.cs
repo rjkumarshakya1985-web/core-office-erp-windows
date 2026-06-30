@@ -94,21 +94,21 @@ namespace CoreOffice.Win.Modules.Cashier
             // createInvoiceToolStripMenuItem
             // 
             createInvoiceToolStripMenuItem.Name = "createInvoiceToolStripMenuItem";
-            createInvoiceToolStripMenuItem.Size = new Size(176, 22);
+            createInvoiceToolStripMenuItem.Size = new Size(180, 22);
             createInvoiceToolStripMenuItem.Text = "Packing Slip List";
             createInvoiceToolStripMenuItem.Click += createInvoiceToolStripMenuItem_Click;
             // 
             // searchPackingSlipToolStripMenuItem
             // 
             searchPackingSlipToolStripMenuItem.Name = "searchPackingSlipToolStripMenuItem";
-            searchPackingSlipToolStripMenuItem.Size = new Size(176, 22);
+            searchPackingSlipToolStripMenuItem.Size = new Size(180, 22);
             searchPackingSlipToolStripMenuItem.Text = "Search Packing Slip";
             searchPackingSlipToolStripMenuItem.Click += searchPackingSlipToolStripMenuItem_Click;
             // 
             // createPackingSlipToolStripMenuItem
             // 
             createPackingSlipToolStripMenuItem.Name = "createPackingSlipToolStripMenuItem";
-            createPackingSlipToolStripMenuItem.Size = new Size(176, 22);
+            createPackingSlipToolStripMenuItem.Size = new Size(180, 22);
             createPackingSlipToolStripMenuItem.Text = "Create Packing Slip";
             createPackingSlipToolStripMenuItem.Click += createPackingSlipToolStripMenuItem_Click;
             // 
@@ -287,7 +287,7 @@ namespace CoreOffice.Win.Modules.Cashier
             label4.Name = "label4";
             label4.Size = new Size(63, 15);
             label4.TabIndex = 1;
-            label4.Text = "Welcome, "+UserSession.RoleEnum+"";
+            label4.Text = "Welcome, ";
             // 
             // label3
             // 

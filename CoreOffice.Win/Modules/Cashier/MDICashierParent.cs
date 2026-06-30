@@ -176,6 +176,9 @@ namespace CoreOffice.Win.Modules.Cashier
                 if (!(activeForm is DashboardForm))
                 {
                     activeForm.FormClosed -= Child_FormClosed;
+                    // Skip confirmation while navigating
+                    if (activeForm is BaseForm baseForm)
+                        baseForm.SkipCloseConfirmation = true;
                     activeForm.Close();
                     activeForm.Dispose();
                 }
@@ -425,6 +428,22 @@ namespace CoreOffice.Win.Modules.Cashier
                 else
                     panelSidebar.Width = 220;
             
+        }
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            var result = MessageBox.Show(
+                "Do you want to exit application?",
+                "Exit",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Question);
+
+            if (result == DialogResult.No)
+            {
+                e.Cancel = true;
+                return;
+            }
+
+            base.OnFormClosing(e);
         }
     }
 }

@@ -14,7 +14,7 @@ using Microsoft.Reporting.WinForms;
 
 namespace CoreOffice.Win.Modules.PackingSlip
 {
-    public partial class FrmPackingSlip : Form
+    public partial class FrmPackingSlip : BaseForm
     {
         private readonly IPackingSlipService _packingSlipService;
         private readonly IServiceProvider _serviceProvider;
@@ -730,7 +730,10 @@ namespace CoreOffice.Win.Modules.PackingSlip
 
 
         }
-
+        protected override void Save()
+        {
+            btnSave.PerformClick();
+        }
         private void dataGridPackingSlip_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)

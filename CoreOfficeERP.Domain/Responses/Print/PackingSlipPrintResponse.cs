@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using CoreOfficeERP.Domain.Responses.Customers;
+using System.Text.Json.Serialization;
 
 namespace CoreOfficeERP.Domain.Responses.Print
 {
@@ -7,15 +8,15 @@ namespace CoreOfficeERP.Domain.Responses.Print
         public int Id { get; set; }
         public DateTime Date { get; set; }
         public string PackingSlipNo { get; set; }
-        public required string VisitorName { get; set; }
-        public required string VisitorMobile { get; set; }
+      
         public required string SalesManName { get; set; }
         public required string PackingSlipManName { get; set; }
         public required string Department { get; set; }
         public int TotalQuantity { get; set; }
         public decimal TotalTaxableAmount { get; set; }
         public decimal TotalAmount { get; set; }
-
+        public VisitorResponse? Visitor { get; set; }
+        public CustomerResponse? CustomerResponse { get; set; }
         public CompanyDetailResponse CompanyDetail { get; set; }
         public List<PackingSlipPrintItemResponse> Items { get; set; } = new List<PackingSlipPrintItemResponse>();
     }
