@@ -48,7 +48,8 @@ namespace CoreOffice.Win.Modules.Shared
                     dataGrid.Rows.Add(
                         item.Id,
                         item.Date.ToString("dd-MM-yyyy hh:mm tt"),
-                        item.Visitor?.Name ?? "",
+                         item.Visitor?.Name ?? item.CustomerResponse?.Name ?? string.Empty,
+                       
                         item.SlipNumber,
                         item.TotalQuantity,
                         item.TotalAmount.ToString("N2")

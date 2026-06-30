@@ -31,18 +31,18 @@
             panel1 = new Panel();
             panel2 = new Panel();
             dataGrid = new DataGridView();
-            Id = new DataGridViewTextBoxColumn();
-            Date = new DataGridViewTextBoxColumn();
-            Visitor = new DataGridViewTextBoxColumn();
-            dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
-            Quantity = new DataGridViewTextBoxColumn();
-            TotalAmount = new DataGridViewTextBoxColumn();
             panel3 = new Panel();
             btnClose = new Button();
             btnShow = new Button();
             btnEdit = new Button();
             btnDelete = new Button();
             btnPrint = new Button();
+            Id = new DataGridViewTextBoxColumn();
+            Date = new DataGridViewTextBoxColumn();
+            Visitor = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
+            Quantity = new DataGridViewTextBoxColumn();
+            TotalAmount = new DataGridViewTextBoxColumn();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGrid).BeginInit();
             panel3.SuspendLayout();
@@ -77,46 +77,6 @@
             dataGrid.Size = new Size(845, 400);
             dataGrid.TabIndex = 0;
             dataGrid.CellContentClick += dataGrid_CellContentClick;
-            // 
-            // Id
-            // 
-            Id.HeaderText = "Id";
-            Id.Name = "Id";
-            Id.ReadOnly = true;
-            Id.Visible = false;
-            // 
-            // Date
-            // 
-            Date.FillWeight = 12.6903543F;
-            Date.HeaderText = "Date";
-            Date.Name = "Date";
-            // 
-            // Visitor
-            // 
-            Visitor.FillWeight = 121.827477F;
-            Visitor.HeaderText = "Visitor";
-            Visitor.Name = "Visitor";
-            // 
-            // dataGridViewTextBoxColumn1
-            // 
-            dataGridViewTextBoxColumn1.FillWeight = 121.827477F;
-            dataGridViewTextBoxColumn1.HeaderText = "Slip No";
-            dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
-            dataGridViewTextBoxColumn1.ReadOnly = true;
-            // 
-            // Quantity
-            // 
-            Quantity.FillWeight = 121.827477F;
-            Quantity.HeaderText = "Quantity";
-            Quantity.Name = "Quantity";
-            Quantity.ReadOnly = true;
-            // 
-            // TotalAmount
-            // 
-            TotalAmount.FillWeight = 121.827477F;
-            TotalAmount.HeaderText = "Total Amount";
-            TotalAmount.Name = "TotalAmount";
-            TotalAmount.ReadOnly = true;
             // 
             // panel3
             // 
@@ -180,6 +140,46 @@
             btnPrint.Text = "Print";
             btnPrint.UseVisualStyleBackColor = true;
             btnPrint.Click += btnPrint_Click;
+            // 
+            // Id
+            // 
+            Id.HeaderText = "Id";
+            Id.Name = "Id";
+            Id.ReadOnly = true;
+            Id.Visible = false;
+            // 
+            // Date
+            // 
+            Date.FillWeight = 12.6903543F;
+            Date.HeaderText = "Date";
+            Date.Name = "Date";
+            // 
+            // Visitor
+            // 
+            Visitor.FillWeight = 121.827477F;
+            Visitor.HeaderText = "Customer";
+            Visitor.Name = "Visitor";
+            // 
+            // dataGridViewTextBoxColumn1
+            // 
+            dataGridViewTextBoxColumn1.FillWeight = 121.827477F;
+            dataGridViewTextBoxColumn1.HeaderText = "Slip No";
+            dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
+            dataGridViewTextBoxColumn1.ReadOnly = true;
+            // 
+            // Quantity
+            // 
+            Quantity.FillWeight = 121.827477F;
+            Quantity.HeaderText = "Quantity";
+            Quantity.Name = "Quantity";
+            Quantity.ReadOnly = true;
+            // 
+            // TotalAmount
+            // 
+            TotalAmount.FillWeight = 121.827477F;
+            TotalAmount.HeaderText = "Total Amount";
+            TotalAmount.Name = "TotalAmount";
+            TotalAmount.ReadOnly = true;
             // 
             // PendingPackingSlipForm
             // 

@@ -9,7 +9,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
     {
         private readonly FrmPackingSlip _frmPackingSlip;
         private readonly IServiceProvider _serviceProvider;
-        private readonly ICustomerService _customerService;       
+        private readonly ICustomerService _customerService;
         private Panel pnlTop;
         private Label label1;
         private Panel panel3;
@@ -19,6 +19,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
         private DataGridViewTextBoxColumn CustomerName;
         private DataGridViewTextBoxColumn Mobile;
         private DataGridViewTextBoxColumn GSTIN;
+        private Button btnAddCustomer;
         private List<CustomerResponse> _customers = new();
 
         public CustomerSearchForm(
@@ -32,7 +33,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
 
             // InitializeForm();
             InitializeComponent();   // IMPORTANT
-        }       
+        }
 
         private async void CustomerSearchForm_Load(object? sender, EventArgs e)
         {
@@ -40,18 +41,18 @@ namespace CoreOffice.Win.Modules.PackingSlip
             {
                 AppCache.BillingCustomers = await _customerService.GetBillingCustomersAsync();
             }
-            _customers = AppCache.BillingCustomers ?? new List<CustomerResponse>();         
+            _customers = AppCache.BillingCustomers ?? new List<CustomerResponse>();
             BindCustomers(_customers);
 
             txtSearch.Focus();
         }
         private void BindCustomers(List<CustomerResponse>? customers = null)
         {
-            gridCustomers.AutoGenerateColumns = false;            
+            gridCustomers.AutoGenerateColumns = false;
             gridCustomers.DataSource = null;
             gridCustomers.DataSource = customers ?? _customers;
-           
-        }  
+
+        }
         private void InitializeComponent()
         {
             pnlTop = new Panel();
@@ -63,6 +64,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
             CustomerName = new DataGridViewTextBoxColumn();
             Mobile = new DataGridViewTextBoxColumn();
             GSTIN = new DataGridViewTextBoxColumn();
+            btnAddCustomer = new Button();
             pnlTop.SuspendLayout();
             panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)gridCustomers).BeginInit();
@@ -91,6 +93,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
             // 
             // panel3
             // 
+            panel3.Controls.Add(btnAddCustomer);
             panel3.Controls.Add(txtSearch);
             panel3.Controls.Add(label3);
             panel3.Dock = DockStyle.Top;
@@ -104,7 +107,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
             txtSearch.Font = new Font("Segoe UI", 15.75F);
             txtSearch.Location = new Point(138, 6);
             txtSearch.Name = "txtSearch";
-            txtSearch.Size = new Size(701, 35);
+            txtSearch.Size = new Size(536, 35);
             txtSearch.TabIndex = 0;
             txtSearch.TextChanged += txtSearch_TextChanged;
             txtSearch.KeyDown += txtSearch_KeyDown;
@@ -123,6 +126,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
             // 
             gridCustomers.AllowUserToAddRows = false;
             gridCustomers.AllowUserToDeleteRows = false;
+            gridCustomers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             gridCustomers.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             gridCustomers.Columns.AddRange(new DataGridViewColumn[] { CustomerName, Mobile, GSTIN });
             gridCustomers.Dock = DockStyle.Fill;
@@ -141,7 +145,6 @@ namespace CoreOffice.Win.Modules.PackingSlip
             CustomerName.HeaderText = "Name";
             CustomerName.Name = "CustomerName";
             CustomerName.ReadOnly = true;
-            CustomerName.Width = 250;
             // 
             // Mobile
             // 
@@ -149,7 +152,6 @@ namespace CoreOffice.Win.Modules.PackingSlip
             Mobile.HeaderText = "Mobile";
             Mobile.Name = "Mobile";
             Mobile.ReadOnly = true;
-            Mobile.Width = 150;
             // 
             // GSTIN
             // 
@@ -157,7 +159,16 @@ namespace CoreOffice.Win.Modules.PackingSlip
             GSTIN.HeaderText = "GSTIN";
             GSTIN.Name = "GSTIN";
             GSTIN.ReadOnly = true;
-            GSTIN.Width = 300;
+            // 
+            // btnAddCustomer
+            // 
+            btnAddCustomer.Location = new Point(679, 6);
+            btnAddCustomer.Name = "btnAddCustomer";
+            btnAddCustomer.Size = new Size(151, 36);
+            btnAddCustomer.TabIndex = 5;
+            btnAddCustomer.Text = "Add Customer";
+            btnAddCustomer.UseVisualStyleBackColor = true;
+            btnAddCustomer.Click += btnAddCustomer_Click;
             // 
             // CustomerSearchForm
             // 
@@ -251,6 +262,18 @@ namespace CoreOffice.Win.Modules.PackingSlip
                     SelectCurrentCustomer();
                 }
             }
+        }
+
+        private void btnAddCustomer_Click(object sender, EventArgs e)
+        {
+            using var customerAddForm = _serviceProvider.GetRequiredService<CustomerAddForm>();
+
+            if (customerAddForm.ShowDialog(this) != DialogResult.OK)
+                return;
+
+            _customers = AppCache.BillingCustomers ?? new List<CustomerResponse>();
+            BindCustomers(_customers);
+            txtSearch.Clear();
         }
     }
 }
