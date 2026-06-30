@@ -451,45 +451,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
             catch
             { }
         }
-        public void Print(List<PackingSlipItemModel> items)
-        {
-            try
-            {
-                LocalReport report = new LocalReport();
-                report.ReportPath = "Shared/Prints/PackingSlip/RDLCPackingSlip.rdlc";
-
-                // 1. Should be Replaced with Company Header Response- Currently setup as static
-                var data = new List<PackingSlipCompanyModel>
-                  {
-                     new PackingSlipCompanyModel
-                         {
-                         Address = "B-222, Yamuna River, Agra",
-                         Phone = "8299344397",
-                         Name = "Shiv Sahay Bhagwan Das Pvt Ltd Agra",
-                         GstIn="07ADFPY6443H1Z1",
-                         Email="ssbdagra@gmail.com",
-                         State="Uttar Pradesh",
-                         StateCode="07"
-                         }
-                        };
-
-                report.DataSources.Clear();
-                report.DataSources.Add(new ReportDataSource("DataSetPackingSlip", items));
-                report.DataSources.Add(new ReportDataSource("DataSetCompany", data));
-                report.Refresh(); // 🔥 VERY IMPORTANT
-                // 🔥 EXTENSION CALL
-                report.PrintToPrinter(
-                    printerName: "ESYPOS ETP5311(250N)",          // "" = default printer
-                    pageWidth: "3.15in",      // thermal → 80mm
-                    pageHeight: "11in",
-                    copies: 1
-                );
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
+      
 
         private async void btnSave_Click(object sender, EventArgs e)
         {

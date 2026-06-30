@@ -32,7 +32,7 @@ namespace CoreOfficeERP.Tally.Services
 
                 //This line is required only if the vendor group is being altered or re-uploaded. 
                 //During initial vendor group creation, this line is not required.
-                oldGroupName = agentTable.TallyLedgerName ?? agentTable.Name,
+                oldGroupName = !string.IsNullOrWhiteSpace(agentTable.TallyLedgerName) ? agentTable.TallyLedgerName : agentTable.Name,               
                 groupName = agentTable.Name,
                 //Alias of the vendor group, if you wish to maintain; else you need not pass it
                 groupAlias = "",
@@ -53,7 +53,7 @@ namespace CoreOfficeERP.Tally.Services
 
                 //This line is required only if the ledger is being altered or re-uploaded. 
                 //During initial ledger creation, this line is not required.
-                oldLedgerName = supplier.TallyLedgerName ?? supplier.Name,
+                oldLedgerName = !string.IsNullOrWhiteSpace(supplier.TallyLedgerName) ? supplier.TallyLedgerName:supplier.Name,
 
                 ledgerName = supplier.Name,
 
@@ -142,7 +142,8 @@ namespace CoreOfficeERP.Tally.Services
 
                 //This line is required only if the stock group is being altered or re-uploaded. 
                 //During initial stock group creation, this line is not required.
-                oldGroupName = group.TallyLedgerName+" " + group.supplierCode ?? group.Name+" " + group.supplierCode,
+                oldGroupName = (string.IsNullOrWhiteSpace(group.TallyLedgerName) ? group.Name : group.TallyLedgerName) + " " + group.supplierCode,
+               // oldGroupName = group.TallyLedgerName+" " + group.supplierCode ?? group.Name+" " + group.supplierCode,
 
                 groupName = group.Name+" " + group.supplierCode,
 
@@ -236,7 +237,9 @@ namespace CoreOfficeERP.Tally.Services
 
                 //This line is required only if the Stock Item is being altered or re-uploaded. 
                 //During initial Stock Item creation, this line is not required, but even if given, its not a problem
-                oldItemName = item.TallyLedgerName+" "+item.supplierCode ?? item.ProductName+" " + item.supplierCode,
+                oldItemName = (string.IsNullOrWhiteSpace(item.TallyLedgerName) ? item.ProductName : item.TallyLedgerName) + " " + item.supplierCode,
+
+               // oldItemName = item.TallyLedgerName+" "+item.supplierCode ?? item.ProductName+" " + item.supplierCode,
                 itemName = item.ProductName+" " + item.supplierCode,
 
                 //You can map SKU code either in item alias or in part no.

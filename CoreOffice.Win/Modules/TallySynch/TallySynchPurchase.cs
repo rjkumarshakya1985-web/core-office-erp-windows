@@ -292,6 +292,7 @@ namespace CoreOffice.Win.Modules.TallySynch
             catch (Exception ex)
             {
                 MessageBox.Show("Error loading voucher: " + ex.Message);
+                txtVoucher.Clear();
             }
         }
         private void BindHeader()
