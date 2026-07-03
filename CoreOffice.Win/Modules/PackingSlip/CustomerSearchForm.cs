@@ -58,13 +58,13 @@ namespace CoreOffice.Win.Modules.PackingSlip
             pnlTop = new Panel();
             label1 = new Label();
             panel3 = new Panel();
+            btnAddCustomer = new Button();
             txtSearch = new TextBox();
             label3 = new Label();
             gridCustomers = new DataGridView();
             CustomerName = new DataGridViewTextBoxColumn();
             Mobile = new DataGridViewTextBoxColumn();
             GSTIN = new DataGridViewTextBoxColumn();
-            btnAddCustomer = new Button();
             pnlTop.SuspendLayout();
             panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)gridCustomers).BeginInit();
@@ -101,6 +101,19 @@ namespace CoreOffice.Win.Modules.PackingSlip
             panel3.Name = "panel3";
             panel3.Size = new Size(842, 48);
             panel3.TabIndex = 7;
+            // 
+            // btnAddCustomer
+            // 
+            btnAddCustomer.BackColor = Color.RoyalBlue;
+            btnAddCustomer.FlatStyle = FlatStyle.Flat;
+            btnAddCustomer.ForeColor = Color.White;
+            btnAddCustomer.Location = new Point(679, 6);
+            btnAddCustomer.Name = "btnAddCustomer";
+            btnAddCustomer.Size = new Size(151, 36);
+            btnAddCustomer.TabIndex = 5;
+            btnAddCustomer.Text = "+ Add Customer";
+            btnAddCustomer.UseVisualStyleBackColor = false;
+            btnAddCustomer.Click += btnAddCustomer_Click;
             // 
             // txtSearch
             // 
@@ -159,16 +172,6 @@ namespace CoreOffice.Win.Modules.PackingSlip
             GSTIN.HeaderText = "GSTIN";
             GSTIN.Name = "GSTIN";
             GSTIN.ReadOnly = true;
-            // 
-            // btnAddCustomer
-            // 
-            btnAddCustomer.Location = new Point(679, 6);
-            btnAddCustomer.Name = "btnAddCustomer";
-            btnAddCustomer.Size = new Size(151, 36);
-            btnAddCustomer.TabIndex = 5;
-            btnAddCustomer.Text = "Add Customer";
-            btnAddCustomer.UseVisualStyleBackColor = true;
-            btnAddCustomer.Click += btnAddCustomer_Click;
             // 
             // CustomerSearchForm
             // 

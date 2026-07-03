@@ -83,26 +83,29 @@ namespace CoreOffice.Win
                     // Set token
                     _tokenProvider.SetToken(response.Token);
                     await LoadBillingCustomers();
-                     UserSession.RoleEnum = (RoleEnum)Enum.Parse(typeof(RoleEnum), response.RoleName);
-                    
-                    if (response.RoleName == RoleEnum.PackingSlipOperator.ToString())
-                    {
-                        var dashboard = _serviceProvider.GetRequiredService<MDIPackingSlip>();
-                        dashboard.Show();
-                        this.Hide();
-                    }
-                    else if (response.RoleName == RoleEnum.Cashier.ToString())
-                    {
+                     UserSession.RoleEnum = (RoleEnum)Enum.Parse(typeof(RoleEnum), response.RoleName);                
                         var dashboard = _serviceProvider.GetRequiredService<MDICashierParent>();
                         dashboard.Show();
                         this.Hide();
-                    }
-                    else if (response.RoleName == RoleEnum.StockIncharge.ToString())
-                    {
-                        var dashboard = new MDIPackingSlip(_serviceProvider);
-                        dashboard.Show();
-                        this.Hide();                        
-                    }
+                    
+                    //if (response.RoleName == RoleEnum.PackingSlipOperator.ToString())
+                    //{
+                    //    var dashboard = _serviceProvider.GetRequiredService<MDIPackingSlip>();
+                    //    dashboard.Show();
+                    //    this.Hide();
+                    //}
+                    //else if (response.RoleName == RoleEnum.Cashier.ToString())
+                    //{
+                    //    var dashboard = _serviceProvider.GetRequiredService<MDICashierParent>();
+                    //    dashboard.Show();
+                    //    this.Hide();
+                    //}
+                    //else if (response.RoleName == RoleEnum.StockIncharge.ToString())
+                    //{
+                    //    var dashboard = new MDIPackingSlip(_serviceProvider);
+                    //    dashboard.Show();
+                    //    this.Hide();                        
+                    //}
                 }
                 else
                 {

@@ -7,6 +7,7 @@ using CoreOffice.Win.Modules.TallySynch;
 using CoreOffice.Win.Session;
 using CoreOffice.Win.Shared;
 using CoreOfficeERP.Application.Interfaces;
+using CoreOfficeERP.Common.Enums;
 using Microsoft.Extensions.DependencyInjection;
 
 
@@ -161,7 +162,9 @@ namespace CoreOffice.Win.Modules.Cashier
             {
                 MessageBox.Show("Error loading financial year: " + ex.Message);
             }
-            BindPanelsidebar(); 
+            //BindPanelsidebar(); 
+            label4.Text = $"Welcome, {UserSession.RoleEnum}";
+            BindSidebar();
             dashboard = new DashboardForm();
             OpenChild(dashboard);
         }
@@ -230,6 +233,171 @@ namespace CoreOffice.Win.Modules.Cashier
             {
                 OpenChild(dashboard);
             }
+        }
+        private int _menuTop = 120;
+        private int GetNextTop()
+        {
+            int top = _menuTop;
+            _menuTop += 55;
+            return top;
+        }
+        private void AddDashboard()
+        {
+            panelSidebar.Controls.Add(
+                CreateSidebarButton(
+                    "Dashboard",
+                    Properties.Resources.home,
+                    GetNextTop(),
+                    (s, e) =>
+                    {
+                        OpenChild(dashboard);
+                    }));
+        }
+        private void AddPackingSlip()
+        {
+            panelSidebar.Controls.Add(
+                CreateSidebarButton(
+                    "Packing Slip",
+                    Properties.Resources.packingslip,
+                    GetNextTop(),
+                    (s, e) =>
+                    {
+                        var frm = GetService<FrmPackingSlip>();
+                        OpenChild(frm);
+                    }));
+        }
+        private void AddInvoice()
+        {
+            panelSidebar.Controls.Add(
+                CreateSidebarButton(
+                    "Invoice",
+                    Properties.Resources.bill,
+                    GetNextTop(),
+                    (s, e) =>
+                    {
+                        var frm = GetService<InvoiceForm>();
+                        OpenChild(frm);
+                    }));
+        }
+        private void AddDeliveryChallan()
+        {
+            panelSidebar.Controls.Add(
+                CreateSidebarButton(
+                    "Delivery Challan",
+                    Properties.Resources.delivery,
+                    GetNextTop(),
+                    (s, e) =>
+                    {
+                        var frm = GetService<DeliveryNoteForm>();
+                        OpenChild(frm);
+                    }));
+        }
+        private void AddReports()
+        {
+            panelSidebar.Controls.Add(
+                CreateSidebarButton(
+                    "Reports",
+                    Properties.Resources.combo_chart,
+                    GetNextTop(),
+                    (s, e) =>
+                    {
+                        MessageBox.Show("Reports Coming Soon");
+                    }));
+        }
+        private void AddTally()
+        {
+            panelSidebar.Controls.Add(
+                CreateSidebarButton(
+                    "Tally",
+                    Properties.Resources.calculator,
+                    GetNextTop(),
+                    (s, e) =>
+                    {
+                        var frm = GetService<TallySynchPurchase>();
+                        OpenChild(frm);
+                    }));
+        }
+        private void AddSettings()
+        {
+            panelSidebar.Controls.Add(
+                CreateSidebarButton(
+                    "Settings",
+                    Properties.Resources.settings,
+                    GetNextTop(),
+                    (s, e) =>
+                    {
+                        MessageBox.Show("Settings");
+                    }));
+        }
+        private void AddLogout()
+        {
+            panelSidebar.Controls.Add(
+                CreateSidebarButton(
+                    "Logout",
+                    Properties.Resources.turn_off,
+                    GetNextTop(),
+                    (s, e) =>
+                    {
+                        Logout();
+                    }));
+        }
+        private void BindSidebar()
+        {
+            panelSidebar.Controls.Clear();
+
+            _menuTop = 120;
+            // Create logo
+            PictureBox pictureBox1 = new PictureBox
+            {
+                Image = Properties.Resources.ssbd_sidebar_logo,
+                Name = "pictureBoxLogo",
+                Size = new Size(220, 113),
+                Location = new Point(0, 0),
+                SizeMode = PictureBoxSizeMode.Zoom,
+                TabStop = false
+            };
+            panelSidebar.Controls.Add(pictureBox1);
+            // Start menu below logo
+            _menuTop = pictureBox1.Bottom + 10;
+            // Everyone sees Dashboard
+            AddDashboard();
+
+            switch (UserSession.RoleEnum)
+            {
+                case RoleEnum.SuperAdmin:
+
+                    AddPackingSlip();
+                    AddInvoice();
+                    AddDeliveryChallan();
+                    AddReports();
+                    AddTally();
+                    AddSettings();
+
+                    break;
+
+                case RoleEnum.Cashier:
+
+                    AddTally();
+                    AddInvoice();
+                    AddDeliveryChallan();
+
+                    break;
+
+                case RoleEnum.PackingSlipOperator:
+
+                    AddPackingSlip();
+
+                    break;
+
+                case RoleEnum.StockIncharge:
+
+                    AddTally();       // Replace with AddStock() later
+                    AddReports();
+
+                    break;
+            }
+
+            AddLogout();
         }
         public void BindPanelsidebar()
         {

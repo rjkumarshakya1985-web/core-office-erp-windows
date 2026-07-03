@@ -2,6 +2,8 @@
 using CoreOffice.Win.Modules.PackingSlip;
 using CoreOffice.Win.Modules.Shared;
 using CoreOffice.Win.Modules.TallySynch;
+using CoreOffice.Win.Session;
+using CoreOfficeERP.Common.Enums;
 
 
 namespace CoreOffice.Win.Modules.Cashier
@@ -110,90 +112,193 @@ namespace CoreOffice.Win.Modules.Cashier
 
             return card;
         }
+        private void LoadPackingSlipSection()
+        {
+            var section = CreateSection("PACKING SLIP");
+
+            flowLayoutPanel1.Controls.Add(section);
+            flowLayoutPanel1.SetFlowBreak(section, true);
+
+            var row = CreateRow();
+
+            row.Controls.Add(CreateCard(
+                "New Packing Slip",
+                "Create entry",
+                Properties.Resources.add,
+                OpenPackingSlip));
+
+            row.Controls.Add(CreateCard(
+                "Search Packing Slip",
+                "Find records",
+                Properties.Resources.search,
+                OpenSearchPackingSlip));
+
+            row.Controls.Add(CreateCard(
+                "Packing Slip List",
+                "View all",
+                Properties.Resources.list,
+                OpenListPackingSlip));
+
+            flowLayoutPanel1.Controls.Add(row);
+            flowLayoutPanel1.SetFlowBreak(row, true);
+        }
+        private void LoadInvoiceSection()
+        {
+            var section = CreateSection("Invoice");
+
+            flowLayoutPanel1.Controls.Add(section);
+            flowLayoutPanel1.SetFlowBreak(section, true);
+
+            var row = CreateRow();
+
+            row.Controls.Add(CreateCard(
+                "New Invoice",
+                "Create entry",
+                Properties.Resources.add,
+                OpenInvoice));
+
+            row.Controls.Add(CreateCard(
+                "Search Invoice",
+                "Find records",
+                Properties.Resources.search,
+                OpenSearchInvoice));
+
+            row.Controls.Add(CreateCard(
+                "Invoice List",
+                "View all",
+                Properties.Resources.list,
+                OpenInvoiceList));
+
+            flowLayoutPanel1.Controls.Add(row);
+            flowLayoutPanel1.SetFlowBreak(row, true);
+        }
+        private void LoadDeliverySection()
+        {
+            var section = CreateSection("Delivery Challan");
+
+            flowLayoutPanel1.Controls.Add(section);
+            flowLayoutPanel1.SetFlowBreak(section, true);
+
+            var row = CreateRow();
+
+            row.Controls.Add(CreateCard(
+                "New Delivery Challan",
+                "Create entry",
+                Properties.Resources.add,
+                OpenDeliveryChallan));
+
+            row.Controls.Add(CreateCard(
+                "Search Delivery Challan",
+                "Find records",
+                Properties.Resources.search,
+                OpenSearchDeliveryChallan));
+
+            row.Controls.Add(CreateCard(
+                "Delivery Challan List",
+                "View all",
+                Properties.Resources.list,
+                OpenDeliveryChallanList));
+
+            flowLayoutPanel1.Controls.Add(row);
+            flowLayoutPanel1.SetFlowBreak(row, true);
+        }
+        private void LoadTallySection()
+        {
+            var section = CreateSection("Tally");
+
+            flowLayoutPanel1.Controls.Add(section);
+            flowLayoutPanel1.SetFlowBreak(section, true);
+
+            var row = CreateRow();
+
+            row.Controls.Add(CreateCard(
+                "Purchase Synch",
+                "Create entry",
+                Properties.Resources.add,
+                OpenTallySynchPurchase));
+           
+            flowLayoutPanel1.Controls.Add(row);
+            flowLayoutPanel1.SetFlowBreak(row, true);
+        }
         private void DashboardForm_Load(object sender, EventArgs e)
         {
             flowLayoutPanel1.Controls.Clear();
 
             flowLayoutPanel1.Controls.Add(header);
             flowLayoutPanel1.SetFlowBreak(header, true);
+            switch (UserSession.RoleEnum)
+            {
+                case RoleEnum.SuperAdmin:
 
-            // 🔷 PACKING SLIP
-            var section1 = CreateSection("PACKING SLIP");
-            flowLayoutPanel1.Controls.Add(section1);
-            flowLayoutPanel1.SetFlowBreak(section1, true); // 🔥 important            
+                    LoadPackingSlipSection();
+                    LoadInvoiceSection();
+                    LoadDeliverySection();
+                    LoadTallySection();
 
-            // 👉 ROW PANEL
-            var row1 = CreateRow();
+                    break;
 
-            row1.Controls.Add(CreateCard("New Packing Slip", "Create entry", Properties.Resources.add, OpenPackingSlip));
-            row1.Controls.Add(CreateCard("Search Packing Slip", "Find records", Properties.Resources.search, OpenSearchPackingSlip));
-            row1.Controls.Add(CreateCard("Packing Slip List", "View all", Properties.Resources.list, OpenListPackingSlip));
+                case RoleEnum.Cashier:
+                   
+                    LoadInvoiceSection();
+                    LoadDeliverySection();
+                    LoadTallySection();
+                    break;
 
-            flowLayoutPanel1.Controls.Add(row1);
-            flowLayoutPanel1.SetFlowBreak(row1, true);
+                case RoleEnum.PackingSlipOperator:
 
+                    LoadPackingSlipSection();
 
-            //// 🔷 INVOICE
-            //var section2 = CreateSection("INVOICE");
-            //flowLayoutPanel1.Controls.Add(section2);
-            //flowLayoutPanel1.SetFlowBreak(section2, true); // 🔥 important
+                    break;
 
+                case RoleEnum.StockIncharge:
 
-            //var row2 = CreateRow();
+                    LoadTallySection();
 
-            //row2.Controls.Add(CreateCard("New Invoice", "Create invoice", Properties.Resources.add, OpenInvoice));
-            //row2.Controls.Add(CreateCard("Search Invoice", "Find invoice", Properties.Resources.search, OpenSearchInvoice));
-            //row2.Controls.Add(CreateCard("Invoice List", "View all", Properties.Resources.list, OpenInvoiceList));
+                    break;
+            }
 
-            //flowLayoutPanel1.Controls.Add(row2);
-            //flowLayoutPanel1.SetFlowBreak(row2, true);
+            //// 🔷 PACKING SLIP
+            //var section1 = CreateSection("PACKING SLIP");
+            //flowLayoutPanel1.Controls.Add(section1);
+            //flowLayoutPanel1.SetFlowBreak(section1, true); // 🔥 important            
 
+            //// 👉 ROW PANEL
+            //var row1 = CreateRow();
 
-            // 🔷 Deliver Challan
-            var section3 = CreateSection("DELIVERY CHALLAN");
-            flowLayoutPanel1.Controls.Add(section3);
-            flowLayoutPanel1.SetFlowBreak(section3, true); // 🔥 important
+            //row1.Controls.Add(CreateCard("New Packing Slip", "Create entry", Properties.Resources.add, OpenPackingSlip));
+            //row1.Controls.Add(CreateCard("Search Packing Slip", "Find records", Properties.Resources.search, OpenSearchPackingSlip));
+            //row1.Controls.Add(CreateCard("Packing Slip List", "View all", Properties.Resources.list, OpenListPackingSlip));
 
-            var row3 = CreateRow();
-
-            row3.Controls.Add(CreateCard("New Delivery", "Create Delivery Challan", Properties.Resources.add, OpenDeliveryChallan));
-            row3.Controls.Add(CreateCard("Search Delivery", "Find Delivery Challan", Properties.Resources.search, OpenSearchDeliveryChallan));
-            row3.Controls.Add(CreateCard("Delivery List", "View all", Properties.Resources.list, OpenDeliveryChallanList));
-
-            flowLayoutPanel1.Controls.Add(row3);
-            flowLayoutPanel1.SetFlowBreak(row3, true);
-
+            //flowLayoutPanel1.Controls.Add(row1);
+            //flowLayoutPanel1.SetFlowBreak(row1, true);          
 
 
-            //// 🔷 Credit Note
-            //var section4 = CreateSection("SALES RETURN");
-            //flowLayoutPanel1.Controls.Add(section4);
-            //flowLayoutPanel1.SetFlowBreak(section4, true); // 🔥 important
+            //// 🔷 Deliver Challan
+            //var section3 = CreateSection("DELIVERY CHALLAN");
+            //flowLayoutPanel1.Controls.Add(section3);
+            //flowLayoutPanel1.SetFlowBreak(section3, true); // 🔥 important
 
-            //var row4 = CreateRow();
+            //var row3 = CreateRow();
 
-            //row4.Controls.Add(CreateCard("New Credit Note", "Create Credit Note",Properties.Resources.add, OpenSalesReturn));
-            //row4.Controls.Add(CreateCard("Search Credit Note", "Find Credit Note",Properties.Resources.search, OpenSearchSalesReturn));
-            //row4.Controls.Add(CreateCard("Credit Note List", "View all",Properties.Resources.list, OpenSalesReturnList));
+            //row3.Controls.Add(CreateCard("New Delivery", "Create Delivery Challan", Properties.Resources.add, OpenDeliveryChallan));
+            //row3.Controls.Add(CreateCard("Search Delivery", "Find Delivery Challan", Properties.Resources.search, OpenSearchDeliveryChallan));
+            //row3.Controls.Add(CreateCard("Delivery List", "View all", Properties.Resources.list, OpenDeliveryChallanList));
 
-            //flowLayoutPanel1.Controls.Add(row4);
-            //flowLayoutPanel1.SetFlowBreak(row4, true);
+            //flowLayoutPanel1.Controls.Add(row3);
+            //flowLayoutPanel1.SetFlowBreak(row3, true);
 
 
-            // 🔷 Tally Synch
-            var section5 = CreateSection("TALLY");
-            flowLayoutPanel1.Controls.Add(section5);
-            flowLayoutPanel1.SetFlowBreak(section5, true); // 🔥 important
+            //// 🔷 Tally Synch
+            //var section5 = CreateSection("TALLY");
+            //flowLayoutPanel1.Controls.Add(section5);
+            //flowLayoutPanel1.SetFlowBreak(section5, true); // 🔥 important
 
-            var row5 = CreateRow();
+            //var row5 = CreateRow();
 
-            row5.Controls.Add(CreateCard("Purchase Synch", "Synch Purchase",Properties.Resources.add, OpenTallySynchPurchase));
-            //row5.Controls.Add(CreateCard("Purchase Return Synch", "Synch Purchase Return",Properties.Resources.search, OpenTallySynchPurchaseReturn));
-            //row5.Controls.Add(CreateCard("Sale Synch", "Synch Sales Invoices", Properties.Resources.list, OpenTallySynchSales));
-            //row5.Controls.Add(CreateCard("Sale Synch", "Synch Sales Invoices", Properties.Resources.list, OpenTallySynchSalesReturn));
+            //row5.Controls.Add(CreateCard("Purchase Synch", "Synch Purchase",Properties.Resources.add, OpenTallySynchPurchase));           
 
-            flowLayoutPanel1.Controls.Add(row5);
-            flowLayoutPanel1.SetFlowBreak(row5, true);          
+            //flowLayoutPanel1.Controls.Add(row5);
+            //flowLayoutPanel1.SetFlowBreak(row5, true);          
         }    
 
         private void OpenPackingSlip()

@@ -345,12 +345,13 @@ namespace CoreOfficeERP.Tally.Services
             {
                 var stdRateDetails = new StockItemStandardRateDetails
                 {
-                    applicableFrom =price.Date,
+                    applicableFrom =price.Date,                   
                     stdRate = price.PurchaseRate,
                     stdRateUnit = "Pcs"
-                };
 
+                };
                 si.arlStandardCostPriceDetails.Add(stdRateDetails);
+                
             }
 
 
@@ -370,6 +371,7 @@ namespace CoreOfficeERP.Tally.Services
                 };
 
                 si.arlStandardSellPriceDetails.Add(stdRateDetails);
+                
             }          
 
             return _tb.DoTransferStockItem(si);
