@@ -1,11 +1,14 @@
 ﻿
+using CoreOffice.Win.Modules.PackingSlip;
 using CoreOffice.Win.Session;
 using CoreOffice.Win.Shared;
 using CoreOfficeERP.Application.Interfaces;
+using CoreOfficeERP.Application.Services;
 using CoreOfficeERP.Common.Enums;
 using CoreOfficeERP.Domain.Requests.Tally;
 using CoreOfficeERP.Domain.Responses.Tally;
 using CoreOfficeERP.Tally.Interfaces;
+using Microsoft.Extensions.DependencyInjection;
 using Tally;
 using TallyBridge;
 namespace CoreOffice.Win.Modules.TallySynch
@@ -32,7 +35,107 @@ namespace CoreOffice.Win.Modules.TallySynch
             btnSynch.Enabled = false;
             txtVoucher.Focus();
         }
+        #region shortcut commands mapping
+       
+        //Save Tally: Ctrl + S
+        protected override async Task SaveAsync()
+        {
+            await SaveTallyAsync();
+        }
+            
+        //Reset Form: Ctrl + R
+        protected override void ResetForm()
+        {
+            ClearData();
+        }
+        private async Task SaveTallyAsync()
+        {
+            if (_currentPurchase == null || _tallyConfig == null)
+            {
+                MessageBox.Show("No voucher loaded. Please enter voucher first.");
+                return;
+            }
+            if (txtSBillNumber.Text == "" || txtSBillNumber.Text == string.Empty)
+            {
+                MessageBox.Show("Please enter Supplier's Bill Number");
+                this.txtSBillNumber.Focus();
+                return;
+            }
+            btnSynch.Enabled = false;
+            AppLoader.Show();
+            List<TallyProcessRequest> logs = new();
+            var completedPurchase = _currentPurchase; // ✅ store reference
+            bool isSuccess = false;
+            try
+            {
+                // ✅ Call orchestrator (NO Task.Run)
+                logs = await _tallyProcessOrchestrator
+                    .ExecutePurchase(_currentPurchase, _tallyConfig, Convert.ToInt32(cmbFiananceYear.SelectedValue.ToString()), txtSBillNumber.Text.Trim(), dtDate.Value);
+                // ✅ Determine success
+                isSuccess = logs != null && logs.Any() && logs.All(x => x.IsSuccess);
+                if (isSuccess)
+                {
+                    MessageBox.Show("Voucher successfully sent to Tally!", "SSBD",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // ✅ Modify response AFTER success
+                    MapLedgerNames(completedPurchase);
+                    // ✅ Clear after success
+                    _currentPurchase = null;
+                    ClearData();
+                }
+                else
+                {
+                    var failedStep = logs.FirstOrDefault(x => !x.IsSuccess);
 
+                    MessageBox.Show(
+                        $"Process failed at Step {failedStep?.Step}: {failedStep?.ErrorMessage}",
+                        "SSBD",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+            finally
+            {
+                try
+                {
+                    // ✅ SINGLE API CALL (logs)
+                    if (logs != null && logs.Any())
+                    {
+                        await _tallyProcessService.CreateAsync(logs);
+                    }
+
+                    // ✅ NEW: Send updated purchase via PUT
+                    // ✅ ONLY update if success
+                    if (isSuccess && completedPurchase != null)
+                    {
+                        var bulkRequest = BuildTallyNameRequests(completedPurchase);
+                        var parcelStatus = completedPurchase.SaleVoucherPrint.ParcelStatus;
+                        if (bulkRequest.Any())
+                        {
+                            bool isStockTransfer = parcelStatus == 5 ? true : false;
+                            await _tallyTransactionsService.TallyDataUpdate(completedPurchase.SaleVoucherPrint.Id, bulkRequest, isStockTransfer);
+                        }
+                    }
+                }
+                catch (Exception apiEx)
+                {
+                    MessageBox.Show("Log API failed: " + apiEx.Message);
+                }
+
+                btnSynch.Enabled = true;
+                AppLoader.Hide();
+            }
+
+        }
+        protected override void CloseForm()
+        {
+            Close();
+        }
+        #endregion
         private void ClearData()
         {
             txtVoucher.Text = string.Empty;
@@ -140,90 +243,12 @@ namespace CoreOffice.Win.Modules.TallySynch
 
         private async void btnSynch_Click(object sender, EventArgs e)
         {
-            if (_currentPurchase == null || _tallyConfig == null)
-            {
-                MessageBox.Show("No voucher loaded. Please enter voucher first.");
-                return;
-            }
-            if (txtSBillNumber.Text == "" || txtSBillNumber.Text == string.Empty)
-            {
-                MessageBox.Show("Please enter Supplier's Bill Number");
-                this.txtSBillNumber.Focus();
-                return;
-            }
-            btnSynch.Enabled = false;
-            AppLoader.Show();
-            List<TallyProcessRequest> logs = new();
-            var completedPurchase = _currentPurchase; // ✅ store reference
-            bool isSuccess = false;
-            try
-            {
-                // ✅ Call orchestrator (NO Task.Run)
-                logs = await _tallyProcessOrchestrator
-                    .ExecutePurchase(_currentPurchase, _tallyConfig, Convert.ToInt32(cmbFiananceYear.SelectedValue.ToString()), txtSBillNumber.Text.Trim(), dtDate.Value);
-                // ✅ Determine success
-                isSuccess = logs != null && logs.Any() && logs.All(x => x.IsSuccess);
-                if (isSuccess)
-                {
-                    MessageBox.Show("Voucher successfully sent to Tally!", "SSBD",
-                        MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    // ✅ Modify response AFTER success
-                    MapLedgerNames(completedPurchase);
-                    // ✅ Clear after success
-                    _currentPurchase = null;
-                    ClearData();
-                }
-                else
-                {
-                    var failedStep = logs.FirstOrDefault(x => !x.IsSuccess);
-
-                    MessageBox.Show(
-                        $"Process failed at Step {failedStep?.Step}: {failedStep?.ErrorMessage}",
-                        "SSBD",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Error: " + ex.Message);
-            }
-            finally
-            {
-                try
-                {
-                    // ✅ SINGLE API CALL (logs)
-                    if (logs != null && logs.Any())
-                    {
-                        await _tallyProcessService.CreateAsync(logs);
-                    }
-
-                    // ✅ NEW: Send updated purchase via PUT
-                    // ✅ ONLY update if success
-                    if (isSuccess && completedPurchase != null)
-                    {
-                         var bulkRequest = BuildTallyNameRequests(completedPurchase);
-                         var parcelStatus = completedPurchase.SaleVoucherPrint.ParcelStatus;                        
-                        if (bulkRequest.Any())
-                        {
-                            bool isStockTransfer = parcelStatus == 5 ? true : false;
-                            await _tallyTransactionsService.TallyDataUpdate(completedPurchase.SaleVoucherPrint.Id, bulkRequest,isStockTransfer);
-                        }
-                    }
-                }
-                catch (Exception apiEx)
-                {
-                    MessageBox.Show("Log API failed: " + apiEx.Message);
-                }
-
-                btnSynch.Enabled = true;
-                AppLoader.Hide();
-            }
+            SaveAsync();
         }
     
         private void btnClose_Click(object sender, EventArgs e)
         {
-            ClearData();
+            ResetForm();
         }
         private TallyPurchaseResponse _currentPurchase;
         private TallyConfigResponse _tallyConfig;
@@ -466,11 +491,7 @@ namespace CoreOffice.Win.Modules.TallySynch
 
         private void btnClose_Click_1(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("Do you want to close this window?","Confirm",MessageBoxButtons.YesNo,MessageBoxIcon.Warning);
-            if (result == DialogResult.Yes)
-            { 
-            this.Close();
-            }
+            CloseForm();
         }
     }
 }

@@ -1,6 +1,7 @@
-﻿namespace CoreOffice.Win.Modules.Cashier
+﻿using CoreOffice.Win.Shared;
+namespace CoreOffice.Win.Modules.Cashier
 {
-    public partial class VisitorForm : Form
+    public partial class VisitorForm : BaseForm
     {
         public Action<int>? OnVisitorSelected;
 

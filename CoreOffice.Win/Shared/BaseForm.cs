@@ -26,38 +26,77 @@ namespace CoreOffice.Win.Shared
 
             if (keyData == (Keys.Control | Keys.S))
             {
-                Save();
+                _ = SaveAsync();   // Fire and forget from keyboard
+                return true;              
+            }           
+
+            if (keyData == Keys.F4)
+            {
+                OpenRecord();
                 return true;
             }
-
+            if (keyData == (Keys.Alt | Keys.V))
+            {
+                OpenVisitor();
+                return true;
+            }
+            if (keyData == (Keys.Alt | Keys.C))
+            {
+                OpenCustomer();
+                return true;
+            }
+            if (keyData == (Keys.Control | Keys.R))
+            {
+                ResetForm();
+                return true;
+            }
+            if (keyData == (Keys.Control | Keys.D))
+            {
+                _ = DeleteAsync();
+                return true;
+            }
             if (keyData == Keys.Escape)
             {
-                this.Close();
+                CloseForm();
                 return true;
             }
-
             return base.ProcessCmdKey(ref msg, keyData);
         }
 
-        protected virtual void Save()
+        protected virtual Task SaveAsync()
         {
             // Override in child forms
+            return Task.CompletedTask;
         }
-      
+        protected virtual Task DeleteAsync()
+        {
+            return Task.CompletedTask;
+        }
+        protected virtual void CloseForm()
+        {
+            Close();
+        }
+        protected virtual void OpenRecord()
+        {
+        }
+        protected virtual void OpenVisitor()
+        {
+        }
+        protected virtual void OpenCustomer()
+        {
+        }
+        protected virtual void ResetForm()
+        {
+        }
         protected override void OnFormClosing(FormClosingEventArgs e)
         {
             if (SkipCloseConfirmation)
             {
                 base.OnFormClosing(e);
                 return;
-            }
-            if (e.CloseReason == CloseReason.ApplicationExitCall)
-            {
-                base.OnFormClosing(e);
-                return;
-            }
+            }           
             // Ignore if application itself is exiting
-            if (e.CloseReason == CloseReason.ApplicationExitCall)
+            if (e.CloseReason == CloseReason.ApplicationExitCall ||  e.CloseReason == CloseReason.WindowsShutDown)
             {
                 base.OnFormClosing(e);
                 return;

@@ -709,7 +709,7 @@
             btnClose.Name = "btnClose";
             btnClose.Size = new Size(323, 34);
             btnClose.TabIndex = 3;
-            btnClose.Text = "Close";
+            btnClose.Text = "Close (ESC)";
             btnClose.UseVisualStyleBackColor = false;
             btnClose.Click += btnClose_Click_1;
             // 
@@ -724,7 +724,7 @@
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(160, 43);
             btnClear.TabIndex = 2;
-            btnClear.Text = "Clear";
+            btnClear.Text = "Clear (CTRL+R)";
             btnClear.UseVisualStyleBackColor = false;
             btnClear.Click += btnClose_Click;
             // 
@@ -740,7 +740,7 @@
             btnSynch.Name = "btnSynch";
             btnSynch.Size = new Size(160, 43);
             btnSynch.TabIndex = 1;
-            btnSynch.Text = "Synch";
+            btnSynch.Text = "Synch (CTRL+S)";
             btnSynch.UseVisualStyleBackColor = false;
             btnSynch.Click += btnSynch_Click;
             // 
@@ -1128,7 +1128,6 @@
             Controls.Add(panel2);
             Controls.Add(panel1);
             Name = "TallySynchPurchase";
-            StartPosition = FormStartPosition.CenterScreen;
             Text = "TallySynchPurchase";
             WindowState = FormWindowState.Maximized;
             Load += TallySynchPurchase_Load;
