@@ -47,10 +47,123 @@ namespace CoreOffice.Win.Modules.PackingSlip
             FormSetting();
             dataGridPackingSlip.AllowUserToAddRows = false;
             btnDelete.Enabled = false;
-            txtBarcodeScanner.Focus();
+            FocusBarcode();
         }
+        #region shortcut commands mapping
+        //Open Visitor Window: Alt + V
+        protected override void OpenVisitor()
+        {
+            var childForm = ActivatorUtilities.CreateInstance<FrmVisitorScanner>(_serviceProvider, this);
+            childForm.ShowDialog();
+            FocusBarcode();
+        }
+        //Open Customer Window: Alt + C
+        protected override void OpenCustomer()
+        {
+            var childForm = ActivatorUtilities.CreateInstance<CustomerSearchForm>(_serviceProvider, this);
+            childForm.ShowDialog();
+            FocusBarcode();
+        }
+        //Save Packingslip: Ctrl + S
+        protected override async Task SaveAsync()
+        {
+            await SaveCustomerAsync();
+        }
+        //Open Edit Window: F4
+        protected override void OpenRecord()
+        {
+            var childForm = ActivatorUtilities.CreateInstance<FrmPackingSlipNumber>(
+                _serviceProvider, this);
 
+            childForm.Show();
+        }
+        //Reset Form: Ctrl + R
+        protected override void ResetForm()
+        {
+            Clear();
+        }
+        protected override async Task DeleteAsync()
+        {
+            if (!PackingSlipId.HasValue)
+            {
+                MessageBox.Show("Packing slip not selected");
+                return;
+            }
 
+            var confirm = MessageBox.Show(
+                "Are you sure you want to delete this packing slip?",
+                "Confirm Delete",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
+
+            if (confirm != DialogResult.Yes)
+                return;
+
+            try
+            {
+                AppLoader.Show();
+
+                var status = await _packingSlipService.DeleteAsync(PackingSlipId.Value);
+
+                if (status)
+                {
+                    MessageBox.Show("Packing slip deleted successfully");
+                    ResetForm();
+                }
+                else
+                {
+                    MessageBox.Show("Failed to delete packing slip");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                AppLoader.Hide();
+                ResetForm();
+            }    
+        }
+        protected override void CloseForm()
+        {
+            Close();
+        }
+        #endregion
+        public void Clear()
+        {
+            if (dataGridPackingSlip.Rows.Count > 0)
+            {
+                dataGridPackingSlip.Rows.Clear();
+            }
+            VisitorId = null;
+            CustomerId = null;
+            VisitorDiscount = null;
+            PackingSlipId = null;
+            VisitorType = null;
+            lblCompanyName.Text = "-";
+            lblPhone.Text = "-";
+            lblTotalAmount.Text = "0.00";
+            lblTaxableAmount.Text = "0";
+            lblVisitorType.Text = "-";
+            lblTotalPcs.Text = "0";
+            lblDiscount.Text = "0 %";
+            btnDelete.Enabled = false;
+            txtBarcodeScanner.Clear();
+            cmbSalesPerson.SelectedIndex = 0;
+            dataGridPackingSlip.Rows.Clear();
+            CalculatePackingSlip();
+            FocusBarcode();
+        }
+        private void FocusBarcode()
+        {
+            if (!txtBarcodeScanner.IsDisposed &&
+                txtBarcodeScanner.CanFocus)
+            {
+                txtBarcodeScanner.Focus();
+                txtBarcodeScanner.SelectAll();   // optional
+            }
+        }
         private async Task LoadSalesPersons()
         {
             var salesPersons = await _salesPersonService.GetActiveSalesPerson();
@@ -127,19 +240,15 @@ namespace CoreOffice.Win.Modules.PackingSlip
         private async void FrmPackingSlip_Load(object sender, EventArgs e)
         {
             await LoadSalesPersons();
-        }
-
+        }    
 
         private void btnVisitor_Click(object sender, EventArgs e)
         {
-            var childForm = ActivatorUtilities.CreateInstance<FrmVisitorScanner>(_serviceProvider, this);
-            childForm.Show();
-        }
-
+            OpenVisitor();
+        }     
         private void btnCustomer_Click(object sender, EventArgs e)
         {
-            var childForm = ActivatorUtilities.CreateInstance<CustomerSearchForm>(_serviceProvider, this);
-            childForm.ShowDialog();
+            OpenCustomer();
         }
 
         public void SetVisitorInfo(VisitorResponse? response)
@@ -188,31 +297,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
             lblVisitorType.Text = VisitorType == CustomerTypeEnum.WholeSale ? "W" : "R";
             VisitorDiscount = response.Discount ?? 0;
             lblDiscount.Text = VisitorDiscount > 0 ? VisitorDiscount + " %" : "0 %";
-        }
-
-        public void Clear()
-        {
-            if (dataGridPackingSlip.Rows.Count > 0)
-            {
-                dataGridPackingSlip.Rows.Clear();
-            }
-            VisitorId = null;
-            CustomerId = null;
-            VisitorDiscount = null;
-            PackingSlipId = null;
-            VisitorType = null;
-            lblCompanyName.Text = "-";
-            lblPhone.Text = "-";
-            lblTotalAmount.Text = "0.00";
-            lblTaxableAmount.Text = "0";
-            lblVisitorType.Text = "-";
-            lblTotalPcs.Text = "0";
-            lblDiscount.Text = "0 %";
-            btnDelete.Enabled = false;
-            txtBarcodeScanner.Clear();
-            cmbSalesPerson.SelectedIndex = 0;
-
-        }
+        }       
 
 
         private void AddNewItemToGrid(CurrentStockResponse item, int Qty)
@@ -328,7 +413,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
                 {
                     MessageBox.Show("Product already added. You can change quantity from the grid.");
                     txtBarcodeScanner.Clear();
-                    txtBarcodeScanner.Focus();
+                    FocusBarcode();
                     return;
                 }
             }
@@ -338,7 +423,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
             {
                 MessageBox.Show("Product not found");
                 txtBarcodeScanner.Clear();
-                txtBarcodeScanner.Focus();
+                FocusBarcode();
                 return;
             }
 
@@ -358,14 +443,14 @@ namespace CoreOffice.Win.Modules.PackingSlip
             {
                 MessageBox.Show("Stock not available");
                 txtBarcodeScanner.Clear();
-                txtBarcodeScanner.Focus();
+                FocusBarcode();
                 return;
             }
 
 
             txtBarcodeScanner.Clear();
             new FrmProductQty(this, item).ShowDialog();
-            txtBarcodeScanner.Focus();
+            FocusBarcode();
 
         }
         private async void txtBarcodeScanner_KeyDown(object sender, KeyEventArgs e)
@@ -387,6 +472,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
         {
 
             AddNewItemToGrid(item, Qty);
+            FocusBarcode();
         }
 
         private void dataGridPackingSlip_CellValueChanged(object sender, DataGridViewCellEventArgs e)
@@ -446,16 +532,16 @@ namespace CoreOffice.Win.Modules.PackingSlip
                 {
                     dataGridPackingSlip.Rows.Remove(dataGridPackingSlip.CurrentRow);
                     CalculatePackingSlip();
+                    FocusBarcode();
                 }
             }
             catch
             { }
         }
-      
 
-        private async void btnSave_Click(object sender, EventArgs e)
+       
+        private async Task SaveCustomerAsync()
         {
-
             try
             {
                 AppLoader.Show();
@@ -524,7 +610,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
                 {
                     await _packingSlipService.UpdateAsync(PackingSlipId, request);
                     if (PackingSlipId.HasValue)
-                    {                       
+                    {
                         await _printService.PrintPackingSlipAsync(PackingSlipId.Value);
                         Clear();
                     }
@@ -542,11 +628,14 @@ namespace CoreOffice.Win.Modules.PackingSlip
 
             }
         }
-
+        private async void btnSave_Click(object sender, EventArgs e)
+        {
+            await SaveAsync();        
+        }
+          
         private void btnUpdate_Click(object sender, EventArgs e)
         {
-            var childForm = ActivatorUtilities.CreateInstance<FrmPackingSlipNumber>(_serviceProvider, this);
-            childForm.Show();
+            OpenRecord();
         }
 
         public void LoadPackingSlip(PackingSlipResponse response)
@@ -598,62 +687,22 @@ namespace CoreOffice.Win.Modules.PackingSlip
             lblDiscount.Text = response.Items.FirstOrDefault().DiscountPercent > 0 ? VisitorDiscount + " %" : "0 %";
             CalculatePackingSlip();
             btnDelete.Enabled = true; // Show delete button in edit mode
+            FocusBarcode();
         }
 
         private async void btnDelete_Click(object sender, EventArgs e)
         {
-            if (!PackingSlipId.HasValue)
-            {
-                MessageBox.Show("Packing slip not selected");
-                return;
-            }
-
-            var confirm = MessageBox.Show(
-                "Are you sure you want to delete this packing slip?",
-                "Confirm Delete",
-                MessageBoxButtons.YesNo,
-                MessageBoxIcon.Warning);
-
-            if (confirm != DialogResult.Yes)
-                return;
-
-            try
-            {
-                AppLoader.Show();
-
-                var status = await _packingSlipService.DeleteAsync(PackingSlipId.Value);
-
-                if (status)
-                {
-                    MessageBox.Show("Packing slip deleted successfully");
-                    Clear();
-                }
-                else
-                {
-                    MessageBox.Show("Failed to delete packing slip");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                AppLoader.Hide();
-                Clear();
-            }
+            await DeleteAsync();
         }
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            Close();
+            CloseForm();
         }
 
         private void btnClear_Click(object sender, EventArgs e)
         {
-            dataGridPackingSlip.Rows.Clear();
-            CalculatePackingSlip();
-            Clear();
+            ResetForm();
         }
 
 
@@ -730,10 +779,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
 
 
         }
-        protected override void Save()
-        {
-            btnSave.PerformClick();
-        }
+       
         private void dataGridPackingSlip_KeyDown(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)

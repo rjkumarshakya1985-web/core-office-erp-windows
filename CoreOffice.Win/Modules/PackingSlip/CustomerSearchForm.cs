@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace CoreOffice.Win.Modules.PackingSlip
 {
-    public class CustomerSearchForm : Form
+    public class CustomerSearchForm : BaseForm
     {
         private readonly FrmPackingSlip _frmPackingSlip;
         private readonly IServiceProvider _serviceProvider;
@@ -37,14 +37,21 @@ namespace CoreOffice.Win.Modules.PackingSlip
 
         private async void CustomerSearchForm_Load(object? sender, EventArgs e)
         {
-            if (AppCache.BillingCustomers == null || AppCache.BillingCustomers.Count == 0)
+            try
             {
-                AppCache.BillingCustomers = await _customerService.GetBillingCustomersAsync();
-            }
-            _customers = AppCache.BillingCustomers ?? new List<CustomerResponse>();
-            BindCustomers(_customers);
+                if (AppCache.BillingCustomers == null || AppCache.BillingCustomers.Count == 0)
+                {
+                    AppCache.BillingCustomers = await _customerService.GetBillingCustomersAsync();
+                }
+                _customers = AppCache.BillingCustomers ?? new List<CustomerResponse>();
+                BindCustomers(_customers);
 
-            txtSearch.Focus();
+                txtSearch.Focus();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error loading customers: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
         private void BindCustomers(List<CustomerResponse>? customers = null)
         {
@@ -111,7 +118,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
             btnAddCustomer.Name = "btnAddCustomer";
             btnAddCustomer.Size = new Size(151, 36);
             btnAddCustomer.TabIndex = 5;
-            btnAddCustomer.Text = "+ Add Customer";
+            btnAddCustomer.Text = "Add Customer";
             btnAddCustomer.UseVisualStyleBackColor = false;
             btnAddCustomer.Click += btnAddCustomer_Click;
             // 
@@ -180,7 +187,6 @@ namespace CoreOffice.Win.Modules.PackingSlip
             Controls.Add(panel3);
             Controls.Add(pnlTop);
             Name = "CustomerSearchForm";
-            StartPosition = FormStartPosition.CenterScreen;
             Load += CustomerSearchForm_Load;
             pnlTop.ResumeLayout(false);
             pnlTop.PerformLayout();

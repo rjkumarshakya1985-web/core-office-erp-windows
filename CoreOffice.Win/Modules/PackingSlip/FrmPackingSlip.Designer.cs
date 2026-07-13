@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             pnlHeader = new Panel();
             label6 = new Label();
             label1 = new Label();
@@ -430,37 +430,37 @@
             dataGridPackingSlip.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridPackingSlip.BackgroundColor = Color.White;
             dataGridPackingSlip.BorderStyle = BorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(25, 55, 109);
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            dataGridViewCellStyle1.ForeColor = Color.White;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataGridPackingSlip.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(25, 55, 109);
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            dataGridViewCellStyle4.ForeColor = Color.White;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dataGridPackingSlip.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dataGridPackingSlip.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridPackingSlip.Columns.AddRange(new DataGridViewColumn[] { Id, Barcode, Product, Quantity, Rate, Taxable, Discount, NetTaxable, GstValue, Amount, AvailableQty });
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(220, 230, 250);
-            dataGridViewCellStyle2.SelectionForeColor = Color.Black;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dataGridPackingSlip.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = SystemColors.Window;
+            dataGridViewCellStyle5.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle5.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = Color.FromArgb(220, 230, 250);
+            dataGridViewCellStyle5.SelectionForeColor = Color.Black;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
+            dataGridPackingSlip.DefaultCellStyle = dataGridViewCellStyle5;
             dataGridPackingSlip.Dock = DockStyle.Top;
             dataGridPackingSlip.EnableHeadersVisualStyles = false;
             dataGridPackingSlip.GridColor = Color.Gainsboro;
             dataGridPackingSlip.Location = new Point(0, 0);
             dataGridPackingSlip.Name = "dataGridPackingSlip";
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Control;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dataGridPackingSlip.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = SystemColors.Control;
+            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            dataGridPackingSlip.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             dataGridPackingSlip.RowTemplate.Height = 40;
             dataGridPackingSlip.Size = new Size(1128, 269);
             dataGridPackingSlip.TabIndex = 2;
@@ -577,7 +577,7 @@
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(109, 50);
             btnClear.TabIndex = 11;
-            btnClear.Text = "Clear";
+            btnClear.Text = "Clear (CTRL+R)";
             btnClear.UseVisualStyleBackColor = false;
             btnClear.Click += btnClear_Click;
             // 
@@ -592,7 +592,7 @@
             btnClose.Name = "btnClose";
             btnClose.Size = new Size(109, 50);
             btnClose.TabIndex = 10;
-            btnClose.Text = "Close";
+            btnClose.Text = "Close (ESC)";
             btnClose.UseVisualStyleBackColor = false;
             btnClose.Click += btnClose_Click;
             // 
@@ -606,7 +606,7 @@
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(109, 50);
             btnSave.TabIndex = 3;
-            btnSave.Text = "Save";
+            btnSave.Text = "Save(CTRL+S)";
             btnSave.UseVisualStyleBackColor = false;
             btnSave.Click += btnSave_Click;
             // 
@@ -621,7 +621,7 @@
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(109, 50);
             btnDelete.TabIndex = 9;
-            btnDelete.Text = "Delete";
+            btnDelete.Text = "Delete (CTRL+D)";
             btnDelete.UseVisualStyleBackColor = false;
             btnDelete.Click += btnDelete_Click;
             // 
@@ -634,7 +634,7 @@
             btnVisitor.Name = "btnVisitor";
             btnVisitor.Size = new Size(75, 50);
             btnVisitor.TabIndex = 4;
-            btnVisitor.Text = "Visitor";
+            btnVisitor.Text = "Visitor (ALT+V)";
             btnVisitor.UseVisualStyleBackColor = true;
             btnVisitor.Click += btnVisitor_Click;
             // 
@@ -646,7 +646,7 @@
             btnCustomer.Name = "btnCustomer";
             btnCustomer.Size = new Size(83, 50);
             btnCustomer.TabIndex = 13;
-            btnCustomer.Text = "Customer";
+            btnCustomer.Text = "Customer (ALT+C)";
             btnCustomer.UseVisualStyleBackColor = true;
             btnCustomer.Click += btnCustomer_Click;
             // 
@@ -660,7 +660,7 @@
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(109, 50);
             btnUpdate.TabIndex = 8;
-            btnUpdate.Text = "Edit Bill";
+            btnUpdate.Text = "Edit Bill (F4)";
             btnUpdate.UseVisualStyleBackColor = false;
             btnUpdate.Click += btnUpdate_Click;
             // 
@@ -745,7 +745,6 @@
             Font = new Font("Segoe UI", 9F);
             FormBorderStyle = FormBorderStyle.Fixed3D;
             Name = "FrmPackingSlip";
-            StartPosition = FormStartPosition.CenterScreen;
             Text = "FrmPackingSlip";
             WindowState = FormWindowState.Maximized;
             Load += FrmPackingSlip_Load;

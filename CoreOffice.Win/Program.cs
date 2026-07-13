@@ -61,8 +61,7 @@ namespace CoreOffice.Win
             services.AddTransient<InvoiceSearchForm>();
 
             services.AddTransient<DeliveryChallanReturnDetailForm>();
-            services.AddTransient<TallySynchPurchase>();
-            services.AddTransient<CustomerAddForm>();
+            services.AddTransient<TallySynchPurchase>();         
             using var serviceProvider = services.BuildServiceProvider();
 
 
