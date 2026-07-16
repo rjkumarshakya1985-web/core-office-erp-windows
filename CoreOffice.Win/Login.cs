@@ -10,7 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace CoreOffice.Win
 {
-    public partial class Login : Form
+    public partial class Login : BaseForm
     {
         private readonly IAuthService _authService;
         private readonly ITokenProvider _tokenProvider;
@@ -32,7 +32,7 @@ namespace CoreOffice.Win
             _customerService = customerService;
             _tokenProvider = tokenProvider;
             _serviceProvider = serviceProvider;
-        }     
+        }
         private void btnMinimise_Click(object sender, EventArgs e)
         {
             this.WindowState = FormWindowState.Minimized;
@@ -40,11 +40,11 @@ namespace CoreOffice.Win
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            DialogResult confirm= MessageBox.Show(
+            DialogResult confirm = MessageBox.Show(
                 "Are you sure you want to exit the application?",
                 "Confirm Exit",
                 MessageBoxButtons.YesNo,
-                MessageBoxIcon.Warning);          
+                MessageBoxIcon.Warning);
 
             if (confirm != DialogResult.Yes)
                 return;
@@ -55,24 +55,26 @@ namespace CoreOffice.Win
         {
             login();
         }
-        protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
-        {
-            if (keyData == Keys.Enter)
-            {
-                if (ActiveControl == txtUser) ActiveControl = txtPwd;
-                else if (ActiveControl == txtPwd) ActiveControl = btnLogin;
-            }
-            return base.ProcessCmdKey(ref msg, keyData);
-        }
+        //protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+        //{
+        //    if (keyData == Keys.Enter)
+        //    {
+        //        if (ActiveControl == txtUserName) ActiveControl = txtPassword;
+        //        else if (ActiveControl == txtPassword) ActiveControl = btnLogin;
+        //    }
+        //    return base.ProcessCmdKey(ref msg, keyData);
+        //}
         public async void login()
         {
             try
             {
+                if (!ValidateControls())
+                    return;
                 AppLoader.Show();
 
                 var request = new LoginRequestDto();
-                request.Username = txtUser.Text.Trim();
-                request.Password = txtPwd.Text.Trim();
+                request.Username = txtUserName.Text.Trim();
+                request.Password = txtPassword.Text.Trim();
                 //request.clientType = (int)ClientType.Web;
                 request.clientType = (int)ClientType.Windows;
 
@@ -83,11 +85,11 @@ namespace CoreOffice.Win
                     // Set token
                     _tokenProvider.SetToken(response.Token);
                     await LoadBillingCustomers();
-                     UserSession.RoleEnum = (RoleEnum)Enum.Parse(typeof(RoleEnum), response.RoleName);                
-                        var dashboard = _serviceProvider.GetRequiredService<MDICashierParent>();
-                        dashboard.Show();
-                        this.Hide();
-                    
+                    UserSession.RoleEnum = (RoleEnum)Enum.Parse(typeof(RoleEnum), response.RoleName);
+                    var dashboard = _serviceProvider.GetRequiredService<MDICashierParent>();
+                    dashboard.Show();
+                    this.Hide();
+
                     //if (response.RoleName == RoleEnum.PackingSlipOperator.ToString())
                     //{
                     //    var dashboard = _serviceProvider.GetRequiredService<MDIPackingSlip>();
@@ -138,6 +140,11 @@ namespace CoreOffice.Win
         private void btnHelp_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Please reach out us at info@brainsoftsoftware.com");
+        }
+
+        private void Login_Load(object sender, EventArgs e)
+        {
+            txtUserName.Focus();
         }
     }
 }

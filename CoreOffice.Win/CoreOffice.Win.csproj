@@ -21,6 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="FontAwesome.Sharp" Version="6.6.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="9.0.12" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
     <PackageReference Include="ReportViewerCore.WinForms" Version="15.1.33" />
@@ -102,6 +103,10 @@
     <None Update="Shared\Prints\PackingSlip\RDLCPackingSlip.rdlc">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Shared\Resources\Icons\" />
   </ItemGroup>
 
 </Project>

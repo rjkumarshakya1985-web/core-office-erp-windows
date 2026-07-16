@@ -40,7 +40,8 @@ namespace CoreOffice.Win
             services.AddTransient<FrmPackingSlip>();
             services.AddTransient<CustomerSearchForm>();
             services.AddTransient<CustomerAddForm>();
-           
+            services.AddTransient<FrmAddCustomer>();
+
             services.AddTransient<MDIPackingSlip>();
             services.AddTransient<MDICashierParent>();
             services.AddTransient<CompanySelectionForm>();

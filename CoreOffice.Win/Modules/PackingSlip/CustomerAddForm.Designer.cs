@@ -14,46 +14,47 @@ partial class CustomerAddForm
     private void InitializeComponent()
     {
         pnlHeader = new Panel();
-        btnSave = new Button();
+        btnClose = new CoreOffice.Win.Shared.Controls.ERPButton();
+        btnSave = new CoreOffice.Win.Shared.Controls.ERPButton();
         lblTitle = new Label();
         pnlContent = new Panel();
-        cmbCustomerType = new ComboBox();
-        txtName = new TextBox();
-        txtPrintName = new TextBox();
-        txtAlias = new TextBox();
-        txtLedgerName = new TextBox();
         txtGroupName = new TextBox();
-        txtGSTIN = new TextBox();
-        txtPan = new TextBox();
+        lblGroupName = new Label();
         cmbRegistrationType = new ComboBox();
         txtEmail = new TextBox();
+        txtPrintName = new TextBox();
+        lblRegistrationType = new Label();
+        cmbCustomerType = new ComboBox();
+        txtAlias = new TextBox();
+        lblEmail = new Label();
+        lblAlias = new Label();
+        txtLedgerName = new TextBox();
+        txtGSTIN = new TextBox();
+        txtPan = new TextBox();
+        lblPrintName = new Label();
         txtPhone = new TextBox();
+        lblCustomerType = new Label();
+        txtName = new TextBox();
         txtMobile = new TextBox();
         txtBillingAddress = new TextBox();
+        lblName = new Label();
         txtShippingAddress = new TextBox();
         cmbState = new ComboBox();
         cmbCity = new ComboBox();
         txtPinCode = new TextBox();
         txtContactPerson = new TextBox();
         txtOpeningBalance = new TextBox();
+        lblLedgerName = new Label();
         txtCreditDays = new TextBox();
         txtCreditLimits = new TextBox();
         txtDiscount = new TextBox();
         txtRemarks = new TextBox();
-        lblCustomerType = new Label();
-        lblName = new Label();
-        lblPrintName = new Label();
-        lblAlias = new Label();
-        lblLedgerName = new Label();
-        lblGroupName = new Label();
         lblGSTIN = new Label();
-        lblPan = new Label();
-        lblRegistrationType = new Label();
-        lblEmail = new Label();
-        lblPhone = new Label();
         lblMobile = new Label();
+        lblPan = new Label();
         lblBillingAddress = new Label();
         lblShippingAddress = new Label();
+        lblPhone = new Label();
         lblState = new Label();
         lblCity = new Label();
         lblPinCode = new Label();
@@ -69,28 +70,46 @@ partial class CustomerAddForm
         // 
         // pnlHeader
         // 
-        pnlHeader.BackColor = Color.White;
+        pnlHeader.BackColor = Color.FromArgb(18, 45, 90);
         pnlHeader.BorderStyle = BorderStyle.FixedSingle;
+        pnlHeader.Controls.Add(btnClose);
         pnlHeader.Controls.Add(btnSave);
         pnlHeader.Controls.Add(lblTitle);
         pnlHeader.Dock = DockStyle.Top;
         pnlHeader.Location = new Point(0, 0);
         pnlHeader.Name = "pnlHeader";
-        pnlHeader.Size = new Size(1080, 47);
+        pnlHeader.Size = new Size(969, 47);
         pnlHeader.TabIndex = 1;
+        // 
+        // btnClose
+        // 
+        btnClose.BackColor = Color.FromArgb(220, 53, 69);
+        btnClose.ButtonType = Win.Shared.Controls.ERPButtonType.Danger;
+        btnClose.FlatAppearance.BorderSize = 0;
+        btnClose.FlatStyle = FlatStyle.Flat;
+        btnClose.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+        btnClose.ForeColor = Color.White;
+        btnClose.Location = new Point(855, 3);
+        btnClose.Name = "btnClose";
+        btnClose.Size = new Size(104, 40);
+        btnClose.TabIndex = 3;
+        btnClose.Text = "Close(ESC)";
+        btnClose.UseVisualStyleBackColor = false;
+        btnClose.Click += btnClose_Click;
         // 
         // btnSave
         // 
-        btnSave.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-        btnSave.BackColor = Color.White;
-        btnSave.FlatAppearance.BorderColor = Color.FromArgb(210, 210, 210);
+        btnSave.BackColor = Color.RoyalBlue;
+        btnSave.ButtonType = Win.Shared.Controls.ERPButtonType.Save;
+        btnSave.FlatAppearance.BorderSize = 0;
         btnSave.FlatStyle = FlatStyle.Flat;
-        btnSave.ForeColor = Color.FromArgb(0, 166, 81);
-        btnSave.Location = new Point(930, 5);
+        btnSave.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+        btnSave.ForeColor = Color.White;
+        btnSave.Location = new Point(724, 3);
         btnSave.Name = "btnSave";
-        btnSave.Size = new Size(125, 34);
-        btnSave.TabIndex = 0;
-        btnSave.Text = "Save Customer";
+        btnSave.Size = new Size(125, 40);
+        btnSave.TabIndex = 2;
+        btnSave.Text = "Save(CTRL+S)";
         btnSave.UseVisualStyleBackColor = false;
         btnSave.Click += btnSave_Click;
         // 
@@ -98,7 +117,7 @@ partial class CustomerAddForm
         // 
         lblTitle.AutoSize = true;
         lblTitle.Font = new Font("Segoe UI", 11F, FontStyle.Bold);
-        lblTitle.ForeColor = Color.FromArgb(31, 41, 55);
+        lblTitle.ForeColor = Color.White;
         lblTitle.Location = new Point(15, 13);
         lblTitle.Name = "lblTitle";
         lblTitle.Size = new Size(166, 20);
@@ -109,43 +128,43 @@ partial class CustomerAddForm
         // 
         pnlContent.AutoScroll = true;
         pnlContent.BackColor = Color.FromArgb(250, 250, 250);
-        pnlContent.Controls.Add(cmbCustomerType);
-        pnlContent.Controls.Add(txtName);
-        pnlContent.Controls.Add(txtPrintName);
-        pnlContent.Controls.Add(txtAlias);
-        pnlContent.Controls.Add(txtLedgerName);
         pnlContent.Controls.Add(txtGroupName);
-        pnlContent.Controls.Add(txtGSTIN);
-        pnlContent.Controls.Add(txtPan);
+        pnlContent.Controls.Add(lblGroupName);
         pnlContent.Controls.Add(cmbRegistrationType);
         pnlContent.Controls.Add(txtEmail);
+        pnlContent.Controls.Add(txtPrintName);
+        pnlContent.Controls.Add(lblRegistrationType);
+        pnlContent.Controls.Add(cmbCustomerType);
+        pnlContent.Controls.Add(txtAlias);
+        pnlContent.Controls.Add(lblEmail);
+        pnlContent.Controls.Add(lblAlias);
+        pnlContent.Controls.Add(txtLedgerName);
+        pnlContent.Controls.Add(txtGSTIN);
+        pnlContent.Controls.Add(txtPan);
+        pnlContent.Controls.Add(lblPrintName);
         pnlContent.Controls.Add(txtPhone);
+        pnlContent.Controls.Add(lblCustomerType);
+        pnlContent.Controls.Add(txtName);
         pnlContent.Controls.Add(txtMobile);
         pnlContent.Controls.Add(txtBillingAddress);
+        pnlContent.Controls.Add(lblName);
         pnlContent.Controls.Add(txtShippingAddress);
         pnlContent.Controls.Add(cmbState);
         pnlContent.Controls.Add(cmbCity);
         pnlContent.Controls.Add(txtPinCode);
         pnlContent.Controls.Add(txtContactPerson);
         pnlContent.Controls.Add(txtOpeningBalance);
+        pnlContent.Controls.Add(lblLedgerName);
         pnlContent.Controls.Add(txtCreditDays);
         pnlContent.Controls.Add(txtCreditLimits);
         pnlContent.Controls.Add(txtDiscount);
         pnlContent.Controls.Add(txtRemarks);
-        pnlContent.Controls.Add(lblCustomerType);
-        pnlContent.Controls.Add(lblName);
-        pnlContent.Controls.Add(lblPrintName);
-        pnlContent.Controls.Add(lblAlias);
-        pnlContent.Controls.Add(lblLedgerName);
-        pnlContent.Controls.Add(lblGroupName);
         pnlContent.Controls.Add(lblGSTIN);
-        pnlContent.Controls.Add(lblPan);
-        pnlContent.Controls.Add(lblRegistrationType);
-        pnlContent.Controls.Add(lblEmail);
-        pnlContent.Controls.Add(lblPhone);
         pnlContent.Controls.Add(lblMobile);
+        pnlContent.Controls.Add(lblPan);
         pnlContent.Controls.Add(lblBillingAddress);
         pnlContent.Controls.Add(lblShippingAddress);
+        pnlContent.Controls.Add(lblPhone);
         pnlContent.Controls.Add(lblState);
         pnlContent.Controls.Add(lblCity);
         pnlContent.Controls.Add(lblPinCode);
@@ -159,145 +178,226 @@ partial class CustomerAddForm
         pnlContent.Location = new Point(0, 47);
         pnlContent.Name = "pnlContent";
         pnlContent.Padding = new Padding(15);
-        pnlContent.Size = new Size(1080, 633);
+        pnlContent.Size = new Size(969, 569);
         pnlContent.TabIndex = 0;
-        // 
-        // cmbCustomerType
-        // 
-        cmbCustomerType.AccessibleName = "Select Customer Type";
-        cmbCustomerType.DropDownStyle = ComboBoxStyle.DropDownList;
-        cmbCustomerType.FlatStyle = FlatStyle.Flat;
-        cmbCustomerType.Font = new Font("Segoe UI", 10F);
-        cmbCustomerType.Location = new Point(10, 21);
-        cmbCustomerType.Margin = new Padding(7, 22, 7, 7);
-        cmbCustomerType.Name = "cmbCustomerType";
-        cmbCustomerType.Size = new Size(230, 25);
-        cmbCustomerType.TabIndex = 0;
-        // 
-        // txtName
-        // 
-        txtName.BorderStyle = BorderStyle.FixedSingle;
-        txtName.Font = new Font("Segoe UI", 10F);
-        txtName.Location = new Point(269, 22);
-        txtName.Margin = new Padding(7, 22, 7, 7);
-        txtName.Name = "txtName";
-        txtName.Size = new Size(248, 25);
-        txtName.TabIndex = 1;
-        txtName.TextChanged += txtName_TextChanged;
-        // 
-        // txtPrintName
-        // 
-        txtPrintName.BorderStyle = BorderStyle.FixedSingle;
-        txtPrintName.Font = new Font("Segoe UI", 10F);
-        txtPrintName.Location = new Point(531, 22);
-        txtPrintName.Margin = new Padding(7, 22, 7, 7);
-        txtPrintName.Name = "txtPrintName";
-        txtPrintName.Size = new Size(248, 25);
-        txtPrintName.TabIndex = 2;
-        // 
-        // txtAlias
-        // 
-        txtAlias.BorderStyle = BorderStyle.FixedSingle;
-        txtAlias.Font = new Font("Segoe UI", 10F);
-        txtAlias.Location = new Point(796, 21);
-        txtAlias.Margin = new Padding(7, 22, 7, 7);
-        txtAlias.Name = "txtAlias";
-        txtAlias.Size = new Size(230, 25);
-        txtAlias.TabIndex = 3;
-        // 
-        // txtLedgerName
-        // 
-        txtLedgerName.BorderStyle = BorderStyle.FixedSingle;
-        txtLedgerName.Font = new Font("Segoe UI", 10F);
-        txtLedgerName.Location = new Point(10, 75);
-        txtLedgerName.Margin = new Padding(7, 22, 7, 7);
-        txtLedgerName.Name = "txtLedgerName";
-        txtLedgerName.Size = new Size(230, 25);
-        txtLedgerName.TabIndex = 4;
         // 
         // txtGroupName
         // 
         txtGroupName.BorderStyle = BorderStyle.FixedSingle;
         txtGroupName.Font = new Font("Segoe UI", 10F);
-        txtGroupName.Location = new Point(272, 75);
+        txtGroupName.Location = new Point(13, 143);
         txtGroupName.Margin = new Padding(7, 22, 7, 7);
         txtGroupName.Name = "txtGroupName";
-        txtGroupName.Size = new Size(248, 25);
-        txtGroupName.TabIndex = 5;
+        txtGroupName.Size = new Size(233, 25);
+        txtGroupName.TabIndex = 8;
+        // 
+        // lblGroupName
+        // 
+        lblGroupName.AutoSize = true;
+        lblGroupName.BackColor = Color.FromArgb(250, 250, 250);
+        lblGroupName.ForeColor = Color.FromArgb(75, 85, 99);
+        lblGroupName.Location = new Point(13, 121);
+        lblGroupName.Margin = new Padding(10, 4, 3, 3);
+        lblGroupName.Name = "lblGroupName";
+        lblGroupName.Size = new Size(75, 15);
+        lblGroupName.TabIndex = 28;
+        lblGroupName.Text = "Group Name";
+        // 
+        // cmbRegistrationType
+        // 
+        cmbRegistrationType.AccessibleName = "Registration type";
+        cmbRegistrationType.DropDownStyle = ComboBoxStyle.DropDownList;
+        cmbRegistrationType.Font = new Font("Segoe UI", 10F);
+        cmbRegistrationType.Location = new Point(730, 37);
+        cmbRegistrationType.Margin = new Padding(7, 22, 7, 7);
+        cmbRegistrationType.Name = "cmbRegistrationType";
+        cmbRegistrationType.Size = new Size(230, 25);
+        cmbRegistrationType.TabIndex = 3;
+        // 
+        // txtEmail
+        // 
+        txtEmail.BorderStyle = BorderStyle.FixedSingle;
+        txtEmail.Font = new Font("Segoe UI", 10F);
+        txtEmail.Location = new Point(257, 89);
+        txtEmail.Margin = new Padding(7, 22, 7, 7);
+        txtEmail.Name = "txtEmail";
+        txtEmail.Size = new Size(223, 25);
+        txtEmail.TabIndex = 5;
+        // 
+        // txtPrintName
+        // 
+        txtPrintName.BorderStyle = BorderStyle.FixedSingle;
+        txtPrintName.Font = new Font("Segoe UI", 10F);
+        txtPrintName.Location = new Point(258, 143);
+        txtPrintName.Margin = new Padding(7, 22, 7, 7);
+        txtPrintName.Name = "txtPrintName";
+        txtPrintName.Size = new Size(223, 25);
+        txtPrintName.TabIndex = 9;
+        // 
+        // lblRegistrationType
+        // 
+        lblRegistrationType.AutoSize = true;
+        lblRegistrationType.BackColor = Color.FromArgb(250, 250, 250);
+        lblRegistrationType.ForeColor = Color.FromArgb(75, 85, 99);
+        lblRegistrationType.Location = new Point(734, 11);
+        lblRegistrationType.Margin = new Padding(10, 4, 3, 3);
+        lblRegistrationType.Name = "lblRegistrationType";
+        lblRegistrationType.Size = new Size(98, 15);
+        lblRegistrationType.TabIndex = 31;
+        lblRegistrationType.Text = "Registration Type";
+        // 
+        // cmbCustomerType
+        // 
+        cmbCustomerType.AccessibleName = "Select Customer Type";
+        cmbCustomerType.DropDownStyle = ComboBoxStyle.DropDownList;
+        cmbCustomerType.Font = new Font("Segoe UI", 10F);
+        cmbCustomerType.Location = new Point(16, 37);
+        cmbCustomerType.Margin = new Padding(7, 22, 7, 7);
+        cmbCustomerType.Name = "cmbCustomerType";
+        cmbCustomerType.Size = new Size(230, 25);
+        cmbCustomerType.TabIndex = 0;
+        // 
+        // txtAlias
+        // 
+        txtAlias.BorderStyle = BorderStyle.FixedSingle;
+        txtAlias.Font = new Font("Segoe UI", 10F);
+        txtAlias.Location = new Point(487, 142);
+        txtAlias.Margin = new Padding(7, 22, 7, 7);
+        txtAlias.Name = "txtAlias";
+        txtAlias.Size = new Size(230, 25);
+        txtAlias.TabIndex = 10;
+        // 
+        // lblEmail
+        // 
+        lblEmail.AutoSize = true;
+        lblEmail.BackColor = Color.FromArgb(250, 250, 250);
+        lblEmail.ForeColor = Color.FromArgb(75, 85, 99);
+        lblEmail.Location = new Point(254, 71);
+        lblEmail.Margin = new Padding(10, 4, 3, 3);
+        lblEmail.Name = "lblEmail";
+        lblEmail.Size = new Size(36, 15);
+        lblEmail.TabIndex = 32;
+        lblEmail.Text = "Email";
+        // 
+        // lblAlias
+        // 
+        lblAlias.AutoSize = true;
+        lblAlias.BackColor = Color.FromArgb(250, 250, 250);
+        lblAlias.ForeColor = Color.FromArgb(75, 85, 99);
+        lblAlias.Location = new Point(493, 121);
+        lblAlias.Margin = new Padding(10, 4, 3, 3);
+        lblAlias.Name = "lblAlias";
+        lblAlias.Size = new Size(32, 15);
+        lblAlias.TabIndex = 26;
+        lblAlias.Text = "Alias";
+        // 
+        // txtLedgerName
+        // 
+        txtLedgerName.BorderStyle = BorderStyle.FixedSingle;
+        txtLedgerName.Font = new Font("Segoe UI", 10F);
+        txtLedgerName.Location = new Point(737, 143);
+        txtLedgerName.Margin = new Padding(7, 22, 7, 7);
+        txtLedgerName.Name = "txtLedgerName";
+        txtLedgerName.Size = new Size(223, 25);
+        txtLedgerName.TabIndex = 11;
         // 
         // txtGSTIN
         // 
         txtGSTIN.BorderStyle = BorderStyle.FixedSingle;
         txtGSTIN.Font = new Font("Segoe UI", 10F);
-        txtGSTIN.Location = new Point(531, 75);
+        txtGSTIN.Location = new Point(491, 89);
         txtGSTIN.Margin = new Padding(7, 22, 7, 7);
         txtGSTIN.Name = "txtGSTIN";
-        txtGSTIN.Size = new Size(248, 25);
+        txtGSTIN.Size = new Size(230, 25);
         txtGSTIN.TabIndex = 6;
         // 
         // txtPan
         // 
         txtPan.BorderStyle = BorderStyle.FixedSingle;
         txtPan.Font = new Font("Segoe UI", 10F);
-        txtPan.Location = new Point(793, 75);
+        txtPan.Location = new Point(732, 89);
         txtPan.Margin = new Padding(7, 22, 7, 7);
         txtPan.Name = "txtPan";
-        txtPan.Size = new Size(230, 25);
+        txtPan.Size = new Size(228, 25);
         txtPan.TabIndex = 7;
         // 
-        // cmbRegistrationType
+        // lblPrintName
         // 
-        cmbRegistrationType.AccessibleName = "Registration type";
-        cmbRegistrationType.DropDownStyle = ComboBoxStyle.DropDownList;
-        cmbRegistrationType.FlatStyle = FlatStyle.Flat;
-        cmbRegistrationType.Font = new Font("Segoe UI", 10F);
-        cmbRegistrationType.Location = new Point(7, 128);
-        cmbRegistrationType.Margin = new Padding(7, 22, 7, 7);
-        cmbRegistrationType.Name = "cmbRegistrationType";
-        cmbRegistrationType.Size = new Size(230, 25);
-        cmbRegistrationType.TabIndex = 8;
-        // 
-        // txtEmail
-        // 
-        txtEmail.BorderStyle = BorderStyle.FixedSingle;
-        txtEmail.Font = new Font("Segoe UI", 10F);
-        txtEmail.Location = new Point(269, 128);
-        txtEmail.Margin = new Padding(7, 22, 7, 7);
-        txtEmail.Name = "txtEmail";
-        txtEmail.Size = new Size(248, 25);
-        txtEmail.TabIndex = 9;
+        lblPrintName.AutoSize = true;
+        lblPrintName.BackColor = Color.FromArgb(250, 250, 250);
+        lblPrintName.ForeColor = Color.FromArgb(75, 85, 99);
+        lblPrintName.Location = new Point(261, 121);
+        lblPrintName.Margin = new Padding(10, 4, 3, 3);
+        lblPrintName.Name = "lblPrintName";
+        lblPrintName.Size = new Size(67, 15);
+        lblPrintName.TabIndex = 25;
+        lblPrintName.Text = "Print Name";
         // 
         // txtPhone
         // 
         txtPhone.BorderStyle = BorderStyle.FixedSingle;
         txtPhone.Font = new Font("Segoe UI", 10F);
-        txtPhone.Location = new Point(531, 128);
+        txtPhone.Location = new Point(13, 90);
         txtPhone.Margin = new Padding(7, 22, 7, 7);
         txtPhone.Name = "txtPhone";
-        txtPhone.Size = new Size(248, 25);
-        txtPhone.TabIndex = 10;
+        txtPhone.Size = new Size(233, 25);
+        txtPhone.TabIndex = 4;
+        // 
+        // lblCustomerType
+        // 
+        lblCustomerType.AutoSize = true;
+        lblCustomerType.BackColor = Color.FromArgb(250, 250, 250);
+        lblCustomerType.ForeColor = Color.FromArgb(75, 85, 99);
+        lblCustomerType.Location = new Point(12, 11);
+        lblCustomerType.Margin = new Padding(10, 4, 3, 3);
+        lblCustomerType.Name = "lblCustomerType";
+        lblCustomerType.Size = new Size(87, 15);
+        lblCustomerType.TabIndex = 23;
+        lblCustomerType.Text = "Customer Type";
+        // 
+        // txtName
+        // 
+        txtName.BorderStyle = BorderStyle.FixedSingle;
+        txtName.Font = new Font("Segoe UI", 10F);
+        txtName.Location = new Point(254, 37);
+        txtName.Margin = new Padding(5);
+        txtName.Name = "txtName";
+        txtName.Size = new Size(230, 25);
+        txtName.TabIndex = 1;
         // 
         // txtMobile
         // 
         txtMobile.BorderStyle = BorderStyle.FixedSingle;
         txtMobile.Font = new Font("Segoe UI", 10F);
-        txtMobile.Location = new Point(793, 128);
+        txtMobile.Location = new Point(492, 37);
         txtMobile.Margin = new Padding(7, 22, 7, 7);
         txtMobile.Name = "txtMobile";
         txtMobile.Size = new Size(230, 25);
-        txtMobile.TabIndex = 11;
+        txtMobile.TabIndex = 2;
         // 
         // txtBillingAddress
         // 
         txtBillingAddress.BorderStyle = BorderStyle.FixedSingle;
         txtBillingAddress.Font = new Font("Segoe UI", 10F);
-        txtBillingAddress.Location = new Point(7, 181);
+        txtBillingAddress.Location = new Point(7, 190);
         txtBillingAddress.Margin = new Padding(7, 22, 7, 7);
         txtBillingAddress.Multiline = true;
         txtBillingAddress.Name = "txtBillingAddress";
-        txtBillingAddress.Size = new Size(1029, 70);
+        txtBillingAddress.Size = new Size(953, 70);
         txtBillingAddress.TabIndex = 12;
         txtBillingAddress.TextChanged += txtBillingAddress_TextChanged;
+        // 
+        // lblName
+        // 
+        lblName.AutoSize = true;
+        lblName.BackColor = Color.FromArgb(250, 250, 250);
+        lblName.ForeColor = Color.FromArgb(75, 85, 99);
+        lblName.Location = new Point(258, 11);
+        lblName.Margin = new Padding(10, 4, 3, 3);
+        lblName.Name = "lblName";
+        lblName.Size = new Size(47, 15);
+        lblName.TabIndex = 24;
+        lblName.Text = "Name *";
         // 
         // txtShippingAddress
         // 
@@ -307,7 +407,7 @@ partial class CustomerAddForm
         txtShippingAddress.Margin = new Padding(7, 22, 7, 7);
         txtShippingAddress.Multiline = true;
         txtShippingAddress.Name = "txtShippingAddress";
-        txtShippingAddress.Size = new Size(1029, 70);
+        txtShippingAddress.Size = new Size(953, 70);
         txtShippingAddress.TabIndex = 13;
         // 
         // cmbState
@@ -334,7 +434,6 @@ partial class CustomerAddForm
         cmbCity.Name = "cmbCity";
         cmbCity.Size = new Size(248, 25);
         cmbCity.TabIndex = 15;
-        cmbCity.SelectedIndexChanged += cmbCity_SelectedIndexChanged;
         // 
         // txtPinCode
         // 
@@ -353,7 +452,7 @@ partial class CustomerAddForm
         txtContactPerson.Location = new Point(796, 384);
         txtContactPerson.Margin = new Padding(7, 22, 7, 7);
         txtContactPerson.Name = "txtContactPerson";
-        txtContactPerson.Size = new Size(240, 25);
+        txtContactPerson.Size = new Size(164, 25);
         txtContactPerson.TabIndex = 17;
         // 
         // txtOpeningBalance
@@ -365,6 +464,19 @@ partial class CustomerAddForm
         txtOpeningBalance.Name = "txtOpeningBalance";
         txtOpeningBalance.Size = new Size(230, 25);
         txtOpeningBalance.TabIndex = 18;
+        txtOpeningBalance.Text = "0";
+        // 
+        // lblLedgerName
+        // 
+        lblLedgerName.AutoSize = true;
+        lblLedgerName.BackColor = Color.FromArgb(250, 250, 250);
+        lblLedgerName.ForeColor = Color.FromArgb(75, 85, 99);
+        lblLedgerName.Location = new Point(737, 121);
+        lblLedgerName.Margin = new Padding(10, 4, 3, 3);
+        lblLedgerName.Name = "lblLedgerName";
+        lblLedgerName.Size = new Size(78, 15);
+        lblLedgerName.TabIndex = 27;
+        lblLedgerName.Text = "Ledger Name";
         // 
         // txtCreditDays
         // 
@@ -375,6 +487,7 @@ partial class CustomerAddForm
         txtCreditDays.Name = "txtCreditDays";
         txtCreditDays.Size = new Size(248, 25);
         txtCreditDays.TabIndex = 19;
+        txtCreditDays.Text = "90";
         // 
         // txtCreditLimits
         // 
@@ -385,6 +498,7 @@ partial class CustomerAddForm
         txtCreditLimits.Name = "txtCreditLimits";
         txtCreditLimits.Size = new Size(250, 25);
         txtCreditLimits.TabIndex = 20;
+        txtCreditLimits.Text = "0";
         // 
         // txtDiscount
         // 
@@ -393,8 +507,9 @@ partial class CustomerAddForm
         txtDiscount.Location = new Point(798, 438);
         txtDiscount.Margin = new Padding(7, 22, 7, 7);
         txtDiscount.Name = "txtDiscount";
-        txtDiscount.Size = new Size(230, 25);
+        txtDiscount.Size = new Size(162, 25);
         txtDiscount.TabIndex = 21;
+        txtDiscount.Text = "0";
         // 
         // txtRemarks
         // 
@@ -404,159 +519,51 @@ partial class CustomerAddForm
         txtRemarks.Margin = new Padding(7, 22, 7, 7);
         txtRemarks.Multiline = true;
         txtRemarks.Name = "txtRemarks";
-        txtRemarks.Size = new Size(1029, 70);
+        txtRemarks.Size = new Size(950, 70);
         txtRemarks.TabIndex = 22;
-        // 
-        // lblCustomerType
-        // 
-        lblCustomerType.AutoSize = true;
-        lblCustomerType.BackColor = Color.FromArgb(250, 250, 250);
-        lblCustomerType.ForeColor = Color.FromArgb(75, 85, 99);
-        lblCustomerType.Location = new Point(10, 4);
-        lblCustomerType.Margin = new Padding(10, 4, 3, 3);
-        lblCustomerType.Name = "lblCustomerType";
-        lblCustomerType.Size = new Size(86, 15);
-        lblCustomerType.TabIndex = 23;
-        lblCustomerType.Text = "Customer Type";
-        // 
-        // lblName
-        // 
-        lblName.AutoSize = true;
-        lblName.BackColor = Color.FromArgb(250, 250, 250);
-        lblName.ForeColor = Color.FromArgb(75, 85, 99);
-        lblName.Location = new Point(272, 4);
-        lblName.Margin = new Padding(10, 4, 3, 3);
-        lblName.Name = "lblName";
-        lblName.Size = new Size(47, 15);
-        lblName.TabIndex = 24;
-        lblName.Text = "Name *";
-        // 
-        // lblPrintName
-        // 
-        lblPrintName.AutoSize = true;
-        lblPrintName.BackColor = Color.FromArgb(250, 250, 250);
-        lblPrintName.ForeColor = Color.FromArgb(75, 85, 99);
-        lblPrintName.Location = new Point(534, 4);
-        lblPrintName.Margin = new Padding(10, 4, 3, 3);
-        lblPrintName.Name = "lblPrintName";
-        lblPrintName.Size = new Size(67, 15);
-        lblPrintName.TabIndex = 25;
-        lblPrintName.Text = "Print Name";
-        // 
-        // lblAlias
-        // 
-        lblAlias.AutoSize = true;
-        lblAlias.BackColor = Color.FromArgb(250, 250, 250);
-        lblAlias.ForeColor = Color.FromArgb(75, 85, 99);
-        lblAlias.Location = new Point(796, 4);
-        lblAlias.Margin = new Padding(10, 4, 3, 3);
-        lblAlias.Name = "lblAlias";
-        lblAlias.Size = new Size(32, 15);
-        lblAlias.TabIndex = 26;
-        lblAlias.Text = "Alias";
-        // 
-        // lblLedgerName
-        // 
-        lblLedgerName.AutoSize = true;
-        lblLedgerName.BackColor = Color.FromArgb(250, 250, 250);
-        lblLedgerName.ForeColor = Color.FromArgb(75, 85, 99);
-        lblLedgerName.Location = new Point(10, 57);
-        lblLedgerName.Margin = new Padding(10, 4, 3, 3);
-        lblLedgerName.Name = "lblLedgerName";
-        lblLedgerName.Size = new Size(78, 15);
-        lblLedgerName.TabIndex = 27;
-        lblLedgerName.Text = "Ledger Name";
-        // 
-        // lblGroupName
-        // 
-        lblGroupName.AutoSize = true;
-        lblGroupName.BackColor = Color.FromArgb(250, 250, 250);
-        lblGroupName.ForeColor = Color.FromArgb(75, 85, 99);
-        lblGroupName.Location = new Point(272, 57);
-        lblGroupName.Margin = new Padding(10, 4, 3, 3);
-        lblGroupName.Name = "lblGroupName";
-        lblGroupName.Size = new Size(75, 15);
-        lblGroupName.TabIndex = 28;
-        lblGroupName.Text = "Group Name";
         // 
         // lblGSTIN
         // 
         lblGSTIN.AutoSize = true;
         lblGSTIN.BackColor = Color.FromArgb(250, 250, 250);
         lblGSTIN.ForeColor = Color.FromArgb(75, 85, 99);
-        lblGSTIN.Location = new Point(534, 57);
+        lblGSTIN.Location = new Point(493, 71);
         lblGSTIN.Margin = new Padding(10, 4, 3, 3);
         lblGSTIN.Name = "lblGSTIN";
-        lblGSTIN.Size = new Size(39, 15);
+        lblGSTIN.Size = new Size(40, 15);
         lblGSTIN.TabIndex = 29;
         lblGSTIN.Text = "GSTIN";
-        // 
-        // lblPan
-        // 
-        lblPan.AutoSize = true;
-        lblPan.BackColor = Color.FromArgb(250, 250, 250);
-        lblPan.ForeColor = Color.FromArgb(75, 85, 99);
-        lblPan.Location = new Point(796, 57);
-        lblPan.Margin = new Padding(10, 4, 3, 3);
-        lblPan.Name = "lblPan";
-        lblPan.Size = new Size(30, 15);
-        lblPan.TabIndex = 30;
-        lblPan.Text = "PAN";
-        // 
-        // lblRegistrationType
-        // 
-        lblRegistrationType.AutoSize = true;
-        lblRegistrationType.BackColor = Color.FromArgb(250, 250, 250);
-        lblRegistrationType.ForeColor = Color.FromArgb(75, 85, 99);
-        lblRegistrationType.Location = new Point(10, 110);
-        lblRegistrationType.Margin = new Padding(10, 4, 3, 3);
-        lblRegistrationType.Name = "lblRegistrationType";
-        lblRegistrationType.Size = new Size(97, 15);
-        lblRegistrationType.TabIndex = 31;
-        lblRegistrationType.Text = "Registration Type";
-        // 
-        // lblEmail
-        // 
-        lblEmail.AutoSize = true;
-        lblEmail.BackColor = Color.FromArgb(250, 250, 250);
-        lblEmail.ForeColor = Color.FromArgb(75, 85, 99);
-        lblEmail.Location = new Point(272, 110);
-        lblEmail.Margin = new Padding(10, 4, 3, 3);
-        lblEmail.Name = "lblEmail";
-        lblEmail.Size = new Size(36, 15);
-        lblEmail.TabIndex = 32;
-        lblEmail.Text = "Email";
-        // 
-        // lblPhone
-        // 
-        lblPhone.AutoSize = true;
-        lblPhone.BackColor = Color.FromArgb(250, 250, 250);
-        lblPhone.ForeColor = Color.FromArgb(75, 85, 99);
-        lblPhone.Location = new Point(534, 110);
-        lblPhone.Margin = new Padding(10, 4, 3, 3);
-        lblPhone.Name = "lblPhone";
-        lblPhone.Size = new Size(63, 15);
-        lblPhone.TabIndex = 33;
-        lblPhone.Text = "Phone No.";
         // 
         // lblMobile
         // 
         lblMobile.AutoSize = true;
         lblMobile.BackColor = Color.FromArgb(250, 250, 250);
         lblMobile.ForeColor = Color.FromArgb(75, 85, 99);
-        lblMobile.Location = new Point(796, 110);
+        lblMobile.Location = new Point(490, 11);
         lblMobile.Margin = new Padding(10, 4, 3, 3);
         lblMobile.Name = "lblMobile";
         lblMobile.Size = new Size(66, 15);
         lblMobile.TabIndex = 34;
         lblMobile.Text = "Mobile No.";
         // 
+        // lblPan
+        // 
+        lblPan.AutoSize = true;
+        lblPan.BackColor = Color.FromArgb(250, 250, 250);
+        lblPan.ForeColor = Color.FromArgb(75, 85, 99);
+        lblPan.Location = new Point(737, 71);
+        lblPan.Margin = new Padding(10, 4, 3, 3);
+        lblPan.Name = "lblPan";
+        lblPan.Size = new Size(30, 15);
+        lblPan.TabIndex = 30;
+        lblPan.Text = "PAN";
+        // 
         // lblBillingAddress
         // 
         lblBillingAddress.AutoSize = true;
         lblBillingAddress.BackColor = Color.FromArgb(250, 250, 250);
         lblBillingAddress.ForeColor = Color.FromArgb(75, 85, 99);
-        lblBillingAddress.Location = new Point(10, 163);
+        lblBillingAddress.Location = new Point(10, 172);
         lblBillingAddress.Margin = new Padding(10, 4, 3, 3);
         lblBillingAddress.Name = "lblBillingAddress";
         lblBillingAddress.Size = new Size(85, 15);
@@ -574,6 +581,18 @@ partial class CustomerAddForm
         lblShippingAddress.Size = new Size(99, 15);
         lblShippingAddress.TabIndex = 36;
         lblShippingAddress.Text = "Shipping Address";
+        // 
+        // lblPhone
+        // 
+        lblPhone.AutoSize = true;
+        lblPhone.BackColor = Color.FromArgb(250, 250, 250);
+        lblPhone.ForeColor = Color.FromArgb(75, 85, 99);
+        lblPhone.Location = new Point(13, 71);
+        lblPhone.Margin = new Padding(10, 4, 3, 3);
+        lblPhone.Name = "lblPhone";
+        lblPhone.Size = new Size(63, 15);
+        lblPhone.TabIndex = 33;
+        lblPhone.Text = "Phone No.";
         // 
         // lblState
         // 
@@ -687,9 +706,10 @@ partial class CustomerAddForm
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
-        ClientSize = new Size(1080, 680);
+        ClientSize = new Size(969, 616);
         Controls.Add(pnlContent);
         Controls.Add(pnlHeader);
+        Font = new Font("Segoe UI", 9F);
         MinimumSize = new Size(900, 620);
         Name = "CustomerAddForm";
         StartPosition = FormStartPosition.CenterParent;
@@ -704,7 +724,6 @@ partial class CustomerAddForm
 
     private Panel pnlHeader = null!, pnlContent = null!;
     private Label lblTitle = null!;
-    private Button btnSave = null!;
     private ComboBox cmbCustomerType = null!, cmbRegistrationType = null!, cmbState = null!, cmbCity = null!;
     private Label lblCustomerType = null!, lblName = null!, lblPrintName = null!, lblAlias = null!, lblLedgerName = null!, lblGroupName = null!, lblGSTIN = null!, lblPan = null!, lblRegistrationType = null!, lblEmail = null!, lblPhone = null!, lblMobile = null!, lblBillingAddress = null!, lblShippingAddress = null!, lblState = null!, lblCity = null!, lblPinCode = null!, lblContactPerson = null!, lblOpeningBalance = null!, lblCreditDays = null!, lblCreditLimit = null!, lblDiscount = null!, lblRemarks = null!;
     private TextBox txtName = null!;
@@ -726,4 +745,9 @@ partial class CustomerAddForm
     private TextBox txtCreditLimits = null!;
     private TextBox txtDiscount = null!;
     private TextBox txtRemarks = null!;
+    private Win.Shared.Controls.ERPButton btnSave;
+    private Win.Shared.Controls.ERPButton btnClose;
+    // private Win.Shared.Controls.ERPButton btnSave;
+    //  private Win.Shared.Controls.ERPButton btnSave;
+    //private Win.Shared.Controls.ERPTextBox txtName;
 }

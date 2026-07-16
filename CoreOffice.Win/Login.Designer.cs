@@ -28,8 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            txtUser = new TextBox();
-            txtPwd = new TextBox();
             btnLogin = new Button();
             btnHelp = new Button();
             btnMinimise = new Button();
@@ -42,29 +40,12 @@
             pictureBox1 = new PictureBox();
             pictureBox2 = new PictureBox();
             label4 = new Label();
+            txtUserName = new CoreOffice.Win.Shared.Controls.ERPTextBox();
+            txtPassword = new CoreOffice.Win.Shared.Controls.ERPTextBox();
             gradientClass1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
-            // 
-            // txtUser
-            // 
-            txtUser.Font = new Font("Segoe UI", 12F);
-            txtUser.Location = new Point(354, 193);
-            txtUser.Name = "txtUser";
-            txtUser.PlaceholderText = "User Name";
-            txtUser.Size = new Size(252, 29);
-            txtUser.TabIndex = 1;
-            // 
-            // txtPwd
-            // 
-            txtPwd.Font = new Font("Segoe UI", 12F);
-            txtPwd.Location = new Point(354, 228);
-            txtPwd.Name = "txtPwd";
-            txtPwd.PasswordChar = '*';
-            txtPwd.PlaceholderText = "Password";
-            txtPwd.Size = new Size(252, 29);
-            txtPwd.TabIndex = 2;
             // 
             // btnLogin
             // 
@@ -72,10 +53,10 @@
             btnLogin.FlatStyle = FlatStyle.Flat;
             btnLogin.Font = new Font("Verdana", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnLogin.ForeColor = Color.White;
-            btnLogin.Location = new Point(354, 286);
+            btnLogin.Location = new Point(354, 303);
             btnLogin.Name = "btnLogin";
             btnLogin.Size = new Size(120, 36);
-            btnLogin.TabIndex = 5;
+            btnLogin.TabIndex = 2;
             btnLogin.Text = "Login";
             btnLogin.UseVisualStyleBackColor = false;
             btnLogin.Click += btnLogin_Click;
@@ -85,10 +66,10 @@
             btnHelp.BackColor = Color.FromArgb(224, 224, 224);
             btnHelp.FlatStyle = FlatStyle.Flat;
             btnHelp.Font = new Font("Verdana", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnHelp.Location = new Point(486, 286);
+            btnHelp.Location = new Point(486, 303);
             btnHelp.Name = "btnHelp";
             btnHelp.Size = new Size(120, 36);
-            btnHelp.TabIndex = 6;
+            btnHelp.TabIndex = 3;
             btnHelp.Text = "Help?";
             btnHelp.UseVisualStyleBackColor = false;
             btnHelp.Click += btnHelp_Click;
@@ -100,7 +81,7 @@
             btnMinimise.Location = new Point(549, 2);
             btnMinimise.Name = "btnMinimise";
             btnMinimise.Size = new Size(41, 35);
-            btnMinimise.TabIndex = 7;
+            btnMinimise.TabIndex = 4;
             btnMinimise.Text = "-";
             btnMinimise.UseVisualStyleBackColor = false;
             btnMinimise.Click += btnMinimise_Click;
@@ -112,7 +93,7 @@
             btnClose.Location = new Point(596, 2);
             btnClose.Name = "btnClose";
             btnClose.Size = new Size(40, 35);
-            btnClose.TabIndex = 8;
+            btnClose.TabIndex = 5;
             btnClose.Text = "x";
             btnClose.UseVisualStyleBackColor = false;
             btnClose.Click += btnClose_Click;
@@ -193,7 +174,7 @@
             pictureBox2.Image = Properties.Resources.ssbd_logo_new;
             pictureBox2.Location = new Point(354, 12);
             pictureBox2.Name = "pictureBox2";
-            pictureBox2.Size = new Size(119, 106);
+            pictureBox2.Size = new Size(163, 110);
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox2.TabIndex = 3;
             pictureBox2.TabStop = false;
@@ -208,12 +189,50 @@
             label4.TabIndex = 3;
             label4.Text = "© 2026 Brainsoft Software Pvt Ltd.";
             // 
+            // txtUserName
+            // 
+            txtUserName.BackColor = Color.Transparent;
+            txtUserName.Caption = "User Name";
+            txtUserName.CharacterCasing = CharacterCasing.Normal;
+            txtUserName.Font = new Font("Segoe UI", 10F);
+            txtUserName.Icon = Shared.Controls.ERPIconType.Employee;
+            txtUserName.LabelFont = new Font("Segoe UI", 10F);
+            txtUserName.Location = new Point(354, 180);
+            txtUserName.MaxLength = 32767;
+            txtUserName.Name = "txtUserName";
+            txtUserName.PasswordChar = '\0';
+            txtUserName.Placeholder = "Enter user name";
+            txtUserName.Required = true;
+            txtUserName.Size = new Size(252, 54);
+            txtUserName.TabIndex = 0;
+            txtUserName.TextAlign = HorizontalAlignment.Left;
+            // 
+            // txtPassword
+            // 
+            txtPassword.BackColor = Color.Transparent;
+            txtPassword.Caption = "Password";
+            txtPassword.CharacterCasing = CharacterCasing.Normal;
+            txtPassword.Font = new Font("Segoe UI", 10F);
+            txtPassword.Icon = Shared.Controls.ERPIconType.Password;
+            txtPassword.LabelFont = new Font("Segoe UI", 10F);
+            txtPassword.Location = new Point(354, 240);
+            txtPassword.MaxLength = 32767;
+            txtPassword.Name = "txtPassword";
+            txtPassword.PasswordChar = '*';
+            txtPassword.Placeholder = "Your Password";
+            txtPassword.Required = true;
+            txtPassword.Size = new Size(252, 54);
+            txtPassword.TabIndex = 1;
+            txtPassword.TextAlign = HorizontalAlignment.Left;
+            // 
             // Login
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(639, 423);
+            Controls.Add(txtPassword);
+            Controls.Add(txtUserName);
             Controls.Add(label4);
             Controls.Add(pictureBox2);
             Controls.Add(label2);
@@ -222,12 +241,10 @@
             Controls.Add(btnMinimise);
             Controls.Add(btnHelp);
             Controls.Add(btnLogin);
-            Controls.Add(txtPwd);
-            Controls.Add(txtUser);
             FormBorderStyle = FormBorderStyle.None;
             Name = "Login";
-            StartPosition = FormStartPosition.CenterScreen;
             Text = "Login";
+            Load += Login_Load;
             gradientClass1.ResumeLayout(false);
             gradientClass1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
@@ -237,8 +254,6 @@
         }
 
         #endregion
-        private TextBox txtUser;
-        private TextBox txtPwd;
         private Button btnLogin;
         private Button btnHelp;
         private Button btnMinimise;
@@ -251,5 +266,7 @@
         private PictureBox pictureBox2;
         private Label label4;
         private Label label5;
+        private Shared.Controls.ERPTextBox txtUserName;
+        private Shared.Controls.ERPTextBox txtPassword;
     }
 }

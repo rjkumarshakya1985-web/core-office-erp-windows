@@ -209,6 +209,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
                 return;
 
             _frmPackingSlip.SetCustomerInfo(customer);
+            SkipCloseConfirmation = true;  // Disable BaseForm confirmation
             Close();
         }
 
@@ -275,8 +276,35 @@ namespace CoreOffice.Win.Modules.PackingSlip
 
         private void btnAddCustomer_Click(object sender, EventArgs e)
         {
-            using var customerAddForm = _serviceProvider.GetRequiredService<CustomerAddForm>();
+            string customerName = txtSearch.Text.Trim();
 
+            if (string.IsNullOrWhiteSpace(customerName))
+            {
+                MessageBox.Show("Please enter a customer name first.", "Customer",  MessageBoxButtons.OK, MessageBoxIcon.Information);
+                txtSearch.Focus();
+                return;
+            }
+            // Check if customer already exists
+            bool exists = _customers.Any(c =>
+                !string.IsNullOrWhiteSpace(c.Name) &&
+                c.Name.Equals(customerName, StringComparison.OrdinalIgnoreCase));
+
+            if (exists)
+            {
+                MessageBox.Show(
+                    $"Customer '{customerName}' already exists.",
+                    "Duplicate Customer",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning);
+
+                txtSearch.Focus();
+                txtSearch.SelectAll();
+                return;
+            }
+            //   using var customerAddForm = _serviceProvider.GetRequiredService<CustomerAddForm>();
+            using var customerAddForm = _serviceProvider.GetRequiredService<FrmAddCustomer>();
+            // Optional: Pass the typed name to the Add Customer form
+            customerAddForm.CustomerName = customerName;
             if (customerAddForm.ShowDialog(this) != DialogResult.OK)
                 return;
 
