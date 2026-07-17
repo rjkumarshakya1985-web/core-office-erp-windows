@@ -10,6 +10,8 @@ namespace CoreOffice.Win.Shared
         [Browsable(false)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public bool SkipCloseConfirmation { get; set; }
+        protected ERPShortcutBar ShortcutBar = null!;
+        protected virtual bool ShowShortcutBar => true;
         public BaseForm()
         {
             KeyPreview = true;
@@ -19,57 +21,85 @@ namespace CoreOffice.Win.Shared
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-           // ApplyTheme(this);
+            if (!ShowShortcutBar)
+                return;
+            ShortcutBar = new ERPShortcutBar();
+
+            Controls.Add(ShortcutBar);
+
+            ShortcutBar.BringToFront();
+
+            LoadShortcuts();
+            // ApplyTheme(this);
 
         }
-       // protected virtual void ApplyTheme(Control parent)
-       // {
-       //     foreach (Control control in parent.Controls)
-       //     {
-       //         switch (control)
-       //         {
-       //             case Label lbl:
-       //                 lbl.ForeColor = ERPTheme.PrimaryColor;
-       //                 lbl.Font = ERPTheme.NormalFont;
-       //                 break;
+        protected virtual IEnumerable<(string Key, string Text)> GetShortcuts()
+        {
+            // Common shortcuts for every form
 
-       //             case TextBox txt:
-       //                 txt.Font = ERPTheme.TextBoxFont;
-       //                 txt.BorderStyle = BorderStyle.FixedSingle;
-       //                 break;
-       //             case ComboBox cmb:
-       //                 cmb.Font = ERPTheme.TextBoxFont;
-       //                 cmb.FlatStyle = FlatStyle.Flat;
-       //                 break;
+            yield return ("Enter", "Next");
+            yield return ("Ctrl+S", "Save");
+            yield return ("Ctrl+R", "Reset");
+            yield return ("Esc", "Close");
+        }
 
-       //             case Button btn:
-       //                 btn.Font = ERPTheme.ButtonFont;
-       //                 break;
+        private void LoadShortcuts()
+        {
+            ShortcutBar.Clear();
 
-       //             case DataGridView dgv:
-       //                 ApplyGridTheme(dgv);
-       //                 break;
-       //         }
-       //         if (control.HasChildren)
-       //             ApplyTheme(control);
-       //     }
+            foreach (var item in GetShortcuts())
+            {
+                ShortcutBar.AddShortcut(item.Key, item.Text);
+            }
+        }
+        // protected virtual void ApplyTheme(Control parent)
+        // {
+        //     foreach (Control control in parent.Controls)
+        //     {
+        //         switch (control)
+        //         {
+        //             case Label lbl:
+        //                 lbl.ForeColor = ERPTheme.PrimaryColor;
+        //                 lbl.Font = ERPTheme.NormalFont;
+        //                 break;
 
-       //     BackColor = ERPTheme.FormBackColor;
-       //     Font = ERPTheme.NormalFont;
-       // }
-       //private static void ApplyGridTheme(DataGridView grid)
-       // {
-       //     grid.EnableHeadersVisualStyles = false;
+        //             case TextBox txt:
+        //                 txt.Font = ERPTheme.TextBoxFont;
+        //                 txt.BorderStyle = BorderStyle.FixedSingle;
+        //                 break;
+        //             case ComboBox cmb:
+        //                 cmb.Font = ERPTheme.TextBoxFont;
+        //                 cmb.FlatStyle = FlatStyle.Flat;
+        //                 break;
 
-       //     grid.ColumnHeadersDefaultCellStyle.BackColor = ERPTheme.PrimaryColor;
-       //     grid.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
-       //     grid.ColumnHeadersDefaultCellStyle.Font = ERPTheme.GridHeaderFont;
+        //             case Button btn:
+        //                 btn.Font = ERPTheme.ButtonFont;
+        //                 break;
 
-       //     grid.DefaultCellStyle.Font = ERPTheme.GridFont;
+        //             case DataGridView dgv:
+        //                 ApplyGridTheme(dgv);
+        //                 break;
+        //         }
+        //         if (control.HasChildren)
+        //             ApplyTheme(control);
+        //     }
 
-       //     grid.AlternatingRowsDefaultCellStyle.BackColor =
-       //         ERPTheme.GridAlternateRowBackColor;
-       // }
+        //     BackColor = ERPTheme.FormBackColor;
+        //     Font = ERPTheme.NormalFont;
+        // }
+        //private static void ApplyGridTheme(DataGridView grid)
+        // {
+        //     grid.EnableHeadersVisualStyles = false;
+
+        //     grid.ColumnHeadersDefaultCellStyle.BackColor = ERPTheme.PrimaryColor;
+        //     grid.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
+        //     grid.ColumnHeadersDefaultCellStyle.Font = ERPTheme.GridHeaderFont;
+
+        //     grid.DefaultCellStyle.Font = ERPTheme.GridFont;
+
+        //     grid.AlternatingRowsDefaultCellStyle.BackColor =
+        //         ERPTheme.GridAlternateRowBackColor;
+        // }
 
 
         protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
@@ -119,6 +149,9 @@ namespace CoreOffice.Win.Shared
                 // If focus is inside ERPTextBox
                 if (control is ERPTextBox erpTextBox)
                 {
+                    if (erpTextBox.InterceptEnterKey)
+                        return base.ProcessCmdKey(ref msg, keyData);
+
                     if (erpTextBox.Multiline)
                         return base.ProcessCmdKey(ref msg, keyData);
 
@@ -128,6 +161,9 @@ namespace CoreOffice.Win.Shared
                 // Standard TextBox
                 if (control is TextBox tb)
                 {
+                    if (tb.Tag?.ToString() == "InterceptEnter")
+                        return base.ProcessCmdKey(ref msg, keyData);
+
                     if (tb.Multiline)
                         return base.ProcessCmdKey(ref msg, keyData);
 

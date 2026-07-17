@@ -10,7 +10,7 @@ namespace CoreOffice.Win.Shared.Controls
         private readonly ERPBorderPanel pnlBorder;
         private readonly ERPIcon picIcon;
         private readonly TextBox txtValue;
-
+        public event KeyEventHandler? EnterKeyPressed;
         public ERPTextBox()
         {
             SuspendLayout();
@@ -56,11 +56,14 @@ namespace CoreOffice.Win.Shared.Controls
             txtValue.Enter += TxtValue_Enter;
             txtValue.Leave += TxtValue_Leave;
             txtValue.TextChanged += TxtValue_TextChanged;
-
+            txtValue.KeyDown += TxtValue_KeyDown;
             ResumeLayout(false);
         }
 
         #region Events
+        [Category("ERP")]
+        [DefaultValue(false)]
+        public bool InterceptEnterKey { get; set; }
         public TextBox GetTextBox()
         {
             return txtValue;
@@ -92,7 +95,13 @@ namespace CoreOffice.Win.Shared.Controls
             pnlBorder.IsFocused = true;
             picIcon.ForeColor = ERPColors.Primary;
         }
-
+        private void TxtValue_KeyDown(object? sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                EnterKeyPressed?.Invoke(this, e);
+            }
+        }
         private void TxtValue_Leave(object? sender, EventArgs e)
         {
             pnlBorder.IsFocused = false;
@@ -238,14 +247,14 @@ namespace CoreOffice.Win.Shared.Controls
         }
         [Category("Appearance")]
         [DefaultValue(false)]
-        public Font Font
+        public override Font Font
         {
             get => txtValue.Font;
             set
             {
+                base.Font = value;
                 txtValue.Font = value;
 
-                // Auto adjust label height
                 txtValue.Height = TextRenderer.MeasureText("A", value).Height + 4;
             }
         }

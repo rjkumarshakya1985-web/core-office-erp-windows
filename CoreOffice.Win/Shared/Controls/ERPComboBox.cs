@@ -10,14 +10,19 @@ namespace CoreOffice.Win.Shared.Controls
     {
         private readonly ERPLabel lblCaption;
         private readonly ERPBorderPanel pnlBorder;
-        private readonly IconPictureBox picIcon;
+        private readonly ERPIcon picIcon;
         private readonly ComboBox cmbValue;
         public new event EventHandler? SelectedIndexChanged;
         public ERPComboBox()
         {
             lblCaption = new ERPLabel();
             pnlBorder = new ERPBorderPanel();
-            picIcon = new IconPictureBox();
+            picIcon = new ERPIcon
+            {
+                Dock = DockStyle.Left,
+                Width = 26,
+                IconType = ERPIconType.None
+            };
             cmbValue = new ComboBox();
 
             InitializeControl();
@@ -51,9 +56,9 @@ namespace CoreOffice.Win.Shared.Controls
             //--------------------------------------
 
             picIcon.IconChar = IconChar.None;
-            picIcon.IconColor = ERPColors.Placeholder;
-            picIcon.BackColor = Color.Transparent;
-            picIcon.IconSize = 18;
+          //  picIcon.IconColor = ERPColors.Placeholder;
+           // picIcon.BackColor = Color.Transparent;
+            picIcon.IconSize = 26;
             picIcon.Size = new Size(24, 24);
             picIcon.Dock = DockStyle.Left;
             picIcon.SizeMode = PictureBoxSizeMode.CenterImage;
@@ -62,18 +67,25 @@ namespace CoreOffice.Win.Shared.Controls
             // ComboBox
             //--------------------------------------
 
-            cmbValue.Dock = DockStyle.Fill;
+            cmbValue.Dock = DockStyle.None;
             cmbValue.FlatStyle = FlatStyle.Flat;
             cmbValue.Font = ERPFonts.TextBox;
             cmbValue.DropDownStyle = ComboBoxStyle.DropDownList;
+            cmbValue.Location = new Point(34, 4);
+            cmbValue.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            cmbValue.Width = pnlBorder.Width - 40;
+            cmbValue.Height = 24;
             cmbValue.BackColor = Color.White;
             cmbValue.Margin = new Padding(0);
             cmbValue.IntegralHeight = false;
-
+            pnlBorder.Resize += (_, __) =>
+            {
+                cmbValue.Width = pnlBorder.Width - 40;
+            };
             //--------------------------------------
-
-            pnlBorder.Controls.Add(cmbValue);
             pnlBorder.Controls.Add(picIcon);
+            pnlBorder.Controls.Add(cmbValue);
+            
 
             Controls.Add(pnlBorder);
             Controls.Add(lblCaption);
@@ -86,12 +98,15 @@ namespace CoreOffice.Win.Shared.Controls
         private void CmbValue_Enter(object? sender, EventArgs e)
         {
             pnlBorder.IsFocused = true;
+            picIcon.ForeColor = ERPColors.Primary;
         }
 
         private void CmbValue_Leave(object? sender, EventArgs e)
         {
+            pnlBorder.IsFocused = false;
+
             if (!HasError)
-                pnlBorder.HasError = true;
+                picIcon.ForeColor = ERPColors.Primary;
         }
 
         private void CmbValue_SelectedIndexChanged(object? sender, EventArgs e)
@@ -129,10 +144,10 @@ namespace CoreOffice.Win.Shared.Controls
         [Category("ERP")]
         [Browsable(true)]
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Visible)]
-        public IconChar Icon
+        public ERPIconType Icon
         {
-            get => picIcon.IconChar;
-            set => picIcon.IconChar = value;
+            get => picIcon.IconType;
+            set => picIcon.IconType = value;
         }
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public object? DataSource
@@ -201,6 +216,10 @@ namespace CoreOffice.Win.Shared.Controls
                 _hasError = value;
 
                 pnlBorder.HasError = value;
+
+                picIcon.ForeColor = value
+                    ? ERPColors.Danger
+                    : ERPColors.Primary;
             }
         }
         public bool ValidateControl()

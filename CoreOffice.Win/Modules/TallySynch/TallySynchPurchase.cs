@@ -16,7 +16,7 @@ namespace CoreOffice.Win.Modules.TallySynch
 {
     public partial class TallySynchPurchase : BaseForm
     {
-      
+        protected override bool ShowShortcutBar => false;
         private readonly ITallyProcessOrchestratorService _tallyProcessOrchestrator;
         private readonly ITallyTransactionService _tallyTransactionsService;
         private readonly ITallyConfigService _tallyConfigService;        

@@ -28,7 +28,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
         private CustomerTypeEnum? VisitorType;
         private string _selectedBarcode;
         private int _selectedQty;
-
+        protected override bool ShowShortcutBar => false;
         public FrmPackingSlip(IPackingSlipService packingSlipService,
             IServiceProvider serviceProvider,
             IStockService stockService, ISalesPersonService salesPersonService,

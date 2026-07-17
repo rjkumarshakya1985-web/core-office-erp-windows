@@ -685,6 +685,7 @@
             txtVoucher.Name = "txtVoucher";
             txtVoucher.Size = new Size(222, 34);
             txtVoucher.TabIndex = 0;
+            txtVoucher.Tag = "InterceptEnter";
             txtVoucher.KeyDown += txtVoucher_KeyDown;
             // 
             // label3
