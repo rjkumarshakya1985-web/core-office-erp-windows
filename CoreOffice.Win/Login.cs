@@ -12,6 +12,7 @@ namespace CoreOffice.Win
 {
     public partial class Login : BaseForm
     {
+        protected override bool ShowShortcutBar => false;
         private readonly IAuthService _authService;
         private readonly ITokenProvider _tokenProvider;
         private readonly IMasterService _masterService;

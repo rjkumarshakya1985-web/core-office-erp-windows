@@ -401,7 +401,7 @@ namespace CoreOfficeERP.Tally.Services
                     : "Purchase B/o",               
                 typeOfVoucher = "Purchase",
 
-                voucherNo = data.SaleVoucherPrint.Id.ToString(),
+                voucherNo = "P-"+data.SaleVoucherPrint.Id.ToString(),
                 reference = sbillnumber,
                 referenceDate = DateTime.ParseExact(refdate, "dd/MM/yyyy", null),
                 voucherIdentifier = data.SaleVoucherPrint.VoucherForeignkey,

@@ -89,6 +89,7 @@
             btnClose.TabIndex = 1;
             btnClose.Text = "Close(ESC)";
             btnClose.UseVisualStyleBackColor = false;
+            btnClose.Click += btnClose_Click;
             // 
             // btnSave
             // 
@@ -230,7 +231,7 @@
             cmbCustomerType.DisplayMember = "";
             cmbCustomerType.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbCustomerType.Font = new Font("Segoe UI", 12F);
-            cmbCustomerType.Icon = FontAwesome.Sharp.IconChar.None;
+            cmbCustomerType.Icon = Win.Shared.Controls.ERPIconType.Customer;
             cmbCustomerType.Location = new Point(735, 269);
             cmbCustomerType.Name = "cmbCustomerType";
             cmbCustomerType.Size = new Size(209, 50);
@@ -244,7 +245,7 @@
             cmbRegistrationType.DisplayMember = "";
             cmbRegistrationType.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbRegistrationType.Font = new Font("Segoe UI", 12F);
-            cmbRegistrationType.Icon = FontAwesome.Sharp.IconChar.None;
+            cmbRegistrationType.Icon = Win.Shared.Controls.ERPIconType.Product;
             cmbRegistrationType.Location = new Point(735, 328);
             cmbRegistrationType.Name = "cmbRegistrationType";
             cmbRegistrationType.Size = new Size(209, 50);
@@ -308,7 +309,7 @@
             cmbState.DisplayMember = "";
             cmbState.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbState.Font = new Font("Segoe UI", 12F);
-            cmbState.Icon = FontAwesome.Sharp.IconChar.None;
+            cmbState.Icon = Win.Shared.Controls.ERPIconType.State;
             cmbState.Location = new Point(33, 357);
             cmbState.Name = "cmbState";
             cmbState.Size = new Size(155, 45);
@@ -323,7 +324,7 @@
             cmbCity.DisplayMember = "";
             cmbCity.DropDownStyle = ComboBoxStyle.DropDownList;
             cmbCity.Font = new Font("Segoe UI", 12F);
-            cmbCity.Icon = FontAwesome.Sharp.IconChar.None;
+            cmbCity.Icon = Win.Shared.Controls.ERPIconType.City;
             cmbCity.Location = new Point(194, 357);
             cmbCity.Name = "cmbCity";
             cmbCity.Size = new Size(155, 45);
@@ -566,7 +567,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(986, 612);
+            ClientSize = new Size(986, 632);
             Controls.Add(cmbCustomerType);
             Controls.Add(erpTextBox1);
             Controls.Add(erpLabel1);

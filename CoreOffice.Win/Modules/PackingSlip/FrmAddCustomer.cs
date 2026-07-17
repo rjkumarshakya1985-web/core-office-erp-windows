@@ -46,6 +46,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
         {
             Close();
         }
+
         #endregion
         public void Clear()
         {
@@ -193,6 +194,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
 
                 AppCache.BillingCustomers.Add(customer);
                 DialogResult = DialogResult.OK;
+                SkipCloseConfirmation = true;  // Disable BaseForm confirmation
                 Close();
             }
             catch (Exception ex)
@@ -246,8 +248,16 @@ namespace CoreOffice.Win.Modules.PackingSlip
 
                 if (states.Count > 0)
                 {
-                    cmbState.SelectedIndex = 0;
-                    await LoadCitiesAsync(states[0].Id);
+                    int defaultStateId = 3; // 👈 Set your desired default State ID here
+
+                    // Check if your default state actually exists in the retrieved list
+                    bool hasDefaultState = states.Any(s => s.Id == defaultStateId);
+
+                    // If it exists, use it; otherwise, fallback to the very first state in the list
+                    int stateIdToSelect = hasDefaultState ? defaultStateId : states[0].Id;
+
+                    cmbState.SelectedValue = stateIdToSelect;
+                    await LoadCitiesAsync(stateIdToSelect);
                 }
             }
             catch (Exception ex)
@@ -269,6 +279,12 @@ namespace CoreOffice.Win.Modules.PackingSlip
             {
                 ShowError(ex.Message);
             }
+        }
+
+        private void btnClose_Click(object sender, EventArgs e)
+        {
+
+            CloseForm();
         }
     }
 }

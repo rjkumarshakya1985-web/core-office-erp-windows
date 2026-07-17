@@ -16,7 +16,9 @@ namespace CoreOffice.Win.Shared.Controls
 
             BackColor = Color.White;
 
-            Padding = new Padding(10, 6, 10, 6);
+            Padding = new Padding(34, 6, 10, 6);
+            
+   
 
             Resize += (_, _) => Invalidate();
         }
