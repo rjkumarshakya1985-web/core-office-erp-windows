@@ -28,9 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             pnlHeader = new Panel();
             label6 = new Label();
             label1 = new Label();
@@ -38,7 +38,7 @@
             panel4 = new Panel();
             panel9 = new Panel();
             groupBox3 = new GroupBox();
-            textBox1 = new TextBox();
+            txtRemarks = new TextBox();
             groupBox1 = new GroupBox();
             label8 = new Label();
             label4 = new Label();
@@ -166,7 +166,7 @@
             // groupBox3
             // 
             groupBox3.BackColor = SystemColors.ButtonHighlight;
-            groupBox3.Controls.Add(textBox1);
+            groupBox3.Controls.Add(txtRemarks);
             groupBox3.Dock = DockStyle.Left;
             groupBox3.FlatStyle = FlatStyle.Popup;
             groupBox3.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -180,15 +180,15 @@
             groupBox3.TabStop = false;
             groupBox3.Text = "Notes";
             // 
-            // textBox1
+            // txtRemarks
             // 
-            textBox1.Font = new Font("Segoe UI Semibold", 8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBox1.Location = new Point(8, 24);
-            textBox1.Multiline = true;
-            textBox1.Name = "textBox1";
-            textBox1.PlaceholderText = "Enter notes (optional)....";
-            textBox1.Size = new Size(353, 95);
-            textBox1.TabIndex = 0;
+            txtRemarks.Font = new Font("Segoe UI Semibold", 8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtRemarks.Location = new Point(8, 24);
+            txtRemarks.Multiline = true;
+            txtRemarks.Name = "txtRemarks";
+            txtRemarks.PlaceholderText = "Enter notes (optional)....";
+            txtRemarks.Size = new Size(353, 95);
+            txtRemarks.TabIndex = 0;
             // 
             // groupBox1
             // 
@@ -430,37 +430,37 @@
             dataGridPackingSlip.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridPackingSlip.BackgroundColor = Color.White;
             dataGridPackingSlip.BorderStyle = BorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = Color.FromArgb(25, 55, 109);
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
-            dataGridViewCellStyle1.ForeColor = Color.White;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataGridPackingSlip.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = Color.FromArgb(25, 55, 109);
+            dataGridViewCellStyle4.Font = new Font("Segoe UI", 10F, FontStyle.Bold);
+            dataGridViewCellStyle4.ForeColor = Color.White;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.True;
+            dataGridPackingSlip.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             dataGridPackingSlip.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridPackingSlip.Columns.AddRange(new DataGridViewColumn[] { Id, Barcode, Product, Quantity, Rate, Taxable, Discount, NetTaxable, GstValue, Amount, AvailableQty });
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = Color.FromArgb(220, 230, 250);
-            dataGridViewCellStyle2.SelectionForeColor = Color.Black;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dataGridPackingSlip.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle5.BackColor = SystemColors.Window;
+            dataGridViewCellStyle5.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle5.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle5.SelectionBackColor = Color.FromArgb(220, 230, 250);
+            dataGridViewCellStyle5.SelectionForeColor = Color.Black;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
+            dataGridPackingSlip.DefaultCellStyle = dataGridViewCellStyle5;
             dataGridPackingSlip.Dock = DockStyle.Top;
             dataGridPackingSlip.EnableHeadersVisualStyles = false;
             dataGridPackingSlip.GridColor = Color.Gainsboro;
             dataGridPackingSlip.Location = new Point(0, 0);
             dataGridPackingSlip.Name = "dataGridPackingSlip";
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle3.BackColor = SystemColors.Control;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dataGridPackingSlip.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = SystemColors.Control;
+            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle6.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.True;
+            dataGridPackingSlip.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
             dataGridPackingSlip.RowTemplate.Height = 40;
             dataGridPackingSlip.Size = new Size(1128, 269);
             dataGridPackingSlip.TabIndex = 2;
@@ -796,7 +796,7 @@
         private Label label2;
         private Label label8;
         private GroupBox groupBox3;
-        private TextBox textBox1;
+        private TextBox txtRemarks;
         private Panel panel10;
         private Button btnPendingPackingSlips;
         private Button btnClear;

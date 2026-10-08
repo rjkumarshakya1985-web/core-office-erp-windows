@@ -37,7 +37,10 @@
             Quantity = new DataGridViewTextBoxColumn();
             btnClick = new Button();
             label1 = new Label();
+            erpHeader1 = new CoreOffice.Win.Shared.Controls.ERPHeader();
+            erpLabel1 = new CoreOffice.Win.Shared.Controls.ERPLabel();
             ((System.ComponentModel.ISupportInitialize)dataGrid).BeginInit();
+            erpHeader1.SuspendLayout();
             SuspendLayout();
             // 
             // dataGrid
@@ -47,7 +50,7 @@
             dataGrid.BackgroundColor = Color.White;
             dataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGrid.Columns.AddRange(new DataGridViewColumn[] { Id, Barcode, WholeSaleRate, RetailRate, MrpRate, Quantity });
-            dataGrid.Location = new Point(23, 25);
+            dataGrid.Location = new Point(12, 141);
             dataGrid.Name = "dataGrid";
             dataGrid.Size = new Size(765, 237);
             dataGrid.TabIndex = 0;
@@ -93,7 +96,7 @@
             // 
             // btnClick
             // 
-            btnClick.Location = new Point(339, 277);
+            btnClick.Location = new Point(327, 384);
             btnClick.Name = "btnClick";
             btnClick.Size = new Size(129, 33);
             btnClick.TabIndex = 1;
@@ -104,17 +107,41 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(25, 4);
+            label1.Location = new Point(25, 101);
             label1.Name = "label1";
             label1.Size = new Size(431, 15);
             label1.TabIndex = 2;
             label1.Text = "इस प्रोडक्ट की अलग-अलग कीमतों पर कई एंट्री हैं। कृपया पैकिंग स्लिप बनाने के लिए एक चुनें।";
             // 
+            // erpHeader1
+            // 
+            erpHeader1.BackColor = Color.FromArgb(18, 45, 90);
+            erpHeader1.Controls.Add(erpLabel1);
+            erpHeader1.Dock = DockStyle.Top;
+            erpHeader1.Location = new Point(0, 0);
+            erpHeader1.Name = "erpHeader1";
+            erpHeader1.Size = new Size(982, 70);
+            erpHeader1.SubTitle = "Select the required product/ rate for this barcode";
+            erpHeader1.TabIndex = 3;
+            erpHeader1.Title = "MULTIPLE STOCK FOUND";
+            // 
+            // erpLabel1
+            // 
+            erpLabel1.AutoSize = true;
+            erpLabel1.Font = new Font("Segoe UI", 9F);
+            erpLabel1.ForeColor = Color.White;
+            erpLabel1.Location = new Point(795, 28);
+            erpLabel1.Name = "erpLabel1";
+            erpLabel1.Size = new Size(130, 15);
+            erpLabel1.TabIndex = 0;
+            erpLabel1.Text = "Barcode𝄃𝄃𝄂𝄂𝄀𝄁𝄃𝄂𝄂𝄃";
+            // 
             // FrmMultipleStockProduct
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 313);
+            ClientSize = new Size(982, 429);
+            Controls.Add(erpHeader1);
             Controls.Add(label1);
             Controls.Add(btnClick);
             Controls.Add(dataGrid);
@@ -124,6 +151,8 @@
             Text = "Multiple Stock Product";
             Load += FrmMultipleStockProduct_Load;
             ((System.ComponentModel.ISupportInitialize)dataGrid).EndInit();
+            erpHeader1.ResumeLayout(false);
+            erpHeader1.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -139,5 +168,7 @@
         private DataGridViewTextBoxColumn RetailRate;
         private DataGridViewTextBoxColumn MrpRate;
         private DataGridViewTextBoxColumn Quantity;
+        private Win.Shared.Controls.ERPHeader erpHeader1;
+        private Win.Shared.Controls.ERPLabel erpLabel1;
     }
 }

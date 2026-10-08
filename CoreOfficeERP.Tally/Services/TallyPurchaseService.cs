@@ -335,7 +335,6 @@ namespace CoreOfficeERP.Tally.Services
                 hsnDescription = item.stockGroupName
             };
             si.arlHsnDetails.Add(hsn);
-
             // ===============================
             // STANDARD COST PRICE DETAILS
             // ===============================      
@@ -345,13 +344,13 @@ namespace CoreOfficeERP.Tally.Services
             {
                 var stdRateDetails = new StockItemStandardRateDetails
                 {
-                    applicableFrom =price.Date,                   
+                    applicableFrom = price.Date,
                     stdRate = price.PurchaseRate,
                     stdRateUnit = "Pcs"
 
                 };
                 si.arlStandardCostPriceDetails.Add(stdRateDetails);
-                
+
             }
 
 
@@ -361,18 +360,19 @@ namespace CoreOfficeERP.Tally.Services
             // ===============================
 
             // Sell Price From 01-Apr-2025
+
             foreach (var price in item.PriceHistories.OrderBy(x => x.Date))
             {
                 var stdRateDetails = new StockItemStandardRateDetails
                 {
-                    applicableFrom =price.Date,
+                    applicableFrom = price.Date,
                     stdRate = price.WholesaleRate,
                     stdRateUnit = "Pcs"
                 };
 
                 si.arlStandardSellPriceDetails.Add(stdRateDetails);
-                
-            }          
+
+            }
 
             return _tb.DoTransferStockItem(si);
         }
@@ -466,7 +466,7 @@ namespace CoreOfficeERP.Tally.Services
                     rate = (decimal)stockItem.PurchasePrice,
                     rateUnit = "Pcs",
                     discountPerc = stockItem.Discount,
-                    amount = -stockItem.DiscountAmount
+                    amount = -Math.Round(stockItem.DiscountAmount,2, MidpointRounding.AwayFromZero)
                 };
 
                 // Batch Allocation
@@ -487,25 +487,36 @@ namespace CoreOfficeERP.Tally.Services
 
             // Add to invoice
             invoice.arlInvEntries.Add(item);
-            }            
-            var totalItemAmount = data.StockitemResponse.Sum(x => x.Total);
-            var totalIGST = data.StockitemResponse.Sum(x => x.IGST);
-            var totalCGST = data.StockitemResponse.Sum(x => x.CGST);
-            var totalSGST = data.StockitemResponse.Sum(x => x.SGST);
-            var additionalCharges = data.SaleVoucherPrint.AdditionalCharges??0;
-            var totalDiscount = data.StockitemResponse.Sum(x => x.Discount > 0
-                ? (x.Quantity * x.PurchasePrice * x.Discount / 100)
-                : 0);
+            }
+            var totalTaxable = data.StockitemResponse.Sum(x =>Math.Round(x.DiscountAmount, 2, MidpointRounding.AwayFromZero));
+            var totalIGST = data.StockitemResponse.Sum(x => Math.Round( x.IGST, 2, MidpointRounding.AwayFromZero));
+            var totalCGST = data.StockitemResponse.Sum(x => Math.Round( x.CGST, 2, MidpointRounding.AwayFromZero));
+            var totalSGST = data.StockitemResponse.Sum(x => Math.Round( x.SGST, 2, MidpointRounding.AwayFromZero));
+            var additionalCharges = Math.Round(data.SaleVoucherPrint.AdditionalCharges ?? 0m, 2, MidpointRounding.AwayFromZero);
+            var calculatedTotal = Math.Round(
+                totalTaxable
+                + totalIGST
+                + totalCGST
+                + totalSGST
+                + additionalCharges,
+                2,
+                MidpointRounding.AwayFromZero);
+           // var totalItemAmount = data.StockitemResponse.Sum(x => x.Total);
+          //  var totalDiscounted = data.StockitemResponse.Sum(x => x.DiscountAmount);
+           // var totalDiscount = totalItemAmount - totalDiscounted;
+            //var totalDiscount = data.StockitemResponse.Sum(x => x.Discount > 0
+            //    ? (x.Quantity * x.PurchasePrice * x.Discount / 100)
+            //    : 0);
             // =========================
             // ACTUAL TOTAL
             // =========================
             var payableAmount = data.StockitemResponse.Sum(x => x.PayableAmount);
-            decimal calculatedTotal = totalItemAmount
-                      + totalIGST
-                      + totalCGST
-                      + totalSGST
-                      + additionalCharges
-                      - totalDiscount;
+            //decimal calculatedTotal = Math.Round(totalItemAmount
+            //          + totalIGST
+            //          + totalCGST
+            //          + totalSGST
+            //          + additionalCharges
+            //          - totalDiscount,2,MidpointRounding.AwayFromZero);
             // =========================
             // FINAL ROUNDED AMOUNT
             // Example:
@@ -611,24 +622,24 @@ namespace CoreOfficeERP.Tally.Services
             // =========================
             // IGST
             // =========================
-            if (data.StockitemResponse.Sum(x => x.IGST) > 0)
+            if (totalIGST != 0)
             {
                 invoice.arlLedgerEntries.Add(new LedgerEntry
                 {
                     ledgerName = config.Purchase.IGST, // Must match Tally
-                    ledgerAmount = -data.StockitemResponse.Sum(x => x.IGST), // ✅ Negative (credit side)
+                    ledgerAmount = -Math.Round(totalIGST, 2, MidpointRounding.AwayFromZero), // ✅ Negative (credit side)
                     isDeemedPositive = true
                 });
             }
             // =========================
             // CGST
             // =========================
-            if (data.StockitemResponse.Sum(x => x.CGST) > 0)
+            if (totalCGST != 0)
             {
                 invoice.arlLedgerEntries.Add(new LedgerEntry
                 {
                     ledgerName = config.Purchase.CGST, // Must match Tally
-                    ledgerAmount = -data.StockitemResponse.Sum(x => x.CGST), // ✅ Negative (credit side)
+                    ledgerAmount = -Math.Round(totalCGST, 2, MidpointRounding.AwayFromZero), // ✅ Negative (credit side)
                     isDeemedPositive = true
                 });
             }
@@ -640,7 +651,7 @@ namespace CoreOfficeERP.Tally.Services
                 invoice.arlLedgerEntries.Add(new LedgerEntry
                 {
                     ledgerName = config.Purchase.SGST, // Must match Tally
-                    ledgerAmount = -data.StockitemResponse.Sum(x => x.SGST), // ✅ Negative (credit side)
+                    ledgerAmount = -Math.Round(totalSGST, 2, MidpointRounding.AwayFromZero), // ✅ Negative (credit side)
                     isDeemedPositive = true
                 });
             }

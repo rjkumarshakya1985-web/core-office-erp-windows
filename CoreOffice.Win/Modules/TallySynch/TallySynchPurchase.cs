@@ -172,6 +172,8 @@ namespace CoreOffice.Win.Modules.TallySynch
             lblIGSTTotal.Text = "0.00";
             lblPayableAmount.Text = "0.00";
             lblAdditionalCharges.Text= "0.00";
+            lblRoundOff.Text = "0.00";
+                
 
 
         }
@@ -184,7 +186,7 @@ namespace CoreOffice.Win.Modules.TallySynch
                 cmbFiananceYear.DataSource = AppCache.Companies;
                 cmbFiananceYear.DisplayMember = "Name";
                 cmbFiananceYear.ValueMember = "Id";
-                cmbFiananceYear.SelectedValue = 1;
+                cmbFiananceYear.SelectedValue = UserSession.FinanceYearId;
             }
             else
             {
@@ -388,7 +390,7 @@ namespace CoreOffice.Win.Modules.TallySynch
 
             lblAdditionalCharges.Text = additionalCharges.ToString("0.00");
 
-            decimal payableAmount = items.Sum(x => x.PayableAmount) + additionalCharges;
+            decimal payableAmount = Math.Round(items.Sum(x => x.PayableAmount) + additionalCharges,2,MidpointRounding.AwayFromZero);
             // Round to nearest rupee (0.50 and above rounds up)
             decimal roundedPayable = Math.Round(payableAmount, 0, MidpointRounding.AwayFromZero);
 

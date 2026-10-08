@@ -67,7 +67,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
         //Save Packingslip: Ctrl + S
         protected override async Task SaveAsync()
         {
-            await SaveCustomerAsync();
+            await SavePackingslipAsync();
         }
         //Open Edit Window: F4
         protected override void OpenRecord()
@@ -150,6 +150,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
             lblDiscount.Text = "0 %";
             btnDelete.Enabled = false;
             txtBarcodeScanner.Clear();
+            txtRemarks.Text= string.Empty;
             cmbSalesPerson.SelectedIndex = 0;
             dataGridPackingSlip.Rows.Clear();
             CalculatePackingSlip();
@@ -540,7 +541,7 @@ namespace CoreOffice.Win.Modules.PackingSlip
         }
 
        
-        private async Task SaveCustomerAsync()
+        private async Task SavePackingslipAsync()
         {
             try
             {
@@ -594,7 +595,8 @@ namespace CoreOffice.Win.Modules.PackingSlip
                     SalesPersonId = (Guid?)cmbSalesPerson.SelectedValue,
                     CustomerId = CustomerId,
                     DiscountPercent = VisitorDiscount ?? 0,
-                    Items = packingSlipItems
+                    Items = packingSlipItems,
+                    Remarks=txtRemarks.Text.Trim()
                 };
 
                 if (PackingSlipId == null)

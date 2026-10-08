@@ -1,7 +1,7 @@
 {
   "ReceiptPrinter": {
-    "PrinterName": "Microsoft Print to PDF",
-    "PageWidth": "8.5in",
+    "PrinterName": "ESYPOS ETP5311(250N)",
+    "PageWidth": "3.14in",
     "PageHeight": "11in",
     "Copies": 1
   },
